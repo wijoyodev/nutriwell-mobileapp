@@ -46,6 +46,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
       <Tab.Navigator
         sceneContainerStyle={{
           backgroundColor: Colors.white,
+          flex: 1,
         }}
         tabBarOptions={{
           labelStyle: {},

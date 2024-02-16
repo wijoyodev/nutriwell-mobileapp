@@ -3,6 +3,7 @@ const Colors = {
   white: 'white',
   blue: '#0874B6',
   red: 'red',
+  orange: '#E7702E',
   placeholder: '#949BA6',
   grey: '#F3F4F9',
   disabled: '#D3D5DB',

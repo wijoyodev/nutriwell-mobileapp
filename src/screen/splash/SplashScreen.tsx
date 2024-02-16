@@ -1,5 +1,5 @@
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
-import { REGISTER_SCREEN } from 'navigation/constants';
+import { HOME_SCREEN, REGISTER_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { ActivityIndicator, Button, Text, View } from 'react-native';
 
@@ -18,6 +18,8 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
         onPress={() => navigate(REGISTER_SCREEN)}
         title={'Go to register'}
       />
+
+      <Button onPress={() => navigate(HOME_SCREEN)} title={'Go to home'} />
     </View>
   );
 };
