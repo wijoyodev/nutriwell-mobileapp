@@ -1,0 +1,117 @@
+/* eslint-disable react-native/no-inline-styles */
+import { yupResolver } from '@hookform/resolvers/yup';
+import CustomTextInput from 'components/CustomTextInput';
+import React from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Text, View } from 'react-native';
+import Colors from 'themes/Colors';
+import { registerFormSchema } from './schema/registerFormSchema';
+import CustomButton from 'components/CustomButton';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { LOGIN_SCREEN, REGISTER_DATA_SCREEN } from 'navigation/constants';
+
+type RegisterForm = {
+  email: string;
+  referralCode?: string;
+};
+
+export type RegisterScreenProps = {
+  navigation: NavigationProp<ParamListBase>;
+};
+
+const RegisterScreen: React.FC<RegisterScreenProps> = ({
+  navigation: { navigate },
+}) => {
+  const formInitialValues: RegisterForm = {
+    email: '',
+    referralCode: '',
+  };
+
+  const formMethods = useForm({
+    resolver: yupResolver(registerFormSchema),
+    defaultValues: formInitialValues,
+    reValidateMode: 'onChange',
+  });
+
+  const {
+    control,
+    handleSubmit: handleFormSubmit,
+    // formState: { errors },
+  } = formMethods;
+
+  const handleRegister: SubmitHandler<RegisterForm> = (data: RegisterForm) => {
+    console.log(data);
+    navigate(REGISTER_DATA_SCREEN, data);
+  };
+
+  const handleLogin = () => {
+    navigate(LOGIN_SCREEN);
+  };
+
+  return (
+    <View
+      style={{
+        paddingHorizontal: 16,
+        paddingVertical: 24,
+        backgroundColor: Colors.white,
+      }}>
+      <Text style={{ fontWeight: 'bold', fontSize: 18, color: Colors.black }}>
+        Selamat Datang di Garam Garena
+      </Text>
+      <Text style={{ fontSize: 14, color: Colors.black, marginTop: 8 }}>
+        Daftarkan diri Anda sekarang juga dan dapatkan keuntungan
+      </Text>
+
+      <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
+        Email
+      </Text>
+      <Controller
+        name={'email'}
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <CustomTextInput
+            value={value}
+            onChangeText={onChange}
+            placeholder={'Masukkan email Anda'}
+          />
+        )}
+      />
+
+      <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
+        Kode Referensi (Opsional)
+      </Text>
+      <Controller
+        name={'referralCode'}
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <CustomTextInput
+            value={value}
+            onChangeText={onChange}
+            placeholder={'Masukkan kode referensi'}
+          />
+        )}
+      />
+
+      <CustomButton
+        onPress={handleFormSubmit(handleRegister)}
+        backgroundColor={Colors.blue}
+        text={'VERIFIKASI EMAIL'}
+        containerStyle={{ marginBottom: 16, marginTop: 40 }}
+      />
+      <Text
+        style={{
+          textAlign: 'center',
+          color: Colors.black,
+        }}>
+        Sudah punya akun?{' '}
+        <Text
+          style={{ color: Colors.blue, fontWeight: 'bold' }}
+          onPress={handleLogin}>
+          Masuk Sekarang
+        </Text>
+      </Text>
+    </View>
+  );
+};
+
+export default RegisterScreen;
