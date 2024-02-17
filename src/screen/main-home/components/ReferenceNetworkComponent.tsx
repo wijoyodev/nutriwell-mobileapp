@@ -86,7 +86,7 @@ const ReferenceNetworkComponent = () => {
         borderColor: Colors.disabled,
         borderWidth: 1,
         padding: 16,
-        marginTop: 16,
+        marginVertical: 16,
       }}>
       <View
         style={{
@@ -97,7 +97,8 @@ const ReferenceNetworkComponent = () => {
         <Text style={{ fontSize: 14, color: Colors.black, fontWeight: 'bold' }}>
           Reference Network
         </Text>
-        <Text style={{ fontSize: 14, color: Colors.blue, fontWeight: 'bold' }}>
+        <Text
+          style={{ fontSize: 14, color: Colors.darkBlue, fontWeight: 'bold' }}>
           Lihat Semua
         </Text>
       </View>

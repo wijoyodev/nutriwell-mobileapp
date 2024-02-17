@@ -7,7 +7,7 @@ const HeaderHomeComponent = () => {
   return (
     <View
       style={{
-        marginBottom: 16,
+        marginVertical: 16,
       }}>
       <Text
         style={{

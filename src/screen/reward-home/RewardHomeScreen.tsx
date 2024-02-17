@@ -1,11 +1,18 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
+import RewardHeaderComponent from './components/RewardHeaderComponent';
+import RedeemableRewardComponent from './components/RedeemableRewardComponent';
+import InviteNetworkComponent from './components/InviteNetworkComponent';
+import ReferenceNetworkComponent from './components/ReferenceNetworkComponent';
 
 const RewardHomeScreen = () => {
   return (
-    <View>
-      <Text>Reward Home Screen</Text>
-    </View>
+    <ScrollView>
+      <RewardHeaderComponent />
+      <RedeemableRewardComponent />
+      <InviteNetworkComponent />
+      <ReferenceNetworkComponent />
+    </ScrollView>
   );
 };
 

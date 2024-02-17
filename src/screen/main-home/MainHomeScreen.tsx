@@ -15,7 +15,6 @@ const MainHomeScreen = () => {
         flex: 1,
         backgroundColor: Colors.white,
         paddingHorizontal: 16,
-        paddingVertical: 16,
       }}>
       <HeaderHomeComponent />
       <RewardSummaryComponent />

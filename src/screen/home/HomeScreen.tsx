@@ -7,6 +7,8 @@ import MainHomeScreen from 'screen/main-home/MainHomeScreen';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RewardHomeScreen from 'screen/reward-home/RewardHomeScreen';
+import ShopHomeScreen from 'screen/shop-home/ShopHomeScreen';
+import AccountHomeScreen from 'screen/account-home/AccountHomeScreen';
 
 export type HomeScreenProps = {
   navigation: NavigationProp<ParamListBase>;
@@ -71,6 +73,17 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
         />
 
         <Tab.Screen
+          name="shop-home"
+          children={() => <ShopHomeScreen />}
+          options={{
+            headerShown: false,
+            // title: 'HOME',
+            tabBarLabel: props => renderLabel('Belanja', props),
+            tabBarIcon: ({ focused }) => renderIcon('dollar', { focused }),
+          }}
+        />
+
+        <Tab.Screen
           name="reward-home"
           children={() => <RewardHomeScreen />}
           options={{
@@ -78,6 +91,17 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
             // title: 'HOME',
             tabBarLabel: props => renderLabel('Reward', props),
             tabBarIcon: ({ focused }) => renderIcon('dollar', { focused }),
+          }}
+        />
+
+        <Tab.Screen
+          name="account-home"
+          children={() => <AccountHomeScreen />}
+          options={{
+            headerShown: false,
+            // title: 'HOME',
+            tabBarLabel: props => renderLabel('Akun Saya', props),
+            tabBarIcon: ({ focused }) => renderIcon('user', { focused }),
           }}
         />
       </Tab.Navigator>

@@ -9,7 +9,7 @@ const InviteFriendComponent = () => {
     <View
       style={{
         flexDirection: 'row',
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.darkBlue,
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingVertical: 16,

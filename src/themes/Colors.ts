@@ -2,6 +2,8 @@ const Colors = {
   black: 'black',
   white: 'white',
   blue: '#0874B6',
+  darkBlue: '#025292',
+  lightBlue: '#F6FBFF',
   red: 'red',
   orange: '#E7702E',
   placeholder: '#949BA6',
