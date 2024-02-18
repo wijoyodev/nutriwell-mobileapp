@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/stack';
 import SplashScreen from 'screen/splash/SplashScreen';
 import {
+  CART_SCREEN,
   FORGET_PIN_SCREEN,
   HOME_SCREEN,
   LOGIN_SCREEN,
@@ -21,6 +22,7 @@ import RegisterDataScreen from 'screen/register-data/RegisterDataScreen';
 import PinLoginScreen from 'screen/pin-login/PinLoginScreen';
 import ForgetPinScreen from 'screen/forget-pin/ForgetPinScreen';
 import ResetPinScreen from 'screen/reset-pin/ResetPinScreen';
+import CartScreen from 'screen/cart/CartScreen';
 
 const Stack = createStackNavigator();
 
@@ -89,6 +91,14 @@ const screens: ScreenObject[] = [
     screen: HomeScreen,
     options: {
       headerShown: false,
+    },
+  },
+  {
+    name: CART_SCREEN,
+    screen: CartScreen,
+    options: {
+      headerTitle: 'Keranjang Saya',
+      headerTitleAlign: 'center',
     },
   },
 ];

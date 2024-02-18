@@ -1,19 +1,39 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
 import React from 'react';
-import { Text, View, useWindowDimensions } from 'react-native';
+import { Image, ScrollView, Text, View, useWindowDimensions } from 'react-native';
 import Colors from 'themes/Colors';
 import ShopHeaderComponent from './components/ShopHeaderComponent';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { CART_SCREEN } from 'navigation/constants';
 
 const ShopHomeScreen = () => {
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
+
   return (
-    <View
+    <ScrollView
       style={{
         flex: 1,
         paddingBottom: 16,
       }}>
       <ShopHeaderComponent />
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}>
+        <Image
+          source={require('../../assets/images/product_image.png')}
+          style={{
+            width: width - 32,
+            height: height / 2.25,
+            borderRadius: 16,
+          }}
+        />
+      </View>
+
       <View style={{ paddingHorizontal: 16 }}>
         <Text style={{ color: Colors.black, fontSize: 16 }}>
           GARAM Kurang Natrium 200 gram
@@ -50,12 +70,13 @@ const ShopHomeScreen = () => {
           text={'ADD TO CART'}
         />
         <CustomButton
+          onPress={() => navigate(CART_SCREEN)}
           backgroundColor={Colors.blue}
           containerStyle={{ flex: 1, marginLeft: 12 }}
           text={'BELI SEKARANG'}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

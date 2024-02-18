@@ -1,10 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { CART_SCREEN } from 'navigation/constants';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from 'themes/Colors';
 
 const ShopHeaderComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
+
   return (
     <View
       style={{
@@ -39,7 +43,8 @@ const ShopHeaderComponent = () => {
           <Icon name={'clock-o'} color={Colors.darkBlue} />
         </View>
 
-        <View
+        <TouchableOpacity
+          onPress={() => navigate(CART_SCREEN)}
           style={{
             backgroundColor: Colors.white,
             paddingHorizontal: 10,
@@ -47,7 +52,7 @@ const ShopHeaderComponent = () => {
             borderRadius: 12,
           }}>
           <Icon name={'shopping-cart'} color={Colors.darkBlue} />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
