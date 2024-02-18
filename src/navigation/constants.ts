@@ -7,3 +7,4 @@ export const RESET_PIN_SCREEN = 'ResetPinScreen';
 export const REGISTER_SCREEN = 'RegisterScreen';
 export const REGISTER_DATA_SCREEN = 'RegisterDataScreen';
 export const CART_SCREEN = 'CartScreen';
+export const CHECK_OUT_SCREEN = 'CheckOutScreen';

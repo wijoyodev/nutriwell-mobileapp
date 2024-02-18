@@ -6,12 +6,14 @@ import {
   TextStyle,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
 import Colors from 'themes/Colors';
 
 export type CustomTextInputProps = {
   isPassword?: boolean;
   style?: TextStyle;
+  containerStyle?: ViewStyle;
   onChangeText?: (text: string) => void;
   error?: string;
   value?: string;
@@ -30,6 +32,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = props => {
   return (
     <View
       style={{
+        ...props.containerStyle,
         borderRadius: 12,
         borderWidth: 1,
         borderColor: props.disabled ? Colors.disabled : Colors.grey,

@@ -1,5 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 import { CART_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';

@@ -6,6 +6,7 @@ import {
 import SplashScreen from 'screen/splash/SplashScreen';
 import {
   CART_SCREEN,
+  CHECK_OUT_SCREEN,
   FORGET_PIN_SCREEN,
   HOME_SCREEN,
   LOGIN_SCREEN,
@@ -23,6 +24,7 @@ import PinLoginScreen from 'screen/pin-login/PinLoginScreen';
 import ForgetPinScreen from 'screen/forget-pin/ForgetPinScreen';
 import ResetPinScreen from 'screen/reset-pin/ResetPinScreen';
 import CartScreen from 'screen/cart/CartScreen';
+import CheckOutScreen from 'screen/check-out/CheckOutScreen';
 
 const Stack = createStackNavigator();
 
@@ -98,6 +100,14 @@ const screens: ScreenObject[] = [
     screen: CartScreen,
     options: {
       headerTitle: 'Keranjang Saya',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: CHECK_OUT_SCREEN,
+    screen: CheckOutScreen,
+    options: {
+      headerTitle: 'Check Out',
       headerTitleAlign: 'center',
     },
   },
