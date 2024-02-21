@@ -3,10 +3,18 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import { SHIPPING_ADDRESS_SCREEN } from 'navigation/constants';
 
 const ShippingAddressComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   return (
     <TouchableOpacity
+      onPress={() => navigate(SHIPPING_ADDRESS_SCREEN)}
       style={{
         borderColor: Colors.grey,
         borderRadius: 12,

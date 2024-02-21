@@ -8,12 +8,15 @@ import {
   CART_SCREEN,
   CHECK_OUT_SCREEN,
   FORGET_PIN_SCREEN,
+  HISTORY_DETAIL_SCREEN,
   HOME_SCREEN,
   LOGIN_SCREEN,
+  ORDER_HISTORY_SCREEN,
   PIN_LOGIN_SCREEN,
   REGISTER_DATA_SCREEN,
   REGISTER_SCREEN,
   RESET_PIN_SCREEN,
+  SHIPPING_ADDRESS_SCREEN,
   SPLASH_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
@@ -25,6 +28,9 @@ import ForgetPinScreen from 'screen/forget-pin/ForgetPinScreen';
 import ResetPinScreen from 'screen/reset-pin/ResetPinScreen';
 import CartScreen from 'screen/cart/CartScreen';
 import CheckOutScreen from 'screen/check-out/CheckOutScreen';
+import ShippingAddressScreen from 'screen/shipping-address/ShippingAddressScreen';
+import OrderHistoryScreen from 'screen/order-history/OrderHistoryScreen';
+import HistoryDetailScreen from 'screen/history-detail/HistoryDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -108,6 +114,30 @@ const screens: ScreenObject[] = [
     screen: CheckOutScreen,
     options: {
       headerTitle: 'Check Out',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: SHIPPING_ADDRESS_SCREEN,
+    screen: ShippingAddressScreen,
+    options: {
+      headerTitle: 'Alamat Pengiriman',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: ORDER_HISTORY_SCREEN,
+    screen: OrderHistoryScreen,
+    options: {
+      headerTitle: 'Histori Pesanan',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: HISTORY_DETAIL_SCREEN,
+    screen: HistoryDetailScreen,
+    options: {
+      headerTitle: 'Rincian Pesanan',
       headerTitleAlign: 'center',
     },
   },

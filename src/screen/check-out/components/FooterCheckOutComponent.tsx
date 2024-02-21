@@ -1,10 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import ModalOrderCreated, {
+  ModalOrderCreatedHandle,
+} from './ModalOrderCreated';
 
 const FooterCheckOutComponent = () => {
+  const modalRef = useRef<ModalOrderCreatedHandle | null>();
+
   return (
     <View
       style={{
@@ -26,7 +31,13 @@ const FooterCheckOutComponent = () => {
         </Text>
       </View>
 
-      <CustomButton backgroundColor={Colors.blue} text={'BUAT PESANAN'} />
+      <CustomButton
+        onPress={() => modalRef?.current?.openModal()}
+        backgroundColor={Colors.blue}
+        text={'BUAT PESANAN'}
+      />
+
+      <ModalOrderCreated ref={el => (modalRef.current = el)} />
     </View>
   );
 };

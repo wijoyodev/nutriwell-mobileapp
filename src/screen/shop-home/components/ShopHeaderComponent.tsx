@@ -4,7 +4,7 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
-import { CART_SCREEN } from 'navigation/constants';
+import { CART_SCREEN, ORDER_HISTORY_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -36,7 +36,8 @@ const ShopHeaderComponent = () => {
 
       <View
         style={{ flexDirection: 'row', flex: 3, justifyContent: 'flex-end' }}>
-        <View
+        <TouchableOpacity
+          onPress={() => navigate(ORDER_HISTORY_SCREEN)}
           style={{
             backgroundColor: Colors.white,
             paddingHorizontal: 10,
@@ -45,7 +46,7 @@ const ShopHeaderComponent = () => {
             marginRight: 6,
           }}>
           <Icon name={'clock-o'} color={Colors.darkBlue} />
-        </View>
+        </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => navigate(CART_SCREEN)}

@@ -8,3 +8,7 @@ export const REGISTER_SCREEN = 'RegisterScreen';
 export const REGISTER_DATA_SCREEN = 'RegisterDataScreen';
 export const CART_SCREEN = 'CartScreen';
 export const CHECK_OUT_SCREEN = 'CheckOutScreen';
+export const SHIPPING_ADDRESS_SCREEN = 'ShippingAddressScreen';
+export const ORDER_HISTORY_SCREEN = 'OrderHistoryScreen';
+export const HISTORY_DETAIL_SCREEN = 'HistoryDetailScreen';
+export const REFERENCE_NETWORK_SCREEN = 'ReferenceNetworkScreen';
