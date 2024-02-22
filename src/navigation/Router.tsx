@@ -11,8 +11,12 @@ import {
   HISTORY_DETAIL_SCREEN,
   HOME_SCREEN,
   LOGIN_SCREEN,
+  NETWORK_DETAIL_SCREEN,
+  NETWORK_LEVEL_SCREEN,
   ORDER_HISTORY_SCREEN,
   PIN_LOGIN_SCREEN,
+  WITHDRAW_SCREEN,
+  REFERENCE_NETWORK_SCREEN,
   REGISTER_DATA_SCREEN,
   REGISTER_SCREEN,
   RESET_PIN_SCREEN,
@@ -31,6 +35,10 @@ import CheckOutScreen from 'screen/check-out/CheckOutScreen';
 import ShippingAddressScreen from 'screen/shipping-address/ShippingAddressScreen';
 import OrderHistoryScreen from 'screen/order-history/OrderHistoryScreen';
 import HistoryDetailScreen from 'screen/history-detail/HistoryDetailScreen';
+import ReferenceNetworkScreen from 'screen/reference-network/ReferenceNetworkScreen';
+import NetworkDetailScreen from 'screen/network-detail/NetworkDetailScreen';
+import NetworkLevelScreen from 'screen/network-level/NetworkLevelScreen';
+import WithdrawScreen from 'screen/withdraw/WithdrawScreen';
 
 const Stack = createStackNavigator();
 
@@ -138,6 +146,38 @@ const screens: ScreenObject[] = [
     screen: HistoryDetailScreen,
     options: {
       headerTitle: 'Rincian Pesanan',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: REFERENCE_NETWORK_SCREEN,
+    screen: ReferenceNetworkScreen,
+    options: {
+      headerTitle: 'Reference Network',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: NETWORK_DETAIL_SCREEN,
+    screen: NetworkDetailScreen,
+    options: {
+      headerTitle: 'Reference Network Detail',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: NETWORK_LEVEL_SCREEN,
+    screen: NetworkLevelScreen,
+    options: {
+      headerTitle: 'Level',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: WITHDRAW_SCREEN,
+    screen: WithdrawScreen,
+    options: {
+      headerTitle: 'Tarik Dana',
       headerTitleAlign: 'center',
     },
   },

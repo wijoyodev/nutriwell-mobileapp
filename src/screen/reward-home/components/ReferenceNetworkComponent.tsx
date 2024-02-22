@@ -1,8 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
+import { FlatList, ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import { NETWORK_DETAIL_SCREEN, REFERENCE_NETWORK_SCREEN } from 'navigation/constants';
 
 export type NetworkType = {
   name: string;
@@ -29,9 +35,11 @@ const networkList: NetworkType[] = [
 ];
 
 const ReferenceNetworkComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const renderItem = (info: ListRenderItemInfo<NetworkType>) => {
     return (
-      <View
+      <TouchableOpacity
+        onPress={() => navigate(NETWORK_DETAIL_SCREEN)}
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -72,7 +80,7 @@ const ReferenceNetworkComponent = () => {
         </View>
 
         <Icon name={'angle-right'} color={Colors.black} />
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -93,6 +101,7 @@ const ReferenceNetworkComponent = () => {
         </Text>
 
         <Text
+          onPress={() => navigate(REFERENCE_NETWORK_SCREEN)}
           style={{ color: Colors.darkBlue, fontWeight: 'bold', fontSize: 14 }}>
           Lihat Semua
         </Text>

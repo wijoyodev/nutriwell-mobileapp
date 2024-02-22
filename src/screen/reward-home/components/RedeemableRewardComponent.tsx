@@ -1,11 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
+import { WITHDRAW_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from 'themes/Colors';
 
 const RedeemableRewardComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   return (
     <View
       style={{
@@ -31,6 +38,7 @@ const RedeemableRewardComponent = () => {
         </View>
 
         <CustomButton
+          onPress={() => navigate(WITHDRAW_SCREEN)}
           backgroundColor={Colors.blue}
           text={'TARIK'}
           containerStyle={{ paddingHorizontal: 16 }}
