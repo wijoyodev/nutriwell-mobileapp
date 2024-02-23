@@ -19,6 +19,9 @@ const ModalOrderCreated = forwardRef<ModalOrderCreatedHandle, {}>((_, ref) => {
     openModal() {
       setVisible(true);
     },
+    closeModal() {
+      setVisible(false);
+    },
   }));
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const [visible, setVisible] = useState(false);

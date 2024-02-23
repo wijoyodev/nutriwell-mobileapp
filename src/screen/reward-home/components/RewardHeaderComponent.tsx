@@ -1,10 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { REWARD_HISTORY_SCREEN } from 'navigation/constants';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from 'themes/Colors';
 
 const RewardHeaderComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   return (
     <View
       style={{
@@ -28,7 +31,8 @@ const RewardHeaderComponent = () => {
 
       <View
         style={{ flexDirection: 'row', flex: 3, justifyContent: 'flex-end' }}>
-        <View
+        <TouchableOpacity
+          onPress={() => navigate(REWARD_HISTORY_SCREEN)}
           style={{
             backgroundColor: Colors.white,
             paddingHorizontal: 10,
@@ -36,7 +40,7 @@ const RewardHeaderComponent = () => {
             borderRadius: 12,
           }}>
           <Icon name={'clock-o'} color={Colors.darkBlue} />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

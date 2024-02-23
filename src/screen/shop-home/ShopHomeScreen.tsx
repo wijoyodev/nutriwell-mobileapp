@@ -1,10 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
 import React from 'react';
-import { Image, ScrollView, Text, View, useWindowDimensions } from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import Colors from 'themes/Colors';
 import ShopHeaderComponent from './components/ShopHeaderComponent';
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 import { CART_SCREEN } from 'navigation/constants';
 
 const ShopHomeScreen = () => {
@@ -13,6 +23,7 @@ const ShopHomeScreen = () => {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       style={{
         flex: 1,
         paddingBottom: 16,

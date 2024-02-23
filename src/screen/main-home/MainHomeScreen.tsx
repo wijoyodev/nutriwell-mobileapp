@@ -11,6 +11,7 @@ import ReferenceNetworkComponent from './components/ReferenceNetworkComponent';
 const MainHomeScreen = () => {
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       style={{
         flex: 1,
         backgroundColor: Colors.white,

@@ -22,6 +22,7 @@ import {
   RESET_PIN_SCREEN,
   SHIPPING_ADDRESS_SCREEN,
   SPLASH_SCREEN,
+  REWARD_HISTORY_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
 import LoginScreen from 'screen/login/LoginScreen';
@@ -39,6 +40,7 @@ import ReferenceNetworkScreen from 'screen/reference-network/ReferenceNetworkScr
 import NetworkDetailScreen from 'screen/network-detail/NetworkDetailScreen';
 import NetworkLevelScreen from 'screen/network-level/NetworkLevelScreen';
 import WithdrawScreen from 'screen/withdraw/WithdrawScreen';
+import RewardHistoryScreen from 'screen/reward-history/RewardHistoryScreen';
 
 const Stack = createStackNavigator();
 
@@ -178,6 +180,14 @@ const screens: ScreenObject[] = [
     screen: WithdrawScreen,
     options: {
       headerTitle: 'Tarik Dana',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: REWARD_HISTORY_SCREEN,
+    screen: RewardHistoryScreen,
+    options: {
+      headerTitle: 'Histori Reward',
       headerTitleAlign: 'center',
     },
   },

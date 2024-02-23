@@ -50,7 +50,11 @@ const NetworkLevelScreen: React.FC<NetworkLevelProps> = ({ route }) => {
   return (
     <View
       style={{ flex: 1, backgroundColor: Colors.white, paddingHorizontal: 16 }}>
-      <FlatList data={networkList} renderItem={renderItem} />
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={networkList}
+        renderItem={renderItem}
+      />
     </View>
   );
 };

@@ -15,3 +15,4 @@ export const REFERENCE_NETWORK_SCREEN = 'ReferenceNetworkScreen';
 export const NETWORK_DETAIL_SCREEN = 'NetworkDetailScreen';
 export const NETWORK_LEVEL_SCREEN = 'NetworkLevelScreen';
 export const WITHDRAW_SCREEN = 'WithdrawScreen';
+export const REWARD_HISTORY_SCREEN = 'RewardHistoryScreen';

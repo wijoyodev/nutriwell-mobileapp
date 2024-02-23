@@ -7,7 +7,7 @@ import ReferenceNetworkComponent from './components/ReferenceNetworkComponent';
 
 const RewardHomeScreen = () => {
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <RewardHeaderComponent />
       <RedeemableRewardComponent />
       <InviteNetworkComponent />

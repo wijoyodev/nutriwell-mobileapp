@@ -9,6 +9,7 @@ const Colors = {
   orange: '#E7702E',
   cream: '#FFF4E8',
   green: '#14BD2F',
+  darkGreen: '#089156',
   placeholder: '#949BA6',
   grey: '#F3F4F9',
   lightGrey: '#B5B5C4',
