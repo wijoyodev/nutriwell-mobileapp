@@ -23,6 +23,7 @@ import {
   SHIPPING_ADDRESS_SCREEN,
   SPLASH_SCREEN,
   REWARD_HISTORY_SCREEN,
+  PROFILE_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
 import LoginScreen from 'screen/login/LoginScreen';
@@ -41,6 +42,7 @@ import NetworkDetailScreen from 'screen/network-detail/NetworkDetailScreen';
 import NetworkLevelScreen from 'screen/network-level/NetworkLevelScreen';
 import WithdrawScreen from 'screen/withdraw/WithdrawScreen';
 import RewardHistoryScreen from 'screen/reward-history/RewardHistoryScreen';
+import ProfileScreen from 'screen/profile/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -188,6 +190,14 @@ const screens: ScreenObject[] = [
     screen: RewardHistoryScreen,
     options: {
       headerTitle: 'Histori Reward',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: PROFILE_SCREEN,
+    screen: ProfileScreen,
+    options: {
+      headerTitle: 'Profil Saya',
       headerTitleAlign: 'center',
     },
   },
