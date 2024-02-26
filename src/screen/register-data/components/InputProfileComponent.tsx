@@ -21,7 +21,7 @@ const genderList = [
   },
 ];
 
-type ProfileForm = {
+export type ProfileForm = {
   email: string;
   name: string;
   birthDate: Date;

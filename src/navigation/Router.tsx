@@ -24,6 +24,11 @@ import {
   SPLASH_SCREEN,
   REWARD_HISTORY_SCREEN,
   PROFILE_SCREEN,
+  BANK_ACCOUNT_SCREEN,
+  EDIT_PROFILE_SCREEN,
+  UPLINE_INFORMATION_SCREEN,
+  UPDATE_PIN_SCREEN,
+  TERMS_AND_CONDITION_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
 import LoginScreen from 'screen/login/LoginScreen';
@@ -43,6 +48,11 @@ import NetworkLevelScreen from 'screen/network-level/NetworkLevelScreen';
 import WithdrawScreen from 'screen/withdraw/WithdrawScreen';
 import RewardHistoryScreen from 'screen/reward-history/RewardHistoryScreen';
 import ProfileScreen from 'screen/profile/ProfileScreen';
+import BankAccountScreen from 'screen/bank-account/BankAccountScreen';
+import EditProfileScreen from 'screen/edit-profile/EditProfileScreen';
+import UplineInformationScreen from 'screen/upline-information/UplineInformationScreen';
+import UpdatePinSreen from 'screen/update-pin/UpdatePinScreen';
+import TermsAndConditionScreen from 'screen/terms-and-condition/TermsAndConditionScreen';
 
 const Stack = createStackNavigator();
 
@@ -198,6 +208,46 @@ const screens: ScreenObject[] = [
     screen: ProfileScreen,
     options: {
       headerTitle: 'Profil Saya',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: EDIT_PROFILE_SCREEN,
+    screen: EditProfileScreen,
+    options: {
+      headerTitle: 'Ubah Profil',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: BANK_ACCOUNT_SCREEN,
+    screen: BankAccountScreen,
+    options: {
+      headerTitle: 'Akun Bank',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: UPLINE_INFORMATION_SCREEN,
+    screen: UplineInformationScreen,
+    options: {
+      headerTitle: 'Informasi Upline',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: UPDATE_PIN_SCREEN,
+    screen: UpdatePinSreen,
+    options: {
+      headerTitle: 'Ubah PIN',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: TERMS_AND_CONDITION_SCREEN,
+    screen: TermsAndConditionScreen,
+    options: {
+      headerTitle: 'Syarat & Ketentuan',
       headerTitleAlign: 'center',
     },
   },

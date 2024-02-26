@@ -1,16 +1,24 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import { BANK_ACCOUNT_SCREEN } from 'navigation/constants';
 
 const BankAccountComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   return (
     <View
       style={{ padding: 16, borderTopColor: Colors.grey, borderTopWidth: 4 }}>
       <Text>AKUN BANK</Text>
 
-      <View
+      <TouchableOpacity
+        onPress={() => navigate(BANK_ACCOUNT_SCREEN)}
         style={{
           marginTop: 16,
           padding: 16,
@@ -30,7 +38,7 @@ const BankAccountComponent = () => {
           </Text>
         </View>
         <Icon name={'angle-right'} color={Colors.black} size={20} />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
