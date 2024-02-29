@@ -5,6 +5,8 @@ import RewardSummaryComponent from './components/RewardSummaryComponent';
 import Colors from 'themes/Colors';
 import RewardHistoryItem from './components/RewardHistoryItem';
 import { useFocusEffect } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import utils from 'service/utils';
 
 export type History = {
   date: Date;
@@ -64,6 +66,24 @@ const historyList: History[] = [
   },
 ];
 
+const Tab = createMaterialTopTabNavigator();
+
+type TabType = {
+  title: string;
+  isIncome: boolean;
+};
+
+const tabList: TabType[] = [
+  {
+    title: 'REWARD',
+    isIncome: true,
+  },
+  {
+    title: 'PENARIKAN',
+    isIncome: false,
+  },
+];
+
 const RewardHistoryScreen = () => {
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
@@ -74,14 +94,27 @@ const RewardHistoryScreen = () => {
     return <RewardHistoryItem history={info.item} index={info.index} />;
   };
 
+  const groupHistory = utils.groupBy(historyList, history => history.isIncome);
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <RewardSummaryComponent />
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={historyList}
-        renderItem={renderItem}
-      />
+      <Tab.Navigator
+        sceneContainerStyle={{ backgroundColor: Colors.white }}
+        style={{ flex: 1 }}>
+        {tabList.map(tab => (
+          <Tab.Screen
+            name={tab.title}
+            children={() => (
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={groupHistory.get(tab.isIncome) ?? []}
+                renderItem={renderItem}
+              />
+            )}
+          />
+        ))}
+      </Tab.Navigator>
     </View>
   );
 };
