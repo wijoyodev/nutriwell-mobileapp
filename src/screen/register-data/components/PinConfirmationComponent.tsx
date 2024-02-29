@@ -29,7 +29,7 @@ const PinConfirmationComponent: React.FC<PinConfirmationComponentProps> = ({
   }, [pin, onComplete, selectedPin]);
 
   return (
-    <View>
+    <View style={{ paddingHorizontal: 16 }}>
       <Text
         style={{
           fontWeight: 'bold',

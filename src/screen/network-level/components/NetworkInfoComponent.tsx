@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
@@ -24,7 +24,15 @@ const NetworkInfoComponent: React.FC<NetworkInfoProps> = ({
         borderTopColor: Colors.grey,
         paddingVertical: 12,
       }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Image
+          source={require('../../../assets/images/product_image.png')}
+          style={{
+            height: 40,
+            width: 40,
+            borderRadius: 40,
+          }}
+        />
         <View>
           <Text
             style={{ fontSize: 14, fontWeight: 'bold', color: Colors.black }}>

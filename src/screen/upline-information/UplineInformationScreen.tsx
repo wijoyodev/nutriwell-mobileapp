@@ -1,10 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
+import { useFocusEffect } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, StatusBar, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 
 const UplineInformationScreen = () => {
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white, padding: 16 }}>
       <View

@@ -1,9 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, View } from 'react-native';
+import { FlatList, ListRenderItemInfo, StatusBar, View } from 'react-native';
 import RewardSummaryComponent from './components/RewardSummaryComponent';
 import Colors from 'themes/Colors';
 import RewardHistoryItem from './components/RewardHistoryItem';
+import { useFocusEffect } from '@react-navigation/native';
 
 export type History = {
   date: Date;
@@ -64,6 +65,11 @@ const historyList: History[] = [
 ];
 
 const RewardHistoryScreen = () => {
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
+
   const renderItem = (info: ListRenderItemInfo<History>) => {
     return <RewardHistoryItem history={info.item} index={info.index} />;
   };

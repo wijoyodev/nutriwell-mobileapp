@@ -1,10 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useRef, useState } from 'react';
-import { Text, View } from 'react-native';
+import { StatusBar, Text, View } from 'react-native';
 import { HeaderBackButton } from '@react-navigation/elements';
 import {
   NavigationProp,
   ParamListBase,
+  useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
 import Colors from 'themes/Colors';
@@ -21,6 +22,11 @@ const UpdatePinSreen = () => {
   const [confirmPin, setConfirmPin] = useState('');
 
   const modalRef = useRef<CustomModalHandle | null>();
+
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
 
   useEffect(() => {
     navigation.setOptions({

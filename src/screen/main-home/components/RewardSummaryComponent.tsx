@@ -1,103 +1,117 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 
 const RewardSummaryComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   return (
     <View
       style={{
-        borderColor: Colors.black,
-        borderWidth: 1,
-        borderRadius: 16,
         paddingHorizontal: 16,
-        paddingVertical: 12,
-        display: 'flex',
-        flexDirection: 'row',
+        paddingBottom: 16,
+        backgroundColor: Colors.blue,
       }}>
-      <View
+      <TouchableOpacity
+        onPress={() => navigate('reward-home')}
         style={{
-          flex: 2,
-          marginRight: 12,
-          borderRightWidth: 1,
-          borderColor: Colors.disabled,
+          backgroundColor: Colors.white,
+          borderColor: Colors.black,
+          borderRadius: 16,
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          display: 'flex',
+          flexDirection: 'row',
         }}>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingRight: 12,
+            flex: 2,
+            marginRight: 12,
+            borderRightWidth: 1,
+            borderColor: Colors.disabled,
           }}>
           <View
             style={{
-              alignItems: 'center',
               flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingRight: 12,
             }}>
-            <Icon name={'dollar'} size={10} />
-            <Text
+            <View
               style={{
-                color: Colors.black,
-                fontSize: 12,
-                marginLeft: 4,
+                alignItems: 'center',
+                flexDirection: 'row',
               }}>
-              Total Reward
-            </Text>
+              <Icon name={'dollar'} size={10} />
+              <Text
+                style={{
+                  color: Colors.black,
+                  fontSize: 12,
+                  marginLeft: 4,
+                }}>
+                Total Reward
+              </Text>
+            </View>
+
+            <Icon name={'angle-right'} color={Colors.black} />
           </View>
 
-          <Icon name={'angle-right'} color={Colors.black} />
+          <Text
+            style={{
+              color: Colors.black,
+              fontWeight: 'bold',
+              fontSize: 14,
+            }}>
+            Rp21.500.000
+          </Text>
         </View>
 
-        <Text
-          style={{
-            color: Colors.black,
-            fontWeight: 'bold',
-            fontSize: 14,
-          }}>
-          Rp21.500.000
-        </Text>
-      </View>
-
-      <View
-        style={{
-          flex: 2,
-        }}>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingRight: 12,
+            flex: 2,
           }}>
           <View
             style={{
-              alignItems: 'center',
               flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingRight: 12,
             }}>
-            <Icon name={'dollar'} size={10} />
-            <Text
+            <View
               style={{
-                color: Colors.black,
-                fontSize: 12,
-                marginLeft: 4,
+                alignItems: 'center',
+                flexDirection: 'row',
               }}>
-              Reward Bulan Ini
-            </Text>
+              <Icon name={'dollar'} size={10} />
+              <Text
+                style={{
+                  color: Colors.black,
+                  fontSize: 12,
+                  marginLeft: 4,
+                }}>
+                Reward Bulan Ini
+              </Text>
+            </View>
+
+            <Icon name={'angle-right'} color={Colors.black} />
           </View>
 
-          <Icon name={'angle-right'} color={Colors.black} />
+          <Text
+            style={{
+              color: Colors.black,
+              fontWeight: 'bold',
+              fontSize: 14,
+            }}>
+            Rp4.500.000
+          </Text>
         </View>
-
-        <Text
-          style={{
-            color: Colors.black,
-            fontWeight: 'bold',
-            fontSize: 14,
-          }}>
-          Rp4.500.000
-        </Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

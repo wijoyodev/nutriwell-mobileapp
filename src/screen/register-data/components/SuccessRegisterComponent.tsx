@@ -13,14 +13,13 @@ import Colors from 'themes/Colors';
 const SuccessRegisterComponent = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingHorizontal: 16 }}>
       <View
         style={{
           flex: 1,
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          paddingHorizontal: 16,
         }}>
         <Text
           style={{

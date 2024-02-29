@@ -62,7 +62,6 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
       style={{
         flex: 1,
         backgroundColor: Colors.white,
-        paddingHorizontal: 16,
         paddingVertical: 24,
       }}>
       {progress <= 3 && (

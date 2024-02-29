@@ -2,17 +2,23 @@
 import CustomButton from 'components/CustomButton';
 import CustomTextInput from 'components/CustomTextInput';
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
 import ProcessWithdrawComponent from './components/ProcessWithdrawComponent';
 import SuccessWithdrawComponent from './components/SuccessWithdrawComponent';
 import {
   NavigationProp,
   ParamListBase,
+  useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
 
 const WithdrawScreen = () => {
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
+
   const { setOptions } = useNavigation<NavigationProp<ParamListBase>>();
   const [progress, setProgress] = useState(1);
 

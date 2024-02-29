@@ -19,7 +19,7 @@ const InputPinComponent: React.FC<InputPinComponentProps> = ({
   }, [pin, onComplete]);
 
   return (
-    <View>
+    <View style={{ paddingHorizontal: 16 }}>
       <Text
         style={{
           fontWeight: 'bold',

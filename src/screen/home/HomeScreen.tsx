@@ -1,8 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  useFocusEffect,
+} from '@react-navigation/native';
 import React from 'react';
-import { Text, View } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StatusBar, View } from 'react-native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MainHomeScreen from 'screen/main-home/MainHomeScreen';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,21 +18,13 @@ export type HomeScreenProps = {
   navigation: NavigationProp<ParamListBase>;
 };
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const HomeScreen: React.FC<HomeScreenProps> = () => {
-  const renderLabel = (name: String, { focused }) => {
-    return (
-      <Text
-        style={{
-          fontSize: 10,
-          color: focused ? Colors.blue : Colors.disabled,
-          fontWeight: focused ? 'bold' : 'normal',
-        }}>
-        {name}
-      </Text>
-    );
-  };
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.blue);
+    StatusBar.setBarStyle('light-content');
+  });
 
   const renderIcon = (name: String, { focused }) => {
     return (
@@ -46,28 +42,27 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
         backgroundColor: Colors.white,
       }}>
       <Tab.Navigator
-        sceneContainerStyle={{
+        // compact={true}
+        sceneAnimationEnabled={true}
+        sceneAnimationType={'shifting'}
+        // shifting={true}
+        barStyle={{
+          borderTopWidth: 1,
+          borderTopColor: Colors.grey,
           backgroundColor: Colors.white,
-          flex: 1,
         }}
-        tabBarOptions={{
-          labelStyle: {},
-          labelPosition: 'below-icon',
-          activeTintColor: Colors.blue,
-          tabStyle: {
-            // paddingTop: 15,
-            paddingBottom: 10,
-            // backgroundColor: isDarkMode ? Colors.darkPrimary : 'transparent',
-          },
+        activeIndicatorStyle={{
+          backgroundColor: Colors.white,
         }}
+        activeColor={Colors.blue}
+        inactiveColor={Colors.disabled}
         backBehavior={'history'}>
         <Tab.Screen
           name="main-home"
           children={() => <MainHomeScreen />}
           options={{
             headerShown: false,
-            // title: 'HOME',
-            tabBarLabel: props => renderLabel('Home', props),
+            title: 'Home',
             tabBarIcon: ({ focused }) => renderIcon('home', { focused }),
           }}
         />
@@ -77,8 +72,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
           children={() => <ShopHomeScreen />}
           options={{
             headerShown: false,
-            // title: 'HOME',
-            tabBarLabel: props => renderLabel('Belanja', props),
+            title: 'Belanja',
             tabBarIcon: ({ focused }) => renderIcon('dollar', { focused }),
           }}
         />
@@ -88,8 +82,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
           children={() => <RewardHomeScreen />}
           options={{
             headerShown: false,
-            // title: 'HOME',
-            tabBarLabel: props => renderLabel('Reward', props),
+            title: 'Reward',
             tabBarIcon: ({ focused }) => renderIcon('dollar', { focused }),
           }}
         />
@@ -99,8 +92,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
           children={() => <AccountHomeScreen />}
           options={{
             headerShown: false,
-            // title: 'HOME',
-            tabBarLabel: props => renderLabel('Akun Saya', props),
+            title: 'Akun Saya',
             tabBarIcon: ({ focused }) => renderIcon('user', { focused }),
           }}
         />

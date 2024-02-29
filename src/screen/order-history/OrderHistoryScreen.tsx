@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, View } from 'react-native';
+import { FlatList, ListRenderItemInfo, StatusBar, View } from 'react-native';
 import HistoryComponent from './components/HistoryComponent';
 import Colors from 'themes/Colors';
+import { useFocusEffect } from '@react-navigation/native';
 
 export type History = {
   orderId: string;
@@ -57,6 +58,11 @@ const historyList: History[] = [
 ];
 
 const OrderHistoryScreen = () => {
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
+
   const renderItem = (info: ListRenderItemInfo<History>) => {
     return <HistoryComponent history={info.item} />;
   };

@@ -84,7 +84,11 @@ const ProfileMenuComponent = () => {
 
   return (
     <View style={{ paddingHorizontal: 16 }}>
-      <FlatList data={menuList} renderItem={renderItem} />
+      <FlatList
+        ListFooterComponent={<View style={{ marginBottom: 16 }} />}
+        data={menuList}
+        renderItem={renderItem}
+      />
       <CustomModal ref={el => (modalRef.current = el)}>
         <View
           style={{

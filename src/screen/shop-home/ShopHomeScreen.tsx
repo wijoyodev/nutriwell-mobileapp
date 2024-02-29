@@ -22,57 +22,78 @@ const ShopHomeScreen = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
+    <View
       style={{
         flex: 1,
         paddingBottom: 16,
+        backgroundColor: Colors.white,
       }}>
       <ShopHeaderComponent />
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: 16,
-        }}>
-        <Image
-          source={require('../../assets/images/product_image.png')}
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <View
           style={{
-            width: width - 32,
-            height: height / 2.25,
-            borderRadius: 16,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: 16,
+            paddingTop: 16,
+            position: 'relative',
+          }}>
+          <View
+            style={{
+              position: 'absolute',
+              backgroundColor: Colors.blue,
+              height: height / 4.5,
+              width: width,
+              top: 0,
+              borderBottomStartRadius: 16,
+              borderBottomEndRadius: 16,
+            }}
+          />
+          <Image
+            source={require('../../assets/images/product_image.png')}
+            style={{
+              width: width - 32,
+              height: height / 2.25,
+              borderRadius: 16,
+            }}
+          />
+        </View>
+
+        <View style={{ paddingHorizontal: 16 }}>
+          <Text style={{ color: Colors.black, fontSize: 16 }}>
+            GARAM Kurang Natrium 200 gram
+          </Text>
+          <Text
+            style={{ color: Colors.blue, fontWeight: 'bold', fontSize: 16 }}>
+            Rp150.000
+          </Text>
+        </View>
+
+        <View
+          style={{
+            backgroundColor: Colors.grey,
+            height: 8,
+            width: width,
+            marginVertical: 16,
           }}
         />
-      </View>
 
-      <View style={{ paddingHorizontal: 16 }}>
-        <Text style={{ color: Colors.black, fontSize: 16 }}>
-          GARAM Kurang Natrium 200 gram
+        <Text
+          style={{ color: Colors.black, fontSize: 14, paddingHorizontal: 16 }}>
+          Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient
+          facilisi in sit nulla. Pretium est mauris elit dolor eget integer.
+          Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient
+          facilisi in sit nulla. Pretium est mauris elit dolor eget integer.
         </Text>
-        <Text style={{ color: Colors.blue, fontWeight: 'bold', fontSize: 16 }}>
-          Rp150.000
-        </Text>
-      </View>
+      </ScrollView>
 
       <View
         style={{
-          backgroundColor: Colors.grey,
-          height: 8,
-          width: width,
-          marginVertical: 16,
-        }}
-      />
-
-      <Text
-        style={{ color: Colors.black, fontSize: 14, paddingHorizontal: 16 }}>
-        Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient
-        facilisi in sit nulla. Pretium est mauris elit dolor eget integer. Lorem
-        ipsum dolor sit amet consectetur. Egestas posuere at parturient facilisi
-        in sit nulla. Pretium est mauris elit dolor eget integer.
-      </Text>
-
-      <View
-        style={{ paddingHorizontal: 16, flexDirection: 'row', marginTop: 16 }}>
+          paddingHorizontal: 16,
+          flexDirection: 'row',
+          marginTop: 16,
+          zIndex: 5,
+        }}>
         <CustomButton
           containerStyle={{ flex: 1, borderColor: Colors.blue, borderWidth: 1 }}
           textStyle={{
@@ -87,7 +108,7 @@ const ShopHomeScreen = () => {
           text={'BELI SEKARANG'}
         />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

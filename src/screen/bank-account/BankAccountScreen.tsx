@@ -7,15 +7,17 @@ import {
 import CustomButton from 'components/CustomButton';
 import CustomTextInput from 'components/CustomTextInput';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 
 const BankAccountScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.white, padding: 16 }}>
-      <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 14, color: Colors.black }}>
+    <View style={{ flex: 1, backgroundColor: Colors.white }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1, paddingHorizontal: 16 }}>
+        <Text style={{ fontSize: 14, color: Colors.black, marginTop: 16 }}>
           Akun bank akan digunakan untuk mencairkan reward Anda.{' '}
         </Text>
 
@@ -33,18 +35,25 @@ const BankAccountScreen = () => {
           <CustomTextInput />
         </View>
 
-        <View style={{ marginTop: 16 }}>
+        <View style={{ marginVertical: 16 }}>
           <Text style={{ fontSize: 14, color: Colors.black, marginBottom: 6 }}>
             Nomor Rekening
           </Text>
           <CustomTextInput />
         </View>
+      </ScrollView>
+      <View
+        style={{
+          backgroundColor: Colors.white,
+          paddingHorizontal: 16,
+          paddingBottom: 16,
+        }}>
+        <CustomButton
+          onPress={goBack}
+          backgroundColor={Colors.blue}
+          text={'SIMPAN'}
+        />
       </View>
-      <CustomButton
-        onPress={goBack}
-        backgroundColor={Colors.blue}
-        text={'SIMPAN'}
-      />
     </View>
   );
 };

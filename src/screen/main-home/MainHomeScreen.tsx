@@ -7,6 +7,7 @@ import HeaderHomeComponent from './components/HeaderHomeComponent';
 import InviteFriendComponent from './components/InviteFriendComponent';
 import LearnBusinessComponent from './components/LearnBusinessComponent';
 import ReferenceNetworkComponent from './components/ReferenceNetworkComponent';
+import CarouselComponent from './components/CarouselComponent';
 
 const MainHomeScreen = () => {
   return (
@@ -15,10 +16,10 @@ const MainHomeScreen = () => {
       style={{
         flex: 1,
         backgroundColor: Colors.white,
-        paddingHorizontal: 16,
       }}>
       <HeaderHomeComponent />
       <RewardSummaryComponent />
+      <CarouselComponent />
       <InviteFriendComponent />
       <LearnBusinessComponent />
       <ReferenceNetworkComponent />

@@ -1,35 +1,44 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 
 const HeaderHomeComponent = () => {
   return (
     <View
       style={{
-        marginVertical: 16,
+        backgroundColor: Colors.blue,
+        flexDirection: 'row',
+        gap: 12,
+        padding: 16,
       }}>
-      <Text
-        style={{
-          fontSize: 16,
-          color: Colors.black,
-        }}>
-        Halo,{' '}
+      <Image
+        source={require('../../../assets/images/product_image.png')}
+        style={{ height: 44, width: 44, borderRadius: 22 }}
+      />
+      <View>
         <Text
           style={{
-            fontWeight: 'bold',
+            fontSize: 16,
+            color: Colors.white,
           }}>
-          Willy Wonka
+          Halo,{' '}
+          <Text
+            style={{
+              fontWeight: 'bold',
+            }}>
+            Willy Wonka
+          </Text>
         </Text>
-      </Text>
 
-      <Text
-        style={{
-          fontSize: 16,
-          color: Colors.black,
-        }}>
-        18 Januari 2024
-      </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            color: Colors.white,
+          }}>
+          18 Januari 2024
+        </Text>
+      </View>
     </View>
   );
 };

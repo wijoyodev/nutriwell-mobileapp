@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  ListRenderItemInfo,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
@@ -8,7 +15,10 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
-import { NETWORK_DETAIL_SCREEN, REFERENCE_NETWORK_SCREEN } from 'navigation/constants';
+import {
+  NETWORK_DETAIL_SCREEN,
+  REFERENCE_NETWORK_SCREEN,
+} from 'navigation/constants';
 
 export type NetworkType = {
   name: string;
@@ -48,16 +58,23 @@ const ReferenceNetworkComponent = () => {
           borderTopColor: Colors.grey,
           paddingVertical: 12,
         }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
           <Text
             style={{
               fontSize: 14,
               fontWeight: 'bold',
               color: Colors.black,
-              marginRight: 12,
             }}>
             #{info.index + 1}
           </Text>
+          <Image
+            source={require('../../../assets/images/product_image.png')}
+            style={{
+              height: 40,
+              width: 40,
+              borderRadius: 40,
+            }}
+          />
           <View>
             <Text
               style={{ fontSize: 14, fontWeight: 'bold', color: Colors.black }}>

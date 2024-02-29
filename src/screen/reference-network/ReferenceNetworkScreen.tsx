@@ -1,9 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
+import { FlatList, ListRenderItemInfo, StatusBar, Text, View } from 'react-native';
 import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
 import Colors from 'themes/Colors';
 import NetworkComponent from './components/NetworkComponent';
+import { useFocusEffect } from '@react-navigation/native';
 
 const networkList: NetworkType[] = [
   {
@@ -24,6 +25,11 @@ const networkList: NetworkType[] = [
 ];
 
 const ReferenceNetworkScreen = () => {
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
+
   const renderItem = (info: ListRenderItemInfo<NetworkType>) => {
     return <NetworkComponent network={info.item} index={info.index} />;
   };

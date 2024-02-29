@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
 import ProfileInfoComponent from './components/ProfileInfoComponent';
 import BankAccountComponent from './components/BankAccountComponent';
@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   NavigationProp,
   ParamListBase,
+  useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -21,6 +22,11 @@ const ProfileScreen = () => {
       headerRight: iconHeaderRight,
     });
   }, []);
+
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
 
   const iconHeaderRight = () => {
     return (

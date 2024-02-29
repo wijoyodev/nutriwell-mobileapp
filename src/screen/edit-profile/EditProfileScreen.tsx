@@ -13,13 +13,21 @@ import {
 const EditProfileScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.white, padding: 16 }}>
+    <View
+      style={{ flex: 1, backgroundColor: Colors.white }}>
       <EditProfileComponent />
-      <CustomButton
-        onPress={goBack}
-        backgroundColor={Colors.blue}
-        text={'SIMPAN'}
-      />
+      <View
+        style={{
+          backgroundColor: Colors.white,
+          paddingHorizontal: 16,
+          paddingBottom: 16,
+        }}>
+        <CustomButton
+          onPress={goBack}
+          backgroundColor={Colors.blue}
+          text={'SIMPAN'}
+        />
+      </View>
     </View>
   );
 };

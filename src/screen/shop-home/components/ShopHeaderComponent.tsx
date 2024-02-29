@@ -19,7 +19,6 @@ const ShopHeaderComponent = () => {
         flexDirection: 'row',
         paddingVertical: 12,
         paddingHorizontal: 16,
-        marginBottom: 16,
         backgroundColor: Colors.blue,
         alignItems: 'center',
       }}>

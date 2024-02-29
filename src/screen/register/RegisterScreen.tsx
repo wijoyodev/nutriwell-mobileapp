@@ -1,13 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import { yupResolver } from '@hookform/resolvers/yup';
 import CustomTextInput from 'components/CustomTextInput';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import { Image, LayoutChangeEvent, StatusBar, Text, View, useWindowDimensions } from 'react-native';
 import Colors from 'themes/Colors';
 import { registerFormSchema } from './schema/registerFormSchema';
 import CustomButton from 'components/CustomButton';
-import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { NavigationProp, ParamListBase, useFocusEffect } from '@react-navigation/native';
 import { LOGIN_SCREEN, REGISTER_DATA_SCREEN } from 'navigation/constants';
 
 type RegisterForm = {
@@ -22,6 +22,13 @@ export type RegisterScreenProps = {
 const RegisterScreen: React.FC<RegisterScreenProps> = ({
   navigation: { navigate },
 }) => {
+  const [heightView, setHeightView] = useState(0);
+
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
+
   const formInitialValues: RegisterForm = {
     email: '',
     referralCode: '',
@@ -48,68 +55,93 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
     navigate(LOGIN_SCREEN);
   };
 
+  const { width } = useWindowDimensions();
+
+  const onLayout = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout;
+    setHeightView(height);
+  };
+
   return (
     <View
       style={{
-        paddingHorizontal: 16,
-        paddingVertical: 24,
+        flex: 1,
         backgroundColor: Colors.white,
       }}>
-      <Text style={{ fontWeight: 'bold', fontSize: 18, color: Colors.black }}>
-        Selamat Datang di Garam Garena
-      </Text>
-      <Text style={{ fontSize: 14, color: Colors.black, marginTop: 8 }}>
-        Daftarkan diri Anda sekarang juga dan dapatkan keuntungan
-      </Text>
-
-      <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
-        Email
-      </Text>
-      <Controller
-        name={'email'}
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <CustomTextInput
-            value={value}
-            onChangeText={onChange}
-            placeholder={'Masukkan email Anda'}
-          />
-        )}
-      />
-
-      <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
-        Kode Referensi (Opsional)
-      </Text>
-      <Controller
-        name={'referralCode'}
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <CustomTextInput
-            value={value}
-            onChangeText={onChange}
-            placeholder={'Masukkan kode referensi'}
-          />
-        )}
-      />
-
-      <CustomButton
-        onPress={handleFormSubmit(handleRegister)}
-        backgroundColor={Colors.blue}
-        text={'VERIFIKASI EMAIL'}
-        containerStyle={{ marginBottom: 16, marginTop: 40 }}
-      />
-      <Text
+      <View style={{ flex: 1 }} onLayout={onLayout}>
+        <Image
+          source={require('../../assets/images/background_login.png')}
+          style={{
+            height: heightView,
+            width: width,
+          }}
+        />
+      </View>
+      <View
         style={{
-          textAlign: 'center',
-          color: Colors.black,
+          backgroundColor: Colors.white,
+          marginTop: -20,
+          paddingHorizontal: 16,
+          paddingVertical: 24,
+          borderTopEndRadius: 20,
+          borderTopStartRadius: 20,
         }}>
-        Sudah punya akun?{' '}
-        <Text
-          style={{ color: Colors.blue, fontWeight: 'bold' }}
-          onPress={handleLogin}>
-          Masuk Sekarang
+        <Text style={{ fontWeight: 'bold', fontSize: 18, color: Colors.black }}>
+          Selamat Datang di Garam Garena
         </Text>
-      </Text>
+        <Text style={{ fontSize: 14, color: Colors.black, marginTop: 8 }}>
+          Daftarkan diri Anda sekarang juga dan dapatkan keuntungan
+        </Text>
+
+        <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
+          Email
+        </Text>
+        <Controller
+          name={'email'}
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <CustomTextInput
+              value={value}
+              onChangeText={onChange}
+              placeholder={'Masukkan email Anda'}
+            />
+          )}
+        />
+
+        <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
+          Kode Referensi (Opsional)
+        </Text>
+        <Controller
+          name={'referralCode'}
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <CustomTextInput
+              value={value}
+              onChangeText={onChange}
+              placeholder={'Masukkan kode referensi'}
+            />
+          )}
+        />
+
+        <CustomButton
+          onPress={handleFormSubmit(handleRegister)}
+          backgroundColor={Colors.blue}
+          text={'VERIFIKASI EMAIL'}
+          containerStyle={{ marginBottom: 16, marginTop: 40 }}
+        />
+        <Text
+          style={{
+            textAlign: 'center',
+            color: Colors.black,
+          }}>
+          Sudah punya akun?{' '}
+          <Text
+            style={{ color: Colors.blue, fontWeight: 'bold' }}
+            onPress={handleLogin}>
+            Masuk Sekarang
+          </Text>
+        </Text>
+      </View>
     </View>
   );
 };

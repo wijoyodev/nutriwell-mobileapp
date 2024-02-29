@@ -1,9 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
+import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, StatusBar, Text } from 'react-native';
 import Colors from 'themes/Colors';
 
 const TermsAndConditionScreen = () => {
+  useFocusEffect(() => {
+    StatusBar.setBackgroundColor(Colors.white);
+    StatusBar.setBarStyle('dark-content');
+  });
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}

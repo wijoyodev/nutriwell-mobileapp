@@ -86,7 +86,7 @@ const ReferenceNetworkComponent = () => {
         borderColor: Colors.disabled,
         borderWidth: 1,
         padding: 16,
-        marginVertical: 16,
+        margin: 16,
       }}>
       <View
         style={{

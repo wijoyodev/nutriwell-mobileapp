@@ -16,6 +16,7 @@ const LearnBusinessComponent = () => {
         paddingHorizontal: 20,
         borderRadius: 16,
         marginTop: 16,
+        marginHorizontal: 16,
       }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Icon name={'dollar'} color={Colors.white} size={20} />
