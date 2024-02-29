@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   NavigationProp,
   ParamListBase,
@@ -70,11 +70,11 @@ const NetworkListComponent = () => {
             Level {info.item.level}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-            <Icon name={'user'} />
+            <Icon name={'people-outline'} />
             <Text>{info.item.total} network</Text>
           </View>
         </View>
-        <Icon name={'angle-right'} size={20} color={Colors.black} />
+        <Icon name={'chevron-forward-outline'} size={20} color={Colors.black} />
       </TouchableOpacity>
     );
   };

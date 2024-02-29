@@ -1,9 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 import { REWARD_HISTORY_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome6';
 import Colors from 'themes/Colors';
 
 const RewardHeaderComponent = () => {
@@ -38,7 +42,7 @@ const RewardHeaderComponent = () => {
             paddingVertical: 8,
             borderRadius: 12,
           }}>
-          <Icon name={'clock-o'} color={Colors.darkBlue} />
+          <Icon name={'clock-rotate-left'} color={Colors.darkBlue} />
         </TouchableOpacity>
       </View>
     </View>

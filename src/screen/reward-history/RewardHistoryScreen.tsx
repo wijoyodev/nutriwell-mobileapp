@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, StatusBar, View } from 'react-native';
+import { FlatList, ListRenderItemInfo, StatusBar, Text, View } from 'react-native';
 import RewardSummaryComponent from './components/RewardSummaryComponent';
 import Colors from 'themes/Colors';
 import RewardHistoryItem from './components/RewardHistoryItem';
@@ -94,12 +94,30 @@ const RewardHistoryScreen = () => {
     return <RewardHistoryItem history={info.item} index={info.index} />;
   };
 
+  const tabBarLabel = (focused: boolean, name: string) => {
+    return (
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            fontSize: 14,
+            // fontWeight: focused ? 'bold' : 'normal',
+            color: focused ? Colors.blue : Colors.disabled,
+          }}>
+          {name}
+        </Text>
+      </View>
+    );
+  };
+
   const groupHistory = utils.groupBy(historyList, history => history.isIncome);
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <RewardSummaryComponent />
       <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarLabel: ({ focused }) => tabBarLabel(focused, route.name),
+        })}
         sceneContainerStyle={{ backgroundColor: Colors.white }}
         style={{ flex: 1 }}>
         {tabList.map(tab => (

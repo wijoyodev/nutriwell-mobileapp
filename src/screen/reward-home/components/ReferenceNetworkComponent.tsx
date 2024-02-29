@@ -9,7 +9,8 @@ import {
   View,
 } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   NavigationProp,
   ParamListBase,
@@ -83,20 +84,20 @@ const ReferenceNetworkComponent = () => {
             <View style={{ flexDirection: 'row', gap: 16 }}>
               <View
                 style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <Icon name={'star'} />
+                <MaterialIcon name={'star-circle-outline'} />
                 <Text>Level {info.item.level}</Text>
               </View>
 
               <View
                 style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <Icon name={'user'} />
+                <Icon name={'people-outline'} />
                 <Text>{info.item.network} network</Text>
               </View>
             </View>
           </View>
         </View>
 
-        <Icon name={'angle-right'} color={Colors.black} />
+        <Icon name={'chevron-forward-outline'} size={16} color={Colors.black} />
       </TouchableOpacity>
     );
   };

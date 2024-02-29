@@ -2,7 +2,7 @@
 import React from 'react';
 import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 type NetworkType = {
   level: number;
@@ -51,7 +51,7 @@ const ReferenceNetworkComponent = () => {
                 alignItems: 'center',
                 marginTop: 6,
               }}>
-              <Icon name={'user'} />
+              <Icon name={'people-outline'} />
               <Text
                 style={{ fontSize: 12, color: Colors.black, marginLeft: 6 }}>
                 {info.item.totalNetwork} network
@@ -67,7 +67,7 @@ const ReferenceNetworkComponent = () => {
                 alignItems: 'center',
                 marginTop: 6,
               }}>
-              <Icon name={'user'} />
+              <Icon name={'person-outline'} />
               <Text
                 style={{ fontSize: 12, color: Colors.black, marginLeft: 6 }}>
                 {info.item.totalActive} network

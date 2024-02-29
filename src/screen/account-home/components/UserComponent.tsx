@@ -8,7 +8,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const UserComponent = () => {
   const { width } = useWindowDimensions();
@@ -62,7 +62,7 @@ const UserComponent = () => {
           justifyContent: 'center',
           gap: 8,
         }}>
-        <Icon name={'envelope'} color={Colors.black} />
+        <Icon name={'mail-outline'} color={Colors.black} />
         <Text style={{ color: Colors.black, fontSize: 14 }}>
           johndoe@gmail.com
         </Text>

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from 'themes/Colors';
 
 export type ProfileMenuItemProps = {
@@ -33,7 +33,7 @@ const ProfileMenuItemComponent: React.FC<ProfileMenuItemProps> = ({
         <Icon name={iconName} color={Colors.black} />
         <Text style={{ color: Colors.black, fontSize: 14 }}>{label}</Text>
       </View>
-      <Icon name={'angle-right'} color={Colors.black} size={10} />
+      <Icon name={'chevron-forward-outline'} color={Colors.black} size={16} />
     </TouchableOpacity>
   );
 };

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const ProfileInfoComponent = () => {
   return (
@@ -22,7 +22,7 @@ const ProfileInfoComponent = () => {
             John Doe
           </Text>
           <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-            <Icon name={'envelope'} color={Colors.black} />
+            <Icon name={'mail-outline'} color={Colors.black} />
             <Text style={{ fontSize: 14, color: Colors.black }}>
               johndoe@gmail.com
             </Text>

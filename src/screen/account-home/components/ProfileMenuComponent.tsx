@@ -28,17 +28,17 @@ const ProfileMenuComponent = () => {
       name: 'AKUN SAYA',
       list: [
         {
-          iconName: 'user',
+          iconName: 'person-outline',
           label: 'Profil Saya',
           onPress: () => navigate(PROFILE_SCREEN),
         },
         {
-          iconName: 'user',
+          iconName: 'bag-outline',
           label: 'Histori Pesanan',
           onPress: () => navigate(ORDER_HISTORY_SCREEN),
         },
         {
-          iconName: 'user',
+          iconName: 'people-outline',
           label: 'Informasi Upline',
           onPress: () => navigate(UPLINE_INFORMATION_SCREEN),
         },
@@ -48,17 +48,17 @@ const ProfileMenuComponent = () => {
       name: 'GENERAL',
       list: [
         {
-          iconName: 'user',
+          iconName: 'lock-closed-outline',
           label: 'Ubah PIN',
           onPress: () => navigate(UPDATE_PIN_SCREEN),
         },
         {
-          iconName: 'user',
+          iconName: 'reader-outline',
           label: 'Syarat & Ketentuan',
           onPress: () => navigate(TERMS_AND_CONDITION_SCREEN),
         },
         {
-          iconName: 'user',
+          iconName: 'log-out-outline',
           label: 'Keluar',
           onPress: () => modalRef.current?.openModal(),
         },

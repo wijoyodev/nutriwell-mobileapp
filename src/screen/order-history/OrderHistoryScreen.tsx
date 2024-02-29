@@ -117,9 +117,31 @@ const OrderHistoryScreen = () => {
 
   const groupHistory = utils.groupBy(historyList, history => history.status);
 
+  const tabBarLabel = (focused: boolean, name: string) => {
+    return (
+      <View>
+        <Text
+          style={{
+            fontSize: 14,
+            // fontWeight: focused ? 'bold' : 'normal',
+            color: focused ? Colors.blue : Colors.disabled,
+          }}>
+          {name}
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarStyle: {
+            padding: 0,
+          },
+          swipeEnabled: true,
+          tabBarLabel: ({ focused }) => tabBarLabel(focused, route.name),
+        })}
         sceneContainerStyle={{ backgroundColor: Colors.white }}
         style={{ flex: 1 }}>
         {tabList.map(tab => (

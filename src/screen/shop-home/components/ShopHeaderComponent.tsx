@@ -7,7 +7,8 @@ import {
 import { CART_SCREEN, ORDER_HISTORY_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome6';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import Colors from 'themes/Colors';
 
 const ShopHeaderComponent = () => {
@@ -44,7 +45,7 @@ const ShopHeaderComponent = () => {
             borderRadius: 12,
             marginRight: 6,
           }}>
-          <Icon name={'clock-o'} color={Colors.darkBlue} />
+          <Icon name={'clock-rotate-left'} color={Colors.darkBlue} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -55,7 +56,7 @@ const ShopHeaderComponent = () => {
             paddingVertical: 8,
             borderRadius: 12,
           }}>
-          <Icon name={'shopping-cart'} color={Colors.darkBlue} />
+          <FeatherIcon name={'shopping-cart'} color={Colors.darkBlue} />
         </TouchableOpacity>
       </View>
     </View>

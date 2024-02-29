@@ -2,7 +2,7 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
 
 export type NetworkInfoProps = {
@@ -41,14 +41,14 @@ const NetworkInfoComponent: React.FC<NetworkInfoProps> = ({
           <View style={{ flexDirection: 'row', gap: 16 }}>
             <View
               style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Icon name={'star'} />
-              <Text>Level {network.level}</Text>
+              <Icon name={'people-outline'} />
+              <Text>{network.network} network</Text>
             </View>
 
             <View
               style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Icon name={'user'} />
-              <Text>{network.network} network</Text>
+              <Icon name={'person-outline'} />
+              <Text>Gill Lucy</Text>
             </View>
           </View>
         </View>

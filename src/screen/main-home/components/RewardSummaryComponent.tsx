@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {
   NavigationProp,
   ParamListBase,
@@ -48,7 +49,7 @@ const RewardSummaryComponent = () => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <Icon name={'dollar'} size={10} />
+              <MaterialIcon name={'paid'} size={10} />
               <Text
                 style={{
                   color: Colors.black,
@@ -59,7 +60,7 @@ const RewardSummaryComponent = () => {
               </Text>
             </View>
 
-            <Icon name={'angle-right'} color={Colors.black} />
+            <Icon name={'chevron-forward-outline'} color={Colors.black} />
           </View>
 
           <Text
@@ -88,7 +89,7 @@ const RewardSummaryComponent = () => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <Icon name={'dollar'} size={10} />
+              <MaterialIcon name={'attach-money'} size={10} />
               <Text
                 style={{
                   color: Colors.black,
@@ -99,7 +100,7 @@ const RewardSummaryComponent = () => {
               </Text>
             </View>
 
-            <Icon name={'angle-right'} color={Colors.black} />
+            <Icon name={'chevron-forward-outline'} color={Colors.black} />
           </View>
 
           <Text

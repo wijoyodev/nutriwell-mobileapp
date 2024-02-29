@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Colors from 'themes/Colors';
 
 const LearnBusinessComponent = () => {
@@ -13,13 +14,13 @@ const LearnBusinessComponent = () => {
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingVertical: 16,
-        paddingHorizontal: 20,
+        paddingHorizontal: 16,
         borderRadius: 16,
         marginTop: 16,
         marginHorizontal: 16,
       }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name={'dollar'} color={Colors.white} size={20} />
+        <MaterialIcon name={'paid'} color={Colors.white} size={20} />
         <Text
           style={{
             color: Colors.white,
@@ -31,7 +32,7 @@ const LearnBusinessComponent = () => {
         </Text>
       </View>
 
-      <Icon name={'angle-right'} size={20} color={Colors.white} />
+      <Icon name={'chevron-forward-outline'} size={20} color={Colors.white} />
     </View>
   );
 };

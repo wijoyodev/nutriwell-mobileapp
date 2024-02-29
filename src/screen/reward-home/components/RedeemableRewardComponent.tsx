@@ -10,6 +10,8 @@ import { WITHDRAW_SCREEN } from 'navigation/constants';
 import React, { useRef, useState } from 'react';
 import { Text, View, useWindowDimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import Ionicon from 'react-native-vector-icons/Ionicons';
 import Colors from 'themes/Colors';
 
 const RedeemableRewardComponent = () => {
@@ -49,8 +51,9 @@ const RedeemableRewardComponent = () => {
               <Text style={{ fontSize: 12, marginHorizontal: 6 }}>
                 Reward yang bisa dicairkan
               </Text>
-              <Icon
+              <FeatherIcon
                 onPress={() => modalRef.current?.openModal()}
+                color={Colors.blue}
                 name={'info'}
               />
             </View>
@@ -89,7 +92,7 @@ const RedeemableRewardComponent = () => {
           </View>
           <View style={{ flex: 2 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Icon name={'user'} />
+              <Ionicon name={'people-outline'} />
               <Text style={{ fontSize: 12, marginLeft: 6 }}>
                 Reference Network
               </Text>

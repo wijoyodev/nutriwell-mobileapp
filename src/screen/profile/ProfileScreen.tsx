@@ -4,7 +4,7 @@ import { StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
 import ProfileInfoComponent from './components/ProfileInfoComponent';
 import BankAccountComponent from './components/BankAccountComponent';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Octicons';
 import {
   NavigationProp,
   ParamListBase,

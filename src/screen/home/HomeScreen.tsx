@@ -9,7 +9,8 @@ import { StatusBar, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MainHomeScreen from 'screen/main-home/MainHomeScreen';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
+import FontIcon from 'react-native-vector-icons/FontAwesome';
 import RewardHomeScreen from 'screen/reward-home/RewardHomeScreen';
 import ShopHomeScreen from 'screen/shop-home/ShopHomeScreen';
 import AccountHomeScreen from 'screen/account-home/AccountHomeScreen';
@@ -29,6 +30,16 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
   const renderIcon = (name: String, { focused }) => {
     return (
       <Icon
+        name={name}
+        color={focused ? Colors.blue : Colors.disabled}
+        size={18}
+      />
+    );
+  };
+
+  const renderFontIcon = (name: String, { focused }) => {
+    return (
+      <FontIcon
         name={name}
         color={focused ? Colors.blue : Colors.disabled}
         size={18}
@@ -63,7 +74,8 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
           options={{
             headerShown: false,
             title: 'Home',
-            tabBarIcon: ({ focused }) => renderIcon('home', { focused }),
+            tabBarIcon: ({ focused }) =>
+              renderIcon('home-outline', { focused }),
           }}
         />
 
@@ -73,7 +85,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
           options={{
             headerShown: false,
             title: 'Belanja',
-            tabBarIcon: ({ focused }) => renderIcon('dollar', { focused }),
+            tabBarIcon: ({ focused }) => renderIcon('bag-outline', { focused }),
           }}
         />
 
@@ -83,7 +95,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
           options={{
             headerShown: false,
             title: 'Reward',
-            tabBarIcon: ({ focused }) => renderIcon('dollar', { focused }),
+            tabBarIcon: ({ focused }) => renderFontIcon('dollar', { focused }),
           }}
         />
 
@@ -93,7 +105,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
           options={{
             headerShown: false,
             title: 'Akun Saya',
-            tabBarIcon: ({ focused }) => renderIcon('user', { focused }),
+            tabBarIcon: ({ focused }) => renderIcon('person-outline', { focused }),
           }}
         />
       </Tab.Navigator>

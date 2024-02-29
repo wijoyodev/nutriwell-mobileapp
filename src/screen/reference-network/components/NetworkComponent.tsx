@@ -3,7 +3,8 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   NavigationProp,
   ParamListBase,
@@ -57,20 +58,20 @@ const NetworkComponent: React.FC<NetworkComponentProps> = ({
           <View style={{ flexDirection: 'row', gap: 16 }}>
             <View
               style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Icon name={'star'} />
+              <MaterialIcon name={'star-circle-outline'} />
               <Text>Level {network.level}</Text>
             </View>
 
             <View
               style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Icon name={'user'} />
+              <Icon name={'people-outline'} />
               <Text>{network.network} network</Text>
             </View>
           </View>
         </View>
       </View>
 
-      <Icon name={'angle-right'} color={Colors.black} />
+      <Icon name={'chevron-forward-outline'} size={16} color={Colors.black} />
     </TouchableOpacity>
   );
 };
