@@ -12,6 +12,7 @@ import Colors from 'themes/Colors';
 import CustomPin from 'components/CustomPin';
 import CustomButton from 'components/CustomButton';
 import CustomModal, { CustomModalHandle } from 'components/CustomModal';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const UpdatePinSreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -113,6 +114,14 @@ const UpdatePinSreen = () => {
             padding: 24,
             borderRadius: 16,
           }}>
+          <View
+            style={{
+              marginBottom: 24,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Icon name={'checkcircle'} size={70} color={Colors.orangeIcon} />
+          </View>
           <Text
             style={{
               fontSize: 16,

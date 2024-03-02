@@ -1,10 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import { RESET_PIN_SCREEN } from 'navigation/constants';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export type ModalCheckEmailHandle = {
   openModal: () => void;
@@ -49,6 +54,16 @@ const ModalCheckEmail = forwardRef<ModalCheckEmailHandle, ModalCheckEmailProps>(
               borderRadius: 12,
               padding: 24,
             }}>
+            <View style={{ alignItems: 'center', marginBottom: 24 }}>
+              <View
+                style={{
+                  backgroundColor: Colors.orangeIcon,
+                  padding: 12,
+                  borderRadius: 32,
+                }}>
+                <Icon name={'mail-outline'} color={Colors.white} size={32} />
+              </View>
+            </View>
             <Text
               style={{
                 fontSize: 16,

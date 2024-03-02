@@ -12,6 +12,7 @@ import { Text, View, useWindowDimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Colors from 'themes/Colors';
 
 const RedeemableRewardComponent = () => {
@@ -115,6 +116,10 @@ const RedeemableRewardComponent = () => {
               padding: 24,
               borderRadius: 16,
             }}>
+            <View style={{ marginBottom: 24, alignItems: 'center' }}>
+              <MaterialIcon name={'info'} color={Colors.orangeIcon} size={70} />
+            </View>
+
             <Text
               style={{
                 fontSize: 14,

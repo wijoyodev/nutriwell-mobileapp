@@ -2,11 +2,23 @@
 import React, { useRef } from 'react';
 import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
 import ProfileMenuItemComponent from './ProfileMenuItemComponent';
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
-import { LOGIN_SCREEN, ORDER_HISTORY_SCREEN, PROFILE_SCREEN, TERMS_AND_CONDITION_SCREEN, UPDATE_PIN_SCREEN, UPLINE_INFORMATION_SCREEN } from 'navigation/constants';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import {
+  LOGIN_SCREEN,
+  ORDER_HISTORY_SCREEN,
+  PROFILE_SCREEN,
+  TERMS_AND_CONDITION_SCREEN,
+  UPDATE_PIN_SCREEN,
+  UPLINE_INFORMATION_SCREEN,
+} from 'navigation/constants';
 import CustomButton from 'components/CustomButton';
 import Colors from 'themes/Colors';
 import CustomModal, { CustomModalHandle } from 'components/CustomModal';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 
 export type Menu = {
   name: string;
@@ -96,6 +108,21 @@ const ProfileMenuComponent = () => {
             padding: 24,
             borderRadius: 16,
           }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 24,
+            }}>
+            <View
+              style={{
+                backgroundColor: Colors.orangeIcon,
+                padding: 12,
+                borderRadius: 74,
+              }}>
+              <FeatherIcon name={'log-out'} color={Colors.white} size={24} />
+            </View>
+          </View>
           <Text
             style={{
               fontSize: 16,

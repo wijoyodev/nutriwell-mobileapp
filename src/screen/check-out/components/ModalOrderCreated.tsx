@@ -9,6 +9,7 @@ import { HOME_SCREEN } from 'navigation/constants';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import Icon from 'react-native-vector-icons/AntDesign'
 
 export type ModalOrderCreatedHandle = {
   openModal: () => void;
@@ -47,6 +48,14 @@ const ModalOrderCreated = forwardRef<ModalOrderCreatedHandle, {}>((_, ref) => {
             padding: 24,
             borderRadius: 16,
           }}>
+          <View
+            style={{
+              marginBottom: 24,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Icon name={'checkcircle'} size={70} color={Colors.orangeIcon} />
+          </View>
           <Text
             style={{
               color: Colors.black,
