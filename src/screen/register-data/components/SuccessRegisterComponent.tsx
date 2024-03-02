@@ -9,6 +9,7 @@ import { HOME_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const SuccessRegisterComponent = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
@@ -21,6 +22,22 @@ const SuccessRegisterComponent = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
+        <View
+          style={{
+            backgroundColor: Colors.blue,
+            padding: 20,
+            borderRadius: 70,
+            marginBottom: 24,
+          }}>
+          <View
+            style={{
+              backgroundColor: Colors.white,
+              padding: 12,
+              borderRadius: 50,
+            }}>
+            <Icon name={'check'} size={24} color={Colors.darkBlue} />
+          </View>
+        </View>
         <Text
           style={{
             fontSize: 16,

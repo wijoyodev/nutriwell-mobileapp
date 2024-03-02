@@ -6,7 +6,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { FlatList, ListRenderItemInfo, View } from 'react-native';
+import { FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
 import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
 import NetworkInfoComponent from './components/NetworkInfoComponent';
 import Colors from 'themes/Colors';
@@ -50,11 +50,28 @@ const NetworkLevelScreen: React.FC<NetworkLevelProps> = ({ route }) => {
   return (
     <View
       style={{ flex: 1, backgroundColor: Colors.white, paddingHorizontal: 16 }}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={networkList}
-        renderItem={renderItem}
-      />
+      {networkList.length > 0 ? (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={networkList}
+          renderItem={renderItem}
+        />
+      ) : (
+        <View
+          style={{
+            flex: 0.75,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Image
+            source={require('../../assets/images/empty-box.png')}
+            style={{ height: 100, width: 100, marginBottom: 24 }}
+          />
+          <Text style={{ fontSize: 14, textAlign: 'center' }}>
+            Belum memiliki reference network. Yuk, ajak temanmu!
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

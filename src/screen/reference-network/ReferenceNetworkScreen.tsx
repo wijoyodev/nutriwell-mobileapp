@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, StatusBar, Text, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  ListRenderItemInfo,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
 import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
 import Colors from 'themes/Colors';
 import NetworkComponent from './components/NetworkComponent';
@@ -37,7 +44,24 @@ const ReferenceNetworkScreen = () => {
   return (
     <View
       style={{ flex: 1, backgroundColor: Colors.white, paddingHorizontal: 16 }}>
-      <FlatList data={networkList} renderItem={renderItem} />
+      {networkList.length > 0 ? (
+        <FlatList data={networkList} renderItem={renderItem} />
+      ) : (
+        <View
+          style={{
+            flex: 0.75,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Image
+            source={require('../../assets/images/empty-box.png')}
+            style={{ height: 100, width: 100, marginBottom: 24 }}
+          />
+          <Text style={{ fontSize: 14, textAlign: 'center' }}>
+            Belum memiliki reference network. Yuk, ajak temanmu!
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

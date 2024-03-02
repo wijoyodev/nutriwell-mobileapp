@@ -28,21 +28,21 @@ export type NetworkType = {
 };
 
 const networkList: NetworkType[] = [
-  {
-    name: 'Gill Lucy',
-    level: 1,
-    network: 500,
-  },
-  {
-    name: 'Gill Lucy B',
-    level: 1,
-    network: 500,
-  },
-  {
-    name: 'Gill Lucy C',
-    level: 1,
-    network: 500,
-  },
+  // {
+  //   name: 'Gill Lucy',
+  //   level: 1,
+  //   network: 500,
+  // },
+  // {
+  //   name: 'Gill Lucy B',
+  //   level: 1,
+  //   network: 500,
+  // },
+  // {
+  //   name: 'Gill Lucy C',
+  //   level: 1,
+  //   network: 500,
+  // },
 ];
 
 const ReferenceNetworkComponent = () => {
@@ -125,7 +125,24 @@ const ReferenceNetworkComponent = () => {
         </Text>
       </View>
 
-      <FlatList data={networkList} renderItem={renderItem} />
+      {networkList.length > 0 ? (
+        <FlatList data={networkList} renderItem={renderItem} />
+      ) : (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: 24,
+          }}>
+          <Image
+            source={require('../../../assets/images/empty-box.png')}
+            style={{ height: 100, width: 100, marginBottom: 24 }}
+          />
+          <Text style={{ fontSize: 14, textAlign: 'center' }}>
+            Belum memiliki reference network. Yuk, ajak temanmu!
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

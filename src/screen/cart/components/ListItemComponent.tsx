@@ -10,60 +10,13 @@ import {
 } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { CartItem } from '../CartScreen';
 
-export type CartItem = {
-  name: string;
-  price: number;
-  quantity: number;
-  imageUrl: string;
+export type ListItemComponentProps = {
+  items?: CartItem[];
 };
 
-const cartItems: CartItem[] = [
-  {
-    name: 'GARAM Kurang Natrium 200 gram',
-    price: 1560000,
-    quantity: 10,
-    imageUrl: '',
-  },
-  {
-    name: 'GARAM Kurang Natrium 200 gram',
-    price: 1560000,
-    quantity: 10,
-    imageUrl: '',
-  },
-  {
-    name: 'GARAM Kurang Natrium 200 gram',
-    price: 1560000,
-    quantity: 10,
-    imageUrl: '',
-  },
-  {
-    name: 'GARAM Kurang Natrium 200 gram',
-    price: 1560000,
-    quantity: 10,
-    imageUrl: '',
-  },
-  {
-    name: 'GARAM Kurang Natrium 200 gram',
-    price: 1560000,
-    quantity: 10,
-    imageUrl: '',
-  },
-  {
-    name: 'GARAM Kurang Natrium 200 gram',
-    price: 1560000,
-    quantity: 10,
-    imageUrl: '',
-  },
-  {
-    name: 'GARAM Kurang Natrium 200 gram',
-    price: 1560000,
-    quantity: 10,
-    imageUrl: '',
-  },
-];
-
-const ListItemComponent = () => {
+const ListItemComponent: React.FC<ListItemComponentProps> = ({ items }) => {
   const renderItem = (info: ListRenderItemInfo<CartItem>) => {
     return (
       <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
@@ -135,7 +88,7 @@ const ListItemComponent = () => {
   return (
     <View style={{ flex: 1, paddingHorizontal: 16 }}>
       <FlatList
-        data={cartItems}
+        data={items}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{ marginBottom: 16 }} />}

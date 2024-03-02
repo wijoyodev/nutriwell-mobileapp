@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, StatusBar, Text, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  ListRenderItemInfo,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
 import RewardSummaryComponent from './components/RewardSummaryComponent';
 import Colors from 'themes/Colors';
 import RewardHistoryItem from './components/RewardHistoryItem';
@@ -58,12 +65,12 @@ const historyList: History[] = [
     reward: 15000,
     isIncome: true,
   },
-  {
-    date: new Date(),
-    description: 'Pembelian Produk dari Brenda (Level 3)',
-    reward: 15000,
-    isIncome: false,
-  },
+  // {
+  //   date: new Date(),
+  //   description: 'Pembelian Produk dari Brenda (Level 3)',
+  //   reward: 15000,
+  //   isIncome: false,
+  // },
 ];
 
 const Tab = createMaterialTopTabNavigator();
@@ -111,6 +118,37 @@ const RewardHistoryScreen = () => {
 
   const groupHistory = utils.groupBy(historyList, history => history.isIncome);
 
+  const renderHistoryList = (isIncome: boolean) => {
+    const histories = groupHistory.get(isIncome) ?? [];
+    if (histories.length === 0) {
+      return (
+        <View
+          style={{
+            flex: 0.75,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Image
+            source={require('../../assets/images/empty-box.png')}
+            style={{ height: 100, width: 100, marginBottom: 24 }}
+          />
+          <Text style={{ fontSize: 14, textAlign: 'center' }}>
+            Belum ada data
+          </Text>
+        </View>
+      );
+    }
+
+    return (
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={histories}
+        renderItem={renderItem}
+        ListFooterComponent={<View style={{ marginBottom: 16 }} />}
+      />
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <RewardSummaryComponent />
@@ -123,13 +161,7 @@ const RewardHistoryScreen = () => {
         {tabList.map(tab => (
           <Tab.Screen
             name={tab.title}
-            children={() => (
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                data={groupHistory.get(tab.isIncome) ?? []}
-                renderItem={renderItem}
-              />
-            )}
+            children={() => renderHistoryList(tab.isIncome)}
           />
         ))}
       </Tab.Navigator>

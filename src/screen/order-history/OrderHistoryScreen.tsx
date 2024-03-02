@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   FlatList,
+  Image,
   ListRenderItemInfo,
   StatusBar,
   Text,
@@ -132,6 +133,37 @@ const OrderHistoryScreen = () => {
     );
   };
 
+  const renderHistoryList = (status: number) => {
+    const histories = groupHistory.get(status) ?? [];
+    if (histories.length === 0) {
+      return (
+        <View
+          style={{
+            flex: 0.75,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Image
+            source={require('../../assets/images/empty-box.png')}
+            style={{ height: 100, width: 100, marginBottom: 24 }}
+          />
+          <Text style={{ fontSize: 14, textAlign: 'center' }}>
+            Belum ada pesanan, nih. Yuk, mulai belanja!
+          </Text>
+        </View>
+      );
+    }
+
+    return (
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={histories}
+        renderItem={renderItem}
+        ListFooterComponent={<View style={{ marginBottom: 16 }} />}
+      />
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <Tab.Navigator
@@ -147,14 +179,7 @@ const OrderHistoryScreen = () => {
         {tabList.map(tab => (
           <Tab.Screen
             name={tab.title}
-            children={() => (
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                data={groupHistory.get(tab.status) ?? []}
-                renderItem={renderItem}
-                ListFooterComponent={<View style={{ marginBottom: 16 }} />}
-              />
-            )}
+            children={() => renderHistoryList(tab.status)}
           />
         ))}
       </Tab.Navigator>
