@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
+import { FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -103,11 +103,30 @@ const ReferenceNetworkComponent = () => {
         </Text>
       </View>
 
-      <FlatList data={network} renderItem={renderItem} />
+      {network.length > 0 ? (
+        <>
+          <FlatList data={network} renderItem={renderItem} />
 
-      <Text style={{ fontStyle: 'italic', marginTop: 12 }}>
-        *Sudah bertransaksi = dalam bulan ini
-      </Text>
+          <Text style={{ fontStyle: 'italic', marginTop: 12 }}>
+            *Sudah bertransaksi = dalam bulan ini
+          </Text>
+        </>
+      ) : (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: 24,
+          }}>
+          <Image
+            source={require('../../../assets/images/empty-box.png')}
+            style={{ height: 100, width: 100, marginBottom: 24 }}
+          />
+          <Text style={{ fontSize: 14, textAlign: 'center' }}>
+            Belum memiliki reference network. Yuk, ajak temanmu!
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
