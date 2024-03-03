@@ -10,6 +10,7 @@ import { ProfileForm } from 'screen/register-data/components/InputProfileCompone
 import { registerDataSchema } from 'screen/register-data/schema/registerDataSchema';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CustomPhoneInput from 'components/CustomPhoneInput';
 
 const genderList = [
   {
@@ -105,6 +106,11 @@ const EditProfileComponent = () => {
           />
         )}
       />
+
+      <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
+        Nomor Telepon
+      </Text>
+      <CustomPhoneInput placeholder={'cth: 812 9999 0000'} />
 
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
         Tanggal Lahir

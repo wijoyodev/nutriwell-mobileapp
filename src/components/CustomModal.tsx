@@ -8,11 +8,13 @@ export type CustomModalHandle = {
 };
 
 export type CustomModalProps = {
+  isPicker?: boolean;
+  animationType?: 'none' | 'fade' | 'slide';
   children: React.ReactNode;
 };
 
 const CustomModal = forwardRef<CustomModalHandle, CustomModalProps>(
-  ({ children }, ref) => {
+  ({ children, isPicker, animationType }, ref) => {
     useImperativeHandle(ref, () => ({
       openModal() {
         setVisible(true);
@@ -27,15 +29,25 @@ const CustomModal = forwardRef<CustomModalHandle, CustomModalProps>(
       setVisible(false);
     };
     return (
-      <Modal visible={visible} onRequestClose={closeModal} transparent={true}>
+      <Modal
+        animationType={animationType ?? 'fade'}
+        visible={visible}
+        onRequestClose={closeModal}
+        transparent={true}>
         <Pressable
           onPress={closeModal}
           style={{
             flex: 1,
             backgroundColor: 'rgba(0,0,0,0.7)',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingHorizontal: 24,
+            ...(!isPicker
+              ? {
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingHorizontal: 24,
+                }
+              : {
+                  justifyContent: 'flex-end',
+                }),
           }}>
           {children}
         </Pressable>

@@ -10,6 +10,7 @@ import CustomDatePicker from 'components/CustomDatePicker';
 import CustomRadioButton from 'components/CustomRadioButton';
 import CustomButton from 'components/CustomButton';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CustomPhoneInput from 'components/CustomPhoneInput';
 
 const genderList = [
   {
@@ -137,6 +138,11 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
             />
           )}
         />
+
+        <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
+          Nomor Telepon
+        </Text>
+        <CustomPhoneInput placeholder={'cth: 812 9999 0000'} />
 
         <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
           Tanggal Lahir

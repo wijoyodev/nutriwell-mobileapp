@@ -5,6 +5,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
+import CustomPhoneInput from 'components/CustomPhoneInput';
 import CustomTextInput from 'components/CustomTextInput';
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
@@ -32,7 +33,7 @@ const ShippingAddressScreen = () => {
           <Text style={{ fontSize: 14, color: Colors.black, marginBottom: 6 }}>
             Nomor Telepon Penerima
           </Text>
-          <CustomTextInput placeholder={'Masukkan nama penerima'} />
+          <CustomPhoneInput placeholder={'cth: 812 9999 0000'} />
         </View>
 
         <View style={{ marginBottom: 16 }}>
