@@ -30,57 +30,61 @@ const CustomTextInput: React.FC<CustomTextInputProps> = props => {
     ? Colors.red
     : Colors.black;
   return (
-    <View
-      style={{
-        ...props.containerStyle,
-        borderRadius: 12,
-        borderWidth: 1,
-        borderColor: props.disabled ? Colors.disabled : Colors.grey,
-        paddingHorizontal: 12,
-        backgroundColor: props.disabled ? Colors.disabledBg : Colors.white,
-      }}>
-      <TextInput
-        returnKeyLabel="Done"
-        returnKeyType="done"
-        keyboardType={'default'}
-        {...props}
-        placeholder={props.placeholder}
-        value={props.value}
-        editable={!props.disabled}
-        secureTextEntry={props.isPassword && !showPassword}
+    <>
+      <View
         style={{
-          ...props.style,
-          // ...styles.textInput,
-          minHeight: 32,
-          fontSize: 14,
-          color: textColor,
-        }}
-        onChangeText={props.onChangeText}
-        placeholderTextColor={Colors.placeholder}
-        autoFocus={false}
-        autoCorrect={false}
-        blurOnSubmit={false}
-      />
-      {props.isPassword && (
-        <TouchableOpacity
+          ...props.containerStyle,
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: props.disabled ? Colors.disabled : Colors.grey,
+          paddingHorizontal: 12,
+          backgroundColor: props.disabled ? Colors.disabledBg : Colors.white,
+        }}>
+        <TextInput
+          returnKeyLabel="Done"
+          returnKeyType="done"
+          keyboardType={'default'}
+          {...props}
+          placeholder={props.placeholder}
+          value={props.value}
+          editable={!props.disabled}
+          secureTextEntry={props.isPassword && !showPassword}
           style={{
-            marginTop: -25,
-            alignSelf: 'flex-end',
+            ...props.style,
+            // ...styles.textInput,
+            minHeight: 32,
+            fontSize: 14,
+            color: textColor,
           }}
-          onPress={() => togglePassword(!showPassword)}>
-          {/* {showPassword ? <EyeOpen /> : <EyeClosed />} */}
-        </TouchableOpacity>
-      )}
+          onChangeText={props.onChangeText}
+          placeholderTextColor={Colors.placeholder}
+          autoFocus={false}
+          autoCorrect={false}
+          blurOnSubmit={false}
+        />
+        {props.isPassword && (
+          <TouchableOpacity
+            style={{
+              marginTop: -25,
+              alignSelf: 'flex-end',
+            }}
+            onPress={() => togglePassword(!showPassword)}>
+            {/* {showPassword ? <EyeOpen /> : <EyeClosed />} */}
+          </TouchableOpacity>
+        )}
+      </View>
       {props.error && (
         <Text
           style={{
             color: Colors.red,
             marginBottom: 4,
+            marginTop: 4,
+            fontSize: 12,
           }}>
           {props.error}
         </Text>
       )}
-    </View>
+    </>
   );
 };
 

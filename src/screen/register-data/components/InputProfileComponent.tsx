@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Image, ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -38,6 +38,8 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
   email,
   onComplete,
 }) => {
+  const [code, setCode] = useState('+62');
+
   const formInitialValues: ProfileForm = {
     name: '',
     email,
@@ -142,7 +144,11 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
         <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
           Nomor Telepon
         </Text>
-        <CustomPhoneInput placeholder={'cth: 812 9999 0000'} />
+        <CustomPhoneInput
+          code={code}
+          onChangeCode={setCode}
+          placeholder={'cth: 812 9999 0000'}
+        />
 
         <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
           Tanggal Lahir

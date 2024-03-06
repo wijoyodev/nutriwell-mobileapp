@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-import CustomButton from 'components/CustomButton';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';

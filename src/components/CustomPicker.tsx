@@ -16,15 +16,15 @@ import CustomModal, { CustomModalHandle } from './CustomModal';
 export type CustomPickerProps = {
   style?: TextStyle;
   containerStyle?: ViewStyle;
-  onChangeText?: (text: string) => void;
   error?: string;
-  value?: string;
+  value?: any;
   placeholder?: string;
   disabled?: boolean;
   title?: string;
   items?: any[];
   renderOption: (a: any) => any;
-  onSelect: (item: any) => void;
+  renderValue?: (a: any) => any;
+  onSelect?: (item: any) => void;
 };
 
 const CustomPicker: React.FC<CustomPickerProps> = props => {
@@ -43,29 +43,34 @@ const CustomPicker: React.FC<CustomPickerProps> = props => {
           borderRadius: 12,
           borderWidth: 1,
           borderColor: props.disabled ? Colors.disabled : Colors.grey,
-          paddingHorizontal: 12,
-          paddingVertical: 8,
+          paddingHorizontal: 16,
+          paddingVertical: 16,
           backgroundColor: props.disabled ? Colors.disabledBg : Colors.white,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
         {props.value ? (
-          <Text style={{ fontSize: 14, color: textColor }}>{props.value}</Text>
+          <Text style={{ fontSize: 14, color: textColor }}>
+            {props.renderValue ? props.renderValue?.(props.value) : props.value}
+          </Text>
         ) : (
-          <Text style={{ fontSize: 14 }}>{props.placeholder}</Text>
-        )}
-        {props.error && (
-          <Text
-            style={{
-              color: Colors.red,
-              marginBottom: 4,
-            }}>
-            {props.error}
+          <Text style={{ fontSize: 14, color: Colors.lightGrey }}>
+            {props.placeholder}
           </Text>
         )}
         <Icon name={'chevron-down'} color={Colors.black} />
       </TouchableOpacity>
+      {props.error && (
+        <Text
+          style={{
+            color: Colors.red,
+            marginTop: 4,
+            fontSize: 12,
+          }}>
+          {props.error}
+        </Text>
+      )}
       <CustomModal
         animationType="slide"
         isPicker={true}
@@ -84,7 +89,7 @@ const CustomPicker: React.FC<CustomPickerProps> = props => {
               fontWeight: 'bold',
               marginBottom: 8,
             }}>
-            {props.title}
+            {props.title ? props.title : props.placeholder}
           </Text>
 
           <FlatList
@@ -92,10 +97,21 @@ const CustomPicker: React.FC<CustomPickerProps> = props => {
             renderItem={(info: ListRenderItemInfo<any>) => (
               <TouchableOpacity
                 onPress={() => {
-                  props.onSelect(info.item);
+                  props.onSelect?.(info.item);
                   modalRef.current?.closeModal();
                 }}>
-                {props.renderOption(info.item)}
+                {props.renderOption ? (
+                  props.renderOption(info.item)
+                ) : (
+                  <Text
+                    style={{
+                      color: Colors.black,
+                      fontSize: 14,
+                      paddingVertical: 8,
+                    }}>
+                    {info.item}
+                  </Text>
+                )}
               </TouchableOpacity>
             )}
           />

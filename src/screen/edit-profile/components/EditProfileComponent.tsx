@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import CustomDatePicker from 'components/CustomDatePicker';
 import CustomRadioButton from 'components/CustomRadioButton';
 import CustomTextInput from 'components/CustomTextInput';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
@@ -24,6 +24,8 @@ const genderList = [
 ];
 
 const EditProfileComponent = () => {
+  const [code, setCode] = useState('+62');
+
   const formInitialValues: ProfileForm = {
     name: '',
     email: '',
@@ -110,7 +112,11 @@ const EditProfileComponent = () => {
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
         Nomor Telepon
       </Text>
-      <CustomPhoneInput placeholder={'cth: 812 9999 0000'} />
+      <CustomPhoneInput
+        code={code}
+        onChangeCode={setCode}
+        placeholder={'cth: 812 9999 0000'}
+      />
 
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
         Tanggal Lahir

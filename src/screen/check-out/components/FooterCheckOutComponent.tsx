@@ -6,9 +6,18 @@ import Colors from 'themes/Colors';
 import ModalOrderCreated, {
   ModalOrderCreatedHandle,
 } from './ModalOrderCreated';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
+import { CheckoutForm } from '../CheckOutScreen';
 
 const FooterCheckOutComponent = () => {
+  const { handleSubmit: handleFormSubmit } = useFormContext();
+
   const modalRef = useRef<ModalOrderCreatedHandle | null>();
+
+  const submit: SubmitHandler<CheckoutForm> = (data: CheckoutForm) => {
+    console.log(data);
+    modalRef.current?.openModal();
+  };
 
   return (
     <View
@@ -32,7 +41,7 @@ const FooterCheckOutComponent = () => {
       </View>
 
       <CustomButton
-        onPress={() => modalRef?.current?.openModal()}
+        onPress={handleFormSubmit(submit)}
         backgroundColor={Colors.blue}
         text={'BUAT PESANAN'}
       />
