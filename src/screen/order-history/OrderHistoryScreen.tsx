@@ -12,7 +12,7 @@ import HistoryComponent from './components/HistoryComponent';
 import Colors from 'themes/Colors';
 import { useFocusEffect } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import utils from 'service/utils';
+import Utils from 'service/Utils';
 
 export type History = {
   orderId: string;
@@ -116,7 +116,7 @@ const OrderHistoryScreen = () => {
     return <HistoryComponent history={info.item} />;
   };
 
-  const groupHistory = utils.groupBy(historyList, history => history.status);
+  const groupHistory = Utils.groupBy(historyList, history => history.status);
 
   const tabBarLabel = (focused: boolean, name: string) => {
     return (

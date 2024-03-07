@@ -9,9 +9,23 @@ import { CHECK_OUT_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import { CartItem } from '../CartScreen';
+import Utils from 'service/Utils';
 
-const FooterCartComponent = () => {
+export type FooterCartComponentProps = {
+  items: CartItem[];
+};
+
+const FooterCartComponent: React.FC<FooterCartComponentProps> = ({ items }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
+
+  const getTotalPrice = () => {
+    const totalItemPriceList = items.map(item => item.price * item.quantity);
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
 
   return (
     <View
@@ -26,7 +40,7 @@ const FooterCartComponent = () => {
       <View>
         <Text style={{ fontSize: 12 }}>TOTAL BELANJA</Text>
         <Text style={{ color: Colors.black, fontSize: 16, fontWeight: 'bold' }}>
-          Rp1.500.000
+          {Utils.getPriceString(getTotalPrice())}
         </Text>
       </View>
       <CustomButton

@@ -12,6 +12,13 @@ const groupBy = (list: any[], keyGetter: (x: any) => any) => {
   return map;
 };
 
-export default {
-  groupBy,
+const getPriceString = (price: number) => {
+  return `Rp${price.toLocaleString('id-ID')}`;
 };
+
+const Utils = {
+  groupBy,
+  getPriceString,
+}
+
+export default Utils;

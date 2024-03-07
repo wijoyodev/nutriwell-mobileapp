@@ -4,7 +4,7 @@ import CustomDatePicker from 'components/CustomDatePicker';
 import CustomRadioButton from 'components/CustomRadioButton';
 import CustomTextInput from 'components/CustomTextInput';
 import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useFormContext } from 'react-hook-form';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
 import { registerDataSchema } from 'screen/register-data/schema/registerDataSchema';
@@ -25,30 +25,11 @@ const genderList = [
 
 const EditProfileComponent = () => {
   const [code, setCode] = useState('+62');
-
-  const formInitialValues: ProfileForm = {
-    name: '',
-    email: '',
-    birthDate: new Date(),
-    gender: 'male',
-  };
-
-  const formMethods = useForm({
-    resolver: yupResolver(registerDataSchema),
-    defaultValues: formInitialValues,
-    reValidateMode: 'onChange',
-  });
-
   const {
     control,
-    handleSubmit: handleFormSubmit,
-    // formState: { errors },
-  } = formMethods;
+    formState: { errors },
+  } = useFormContext();
 
-  // const handleSave: SubmitHandler<ProfileForm> = (data: ProfileForm) => {
-  //   console.log(data);
-  //   onComplete?.();
-  // };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -90,6 +71,7 @@ const EditProfileComponent = () => {
             value={value}
             onChangeText={onChange}
             placeholder={'Masukkan nama lengkap'}
+            error={errors?.name?.message ?? ''}
           />
         )}
       />
@@ -112,10 +94,19 @@ const EditProfileComponent = () => {
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
         Nomor Telepon
       </Text>
-      <CustomPhoneInput
-        code={code}
-        onChangeCode={setCode}
-        placeholder={'cth: 812 9999 0000'}
+      <Controller
+        name={'phoneNumber'}
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <CustomPhoneInput
+            code={code}
+            onChangeCode={setCode}
+            onChangeText={onChange}
+            value={value}
+            placeholder={'cth: 812 9999 0000'}
+            error={errors?.phoneNumber?.message ?? ''}
+          />
+        )}
       />
 
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>

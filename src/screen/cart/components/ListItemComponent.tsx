@@ -11,12 +11,17 @@ import {
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CartItem } from '../CartScreen';
+import Utils from 'service/Utils';
 
 export type ListItemComponentProps = {
   items?: CartItem[];
+  updateItemQuantity?: (id: string, quantity: number) => void;
 };
 
-const ListItemComponent: React.FC<ListItemComponentProps> = ({ items }) => {
+const ListItemComponent: React.FC<ListItemComponentProps> = ({
+  items,
+  updateItemQuantity,
+}) => {
   const renderItem = (info: ListRenderItemInfo<CartItem>) => {
     return (
       <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
@@ -41,7 +46,7 @@ const ListItemComponent: React.FC<ListItemComponentProps> = ({ items }) => {
             </Text>
             <Text
               style={{ color: Colors.black, fontSize: 14, fontWeight: 'bold' }}>
-              {info.item.price}
+              {Utils.getPriceString(info.item.price)}
             </Text>
           </View>
 
@@ -52,23 +57,32 @@ const ListItemComponent: React.FC<ListItemComponentProps> = ({ items }) => {
               alignItems: 'center',
               gap: 12,
             }}>
-            <TouchableOpacity
-              style={{
-                borderColor: Colors.blue,
-                borderWidth: 1,
-                borderRadius: 14,
-                backgroundColor: Colors.white,
-                height: 28,
-                width: 28,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Icon name={'minus'} color={Colors.blue} />
-            </TouchableOpacity>
+            {info.item.quantity > 0 && (
+              <TouchableOpacity
+                onPress={() =>
+                  updateItemQuantity?.(info.item.id, info.item.quantity - 1)
+                }
+                style={{
+                  borderColor: Colors.blue,
+                  borderWidth: 1,
+                  borderRadius: 14,
+                  backgroundColor: Colors.white,
+                  height: 28,
+                  width: 28,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Icon name={'minus'} color={Colors.blue} />
+              </TouchableOpacity>
+            )}
+
             <Text style={{ color: Colors.black, fontSize: 14 }}>
               {info.item.quantity}
             </Text>
             <TouchableOpacity
+              onPress={() =>
+                updateItemQuantity?.(info.item.id, info.item.quantity + 1)
+              }
               style={{
                 backgroundColor: Colors.blue,
                 borderRadius: 14,

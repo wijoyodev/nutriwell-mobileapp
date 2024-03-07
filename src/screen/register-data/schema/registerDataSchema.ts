@@ -12,4 +12,5 @@ export const registerDataSchema = object().shape({
   email: string().required(),
   birthDate: date().required(),
   gender: string().required(),
+  phoneNumber: string().required(),
 });

@@ -13,7 +13,7 @@ import Colors from 'themes/Colors';
 import RewardHistoryItem from './components/RewardHistoryItem';
 import { useFocusEffect } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import utils from 'service/utils';
+import Utils from 'service/Utils';
 
 export type History = {
   date: Date;
@@ -116,7 +116,7 @@ const RewardHistoryScreen = () => {
     );
   };
 
-  const groupHistory = utils.groupBy(historyList, history => history.isIncome);
+  const groupHistory = Utils.groupBy(historyList, history => history.isIncome);
 
   const renderHistoryList = (isIncome: boolean) => {
     const histories = groupHistory.get(isIncome) ?? [];

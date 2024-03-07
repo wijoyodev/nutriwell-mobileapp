@@ -9,7 +9,7 @@ import { HOME_SCREEN } from 'navigation/constants';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/AntDesign'
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export type ModalOrderCreatedHandle = {
   openModal: () => void;

@@ -28,6 +28,7 @@ export type ProfileForm = {
   name: string;
   birthDate: Date;
   gender: string;
+  phoneNumber: string;
 };
 
 export type InputProfileComponentProps = {
@@ -45,6 +46,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
     email,
     birthDate: new Date(),
     gender: 'male',
+    phoneNumber: '',
   };
 
   const formMethods = useForm({
@@ -56,7 +58,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
   const {
     control,
     handleSubmit: handleFormSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = formMethods;
 
   const handleSave: SubmitHandler<ProfileForm> = (data: ProfileForm) => {
@@ -144,10 +146,19 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
         <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
           Nomor Telepon
         </Text>
-        <CustomPhoneInput
-          code={code}
-          onChangeCode={setCode}
-          placeholder={'cth: 812 9999 0000'}
+        <Controller
+          name={'phoneNumber'}
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <CustomPhoneInput
+              code={code}
+              onChangeCode={setCode}
+              onChangeText={onChange}
+              value={value}
+              placeholder={'cth: 812 9999 0000'}
+              error={errors?.phoneNumber?.message ?? ''}
+            />
+          )}
         />
 
         <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>

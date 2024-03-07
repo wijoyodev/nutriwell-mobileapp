@@ -3,8 +3,25 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
+import dayjs from 'dayjs';
 
-const ProfileInfoComponent = () => {
+export type ProfileInfoComponentProps = {
+  profile: ProfileForm;
+};
+
+const ProfileInfoComponent: React.FC<ProfileInfoComponentProps> = ({ profile }) => {
+  const getGender = () => {
+    switch (profile.gender) {
+      case 'male':
+        return 'Laki-laki';
+      case 'female':
+        return 'Perempuan';
+      default:
+        return '-';
+    }
+  };
+
   return (
     <View style={{ padding: 16 }}>
       <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
@@ -19,12 +36,12 @@ const ProfileInfoComponent = () => {
         <View style={{ flexDirection: 'column', gap: 8 }}>
           <Text
             style={{ fontSize: 16, color: Colors.black, fontWeight: 'bold' }}>
-            John Doe
+            {profile.name}
           </Text>
           <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
             <Icon name={'mail-outline'} color={Colors.black} />
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              johndoe@gmail.com
+              {profile.email}
             </Text>
           </View>
         </View>
@@ -32,19 +49,21 @@ const ProfileInfoComponent = () => {
 
       <View style={{ marginTop: 16 }}>
         <Text style={{ fontSize: 12, marginBottom: 4 }}>NOMOR TELEPON</Text>
-        <Text style={{ fontSize: 14, color: Colors.black }}>081293994232</Text>
+        <Text style={{ fontSize: 14, color: Colors.black }}>
+          {profile.phoneNumber}
+        </Text>
       </View>
 
       <View style={{ marginTop: 16 }}>
         <Text style={{ fontSize: 12, marginBottom: 4 }}>TANGGAL LAHIR</Text>
         <Text style={{ fontSize: 14, color: Colors.black }}>
-          7 January 1990
+          {dayjs(profile.birthDate).locale('id').format('DD MMMM YYYY')}
         </Text>
       </View>
 
       <View style={{ marginTop: 16 }}>
         <Text style={{ fontSize: 12, marginBottom: 4 }}>JENIS KELAMIN</Text>
-        <Text style={{ fontSize: 14, color: Colors.black }}>Laki-laki</Text>
+        <Text style={{ fontSize: 14, color: Colors.black }}>{getGender()}</Text>
       </View>
     </View>
   );
