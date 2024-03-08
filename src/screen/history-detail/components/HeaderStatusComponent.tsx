@@ -9,14 +9,16 @@ export type HeaderStatusComponentProps = {
   history: HistoryDetail;
 };
 
-const HeaderStatusComponent: React.FC<HeaderStatusComponentProps> = ({ history }) => {
+const HeaderStatusComponent: React.FC<HeaderStatusComponentProps> = ({
+  history,
+}) => {
   const statusLabel = Status.get(history.status)?.headerLabel ?? '';
   const headerColor = Status.get(history.status)?.headerColor ?? '';
   const headerDescription =
     Status.get(history.status)?.headerDescription?.(
       history.payment.date,
       history.payment.name,
-      history.shipping.etdDate,
+      history.shipping?.etdDate,
     ) ?? '';
 
   if (history.status === 3) {

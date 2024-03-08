@@ -1,9 +1,80 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import { HistoryDetail } from '../HistoryDetailScreen';
+import { HistoryItem } from 'screen/order-history/OrderHistoryScreen';
+import Utils from 'service/Utils';
 
-const OrderHistoryComponent = () => {
+export type OrderHistoryComponentProps = {
+  history: HistoryDetail;
+};
+
+const OrderHistoryComponent: React.FC<OrderHistoryComponentProps> = ({
+  history,
+}) => {
+  const renderItem = (info: ListRenderItemInfo<HistoryItem>) => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          marginTop: info.index > 0 ? 12 : 0,
+        }}>
+        <Image
+          source={require('../../../assets/images/product_image.png')}
+          style={{
+            height: 70,
+            width: 70,
+            borderRadius: 8,
+          }}
+        />
+        <View style={{ flex: 1 }}>
+          <Text style={{ color: Colors.black, fontSize: 14 }}>
+            {info.item.name}
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 6,
+            }}>
+            <Text style={{ fontSize: 14 }}>
+              {Utils.getPriceString(info.item.price)} x {info.item.quantity}
+            </Text>
+            <Text
+              style={{
+                color: Colors.darkBlue,
+                fontSize: 14,
+                fontWeight: 'bold',
+              }}>
+              {Utils.getPriceString(info.item.price * info.item.quantity)}
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  const getTotalQuantity = () => {
+    const totalItemPriceList = history.items.map(item => item.quantity);
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
+
+  const getTotalPrice = () => {
+    const totalItemPriceList = history.items.map(
+      item => item.price * item.quantity,
+    );
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
+
   return (
     <View
       style={{ padding: 16, borderTopColor: Colors.grey, borderTopWidth: 4 }}>
@@ -17,37 +88,7 @@ const OrderHistoryComponent = () => {
           padding: 12,
           marginTop: 12,
         }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-          <Image
-            source={require('../../../assets/images/product_image.png')}
-            style={{
-              height: 70,
-              width: 70,
-              borderRadius: 8,
-            }}
-          />
-          <View style={{ flex: 1 }}>
-            <Text style={{ color: Colors.black, fontSize: 14 }}>
-              GARAM Kurang Natrium 200 gram
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginTop: 6,
-              }}>
-              <Text style={{ fontSize: 14 }}>Rp1.500.000 x 2</Text>
-              <Text
-                style={{
-                  color: Colors.darkBlue,
-                  fontSize: 14,
-                  fontWeight: 'bold',
-                }}>
-                Rp3.000.000
-              </Text>
-            </View>
-          </View>
-        </View>
+        <FlatList data={history.items} renderItem={renderItem} />
       </View>
 
       <View
@@ -57,9 +98,11 @@ const OrderHistoryComponent = () => {
           marginTop: 16,
         }}>
         <Text style={{ color: Colors.black, fontSize: 14 }}>
-          Subtotal (2 produk)
+          Subtotal ({getTotalQuantity()} produk)
         </Text>
-        <Text style={{ color: Colors.black, fontSize: 14 }}>Rp3.000.000</Text>
+        <Text style={{ color: Colors.black, fontSize: 14 }}>
+          {Utils.getPriceString(getTotalPrice())}
+        </Text>
       </View>
 
       <View
@@ -69,7 +112,9 @@ const OrderHistoryComponent = () => {
           marginTop: 16,
         }}>
         <Text style={{ color: Colors.black, fontSize: 14 }}>Ongkir</Text>
-        <Text style={{ color: Colors.black, fontSize: 14 }}>Rp10.000</Text>
+        <Text style={{ color: Colors.black, fontSize: 14 }}>
+          {Utils.getPriceString(history.shipping.price)}
+        </Text>
       </View>
 
       <View
@@ -84,7 +129,7 @@ const OrderHistoryComponent = () => {
         <Text style={{ color: Colors.black, fontSize: 14 }}>Total</Text>
         <Text
           style={{ color: Colors.darkBlue, fontSize: 14, fontWeight: 'bold' }}>
-          Rp3.010.000
+          {Utils.getPriceString(getTotalPrice() + history.shipping.price)}
         </Text>
       </View>
     </View>

@@ -33,6 +33,7 @@ type ShippingAddress = {
 type PaymentInfo = {
   name: string;
   date: Date;
+  approvedDate?: Date;
 };
 
 export type HistoryDetail = {
@@ -56,10 +57,16 @@ const history: HistoryDetail = {
       price: 1250000,
       imageUrl: '',
     },
+    {
+      name: 'GARAM Kurang Natrium 200 gram',
+      quantity: 2,
+      price: 1250000,
+      imageUrl: '',
+    },
   ],
   shipping: {
-    name: 'JNE',
-    resi: '',
+    name: 'JNE Regular',
+    resi: '032483294203942',
     date: new Date(),
     etdDate: new Date(),
     price: 10000,
@@ -70,12 +77,13 @@ const history: HistoryDetail = {
     province: 'Jawa Barat',
     city: 'Bekasi',
     district: 'Cikarang Utara',
-    streetAddress: 'Jl. Kesejahteraan',
+    streetAddress: 'Jl. Kesejahteraan no. 7',
     postalCode: '17530',
   },
   payment: {
     name: 'Transfer Bank',
     date: new Date(),
+    approvedDate: new Date(),
   },
 };
 

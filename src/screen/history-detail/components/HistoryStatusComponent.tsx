@@ -10,7 +10,9 @@ export type HistoryStatusComponentProps = {
   history: HistoryDetail;
 };
 
-const HistoryStatusComponent: React.FC<HistoryStatusComponentProps> = ({ history }) => {
+const HistoryStatusComponent: React.FC<HistoryStatusComponentProps> = ({
+  history,
+}) => {
   const statusLabel = Status.get(history.status)?.label ?? '';
   const statusColor = Status.get(history.status)?.color ?? '';
   return (

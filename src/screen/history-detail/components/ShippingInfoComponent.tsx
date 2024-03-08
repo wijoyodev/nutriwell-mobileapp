@@ -2,8 +2,19 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import { HistoryDetail } from '../HistoryDetailScreen';
+import dayjs from 'dayjs';
 
-const ShippingInfoComponent = () => {
+export type ShippingInfoComponentProps = {
+  history: HistoryDetail;
+};
+
+const ShippingInfoComponent: React.FC<ShippingInfoComponentProps> = ({
+  history,
+}) => {
+  if (!history.shipping) {
+    return <></>;
+  }
   return (
     <View
       style={{ padding: 16, borderTopColor: Colors.grey, borderTopWidth: 4 }}>
@@ -15,7 +26,7 @@ const ShippingInfoComponent = () => {
       </View>
 
       <Text style={{ fontSize: 14, color: Colors.black, marginVertical: 8 }}>
-        JNE Regular
+        {history.shipping.name}
       </Text>
       <Text
         style={{
@@ -24,10 +35,10 @@ const ShippingInfoComponent = () => {
           fontWeight: 'bold',
           marginBottom: 8,
         }}>
-        No. Resi: 032483294203942
+        No. Resi: {history.shipping.resi}
       </Text>
-      <Text style={{ fontSize: 12, color: Colors.black }}>
-        Terkirim pada 13 Jan 2023 20:26
+      <Text style={{ fontSize: 12 }}>
+        Terkirim pada {dayjs(history.shipping.date).format('DD MMM YYYY HH:mm')}
       </Text>
     </View>
   );
