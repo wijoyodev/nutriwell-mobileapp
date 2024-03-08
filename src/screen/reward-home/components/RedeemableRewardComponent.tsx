@@ -19,7 +19,7 @@ import Utils from 'service/Utils';
 
 export type RedeemableRewardComponentProps = {
   reward: RewardSummary;
-}
+};
 
 const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
   reward,
@@ -74,7 +74,11 @@ const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
           </View>
 
           <CustomButton
-            onPress={() => navigate(WITHDRAW_SCREEN)}
+            onPress={() =>
+              navigate(WITHDRAW_SCREEN, {
+                redeemableReward: reward.redeemableReward,
+              })
+            }
             backgroundColor={Colors.blue}
             text={'TARIK'}
             containerStyle={{ paddingHorizontal: 16 }}

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import OrderItemComponent from './OrderItemComponent';
@@ -8,8 +8,6 @@ import SummaryComponent from './SummaryComponent';
 import CustomPicker from 'components/CustomPicker';
 import {
   Controller,
-  FormProvider,
-  useForm,
   useFormContext,
 } from 'react-hook-form';
 import { PaymentMethod, ShippingOption } from '../CheckOutScreen';

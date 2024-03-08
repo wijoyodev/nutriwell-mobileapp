@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
+  KeyboardTypeOptions,
   Text,
   TextInput,
   TextStyle,
@@ -17,8 +18,11 @@ export type CustomTextInputProps = {
   onChangeText?: (text: string) => void;
   error?: string;
   value?: string;
+  renderValue?: (text: string) => string;
   placeholder?: string;
   disabled?: boolean;
+  prefix?: string;
+  keyboardType?: KeyboardTypeOptions;
 };
 
 const CustomTextInput: React.FC<CustomTextInputProps> = props => {
@@ -39,11 +43,18 @@ const CustomTextInput: React.FC<CustomTextInputProps> = props => {
           borderColor: props.disabled ? Colors.disabled : Colors.grey,
           paddingHorizontal: 12,
           backgroundColor: props.disabled ? Colors.disabledBg : Colors.white,
+          flexDirection: 'row',
+          alignItems: 'center',
         }}>
+        {props.prefix && (
+          <Text style={{ color: Colors.black, fontSize: 14 }}>
+            {props.prefix}
+          </Text>
+        )}
         <TextInput
           returnKeyLabel="Done"
           returnKeyType="done"
-          keyboardType={'default'}
+          keyboardType={props.keyboardType}
           {...props}
           placeholder={props.placeholder}
           value={props.value}
