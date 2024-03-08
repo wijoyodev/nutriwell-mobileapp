@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import { History } from '../RewardHistoryScreen';
 import dayjs from 'dayjs';
 import Colors from 'themes/Colors';
+import Utils from 'service/Utils';
 
 export type RewardHistoryItemProps = {
   history: History;
@@ -34,7 +35,7 @@ const RewardHistoryItem: React.FC<RewardHistoryItemProps> = ({
             fontWeight: 'bold',
             color: history.isIncome ? Colors.darkGreen : Colors.red,
           }}>
-          {history.isIncome ? '+' : '-'} Rp{history.reward}
+          {history.isIncome ? '+' : '-'} {Utils.getPriceString(history.reward)}
         </Text>
       </View>
     </View>

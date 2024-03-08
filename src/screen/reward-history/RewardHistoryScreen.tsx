@@ -14,6 +14,7 @@ import RewardHistoryItem from './components/RewardHistoryItem';
 import { useFocusEffect } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Utils from 'service/Utils';
+import { RewardSummary } from 'screen/reward-home/RewardHomeScreen';
 
 export type History = {
   date: Date;
@@ -72,6 +73,16 @@ const historyList: History[] = [
   //   isIncome: false,
   // },
 ];
+
+export type HistoryRewardSummary = {
+  totalReward: number;
+  successWithdraw: number;
+};
+
+const historyRewardSummary: HistoryRewardSummary = {
+  totalReward: 21500000,
+  successWithdraw: 2000000,
+};
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -151,7 +162,7 @@ const RewardHistoryScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
-      <RewardSummaryComponent />
+      <RewardSummaryComponent summary={historyRewardSummary} />
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarLabel: ({ focused }) => tabBarLabel(focused, route.name),
