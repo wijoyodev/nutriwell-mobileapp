@@ -8,6 +8,7 @@ import FooterCheckOutComponent from './components/FooterCheckOutComponent';
 import { FormProvider, useForm } from 'react-hook-form';
 import { checkoutSchema } from './schema/checkoutSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { CartItem } from 'screen/cart/CartScreen';
 
 export type ShippingOption = {
   name: string;
@@ -47,6 +48,23 @@ export type CheckoutForm = {
   address: Address;
 };
 
+const cartItems: CartItem[] = [
+  {
+    id: '1',
+    name: 'GARAM Kurang Natrium 200 gram',
+    price: 10000,
+    quantity: 11,
+    imageUrl: '',
+  },
+  {
+    id: '2',
+    name: 'GARAM Kurang Natrium 200 gram',
+    price: 20000,
+    quantity: 2,
+    imageUrl: '',
+  },
+];
+
 const CheckOutScreen = () => {
   const formInitialValues: CheckoutForm = {
     shippingOption: null,
@@ -63,8 +81,8 @@ const CheckOutScreen = () => {
   return (
     <View style={{ backgroundColor: Colors.white, flex: 1 }}>
       <FormProvider {...formMethods}>
-        <OrderComponent />
-        <FooterCheckOutComponent />
+        <OrderComponent items={cartItems} />
+        <FooterCheckOutComponent items={cartItems} />
       </FormProvider>
     </View>
   );

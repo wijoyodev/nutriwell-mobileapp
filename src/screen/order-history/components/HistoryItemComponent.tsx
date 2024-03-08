@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { HistoryItem } from '../OrderHistoryScreen';
 import Colors from 'themes/Colors';
+import Utils from 'service/Utils';
 
 export type HistoryItemProps = {
   item: HistoryItem;
@@ -32,7 +33,7 @@ const HistoryItemComponent: React.FC<HistoryItemProps> = ({ item }) => {
           }}>
           <Text style={{ fontSize: 14 }}>{item.quantity} produk</Text>
           <Text style={{ fontSize: 14, color: Colors.black }}>
-            Rp{item.quantity * item.price}
+            {Utils.getPriceString(item.quantity * item.price)}
           </Text>
         </View>
       </View>

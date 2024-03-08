@@ -13,6 +13,7 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { PaymentMethod, ShippingOption } from '../CheckOutScreen';
+import { CartItem } from 'screen/cart/CartScreen';
 
 const shippingOptions: ShippingOption[] = [
   {
@@ -43,7 +44,11 @@ const paymentList: PaymentMethod[] = [
   },
 ];
 
-const OrderComponent = () => {
+export type OrderComponentProps = {
+  items: CartItem[];
+};
+
+const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
   const {
     control,
     watch,
@@ -62,7 +67,7 @@ const OrderComponent = () => {
           PESANAN
         </Text>
 
-        <OrderItemComponent />
+        <OrderItemComponent items={items} />
 
         <Text style={{ marginVertical: 12, fontSize: 14, color: Colors.black }}>
           Alamat Penerima
@@ -141,7 +146,7 @@ const OrderComponent = () => {
         </View>
       </View>
 
-      <SummaryComponent />
+      <SummaryComponent items={items} />
     </ScrollView>
   );
 };

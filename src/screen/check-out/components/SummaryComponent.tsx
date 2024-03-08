@@ -1,9 +1,37 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { Text, View } from 'react-native';
+import { CartItem } from 'screen/cart/CartScreen';
+import Utils from 'service/Utils';
 import Colors from 'themes/Colors';
+import { ShippingOption } from '../CheckOutScreen';
 
-const SummaryComponent = () => {
+export type SummaryComponentProps = {
+  items: CartItem[];
+};
+
+const SummaryComponent: React.FC<SummaryComponentProps> = ({ items }) => {
+  const { watch } = useFormContext();
+  const shippingOption: ShippingOption = watch('shippingOption');
+  const shippingPrice = shippingOption?.price ?? 0;
+
+  const getTotalPrice = () => {
+    const totalItemPriceList = items.map(item => item.price * item.quantity);
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
+
+  const getTotalQuantity = () => {
+    const totalItemPriceList = items.map(item => item.quantity);
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
+
   return (
     <View
       style={{
@@ -18,9 +46,11 @@ const SummaryComponent = () => {
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text style={{ fontSize: 14, color: Colors.black }}>
-          Subtotal (20 produk)
+          Subtotal ({getTotalQuantity()} produk)
         </Text>
-        <Text style={{ fontSize: 14, color: Colors.black }}>Rp3.200.000</Text>
+        <Text style={{ fontSize: 14, color: Colors.black }}>
+          {Utils.getPriceString(getTotalPrice())}
+        </Text>
       </View>
 
       <View
@@ -30,7 +60,9 @@ const SummaryComponent = () => {
           marginTop: 8,
         }}>
         <Text style={{ fontSize: 14, color: Colors.black }}>Ongkir</Text>
-        <Text style={{ fontSize: 14, color: Colors.black }}>Rp0</Text>
+        <Text style={{ fontSize: 14, color: Colors.black }}>
+          {Utils.getPriceString(shippingPrice)}
+        </Text>
       </View>
     </View>
   );

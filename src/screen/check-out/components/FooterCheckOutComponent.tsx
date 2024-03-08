@@ -7,12 +7,28 @@ import ModalOrderCreated, {
   ModalOrderCreatedHandle,
 } from './ModalOrderCreated';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
-import { CheckoutForm } from '../CheckOutScreen';
+import { CheckoutForm, ShippingOption } from '../CheckOutScreen';
+import { CartItem } from 'screen/cart/CartScreen';
+import Utils from 'service/Utils';
 
-const FooterCheckOutComponent = () => {
-  const { handleSubmit: handleFormSubmit } = useFormContext();
+export type FooterCheckOutComponentProps = {
+  items: CartItem[];
+};
+
+const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({ items }) => {
+  const { handleSubmit: handleFormSubmit, watch } = useFormContext();
+  const shippingOption: ShippingOption = watch('shippingOption');
+  const shippingPrice = shippingOption?.price ?? 0;
 
   const modalRef = useRef<ModalOrderCreatedHandle | null>();
+
+  const getTotalPrice = () => {
+    const totalItemPriceList = items.map(item => item.price * item.quantity);
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
 
   const submit: SubmitHandler<CheckoutForm> = (data: CheckoutForm) => {
     console.log(data);
@@ -36,7 +52,7 @@ const FooterCheckOutComponent = () => {
         <Text style={{ fontSize: 14, color: Colors.black }}>Total</Text>
         <Text
           style={{ fontSize: 14, color: Colors.darkBlue, fontWeight: 'bold' }}>
-          Rp3.200.000
+          {Utils.getPriceString(getTotalPrice() + shippingPrice)}
         </Text>
       </View>
 

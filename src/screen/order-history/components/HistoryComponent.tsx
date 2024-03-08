@@ -18,6 +18,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { HISTORY_DETAIL_SCREEN } from 'navigation/constants';
+import Utils from 'service/Utils';
 
 export type HistoryProps = {
   history: History;
@@ -56,7 +57,7 @@ const HistoryComponent: React.FC<HistoryProps> = ({ history }) => {
         <Text style={{ color: Colors.black, fontSize: 12 }}>TOTAL</Text>
         <Text
           style={{ color: Colors.darkBlue, fontSize: 14, fontWeight: 'bold' }}>
-          Rp{history.totalPrice}
+          {Utils.getPriceString(history.totalPrice)}
         </Text>
       </View>
       <View

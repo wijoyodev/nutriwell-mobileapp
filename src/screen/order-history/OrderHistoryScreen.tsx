@@ -104,6 +104,10 @@ const tabList: TabType[] = [
     title: 'SELESAI',
     status: 3,
   },
+  {
+    title: 'DIBATALKAN',
+    status: -1,
+  },
 ];
 
 const OrderHistoryScreen = () => {
