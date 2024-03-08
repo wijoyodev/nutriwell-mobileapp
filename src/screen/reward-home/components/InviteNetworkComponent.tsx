@@ -4,7 +4,13 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 
-const InviteNetworkComponent = () => {
+export type InviteNetworkComponentProps = {
+  code: string;
+};
+
+const InviteNetworkComponent: React.FC<InviteNetworkComponentProps> = ({
+  code,
+}) => {
   return (
     <View
       style={{
@@ -36,7 +42,7 @@ const InviteNetworkComponent = () => {
           alignItems: 'center',
         }}>
         <Text style={{ color: Colors.black, fontSize: 18, fontWeight: 'bold' }}>
-          YBSH21
+          {code}
         </Text>
 
         <Text style={{ color: Colors.blue, fontSize: 16, fontWeight: 'bold' }}>

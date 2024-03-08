@@ -14,8 +14,16 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Colors from 'themes/Colors';
+import { RewardSummary } from '../RewardHomeScreen';
+import Utils from 'service/Utils';
 
-const RedeemableRewardComponent = () => {
+export type RedeemableRewardComponentProps = {
+  reward: RewardSummary;
+}
+
+const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
+  reward,
+}) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const modalRef = useRef<CustomModalHandle | null>();
   const [heightView, setHeightView] = useState(0);
@@ -61,7 +69,7 @@ const RedeemableRewardComponent = () => {
 
             <Text
               style={{ fontSize: 20, fontWeight: 'bold', color: Colors.black }}>
-              Rp21.500.000
+              {Utils.getPriceString(reward.redeemableReward)}
             </Text>
           </View>
 

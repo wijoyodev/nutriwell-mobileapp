@@ -16,6 +16,22 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { CART_SCREEN } from 'navigation/constants';
+import Utils from 'service/Utils';
+
+type Product = {
+  imageUrl: string;
+  name: string;
+  price: number;
+  description: string;
+};
+
+const product: Product = {
+  imageUrl: '',
+  name: 'GARAM Kurang Natrium 200 gram',
+  price: 150000,
+  description:
+    'Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient facilisi in sit nulla. Pretium est mauris elit dolor eget integer. Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient facilisi in sit nulla. Pretium est mauris elit dolor eget integer.',
+};
 
 const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -61,11 +77,11 @@ const ShopHomeScreen = () => {
 
         <View style={{ paddingHorizontal: 16 }}>
           <Text style={{ color: Colors.black, fontSize: 16 }}>
-            GARAM Kurang Natrium 200 gram
+            {product.name}
           </Text>
           <Text
             style={{ color: Colors.blue, fontWeight: 'bold', fontSize: 16 }}>
-            Rp150.000
+            {Utils.getPriceString(product.price)}
           </Text>
         </View>
 
@@ -80,10 +96,7 @@ const ShopHomeScreen = () => {
 
         <Text
           style={{ color: Colors.black, fontSize: 14, paddingHorizontal: 16 }}>
-          Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient
-          facilisi in sit nulla. Pretium est mauris elit dolor eget integer.
-          Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient
-          facilisi in sit nulla. Pretium est mauris elit dolor eget integer.
+          {product.description}
         </Text>
       </ScrollView>
 

@@ -46,9 +46,10 @@ const HistoryComponent: React.FC<HistoryProps> = ({ history }) => {
       <View
         style={{
           marginTop: 12,
-          paddingVertical: 12,
+          paddingTop: 12,
+          paddingBottom: history.status === 0 ? 12 : 0,
           borderTopWidth: 1,
-          borderBottomWidth: 1,
+          borderBottomWidth: history.status === 0 ? 1 : 0,
           borderColor: Colors.grey,
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -60,18 +61,20 @@ const HistoryComponent: React.FC<HistoryProps> = ({ history }) => {
           {Utils.getPriceString(history.totalPrice)}
         </Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'flex-end',
-          marginTop: 12,
-        }}>
-        <CustomButton
-          containerStyle={{ paddingHorizontal: 12 }}
-          backgroundColor={Colors.blue}
-          text={'BAYAR SEKARANG'}
-        />
-      </View>
+      {history.status === 0 && (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            marginTop: 12,
+          }}>
+          <CustomButton
+            containerStyle={{ paddingHorizontal: 12 }}
+            backgroundColor={Colors.blue}
+            text={'BAYAR SEKARANG'}
+          />
+        </View>
+      )}
     </TouchableOpacity>
   );
 };

@@ -4,22 +4,11 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { HistoryProps } from './HistoryComponent';
+import Status from 'themes/Status';
 
 const HistoryItemHeaderComponent: React.FC<HistoryProps> = ({ history }) => {
-  const getStatusLabel = (status: number) => {
-    switch (status) {
-      case 0:
-        return 'Belum Bayar';
-      case 1:
-        return 'Dikemas';
-      case 2:
-        return 'Dikirim';
-      case 3:
-        return 'Selesai';
-      default:
-        return 'Belum Bayar';
-    }
-  };
+  const statusLabel = Status.get(history.status)?.label ?? '';
+  const statusColor = Status.get(history.status)?.color ?? '';
 
   return (
     <View
@@ -47,9 +36,9 @@ const HistoryItemHeaderComponent: React.FC<HistoryProps> = ({ history }) => {
       <Text
         style={{
           fontSize: 14,
-          color: history.status < 3 ? Colors.orange : Colors.green,
+          color: statusColor,
         }}>
-        {getStatusLabel(history.status)}
+        {statusLabel}
       </Text>
     </View>
   );

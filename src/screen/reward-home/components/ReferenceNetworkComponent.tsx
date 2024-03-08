@@ -20,32 +20,15 @@ import {
   NETWORK_DETAIL_SCREEN,
   REFERENCE_NETWORK_SCREEN,
 } from 'navigation/constants';
+import { NetworkType } from '../RewardHomeScreen';
 
-export type NetworkType = {
-  name: string;
-  level: number;
-  network: number;
+export type ReferenceNetworkComponentProps = {
+  networkList: NetworkType[];
 };
 
-const networkList: NetworkType[] = [
-  // {
-  //   name: 'Gill Lucy',
-  //   level: 1,
-  //   network: 500,
-  // },
-  // {
-  //   name: 'Gill Lucy B',
-  //   level: 1,
-  //   network: 500,
-  // },
-  // {
-  //   name: 'Gill Lucy C',
-  //   level: 1,
-  //   network: 500,
-  // },
-];
-
-const ReferenceNetworkComponent = () => {
+const ReferenceNetworkComponent: React.FC<ReferenceNetworkComponentProps> = ({
+  networkList,
+}) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const renderItem = (info: ListRenderItemInfo<NetworkType>) => {
     return (

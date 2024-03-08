@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   FlatList,
+  Image,
   ListRenderItemInfo,
   Text,
   TouchableOpacity,
@@ -15,32 +16,15 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { NETWORK_LEVEL_SCREEN } from 'navigation/constants';
+import { Network } from '../NetworkDetailScreen';
 
-type Network = {
-  level: number;
-  total: number;
+export type NetworkListComponentProps = {
+  networks: Network[];
 };
 
-const networkList: Network[] = [
-  {
-    level: 1,
-    total: 100,
-  },
-  {
-    level: 2,
-    total: 200,
-  },
-  {
-    level: 3,
-    total: 200,
-  },
-  {
-    level: 4,
-    total: 200,
-  },
-];
-
-const NetworkListComponent = () => {
+const NetworkListComponent: React.FC<NetworkListComponentProps> = ({
+  networks,
+}) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const renderItem = (info: ListRenderItemInfo<Network>) => {
     return (
@@ -82,7 +66,24 @@ const NetworkListComponent = () => {
     <View
       style={{ borderTopColor: Colors.grey, borderTopWidth: 4, padding: 16 }}>
       <Text>REFERENCE NETWORK</Text>
-      <FlatList data={networkList} renderItem={renderItem} />
+      {(networks?.length ?? 0) > 0 ? (
+        <FlatList data={networks} renderItem={renderItem} />
+      ) : (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: 24,
+          }}>
+          <Image
+            source={require('../../../assets/images/empty-box.png')}
+            style={{ height: 100, width: 100, marginBottom: 24 }}
+          />
+          <Text style={{ fontSize: 14, textAlign: 'center' }}>
+            Belum memiliki reference network.
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
