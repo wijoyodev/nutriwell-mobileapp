@@ -31,6 +31,7 @@ const networkList: NetworkType[] = [
 ];
 
 export const rewardSummary: RewardSummary = {
+  totalReward: 25000000,
   redeemableReward: 22500000,
   monthlyReward: 1600000,
   totalReferenceNetwork: 50,

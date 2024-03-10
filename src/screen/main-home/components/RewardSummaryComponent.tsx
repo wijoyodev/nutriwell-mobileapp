@@ -9,9 +9,17 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import useGetRewardSummary from '../service/useGetRewardSummary';
+import Utils from 'service/Utils';
 
 const RewardSummaryComponent = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
+  const { loading, rewardSummary } = useGetRewardSummary();
+
+  if (loading) {
+    return <></>;
+  }
+
   return (
     <View
       style={{
@@ -69,7 +77,7 @@ const RewardSummaryComponent = () => {
               fontWeight: 'bold',
               fontSize: 14,
             }}>
-            Rp21.500.000
+            {Utils.getPriceString(rewardSummary?.totalReward ?? 0)}
           </Text>
         </View>
 
@@ -109,7 +117,7 @@ const RewardSummaryComponent = () => {
               fontWeight: 'bold',
               fontSize: 14,
             }}>
-            Rp4.500.000
+            {Utils.getPriceString(rewardSummary?.monthlyReward ?? 0)}
           </Text>
         </View>
       </TouchableOpacity>

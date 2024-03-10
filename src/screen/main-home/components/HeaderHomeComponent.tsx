@@ -1,9 +1,23 @@
 /* eslint-disable react-native/no-inline-styles */
+import { ProfileResponse } from 'network/auth/profile';
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import useGetProfile from '../service/useGetProfile';
+import dayjs from 'dayjs';
 
-const HeaderHomeComponent = () => {
+export type HeaderHomeComponentProps = {};
+
+const HeaderHomeComponent: React.FC<HeaderHomeComponentProps> = () => {
+  const { loading, profile } = useGetProfile();
+
+  if (loading) {
+    return (
+      <View style={{ backgroundColor: Colors.blue }}>
+        <ActivityIndicator color={Colors.white} size={'large'} />
+      </View>
+    );
+  }
   return (
     <View
       style={{
@@ -27,7 +41,7 @@ const HeaderHomeComponent = () => {
             style={{
               fontWeight: 'bold',
             }}>
-            Willy Wonka
+            {profile?.name}
           </Text>
         </Text>
 
@@ -36,7 +50,7 @@ const HeaderHomeComponent = () => {
             fontSize: 16,
             color: Colors.white,
           }}>
-          18 Januari 2024
+          {dayjs(profile?.birthDate).format('DD MMMM YYYY')}
         </Text>
       </View>
     </View>

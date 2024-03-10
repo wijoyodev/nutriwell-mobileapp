@@ -14,6 +14,7 @@ export type NetworkType = {
 };
 
 export type RewardSummary = {
+  totalReward: number;
   redeemableReward: number;
   monthlyReward: number;
   totalReferenceNetwork: number;

@@ -47,6 +47,13 @@ export default function () {
         },
       }));
 
+      this.get('/network/summary', () => ({
+        data: {
+          items: cartItems,
+          address: address,
+        },
+      }));
+
       let newId = 4;
       this.post('/api/reminders', (schema, request) => {
         let attrs = JSON.parse(request.requestBody);
