@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
-import { StatusBar, View } from 'react-native';
+import { ActivityIndicator, StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
 import ProfileInfoComponent from './components/ProfileInfoComponent';
 import BankAccountComponent from './components/BankAccountComponent';
@@ -13,14 +13,9 @@ import {
 } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { EDIT_PROFILE_SCREEN } from 'navigation/constants';
-
-const profile: ProfileForm = {
-  name: 'John',
-  email: 'johndoe@gmail.com',
-  birthDate: new Date(),
-  phoneNumber: '(+62) 81031923',
-  gender: 'male',
-};
+import useGetProfile from './service/useGetProfile';
+import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
+import { ProfileResponse } from 'network/auth/profile';
 
 const ProfileScreen = () => {
   const { setOptions, navigate } =
@@ -31,17 +26,35 @@ const ProfileScreen = () => {
     });
   }, []);
 
+  const { loading, profile } = useGetProfile();
+
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
   });
 
+  const convertProfileForm: (a: ProfileResponse) => ProfileForm = (
+    data: ProfileResponse,
+  ) => {
+    const profileForm: ProfileForm = {
+      name: data.name,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      birthDate: data.birthDate,
+      gender: data.gender,
+    };
+    return profileForm;
+  };
+
   const iconHeaderRight = () => {
+    if (profile === undefined) {
+      return <></>;
+    }
     return (
       <TouchableOpacity
         onPress={() =>
           navigate(EDIT_PROFILE_SCREEN, {
-            data: profile,
+            data: convertProfileForm(profile),
           })
         }
         style={{
@@ -57,7 +70,11 @@ const ProfileScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
-      <ProfileInfoComponent profile={profile} />
+      {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
+      {!loading && profile !== undefined && (
+        <ProfileInfoComponent profile={profile} />
+      )}
+
       <BankAccountComponent />
     </View>
   );

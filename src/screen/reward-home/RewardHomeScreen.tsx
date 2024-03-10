@@ -1,34 +1,17 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ActivityIndicator, ScrollView, View } from 'react-native';
 import RewardHeaderComponent from './components/RewardHeaderComponent';
 import RedeemableRewardComponent from './components/RedeemableRewardComponent';
 import InviteNetworkComponent from './components/InviteNetworkComponent';
 import ReferenceNetworkComponent from './components/ReferenceNetworkComponent';
 import Colors from 'themes/Colors';
+import useGetRewardSummary from './service/useGetRewardSummary';
 
 export type NetworkType = {
   name: string;
   level: number;
   network: number;
 };
-
-const networkList: NetworkType[] = [
-  {
-    name: 'Gill Lucy',
-    level: 1,
-    network: 500,
-  },
-  {
-    name: 'Gill Lucy B',
-    level: 1,
-    network: 500,
-  },
-  {
-    name: 'Gill Lucy C',
-    level: 1,
-    network: 500,
-  },
-];
 
 export type RewardSummary = {
   redeemableReward: number;
@@ -38,23 +21,26 @@ export type RewardSummary = {
   referenceNetworkList: NetworkType[];
 };
 
-const reward: RewardSummary = {
-  redeemableReward: 22500000,
-  monthlyReward: 1600000,
-  totalReferenceNetwork: 50,
-  referralCode: 'YBSH21',
-  referenceNetworkList: networkList,
-};
-
 const RewardHomeScreen = () => {
+  const { loading, rewardSummary: reward } = useGetRewardSummary();
   return (
     <ScrollView
       style={{ backgroundColor: Colors.white }}
       stickyHeaderIndices={[0]}
       showsVerticalScrollIndicator={false}>
       <RewardHeaderComponent />
-      <RedeemableRewardComponent reward={reward} />
-      <InviteNetworkComponent code={reward.referralCode} />
+      {loading && (
+        <View style={{ backgroundColor: Colors.blue }}>
+          <ActivityIndicator color={Colors.white} size={'large'} />
+        </View>
+      )}
+      {reward && (
+        <>
+          <RedeemableRewardComponent reward={reward} />
+          <InviteNetworkComponent code={reward?.referralCode ?? ''} />
+        </>
+      )}
+
       <ReferenceNetworkComponent
         networkList={reward?.referenceNetworkList ?? []}
       />

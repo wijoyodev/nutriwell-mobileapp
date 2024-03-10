@@ -9,8 +9,13 @@ import {
 } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { ProfileResponse } from 'network/auth/profile';
 
-const UserComponent = () => {
+export type UserComponentProps = {
+  profile: ProfileResponse;
+};
+
+const UserComponent: React.FC<UserComponentProps> = ({ profile }) => {
   const { width } = useWindowDimensions();
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -53,7 +58,7 @@ const UserComponent = () => {
           textAlign: 'center',
           marginBottom: 8,
         }}>
-        John Doe
+        {profile.name}
       </Text>
       <View
         style={{
@@ -64,7 +69,7 @@ const UserComponent = () => {
         }}>
         <Icon name={'mail-outline'} color={Colors.black} />
         <Text style={{ color: Colors.black, fontSize: 14 }}>
-          johndoe@gmail.com
+          {profile.email}
         </Text>
       </View>
     </View>

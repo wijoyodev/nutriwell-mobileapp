@@ -3,14 +3,16 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
 import dayjs from 'dayjs';
+import { ProfileResponse } from 'network/auth/profile';
 
 export type ProfileInfoComponentProps = {
-  profile: ProfileForm;
+  profile: ProfileResponse;
 };
 
-const ProfileInfoComponent: React.FC<ProfileInfoComponentProps> = ({ profile }) => {
+const ProfileInfoComponent: React.FC<ProfileInfoComponentProps> = ({
+  profile,
+}) => {
   const getGender = () => {
     switch (profile.gender) {
       case 'male':
