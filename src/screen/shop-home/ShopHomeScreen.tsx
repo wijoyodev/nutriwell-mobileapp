@@ -2,6 +2,7 @@
 import CustomButton from 'components/CustomButton';
 import React from 'react';
 import {
+  ActivityIndicator,
   Image,
   ScrollView,
   Text,
@@ -17,25 +18,20 @@ import {
 } from '@react-navigation/native';
 import { CART_SCREEN } from 'navigation/constants';
 import Utils from 'service/Utils';
+import useGetProduct from './service/useGetProduct';
 
-type Product = {
+export type Product = {
   imageUrl: string;
   name: string;
   price: number;
   description: string;
 };
 
-const product: Product = {
-  imageUrl: '',
-  name: 'GARAM Kurang Natrium 200 gram',
-  price: 150000,
-  description:
-    'Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient facilisi in sit nulla. Pretium est mauris elit dolor eget integer. Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient facilisi in sit nulla. Pretium est mauris elit dolor eget integer.',
-};
-
 const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
+
+  const { loading, product } = useGetProduct();
 
   return (
     <View
@@ -46,43 +42,53 @@ const ShopHomeScreen = () => {
       }}>
       <ShopHeaderComponent />
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: 16,
-            paddingTop: 16,
-            position: 'relative',
-          }}>
+        {loading && (
+          <View style={{ backgroundColor: Colors.blue }}>
+            <ActivityIndicator color={Colors.white} size={'large'} />
+          </View>
+        )}
+        {product !== undefined && (
           <View
             style={{
-              position: 'absolute',
-              backgroundColor: Colors.blue,
-              height: height / 4.5,
-              width: width,
-              top: 0,
-              borderBottomStartRadius: 16,
-              borderBottomEndRadius: 16,
-            }}
-          />
-          <Image
-            source={require('../../assets/images/product_image.png')}
-            style={{
-              width: width - 32,
-              height: height / 2.25,
-              borderRadius: 16,
-            }}
-          />
-        </View>
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 16,
+              paddingTop: 16,
+              position: 'relative',
+            }}>
+            <View
+              style={{
+                position: 'absolute',
+                backgroundColor: Colors.blue,
+                height: height / 4.5,
+                width: width,
+                top: 0,
+                borderBottomStartRadius: 16,
+                borderBottomEndRadius: 16,
+              }}
+            />
+
+            <Image
+              source={require('../../assets/images/product_image.png')}
+              style={{
+                width: width - 32,
+                height: height / 2.25,
+                borderRadius: 16,
+              }}
+            />
+          </View>
+        )}
 
         <View style={{ paddingHorizontal: 16 }}>
           <Text style={{ color: Colors.black, fontSize: 16 }}>
-            {product.name}
+            {product?.name}
           </Text>
-          <Text
-            style={{ color: Colors.blue, fontWeight: 'bold', fontSize: 16 }}>
-            {Utils.getPriceString(product.price)}
-          </Text>
+          {product !== undefined && (
+            <Text
+              style={{ color: Colors.blue, fontWeight: 'bold', fontSize: 16 }}>
+              {Utils.getPriceString(product?.price ?? 0)}
+            </Text>
+          )}
         </View>
 
         <View
@@ -96,7 +102,7 @@ const ShopHomeScreen = () => {
 
         <Text
           style={{ color: Colors.black, fontSize: 14, paddingHorizontal: 16 }}>
-          {product.description}
+          {product?.description}
         </Text>
       </ScrollView>
 

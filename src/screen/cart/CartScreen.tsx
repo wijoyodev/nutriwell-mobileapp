@@ -1,10 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { Image, StatusBar, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, StatusBar, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import FooterCartComponent from './components/FooterCartComponent';
 import ListItemComponent from './components/ListItemComponent';
 import { useFocusEffect } from '@react-navigation/native';
+import useGetCart from './service/useGetCart';
 
 export type CartItem = {
   id: string;
@@ -14,25 +15,15 @@ export type CartItem = {
   imageUrl: string;
 };
 
-const cartItems: CartItem[] = [
-  {
-    id: '1',
-    name: 'GARAM Kurang Natrium 200 gram',
-    price: 10000,
-    quantity: 11,
-    imageUrl: '',
-  },
-  {
-    id: '2',
-    name: 'GARAM Kurang Natrium 100 gram',
-    price: 5000,
-    quantity: 2,
-    imageUrl: '',
-  },
-];
-
 const CartScreen = () => {
-  const [items, setItems] = useState(cartItems);
+  const { loading, cartItems } = useGetCart();
+  const [items, setItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    if (cartItems !== undefined) {
+      setItems(cartItems);
+    }
+  }, [cartItems]);
 
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
@@ -40,17 +31,37 @@ const CartScreen = () => {
   });
 
   const updateItemQuantity = (id: string, quantity: number) => {
-    const newItems = items.map(item => {
-      if (item.id === id) {
-        return {
-          ...item,
-          quantity,
-        };
-      }
+    const newItems =
+      items?.map(item => {
+        if (item.id === id) {
+          return {
+            ...item,
+            quantity,
+          };
+        }
 
-      return item;
-    });
+        return item;
+      }) ?? [];
     setItems(newItems);
+  };
+
+  const renderEmpty = () => {
+    return (
+      <View
+        style={{
+          flex: 0.75,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={require('../../assets/images/empty-box.png')}
+          style={{ height: 100, width: 100, marginBottom: 24 }}
+        />
+        <Text style={{ fontSize: 14, textAlign: 'center' }}>
+          Belum ada produk dalam keranjang. Yuk, mulai belanja!
+        </Text>
+      </View>
+    );
   };
 
   return (
@@ -59,7 +70,8 @@ const CartScreen = () => {
         flex: 1,
         backgroundColor: Colors.white,
       }}>
-      {cartItems.length > 0 ? (
+      {loading && <ActivityIndicator size={'large'} color={Colors.blue} />}
+      {(cartItems?.length ?? 0) > 0 ? (
         <>
           <ListItemComponent
             items={items}
@@ -68,20 +80,7 @@ const CartScreen = () => {
           <FooterCartComponent items={items} />
         </>
       ) : (
-        <View
-          style={{
-            flex: 0.75,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Image
-            source={require('../../assets/images/empty-box.png')}
-            style={{ height: 100, width: 100, marginBottom: 24 }}
-          />
-          <Text style={{ fontSize: 14, textAlign: 'center' }}>
-            Belum ada produk dalam keranjang. Yuk, mulai belanja!
-          </Text>
-        </View>
+        renderEmpty()
       )}
     </View>
   );

@@ -13,14 +13,15 @@ import { CartItem } from '../CartScreen';
 import Utils from 'service/Utils';
 
 export type FooterCartComponentProps = {
-  items: CartItem[];
+  items?: CartItem[];
 };
 
 const FooterCartComponent: React.FC<FooterCartComponentProps> = ({ items }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
   const getTotalPrice = () => {
-    const totalItemPriceList = items.map(item => item.price * item.quantity);
+    const totalItemPriceList =
+      items?.map(item => item.price * item.quantity) ?? [];
     return totalItemPriceList.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0,
