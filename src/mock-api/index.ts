@@ -1,5 +1,13 @@
 import { createServer, Model } from 'miragejs';
-import { cartItems, paymentList, product, profile, rewardSummary, shippingOptions } from './constant';
+import {
+  address,
+  cartItems,
+  paymentList,
+  product,
+  profile,
+  rewardSummary,
+  shippingOptions,
+} from './constant';
 
 export default function () {
   return createServer({
@@ -30,6 +38,13 @@ export default function () {
 
       this.get('/payment-method', () => ({
         data: paymentList,
+      }));
+
+      this.get('/checkout', () => ({
+        data: {
+          items: cartItems,
+          address: address,
+        },
       }));
 
       let newId = 4;

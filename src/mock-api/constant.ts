@@ -1,6 +1,6 @@
 import { ProfileResponse } from 'network/auth/profile';
 import { CartItem } from 'screen/cart/CartScreen';
-import { PaymentMethod, ShippingOption } from 'screen/check-out/CheckOutScreen';
+import { Address, PaymentMethod, ShippingOption } from 'screen/check-out/CheckOutScreen';
 import { NetworkType, RewardSummary } from 'screen/reward-home/RewardHomeScreen';
 import { Product } from 'screen/shop-home/ShopHomeScreen';
 
@@ -92,3 +92,13 @@ export const paymentList: PaymentMethod[] = [
     name: 'Virtual Account',
   },
 ];
+
+export const address: Address = {
+  name: 'Yahya',
+  phoneNumber: '+628127312',
+  province: 'Jawa Barat',
+  city: 'Bekasi',
+  district: 'Cikarang Utara',
+  streetAddress: 'Jl. Kesejahteraan no.1',
+  postalCode: '17530',
+};
