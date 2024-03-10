@@ -6,41 +6,11 @@ import OrderItemComponent from './OrderItemComponent';
 import ShippingAddressComponent from './ShippingAddressComponent';
 import SummaryComponent from './SummaryComponent';
 import CustomPicker from 'components/CustomPicker';
-import {
-  Controller,
-  useFormContext,
-} from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { PaymentMethod, ShippingOption } from '../CheckOutScreen';
 import { CartItem } from 'screen/cart/CartScreen';
-
-const shippingOptions: ShippingOption[] = [
-  {
-    name: 'JNE',
-    price: 10000,
-    minEtd: 2,
-    maxEtd: 3,
-    etdType: 'days',
-  },
-  {
-    name: 'Sicepat',
-    price: 10000,
-    minEtd: 2,
-    maxEtd: 3,
-    etdType: 'days',
-  },
-];
-
-const paymentList: PaymentMethod[] = [
-  {
-    name: 'Transfer Bank (BCA)',
-  },
-  {
-    name: 'E-Wallet',
-  },
-  {
-    name: 'Virtual Account',
-  },
-];
+import useGetShippingOption from '../service/useGetShippingOption';
+import useGetPaymentMethod from '../service/useGetPaymentMethod';
 
 export type OrderComponentProps = {
   items: CartItem[];
@@ -53,6 +23,9 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
     formState: { errors },
   } = useFormContext();
   const address = watch('address');
+
+  const { loading, shippingOptions } = useGetShippingOption();
+  const { loading: loadingPayment, paymentMethods } = useGetPaymentMethod();
 
   return (
     <ScrollView
@@ -90,6 +63,7 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
               renderValue={(item: ShippingOption) =>
                 `${item?.name} (Rp${item?.price})`
               }
+              loading={loading}
               error={errors?.shippingOption?.message ?? ''}
               onSelect={onChange}
               renderOption={(item: ShippingOption) => (
@@ -122,8 +96,9 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
             render={({ field: { onChange, value } }) => (
               <CustomPicker
                 value={value}
-                items={paymentList}
+                items={paymentMethods}
                 onSelect={onChange}
+                loading={loadingPayment}
                 error={errors?.paymentMethod?.message ?? ''}
                 renderValue={(item: PaymentMethod) => item?.name}
                 renderOption={(item: PaymentMethod) => (

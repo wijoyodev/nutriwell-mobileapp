@@ -1,5 +1,6 @@
 import { ProfileResponse } from 'network/auth/profile';
 import { CartItem } from 'screen/cart/CartScreen';
+import { PaymentMethod, ShippingOption } from 'screen/check-out/CheckOutScreen';
 import { NetworkType, RewardSummary } from 'screen/reward-home/RewardHomeScreen';
 import { Product } from 'screen/shop-home/ShopHomeScreen';
 
@@ -60,5 +61,34 @@ export const cartItems: CartItem[] = [
     price: 5000,
     quantity: 2,
     imageUrl: '',
+  },
+];
+
+export const shippingOptions: ShippingOption[] = [
+  {
+    name: 'JNE Regular',
+    price: 10000,
+    minEtd: 2,
+    maxEtd: 3,
+    etdType: 'days',
+  },
+  {
+    name: 'Sicepat Express',
+    price: 10000,
+    minEtd: 2,
+    maxEtd: 3,
+    etdType: 'days',
+  },
+];
+
+export const paymentList: PaymentMethod[] = [
+  {
+    name: 'Transfer Bank (BCA)',
+  },
+  {
+    name: 'E-Wallet',
+  },
+  {
+    name: 'Virtual Account',
   },
 ];

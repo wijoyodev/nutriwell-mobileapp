@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { JSXElementConstructor, useRef } from 'react';
+import React, { useRef } from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   ListRenderItemInfo,
   Text,
@@ -25,6 +26,7 @@ export type CustomPickerProps = {
   renderOption: (a: any) => any;
   renderValue?: (a: any) => any;
   onSelect?: (item: any) => void;
+  loading?: boolean;
 };
 
 const CustomPicker: React.FC<CustomPickerProps> = props => {
@@ -92,6 +94,9 @@ const CustomPicker: React.FC<CustomPickerProps> = props => {
             {props.title ? props.title : props.placeholder}
           </Text>
 
+          {props.loading && (
+            <ActivityIndicator color={Colors.blue} size={'large'} />
+          )}
           <FlatList
             data={props.items}
             renderItem={(info: ListRenderItemInfo<any>) => (
