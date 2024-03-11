@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ListRenderItemInfo,
@@ -14,74 +15,18 @@ import RewardHistoryItem from './components/RewardHistoryItem';
 import { useFocusEffect } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Utils from 'service/Utils';
-import { RewardSummary } from 'screen/reward-home/RewardHomeScreen';
+import useGetRewardHistory from './service/useGetRewardHistory';
 
-export type History = {
+export type RewardHistory = {
   date: Date;
   description: string;
   reward: number;
   isIncome: boolean;
 };
 
-const historyList: History[] = [
-  {
-    date: new Date(),
-    description: 'Pembelian Produk dari Brenda (Level 3)',
-    reward: 15000,
-    isIncome: true,
-  },
-  {
-    date: new Date(),
-    description: 'Pembelian Produk dari Brenda (Level 3)',
-    reward: 15000,
-    isIncome: true,
-  },
-  {
-    date: new Date(),
-    description: 'Pembelian Produk dari Brenda (Level 3)',
-    reward: 15000,
-    isIncome: true,
-  },
-  {
-    date: new Date(),
-    description: 'Pembelian Produk dari Brenda (Level 3)',
-    reward: 15000,
-    isIncome: true,
-  },
-  {
-    date: new Date(),
-    description: 'Pembelian Produk dari Brenda (Level 3)',
-    reward: 15000,
-    isIncome: true,
-  },
-  {
-    date: new Date(),
-    description: 'Pembelian Produk dari Brenda (Level 3)',
-    reward: 15000,
-    isIncome: true,
-  },
-  {
-    date: new Date(),
-    description: 'Pembelian Produk dari Brenda (Level 3)',
-    reward: 15000,
-    isIncome: true,
-  },
-  // {
-  //   date: new Date(),
-  //   description: 'Pembelian Produk dari Brenda (Level 3)',
-  //   reward: 15000,
-  //   isIncome: false,
-  // },
-];
-
 export type HistoryRewardSummary = {
   totalReward: number;
   successWithdraw: number;
-};
-
-const historyRewardSummary: HistoryRewardSummary = {
-  totalReward: 21500000,
-  successWithdraw: 2000000,
 };
 
 const Tab = createMaterialTopTabNavigator();
@@ -103,12 +48,13 @@ const tabList: TabType[] = [
 ];
 
 const RewardHistoryScreen = () => {
+  const { rewardHistory, loading } = useGetRewardHistory();
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
   });
 
-  const renderItem = (info: ListRenderItemInfo<History>) => {
+  const renderItem = (info: ListRenderItemInfo<RewardHistory>) => {
     return <RewardHistoryItem history={info.item} index={info.index} />;
   };
 
@@ -127,7 +73,10 @@ const RewardHistoryScreen = () => {
     );
   };
 
-  const groupHistory = Utils.groupBy(historyList, history => history.isIncome);
+  const groupHistory = Utils.groupBy(
+    rewardHistory?.history ?? [],
+    history => history.isIncome,
+  );
 
   const renderHistoryList = (isIncome: boolean) => {
     const histories = groupHistory.get(isIncome) ?? [];
@@ -162,7 +111,11 @@ const RewardHistoryScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
-      <RewardSummaryComponent summary={historyRewardSummary} />
+      {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
+      {rewardHistory?.summary !== undefined && (
+        <RewardSummaryComponent summary={rewardHistory?.summary} />
+      )}
+
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarLabel: ({ focused }) => tabBarLabel(focused, route.name),

@@ -7,6 +7,8 @@ import {
 } from 'screen/check-out/CheckOutScreen';
 import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
 import { NetworkDetail } from 'screen/network-detail/NetworkDetailScreen';
+import { OrderHistory } from 'screen/order-history/OrderHistoryScreen';
+import { HistoryRewardSummary, RewardHistory } from 'screen/reward-history/RewardHistoryScreen';
 import {
   NetworkType,
   RewardSummary,
@@ -139,3 +141,110 @@ export const networkDetail: NetworkDetail = {
   monthlyPurchase: 1500000,
   networks: networkSummary,
 };
+
+export const historyRewardSummary: HistoryRewardSummary = {
+  totalReward: 21500000,
+  successWithdraw: 2000000,
+};
+
+export const historyList: RewardHistory[] = [
+  {
+    date: new Date(),
+    description: 'Pembelian Produk dari Brenda (Level 3)',
+    reward: 15000,
+    isIncome: true,
+  },
+  {
+    date: new Date(),
+    description: 'Pembelian Produk dari Brenda (Level 3)',
+    reward: 15000,
+    isIncome: true,
+  },
+  {
+    date: new Date(),
+    description: 'Pembelian Produk dari Brenda (Level 3)',
+    reward: 15000,
+    isIncome: true,
+  },
+  {
+    date: new Date(),
+    description: 'Pembelian Produk dari Brenda (Level 3)',
+    reward: 15000,
+    isIncome: true,
+  },
+  {
+    date: new Date(),
+    description: 'Pembelian Produk dari Brenda (Level 3)',
+    reward: 15000,
+    isIncome: true,
+  },
+  {
+    date: new Date(),
+    description: 'Pembelian Produk dari Brenda (Level 3)',
+    reward: 15000,
+    isIncome: true,
+  },
+  {
+    date: new Date(),
+    description: 'Pembelian Produk dari Brenda (Level 3)',
+    reward: 15000,
+    isIncome: true,
+  },
+  // {
+  //   date: new Date(),
+  //   description: 'Pembelian Produk dari Brenda (Level 3)',
+  //   reward: 15000,
+  //   isIncome: false,
+  // },
+];
+
+export const orderHistoryList: OrderHistory[] = [
+  {
+    orderId: '#934229034',
+    createdDate: new Date(),
+    status: 0,
+    items: [
+      {
+        name: 'GARAM Kurang Natrium 200 gram',
+        quantity: 20,
+        price: 1250000,
+        imageUrl: '',
+      },
+      {
+        name: 'GARAM Kurang Natrium 200 gram',
+        quantity: 20,
+        price: 1250000,
+        imageUrl: '',
+      },
+    ],
+    totalPrice: 3120000,
+  },
+  {
+    orderId: '#934229034',
+    createdDate: new Date(),
+    status: 0,
+    items: [
+      {
+        name: 'GARAM Kurang Natrium 200 gram',
+        quantity: 20,
+        price: 1250000,
+        imageUrl: '',
+      },
+    ],
+    totalPrice: 3120000,
+  },
+  {
+    orderId: '#934229034',
+    createdDate: new Date(),
+    status: 1,
+    items: [
+      {
+        name: 'GARAM Kurang Natrium 200 gram',
+        quantity: 20,
+        price: 1250000,
+        imageUrl: '',
+      },
+    ],
+    totalPrice: 3120000,
+  },
+];

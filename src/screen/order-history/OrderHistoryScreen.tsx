@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ListRenderItemInfo,
@@ -13,8 +14,9 @@ import Colors from 'themes/Colors';
 import { useFocusEffect } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Utils from 'service/Utils';
+import useGetOrderHistory from './service/useGetOrderHistory';
 
-export type History = {
+export type OrderHistory = {
   orderId: string;
   createdDate: Date;
   status: number;
@@ -28,57 +30,6 @@ export type HistoryItem = {
   price: number;
   imageUrl: string;
 };
-
-const historyList: History[] = [
-  {
-    orderId: '#934229034',
-    createdDate: new Date(),
-    status: 0,
-    items: [
-      {
-        name: 'GARAM Kurang Natrium 200 gram',
-        quantity: 20,
-        price: 1250000,
-        imageUrl: '',
-      },
-      {
-        name: 'GARAM Kurang Natrium 200 gram',
-        quantity: 20,
-        price: 1250000,
-        imageUrl: '',
-      },
-    ],
-    totalPrice: 3120000,
-  },
-  {
-    orderId: '#934229034',
-    createdDate: new Date(),
-    status: 0,
-    items: [
-      {
-        name: 'GARAM Kurang Natrium 200 gram',
-        quantity: 20,
-        price: 1250000,
-        imageUrl: '',
-      },
-    ],
-    totalPrice: 3120000,
-  },
-  {
-    orderId: '#934229034',
-    createdDate: new Date(),
-    status: 1,
-    items: [
-      {
-        name: 'GARAM Kurang Natrium 200 gram',
-        quantity: 20,
-        price: 1250000,
-        imageUrl: '',
-      },
-    ],
-    totalPrice: 3120000,
-  },
-];
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -111,16 +62,20 @@ const tabList: TabType[] = [
 ];
 
 const OrderHistoryScreen = () => {
+  const { loading, orderHistory } = useGetOrderHistory();
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
   });
 
-  const renderItem = (info: ListRenderItemInfo<History>) => {
+  const renderItem = (info: ListRenderItemInfo<OrderHistory>) => {
     return <HistoryComponent history={info.item} />;
   };
 
-  const groupHistory = Utils.groupBy(historyList, history => history.status);
+  const groupHistory = Utils.groupBy(
+    orderHistory ?? [],
+    history => history.status,
+  );
 
   const tabBarLabel = (focused: boolean, name: string) => {
     return (
@@ -170,6 +125,7 @@ const OrderHistoryScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
+      {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarStyle: {

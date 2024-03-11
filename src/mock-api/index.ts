@@ -2,8 +2,11 @@ import { createServer, Model } from 'miragejs';
 import {
   address,
   cartItems,
+  historyList,
+  historyRewardSummary,
   networkDetail,
   networkList,
+  orderHistoryList,
   paymentList,
   product,
   profile,
@@ -49,12 +52,23 @@ export default function () {
         },
       }));
 
+      this.get('/order/history', () => ({
+        data: orderHistoryList,
+      }));
+
       this.get('/network', () => ({
         data: networkDetail,
       }));
 
       this.get('/network/level', () => ({
         data: networkList,
+      }));
+
+      this.get('/reward/history', () => ({
+        data: {
+          summary: historyRewardSummary,
+          history: historyList,
+        },
       }));
 
       let newId = 4;
