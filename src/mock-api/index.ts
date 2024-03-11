@@ -71,6 +71,13 @@ export default function () {
         },
       }));
 
+      this.get('/upline', () => ({
+        data: {
+          summary: historyRewardSummary,
+          history: historyList,
+        },
+      }));
+
       let newId = 4;
       this.post('/api/reminders', (schema, request) => {
         let attrs = JSON.parse(request.requestBody);

@@ -1,4 +1,5 @@
 import { ProfileResponse } from 'network/auth/profile';
+import { UplineInformationResponse } from 'network/reward/upline';
 import { CartItem } from 'screen/cart/CartScreen';
 import {
   Address,
@@ -8,7 +9,10 @@ import {
 import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
 import { NetworkDetail } from 'screen/network-detail/NetworkDetailScreen';
 import { OrderHistory } from 'screen/order-history/OrderHistoryScreen';
-import { HistoryRewardSummary, RewardHistory } from 'screen/reward-history/RewardHistoryScreen';
+import {
+  HistoryRewardSummary,
+  RewardHistory,
+} from 'screen/reward-history/RewardHistoryScreen';
 import {
   NetworkType,
   RewardSummary,
@@ -248,3 +252,10 @@ export const orderHistoryList: OrderHistory[] = [
     totalPrice: 3120000,
   },
 ];
+
+export const uplineInformation: UplineInformationResponse = {
+  name: 'Monika Setiadi',
+  imageUrl: '',
+  joinDate: new Date(),
+  phoneNumber: '(+62) 81231231',
+};
