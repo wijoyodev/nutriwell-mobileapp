@@ -22,3 +22,4 @@ export const BANK_ACCOUNT_SCREEN = 'BankAccountScreen';
 export const UPLINE_INFORMATION_SCREEN = 'UplineInformationScreen';
 export const UPDATE_PIN_SCREEN = 'UpdatePinScreen';
 export const TERMS_AND_CONDITION_SCREEN = 'TermsAndConditionScreen';
+export const MAIN_HOME = 'main-home';

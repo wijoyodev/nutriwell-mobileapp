@@ -14,6 +14,7 @@ import FontIcon from 'react-native-vector-icons/FontAwesome';
 import RewardHomeScreen from 'screen/reward-home/RewardHomeScreen';
 import ShopHomeScreen from 'screen/shop-home/ShopHomeScreen';
 import AccountHomeScreen from 'screen/account-home/AccountHomeScreen';
+import { MAIN_HOME } from 'navigation/constants';
 
 export type HomeScreenProps = {
   navigation: NavigationProp<ParamListBase>;
@@ -69,7 +70,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
         inactiveColor={Colors.disabled}
         backBehavior={'history'}>
         <Tab.Screen
-          name="main-home"
+          name={MAIN_HOME}
           children={() => <MainHomeScreen />}
           options={{
             headerShown: false,

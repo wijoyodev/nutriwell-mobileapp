@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { NavigationProp, ParamListBase, useNavigation, useRoute } from '@react-navigation/native';
 import CustomPin from 'components/CustomPin';
-import { FORGET_PIN_SCREEN, HOME_SCREEN } from 'navigation/constants';
+import { FORGET_PIN_SCREEN, HOME_SCREEN, MAIN_HOME } from 'navigation/constants';
 import login from 'network/auth/login';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
@@ -23,7 +23,7 @@ const PinLoginScreen = () => {
       pin,
     }).then(response => {
       if (response.success) {
-        navigate(HOME_SCREEN);
+        navigate(MAIN_HOME);
       } else {
         // handle error
       }
