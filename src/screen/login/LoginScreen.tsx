@@ -46,7 +46,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
 
   const handleLogin: SubmitHandler<LoginForm> = (data: LoginForm) => {
     console.log(data);
-    navigate(PIN_LOGIN_SCREEN);
+    navigate(PIN_LOGIN_SCREEN, {
+      ...data,
+    });
   };
 
   const handleRegister = () => {

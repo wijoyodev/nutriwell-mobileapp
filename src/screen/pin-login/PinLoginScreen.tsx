@@ -1,13 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { NavigationProp, ParamListBase, useNavigation, useRoute } from '@react-navigation/native';
 import CustomPin from 'components/CustomPin';
 import { FORGET_PIN_SCREEN, HOME_SCREEN } from 'navigation/constants';
+import login from 'network/auth/login';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 
 const PinLoginScreen = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
+  const { params } = useRoute();
   const [pin, setPin] = useState('');
   useEffect(() => {
     if (pin.length === 6) {
@@ -16,7 +18,16 @@ const PinLoginScreen = () => {
   }, [pin]);
 
   const handleLogin = () => {
-    navigate(HOME_SCREEN);
+    login({
+      email: params?.email,
+      pin,
+    }).then(response => {
+      if (response.success) {
+        navigate(HOME_SCREEN);
+      } else {
+        // handle error
+      }
+    });
   };
 
   return (

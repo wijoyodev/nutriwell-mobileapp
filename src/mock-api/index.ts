@@ -78,6 +78,22 @@ export default function () {
         },
       }));
 
+      this.post('/login', (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        if (body.email === 'yahya@gmail.com' && body.pin === '070700') {
+          return {
+            success: true,
+            data: {
+              accessToken: 'token',
+            },
+          };
+        }
+        return {
+          success: false,
+          data: null,
+        };
+      });
+
       let newId = 4;
       this.post('/api/reminders', (schema, request) => {
         let attrs = JSON.parse(request.requestBody);
