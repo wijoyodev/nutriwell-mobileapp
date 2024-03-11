@@ -1,7 +1,16 @@
 import { ProfileResponse } from 'network/auth/profile';
 import { CartItem } from 'screen/cart/CartScreen';
-import { Address, PaymentMethod, ShippingOption } from 'screen/check-out/CheckOutScreen';
-import { NetworkType, RewardSummary } from 'screen/reward-home/RewardHomeScreen';
+import {
+  Address,
+  PaymentMethod,
+  ShippingOption,
+} from 'screen/check-out/CheckOutScreen';
+import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
+import { NetworkDetail } from 'screen/network-detail/NetworkDetailScreen';
+import {
+  NetworkType,
+  RewardSummary,
+} from 'screen/reward-home/RewardHomeScreen';
 import { Product } from 'screen/shop-home/ShopHomeScreen';
 
 export const product: Product = {
@@ -12,7 +21,7 @@ export const product: Product = {
     'Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient facilisi in sit nulla. Pretium est mauris elit dolor eget integer. Lorem ipsum dolor sit amet consectetur. Egestas posuere at parturient facilisi in sit nulla. Pretium est mauris elit dolor eget integer.',
 };
 
-const networkList: NetworkType[] = [
+export const networkList: NetworkType[] = [
   {
     name: 'Gill Lucy',
     level: 1,
@@ -102,4 +111,31 @@ export const address: Address = {
   district: 'Cikarang Utara',
   streetAddress: 'Jl. Kesejahteraan no.1',
   postalCode: '17530',
+};
+
+export const networkSummary: NetworkTypeSummary[] = [
+  {
+    level: 1,
+    totalNetwork: 50,
+    totalActive: 20,
+  },
+  {
+    level: 2,
+    totalNetwork: 60,
+    totalActive: 30,
+  },
+  {
+    level: 3,
+    totalNetwork: 70,
+    totalActive: 40,
+  },
+];
+
+export const networkDetail: NetworkDetail = {
+  name: 'Gill Lucy',
+  imageUrl: '',
+  joinDate: new Date(),
+  level: 2,
+  monthlyPurchase: 1500000,
+  networks: networkSummary,
 };

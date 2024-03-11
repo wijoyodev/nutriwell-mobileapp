@@ -3,33 +3,18 @@ import React from 'react';
 import { FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
+import useGetNetwork from '../service/useGetNetwork';
 
-type NetworkType = {
+export type NetworkTypeSummary = {
   level: number;
   totalNetwork: number;
   totalActive: number;
 };
 
-const network: NetworkType[] = [
-  {
-    level: 1,
-    totalNetwork: 50,
-    totalActive: 20,
-  },
-  {
-    level: 2,
-    totalNetwork: 60,
-    totalActive: 30,
-  },
-  {
-    level: 3,
-    totalNetwork: 70,
-    totalActive: 40,
-  },
-];
-
 const ReferenceNetworkComponent = () => {
-  const renderItem = (info: ListRenderItemInfo<NetworkType>) => {
+  const { network } = useGetNetwork();
+
+  const renderItem = (info: ListRenderItemInfo<NetworkTypeSummary>) => {
     return (
       <View
         style={{
@@ -103,9 +88,9 @@ const ReferenceNetworkComponent = () => {
         </Text>
       </View>
 
-      {network.length > 0 ? (
+      {(network?.networks?.length ?? 0) > 0 ? (
         <>
-          <FlatList data={network} renderItem={renderItem} />
+          <FlatList data={network?.networks} renderItem={renderItem} />
 
           <Text style={{ fontStyle: 'italic', marginTop: 12 }}>
             *Sudah bertransaksi = dalam bulan ini

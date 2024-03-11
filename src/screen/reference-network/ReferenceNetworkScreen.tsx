@@ -8,10 +8,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
 import Colors from 'themes/Colors';
 import NetworkComponent from './components/NetworkComponent';
 import { useFocusEffect } from '@react-navigation/native';
+import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
 
 const networkList: NetworkType[] = [
   {

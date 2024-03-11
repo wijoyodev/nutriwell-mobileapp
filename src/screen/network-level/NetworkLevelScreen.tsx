@@ -6,34 +6,18 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
-import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
+import { ActivityIndicator, FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
 import NetworkInfoComponent from './components/NetworkInfoComponent';
 import Colors from 'themes/Colors';
+import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
+import useGetNetworkLevel from './service/useGetNetworkLevel';
 
 type NetworkLevelProps = {
   route: RouteProp<ParamListBase>;
 };
 
-const networkList: NetworkType[] = [
-  {
-    name: 'Gill Lucy',
-    level: 1,
-    network: 500,
-  },
-  {
-    name: 'Gill Lucy B',
-    level: 1,
-    network: 500,
-  },
-  {
-    name: 'Gill Lucy C',
-    level: 1,
-    network: 500,
-  },
-];
-
 const NetworkLevelScreen: React.FC<NetworkLevelProps> = ({ route }) => {
+  const { loading, network: networkList } = useGetNetworkLevel();
   const { setOptions } = useNavigation<NavigationProp<ParamListBase>>();
   const { level } = route.params;
 
@@ -50,7 +34,8 @@ const NetworkLevelScreen: React.FC<NetworkLevelProps> = ({ route }) => {
   return (
     <View
       style={{ flex: 1, backgroundColor: Colors.white, paddingHorizontal: 16 }}>
-      {networkList.length > 0 ? (
+      {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
+      {(networkList?.length ?? 0) > 0 ? (
         <FlatList
           showsVerticalScrollIndicator={false}
           data={networkList}

@@ -16,17 +16,17 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { NETWORK_LEVEL_SCREEN } from 'navigation/constants';
-import { Network } from '../NetworkDetailScreen';
+import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
 
 export type NetworkListComponentProps = {
-  networks: Network[];
+  networks: NetworkTypeSummary[];
 };
 
 const NetworkListComponent: React.FC<NetworkListComponentProps> = ({
   networks,
 }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
-  const renderItem = (info: ListRenderItemInfo<Network>) => {
+  const renderItem = (info: ListRenderItemInfo<NetworkTypeSummary>) => {
     return (
       <TouchableOpacity
         onPress={() =>
@@ -55,7 +55,7 @@ const NetworkListComponent: React.FC<NetworkListComponentProps> = ({
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Icon name={'people-outline'} />
-            <Text>{info.item.total} network</Text>
+            <Text>{info.item.totalNetwork} network</Text>
           </View>
         </View>
         <Icon name={'chevron-forward-outline'} size={20} color={Colors.black} />

@@ -2,6 +2,8 @@ import { createServer, Model } from 'miragejs';
 import {
   address,
   cartItems,
+  networkDetail,
+  networkList,
   paymentList,
   product,
   profile,
@@ -47,11 +49,12 @@ export default function () {
         },
       }));
 
-      this.get('/network/summary', () => ({
-        data: {
-          items: cartItems,
-          address: address,
-        },
+      this.get('/network', () => ({
+        data: networkDetail,
+      }));
+
+      this.get('/network/level', () => ({
+        data: networkList,
       }));
 
       let newId = 4;

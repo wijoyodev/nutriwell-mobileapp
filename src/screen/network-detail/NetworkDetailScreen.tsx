@@ -1,35 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import ProfileNetworkComponent from './components/ProfileNetworkComponent';
 import NetworkListComponent from './components/NetworkListComponent';
 import dayjs from 'dayjs';
 import Utils from 'service/Utils';
-
-export type Network = {
-  level: number;
-  total: number;
-};
-
-const networkList: Network[] = [
-  {
-    level: 1,
-    total: 100,
-  },
-  {
-    level: 2,
-    total: 200,
-  },
-  {
-    level: 3,
-    total: 200,
-  },
-  {
-    level: 4,
-    total: 200,
-  },
-];
+import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
+import useGetNetwork from './service/useGetNetwork';
 
 export type NetworkDetail = {
   name: string;
@@ -37,24 +15,18 @@ export type NetworkDetail = {
   joinDate: Date;
   level: number;
   monthlyPurchase: number;
-  networks: Network[];
-};
-
-const networkDetail: NetworkDetail = {
-  name: 'Gill Lucy',
-  imageUrl: '',
-  joinDate: new Date(),
-  level: 2,
-  monthlyPurchase: 1500000,
-  networks: networkList,
+  networks: NetworkTypeSummary[];
 };
 
 const NetworkDetailScreen = () => {
+  const { loading, network } = useGetNetwork();
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ flex: 1, backgroundColor: Colors.white }}>
-      <ProfileNetworkComponent network={networkDetail} />
+      {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
+      {network !== undefined && <ProfileNetworkComponent network={network} />}
       <View style={{ paddingHorizontal: 16, paddingBottom: 16 }}>
         <Text>INFORMASI</Text>
         <View
@@ -67,7 +39,8 @@ const NetworkDetailScreen = () => {
             Tanggal Bergabung
           </Text>
           <Text style={{ color: Colors.black, fontSize: 14 }}>
-            {dayjs(networkDetail.joinDate).format('DD MMMM YYYY')}
+            {network?.joinDate !== undefined &&
+              dayjs(network?.joinDate).format('DD MMMM YYYY')}
           </Text>
         </View>
         <View
@@ -78,7 +51,7 @@ const NetworkDetailScreen = () => {
           }}>
           <Text style={{ color: Colors.black, fontSize: 14 }}>Level</Text>
           <Text style={{ color: Colors.black, fontSize: 14 }}>
-            #{networkDetail.level}
+            #{network?.level}
           </Text>
         </View>
         <View
@@ -91,12 +64,12 @@ const NetworkDetailScreen = () => {
             Total Belanja Bulan Ini
           </Text>
           <Text style={{ color: Colors.black, fontSize: 14 }}>
-            {Utils.getPriceString(networkDetail.monthlyPurchase)}
+            {Utils.getPriceString(network?.monthlyPurchase ?? 0)}
           </Text>
         </View>
       </View>
 
-      <NetworkListComponent networks={networkDetail.networks} />
+      <NetworkListComponent networks={network?.networks ?? []} />
     </ScrollView>
   );
 };
