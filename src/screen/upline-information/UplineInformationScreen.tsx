@@ -2,7 +2,7 @@
 import { useFocusEffect } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import React from 'react';
-import { ActivityIndicator, Image, StatusBar, Text, View } from 'react-native';
+import { ActivityIndicator, StatusBar, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import useGetUpline from './service/useGetUpline';
 import CustomProfileImage from 'components/CustomProfileImage';
@@ -37,7 +37,7 @@ const UplineInformationScreen = () => {
                 fontWeight: 'bold',
                 marginTop: 8,
               }}>
-              Monika Setiadi
+              {upline.name}
             </Text>
           </View>
 
@@ -52,7 +52,7 @@ const UplineInformationScreen = () => {
               Tanggal Bergabung
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              {dayjs(new Date()).format('DD MMMM YYYY')}
+              {dayjs(upline.joinDate).format('DD MMMM YYYY')}
             </Text>
           </View>
 
@@ -66,7 +66,7 @@ const UplineInformationScreen = () => {
               Nomor Telepon
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              081283839292
+              {upline.phoneNumber}
             </Text>
           </View>
         </>

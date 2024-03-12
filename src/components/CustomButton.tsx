@@ -8,6 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import Colors from 'themes/Colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 type CustomButtonProps = {
   onPress?: () => void;

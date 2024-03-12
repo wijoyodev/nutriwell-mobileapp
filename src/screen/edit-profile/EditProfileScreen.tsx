@@ -28,8 +28,15 @@ const EditProfileScreen = () => {
     imageUrl: '',
   };
 
+  let code = '+62';
   if (params.data) {
-    formInitialValues = params.data;
+    const phoneNumberSplitted = params.data.phoneNumber.split(' ');
+    const phoneNumber = phoneNumberSplitted[1];
+    code = phoneNumberSplitted[0].replace('(', '').replace(')', '');
+    formInitialValues = {
+      ...params.data,
+      phoneNumber,
+    };
   }
 
   const formMethods = useForm({
@@ -48,7 +55,7 @@ const EditProfileScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <FormProvider {...formMethods}>
-        <EditProfileComponent />
+        <EditProfileComponent countryCode={code} />
       </FormProvider>
       <View
         style={{

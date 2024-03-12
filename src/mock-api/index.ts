@@ -13,6 +13,7 @@ import {
   profile,
   rewardSummary,
   shippingOptions,
+  uplineInformation,
 } from './constant';
 
 export default function () {
@@ -77,10 +78,7 @@ export default function () {
       }));
 
       this.get('/upline', () => ({
-        data: {
-          summary: historyRewardSummary,
-          history: historyList,
-        },
+        data: uplineInformation,
       }));
 
       this.post('/login', (schema, request) => {

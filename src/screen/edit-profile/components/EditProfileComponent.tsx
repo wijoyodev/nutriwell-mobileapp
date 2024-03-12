@@ -32,8 +32,14 @@ const genderList = [
   },
 ];
 
-const EditProfileComponent = () => {
-  const [code, setCode] = useState('+62');
+export type EditProfileComponentProps = {
+  countryCode: string;
+};
+
+const EditProfileComponent: React.FC<EditProfileComponentProps> = ({
+  countryCode,
+}) => {
+  const [code, setCode] = useState(countryCode);
   const [loadingVisible, setLoadingVisible] = useState<boolean>(false);
   const {
     control,

@@ -8,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import CountryPicker, { Country } from 'react-native-country-picker-modal';
+import CountryPicker, { Country, CountryCodeList, getCallingCode } from 'react-native-country-picker-modal';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -31,6 +31,7 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = props => {
     : props.error
     ? Colors.red
     : Colors.black;
+
   return (
     <>
       <View
