@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ListRenderItemInfo,
@@ -12,26 +13,11 @@ import Colors from 'themes/Colors';
 import NetworkComponent from './components/NetworkComponent';
 import { useFocusEffect } from '@react-navigation/native';
 import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
-
-const networkList: NetworkType[] = [
-  {
-    name: 'Gill Lucy',
-    level: 1,
-    network: 500,
-  },
-  {
-    name: 'Gill Lucy B',
-    level: 1,
-    network: 500,
-  },
-  {
-    name: 'Gill Lucy C',
-    level: 1,
-    network: 500,
-  },
-];
+import useGetAllNetwork from './service/useGetAllNetwork';
 
 const ReferenceNetworkScreen = () => {
+  const { loading, network } = useGetAllNetwork();
+
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
@@ -44,8 +30,9 @@ const ReferenceNetworkScreen = () => {
   return (
     <View
       style={{ flex: 1, backgroundColor: Colors.white, paddingHorizontal: 16 }}>
-      {networkList.length > 0 ? (
-        <FlatList data={networkList} renderItem={renderItem} />
+      {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
+      {(network?.length ?? 0) > 0 ? (
+        <FlatList data={network} renderItem={renderItem} />
       ) : (
         <View
           style={{

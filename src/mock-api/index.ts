@@ -65,6 +65,10 @@ export default function () {
         data: networkList,
       }));
 
+      this.get('/network/all', () => ({
+        data: networkList,
+      }));
+
       this.get('/reward/history', () => ({
         data: {
           summary: historyRewardSummary,
