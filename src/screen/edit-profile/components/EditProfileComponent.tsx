@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import {
   ActivityIndicator,
-  Image,
   ImageBackground,
   Modal,
   ScrollView,
@@ -15,11 +14,12 @@ import {
   View,
 } from 'react-native';
 import Colors from 'themes/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import CustomPhoneInput from 'components/CustomPhoneInput';
 import Utils from 'service/Utils';
 import uploadImage from 'network/auth/upload-image';
 import { imageUrlTes } from 'mock-api/constant';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 const genderList = [
   {
@@ -35,7 +35,6 @@ const genderList = [
 const EditProfileComponent = () => {
   const [code, setCode] = useState('+62');
   const [loadingVisible, setLoadingVisible] = useState<boolean>(false);
-  const [loadingImage, setLoadingImage] = useState<boolean>(false);
   const {
     control,
     formState: { errors },
@@ -78,21 +77,7 @@ const EditProfileComponent = () => {
           borderRadius: 40,
           marginTop: 16,
         }}>
-        <ImageBackground
-          onLoadStart={() => setLoadingImage(true)}
-          onLoad={() => setLoadingImage(false)}
-          source={{
-            uri: imageUrl,
-          }}
-          borderRadius={40}
-          style={{
-            height: 80,
-            width: 80,
-            borderRadius: 40,
-            justifyContent: 'center',
-          }}>
-          {loadingImage && <ActivityIndicator color={Colors.blue} />}
-        </ImageBackground>
+        <CustomProfileImage size={80} imageUrl={imageUrl} />
         <View
           style={{
             backgroundColor: Colors.grey,
@@ -102,7 +87,7 @@ const EditProfileComponent = () => {
             right: 4,
             borderRadius: 8,
           }}>
-          <Icon name={'camera'} style={{}} />
+          <Icon name={'camera-outline'} color={Colors.blue} />
         </View>
       </TouchableOpacity>
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>

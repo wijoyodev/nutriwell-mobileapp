@@ -5,6 +5,7 @@ import { ActivityIndicator, Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import useGetProfile from '../service/useGetProfile';
 import dayjs from 'dayjs';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 export type HeaderHomeComponentProps = {};
 
@@ -26,10 +27,7 @@ const HeaderHomeComponent: React.FC<HeaderHomeComponentProps> = () => {
         gap: 12,
         padding: 16,
       }}>
-      <Image
-        source={require('../../../assets/images/product_image.png')}
-        style={{ height: 44, width: 44, borderRadius: 22 }}
-      />
+      <CustomProfileImage size={44} imageUrl={profile?.imageUrl} />
       <View>
         <Text
           style={{

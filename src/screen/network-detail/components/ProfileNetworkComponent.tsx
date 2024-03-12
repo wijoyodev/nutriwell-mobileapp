@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { NetworkDetail } from '../NetworkDetailScreen';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 export type ProfileNetworkComponentProps = {
   network: NetworkDetail;
@@ -22,16 +23,14 @@ const ProfileNetworkComponent: React.FC<ProfileNetworkComponentProps> = ({
         alignItems: 'center',
         margin: 16,
       }}>
-      <Image
-        source={require('../../../assets/images/product_image.png')}
+      <CustomProfileImage size={60} imageUrl={network.imageUrl} />
+      <Text
         style={{
-          height: 60,
-          width: 60,
-          borderRadius: 30,
-          marginBottom: 8,
-        }}
-      />
-      <Text style={{ color: Colors.black, fontSize: 16, fontWeight: 'bold' }}>
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: 'bold',
+          marginTop: 8,
+        }}>
         {network?.name ?? ''}
       </Text>
     </View>

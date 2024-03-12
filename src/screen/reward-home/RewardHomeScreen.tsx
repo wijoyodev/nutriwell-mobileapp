@@ -11,6 +11,7 @@ export type NetworkType = {
   name: string;
   level: number;
   network: number;
+  imageUrl?: string;
 };
 
 export type RewardSummary = {

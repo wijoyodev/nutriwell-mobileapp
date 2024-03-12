@@ -4,6 +4,7 @@ import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 export type NetworkInfoProps = {
   network: NetworkType;
@@ -25,14 +26,7 @@ const NetworkInfoComponent: React.FC<NetworkInfoProps> = ({
         paddingVertical: 12,
       }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-        <Image
-          source={require('../../../assets/images/product_image.png')}
-          style={{
-            height: 40,
-            width: 40,
-            borderRadius: 40,
-          }}
-        />
+        <CustomProfileImage size={40} imageUrl={network.imageUrl} />
         <View>
           <Text
             style={{ fontSize: 14, fontWeight: 'bold', color: Colors.black }}>

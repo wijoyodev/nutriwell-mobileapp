@@ -11,6 +11,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { NETWORK_DETAIL_SCREEN } from 'navigation/constants';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 export type NetworkComponentProps = {
   network: NetworkType;
@@ -42,14 +43,7 @@ const NetworkComponent: React.FC<NetworkComponentProps> = ({
           }}>
           #{index + 1}
         </Text>
-        <Image
-          source={require('../../../assets/images/product_image.png')}
-          style={{
-            height: 40,
-            width: 40,
-            borderRadius: 40,
-          }}
-        />
+        <CustomProfileImage size={40} imageUrl={network.imageUrl} />
         <View>
           <Text
             style={{ fontSize: 14, fontWeight: 'bold', color: Colors.black }}>

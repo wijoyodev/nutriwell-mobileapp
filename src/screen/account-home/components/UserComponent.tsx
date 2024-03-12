@@ -9,6 +9,7 @@ import {
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ProfileResponse } from 'network/auth/profile';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 export type UserComponentProps = {
   profile: ProfileResponse;
@@ -37,16 +38,7 @@ const UserComponent: React.FC<UserComponentProps> = ({ profile }) => {
             top: 0,
           }}
         />
-        <Image
-          source={require('../../../assets/images/product_image.png')}
-          style={{
-            height: 80,
-            width: 80,
-            borderRadius: 40,
-            borderWidth: 1,
-            borderColor: Colors.white,
-          }}
-        />
+        <CustomProfileImage size={80} imageUrl={profile.imageUrl} />
       </View>
 
       <Text

@@ -21,6 +21,7 @@ import {
   REFERENCE_NETWORK_SCREEN,
 } from 'navigation/constants';
 import { NetworkType } from '../RewardHomeScreen';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 export type ReferenceNetworkComponentProps = {
   networkList: NetworkType[];
@@ -51,14 +52,7 @@ const ReferenceNetworkComponent: React.FC<ReferenceNetworkComponentProps> = ({
             }}>
             #{info.index + 1}
           </Text>
-          <Image
-            source={require('../../../assets/images/product_image.png')}
-            style={{
-              height: 40,
-              width: 40,
-              borderRadius: 40,
-            }}
-          />
+          <CustomProfileImage size={40} imageUrl={info.item.imageUrl} />
           <View>
             <Text
               style={{ fontSize: 14, fontWeight: 'bold', color: Colors.black }}>

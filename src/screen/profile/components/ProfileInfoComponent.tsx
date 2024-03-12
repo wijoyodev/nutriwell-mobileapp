@@ -5,6 +5,7 @@ import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
 import { ProfileResponse } from 'network/auth/profile';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 export type ProfileInfoComponentProps = {
   profile: ProfileResponse;
@@ -27,14 +28,7 @@ const ProfileInfoComponent: React.FC<ProfileInfoComponentProps> = ({
   return (
     <View style={{ padding: 16 }}>
       <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
-        <Image
-          source={require('../../../assets/images/product_image.png')}
-          style={{
-            height: 80,
-            width: 80,
-            borderRadius: 40,
-          }}
-        />
+        <CustomProfileImage size={80} imageUrl={profile.imageUrl} />
         <View style={{ flexDirection: 'column', gap: 8 }}>
           <Text
             style={{ fontSize: 16, color: Colors.black, fontWeight: 'bold' }}>

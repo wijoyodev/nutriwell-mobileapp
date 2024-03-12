@@ -2,15 +2,25 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Image, ScrollView, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ImageBackground,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Colors from 'themes/Colors';
 import { registerDataSchema } from '../schema/registerDataSchema';
 import CustomTextInput from 'components/CustomTextInput';
 import CustomDatePicker from 'components/CustomDatePicker';
 import CustomRadioButton from 'components/CustomRadioButton';
 import CustomButton from 'components/CustomButton';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import CustomPhoneInput from 'components/CustomPhoneInput';
+import { imageUrlTes } from 'mock-api/constant';
+import Utils from 'service/Utils';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 const genderList = [
   {
@@ -48,6 +58,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
     birthDate: new Date(),
     gender: 'male',
     phoneNumber: '',
+    imageUrl: '',
   };
 
   const formMethods = useForm({
@@ -60,11 +71,36 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
     control,
     handleSubmit: handleFormSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = formMethods;
+
+  const imageUrl = watch('imageUrl');
 
   const handleSave: SubmitHandler<ProfileForm> = (data: ProfileForm) => {
     console.log(data);
     onComplete?.();
+  };
+
+  const handleUpdateImage = () => {
+    Utils.openGallery(handleUploadImage);
+  };
+
+  const handleUploadImage = (attachment: any) => {
+    setValue('imageUrl', imageUrlTes);
+    // setLoadingVisible(true);
+    // uploadImage(attachment)
+    //   .then(response => {
+    //     console.log('Response: ', response);
+    //     setLoadingVisible(false);
+    //     if (response.data.imageUrl !== undefined) {
+    //       setValue('imageUrl', response.imageUrl);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     setLoadingVisible(false);
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -88,19 +124,15 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
           {'Silakan lengkapi data diri Anda'}
         </Text>
 
-        <View
+        <TouchableOpacity
+          onPress={handleUpdateImage}
           style={{
             position: 'relative',
             width: 80,
+            borderRadius: 40,
+            marginTop: 16,
           }}>
-          <Image
-            source={require('../../../assets/images/product_image.png')}
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 40,
-            }}
-          />
+          <CustomProfileImage size={80} imageUrl={imageUrl} />
           <View
             style={{
               backgroundColor: Colors.grey,
@@ -110,9 +142,9 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
               right: 4,
               borderRadius: 8,
             }}>
-            <Icon name={'camera'} style={{}} />
+            <Icon name={'camera-outline'} color={Colors.blue} />
           </View>
-        </View>
+        </TouchableOpacity>
 
         <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
           Nama

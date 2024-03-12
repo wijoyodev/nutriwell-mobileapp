@@ -5,6 +5,7 @@ import React from 'react';
 import { ActivityIndicator, Image, StatusBar, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import useGetUpline from './service/useGetUpline';
+import CustomProfileImage from 'components/CustomProfileImage';
 
 const UplineInformationScreen = () => {
   const { upline, loading } = useGetUpline();
@@ -28,17 +29,14 @@ const UplineInformationScreen = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Image
-              source={require('../../assets/images/product_image.png')}
-              style={{
-                height: 60,
-                width: 60,
-                borderRadius: 30,
-                marginBottom: 8,
-              }}
-            />
+            <CustomProfileImage size={60} imageUrl={upline.imageUrl} />
             <Text
-              style={{ fontSize: 16, color: Colors.black, fontWeight: 'bold' }}>
+              style={{
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: 'bold',
+                marginTop: 8,
+              }}>
               Monika Setiadi
             </Text>
           </View>
