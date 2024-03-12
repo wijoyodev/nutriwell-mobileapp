@@ -4,6 +4,7 @@ import {
   cartItems,
   historyList,
   historyRewardSummary,
+  imageUrlTes,
   networkDetail,
   networkList,
   orderHistoryList,
@@ -91,6 +92,16 @@ export default function () {
         return {
           success: false,
           data: null,
+        };
+      });
+
+      this.post('/media/upload', (_, request) => {
+        console.log('Ini di mock: ', request);
+        return {
+          success: true,
+          data: {
+            imageUrl: imageUrlTes,
+          },
         };
       });
 

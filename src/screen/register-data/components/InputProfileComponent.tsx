@@ -29,6 +29,7 @@ export type ProfileForm = {
   birthDate: Date;
   gender: string;
   phoneNumber: string;
+  imageUrl?: string;
 };
 
 export type InputProfileComponentProps = {

@@ -4,6 +4,12 @@ import { FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useGetNetwork from '../service/useGetNetwork';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import { REFERENCE_NETWORK_SCREEN } from 'navigation/constants';
 
 export type NetworkTypeSummary = {
   level: number;
@@ -13,6 +19,7 @@ export type NetworkTypeSummary = {
 
 const ReferenceNetworkComponent = () => {
   const { network } = useGetNetwork();
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
   const renderItem = (info: ListRenderItemInfo<NetworkTypeSummary>) => {
     return (
@@ -83,6 +90,7 @@ const ReferenceNetworkComponent = () => {
           Reference Network
         </Text>
         <Text
+          onPress={() => navigate(REFERENCE_NETWORK_SCREEN)}
           style={{ fontSize: 14, color: Colors.darkBlue, fontWeight: 'bold' }}>
           Lihat Semua
         </Text>

@@ -1,16 +1,25 @@
 /* eslint-disable react-native/no-inline-styles */
-import { yupResolver } from '@hookform/resolvers/yup';
 import CustomDatePicker from 'components/CustomDatePicker';
 import CustomRadioButton from 'components/CustomRadioButton';
 import CustomTextInput from 'components/CustomTextInput';
 import React, { useState } from 'react';
-import { Controller, useForm, useFormContext } from 'react-hook-form';
-import { Image, ScrollView, Text, View } from 'react-native';
-import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
-import { registerDataSchema } from 'screen/register-data/schema/registerDataSchema';
+import { Controller, useFormContext } from 'react-hook-form';
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  Modal,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomPhoneInput from 'components/CustomPhoneInput';
+import Utils from 'service/Utils';
+import uploadImage from 'network/auth/upload-image';
+import { imageUrlTes } from 'mock-api/constant';
 
 const genderList = [
   {
@@ -25,29 +34,65 @@ const genderList = [
 
 const EditProfileComponent = () => {
   const [code, setCode] = useState('+62');
+  const [loadingVisible, setLoadingVisible] = useState<boolean>(false);
+  const [loadingImage, setLoadingImage] = useState<boolean>(false);
   const {
     control,
     formState: { errors },
+    watch,
+    setValue,
   } = useFormContext();
+
+  const imageUrl = watch('imageUrl');
+
+  const handleUpdateImage = () => {
+    Utils.openGallery(handleUploadImage);
+  };
+
+  const handleUploadImage = (attachment: any) => {
+    setValue('imageUrl', imageUrlTes);
+    // setLoadingVisible(true);
+    // uploadImage(attachment)
+    //   .then(response => {
+    //     console.log('Response: ', response);
+    //     setLoadingVisible(false);
+    //     if (response.data.imageUrl !== undefined) {
+    //       setValue('imageUrl', response.imageUrl);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     setLoadingVisible(false);
+    //     console.log(err);
+    //   });
+  };
 
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ flex: 1, paddingHorizontal: 16 }}>
-      <View
+      <TouchableOpacity
+        onPress={handleUpdateImage}
         style={{
           position: 'relative',
           width: 80,
+          borderRadius: 40,
           marginTop: 16,
         }}>
-        <Image
-          source={require('../../../assets/images/product_image.png')}
+        <ImageBackground
+          onLoadStart={() => setLoadingImage(true)}
+          onLoad={() => setLoadingImage(false)}
+          source={{
+            uri: imageUrl,
+          }}
+          borderRadius={40}
           style={{
             height: 80,
             width: 80,
             borderRadius: 40,
-          }}
-        />
+            justifyContent: 'center',
+          }}>
+          {loadingImage && <ActivityIndicator color={Colors.blue} />}
+        </ImageBackground>
         <View
           style={{
             backgroundColor: Colors.grey,
@@ -59,7 +104,7 @@ const EditProfileComponent = () => {
           }}>
           <Icon name={'camera'} style={{}} />
         </View>
-      </View>
+      </TouchableOpacity>
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
         Nama
       </Text>
@@ -134,6 +179,18 @@ const EditProfileComponent = () => {
           />
         )}
       />
+
+      <Modal transparent={true} visible={loadingVisible}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <ActivityIndicator size="large" color="white" />
+        </View>
+      </Modal>
     </ScrollView>
   );
 };

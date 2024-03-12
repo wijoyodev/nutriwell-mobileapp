@@ -20,13 +20,14 @@ import { ProfileResponse } from 'network/auth/profile';
 const ProfileScreen = () => {
   const { setOptions, navigate } =
     useNavigation<NavigationProp<ParamListBase>>();
+
+  const { loading, profile } = useGetProfile();
+
   useEffect(() => {
     setOptions({
       headerRight: iconHeaderRight,
     });
-  }, []);
-
-  const { loading, profile } = useGetProfile();
+  }, [profile]);
 
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);

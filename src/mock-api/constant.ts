@@ -259,3 +259,6 @@ export const uplineInformation: UplineInformationResponse = {
   joinDate: new Date(),
   phoneNumber: '(+62) 81231231',
 };
+
+export const imageUrlTes =
+  'https://api.mentorbaik.com/file//c50c245c37607c374a2cef7c017bf89b7b200d54.jpg';

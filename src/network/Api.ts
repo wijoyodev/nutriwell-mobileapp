@@ -80,9 +80,61 @@ const get = async (url: string, data: any = null) => {
   }
 };
 
+const upload = async (url: string, data: any) => {
+  const token = await AsyncStorage.getItem('token');
+  const headers = token
+    ? {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'multipart/form-data',
+      }
+    : {
+        'Content-Type': 'multipart/form-data',
+      };
+
+  const formData = new FormData();
+  // for (let k in data) {
+  //   formData.append(k, data[k]);
+  // }
+
+  formData.append('file', {
+    name: data.name,
+    type: data.type !== null ? data.type : 'video/mp4',
+    uri: data.uri,
+  });
+
+  let response = await fetch(API_URL + url, {
+    method: 'POST',
+    body: formData,
+    headers: headers,
+  })
+    .then(payload => {
+      return payload.json();
+    })
+    .then(result => {
+      console.log('Media Upload Result: ', result);
+      if (result.status === 0 && result.error === 'access_denied') {
+        // return this.handleDenied(withToken).then(responseAfterDenied => {
+        //   if (responseAfterDenied.status === 1) {
+        //     return this.upload(url, data, withToken);
+        //   }
+        // });
+      }
+      return result;
+    })
+    .catch(err => {
+      return {
+        status: 0,
+        error: err,
+        message: err.message,
+      };
+    });
+  return response;
+};
+
 const Api = {
   post,
   get,
+  upload,
 };
 
 export default Api;

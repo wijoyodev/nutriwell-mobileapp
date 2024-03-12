@@ -25,6 +25,7 @@ const EditProfileScreen = () => {
     birthDate: new Date(),
     phoneNumber: '',
     gender: 'male',
+    imageUrl: '',
   };
 
   if (params.data) {
