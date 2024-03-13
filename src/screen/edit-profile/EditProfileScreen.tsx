@@ -14,6 +14,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerDataSchema } from 'screen/register-data/schema/registerDataSchema';
 import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
+import updateProfile from 'network/auth/update-profile';
 
 const EditProfileScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
@@ -49,7 +50,13 @@ const EditProfileScreen = () => {
 
   const handleSave: SubmitHandler<ProfileForm> = (data: ProfileForm) => {
     console.log(data);
-    goBack();
+    updateProfile(data).then(response => {
+      if (response.success) {
+        goBack();
+      } else {
+        console.log('FAILED');
+      }
+    });
   };
 
   return (

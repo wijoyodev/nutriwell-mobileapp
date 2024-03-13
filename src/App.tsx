@@ -19,7 +19,15 @@ function App(): React.JSX.Element {
     mockApi();
   }, []);
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      linking={{
+        prefixes: ['nutriwell://app'],
+        config: {
+          screens: {
+            RegisterDataScreen: 'register',
+          },
+        },
+      }}>
       <Router />
     </NavigationContainer>
   );

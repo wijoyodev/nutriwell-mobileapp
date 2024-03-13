@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import { HOME_SCREEN, REGISTER_SCREEN } from 'navigation/constants';
 import React from 'react';
-import { Button, Image, StatusBar, View } from 'react-native';
+import { Button, Image, Linking, StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
 
 export type SplashScreenProps = {
@@ -36,6 +36,11 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
       />
 
       <Button onPress={() => navigate(HOME_SCREEN)} title={'Go to home'} />
+
+      <Button
+        onPress={() => Linking.openURL('nutriwell://app/register')}
+        title={'Go to Link URL'}
+      />
     </View>
   );
 };

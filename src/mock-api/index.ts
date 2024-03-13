@@ -81,6 +81,11 @@ export default function () {
         data: uplineInformation,
       }));
 
+      this.post('/profile', () => ({
+        success: true,
+        data: profile,
+      }));
+
       this.post('/login', (schema, request) => {
         let body = JSON.parse(request.requestBody);
         if (body.email === 'yahya@gmail.com' && body.pin === '070700') {
