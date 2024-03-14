@@ -1,3 +1,4 @@
+import { BankResponse } from 'network/auth/bank-account';
 import { ProfileResponse } from 'network/auth/profile';
 import { UplineInformationResponse } from 'network/reward/upline';
 import { CartItem } from 'screen/cart/CartScreen';
@@ -61,6 +62,14 @@ export const profile: ProfileResponse = {
   birthDate: new Date(),
   phoneNumber: '(+62) 812312312',
   gender: 'male',
+};
+
+export const bankResponse: BankResponse = {
+  bank: {
+    name: 'BCA',
+  },
+  accountHolder: 'John Doe',
+  accountNumber: '812736152',
 };
 
 export const cartItems: CartItem[] = [

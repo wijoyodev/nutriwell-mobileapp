@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
@@ -9,19 +9,15 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { BANK_ACCOUNT_SCREEN } from 'navigation/constants';
-import { BankForm } from 'screen/bank-account/BankAccountScreen';
-
-let bankValue: BankForm = {
-  bank: {
-    name: 'BCA',
-  },
-  accountHolder: 'Yahya',
-  accountNumber: '812736152',
-};
+import { BankResponse } from 'network/auth/bank-account';
+import useGetBankAccount from '../service/useGetBankAccount';
 
 // bankValue = null;
 
-const BankAccountComponent = () => {
+export type BankAccountComponentProps = {};
+
+const BankAccountComponent: React.FC<BankAccountComponentProps> = () => {
+  const { loading, bankAccount } = useGetBankAccount();
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
   const renderEmptyBank = () => (
@@ -40,10 +36,11 @@ const BankAccountComponent = () => {
       style={{ padding: 16, borderTopColor: Colors.grey, borderTopWidth: 4 }}>
       <Text>AKUN BANK</Text>
 
+      {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
       <TouchableOpacity
         onPress={() =>
           navigate(BANK_ACCOUNT_SCREEN, {
-            data: bankValue,
+            data: bankAccount,
           })
         }
         style={{
@@ -55,7 +52,7 @@ const BankAccountComponent = () => {
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        {bankValue ? (
+        {bankAccount ? (
           <View>
             <Text
               style={{
@@ -64,13 +61,13 @@ const BankAccountComponent = () => {
                 fontWeight: 'bold',
                 marginBottom: 4,
               }}>
-              {bankValue?.accountHolder}
+              {bankAccount?.accountHolder}
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              {bankValue?.bank?.name}
+              {bankAccount?.bank?.name}
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              {bankValue?.accountNumber}
+              {bankAccount?.accountNumber}
             </Text>
           </View>
         ) : (

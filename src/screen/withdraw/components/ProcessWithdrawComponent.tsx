@@ -4,11 +4,12 @@ import CustomButton from 'components/CustomButton';
 import CustomTextInput from 'components/CustomTextInput';
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { withdrawSchema } from '../schema/withdrawSchema';
 import { useRoute } from '@react-navigation/native';
 import Utils from 'service/Utils';
+import useGetBankAccount from '../service/useGetBankAccount';
 
 type WithdrawForm = {
   nominal: string;
@@ -21,6 +22,7 @@ export type ProcessWithdrawComponentProps = {
 const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
   onSubmit,
 }) => {
+  const { loading, bankAccount } = useGetBankAccount();
   const { params } = useRoute();
   const redeemableReward = params?.redeemableReward ?? 0;
   const formInitialValues: WithdrawForm = {
@@ -51,6 +53,17 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
 
     return parseInt(text, 10).toLocaleString('id-ID');
   };
+
+  const renderEmptyBank = () => (
+    <View>
+      <Text style={{ fontSize: 14, color: Colors.black, fontWeight: 'bold' }}>
+        Belum ada akun bank
+      </Text>
+      <Text style={{ fontSize: 14, color: Colors.black, marginTop: 6 }}>
+        Tambah akun bank untuk dapat menarik komisi Anda
+      </Text>
+    </View>
+  );
 
   return (
     <>
@@ -107,6 +120,7 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
           }}>
           <Text>AKUN BANK</Text>
 
+          {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
           <View
             style={{
               marginTop: 16,
@@ -115,25 +129,35 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
               borderWidth: 1,
               borderRadius: 16,
             }}>
-            <Text
-              style={{ fontSize: 14, color: Colors.black, fontWeight: 'bold' }}>
-              John Doe
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.black,
-                marginTop: 6,
-              }}>
-              BCA
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                color: Colors.black,
-              }}>
-              60493499929
-            </Text>
+            {bankAccount ? (
+              <>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: 'bold',
+                  }}>
+                  {bankAccount?.accountHolder}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: Colors.black,
+                    marginTop: 6,
+                  }}>
+                  {bankAccount?.bank?.name}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: Colors.black,
+                  }}>
+                  {bankAccount?.accountNumber}
+                </Text>
+              </>
+            ) : (
+              renderEmptyBank()
+            )}
           </View>
 
           <Text style={{ marginTop: 12 }}>
@@ -145,6 +169,7 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
 
       <View style={{ padding: 16 }}>
         <CustomButton
+          disabled={!bankAccount}
           onPress={handleFormSubmit(submit)}
           backgroundColor={Colors.blue}
           text={'TARIK SEKARANG'}

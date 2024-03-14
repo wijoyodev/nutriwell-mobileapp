@@ -8,5 +8,5 @@ setLocale({
 });
 
 export const loginFormSchema = object().shape({
-  email: string().required(),
+  email: string().required().email('Field must be a valid email'),
 });

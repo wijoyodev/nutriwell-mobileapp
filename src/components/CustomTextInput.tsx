@@ -63,6 +63,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = props => {
           style={{
             ...props.style,
             // ...styles.textInput,
+            flex: 1,
             minHeight: 32,
             fontSize: 14,
             color: textColor,

@@ -1,6 +1,7 @@
 import { createServer, Model } from 'miragejs';
 import {
   address,
+  bankResponse,
   cartItems,
   historyList,
   historyRewardSummary,
@@ -84,6 +85,11 @@ export default function () {
       this.post('/profile', () => ({
         success: true,
         data: profile,
+      }));
+
+      this.get('/bank', () => ({
+        success: true,
+        data: bankResponse,
       }));
 
       this.post('/login', (schema, request) => {

@@ -41,7 +41,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
   const {
     control,
     handleSubmit: handleFormSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = formMethods;
 
   const handleLogin: SubmitHandler<LoginForm> = (data: LoginForm) => {
@@ -104,6 +104,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               value={value}
               onChangeText={onChange}
               placeholder={'Masukkan email Anda'}
+              error={errors?.email?.message ?? ''}
             />
           )}
         />

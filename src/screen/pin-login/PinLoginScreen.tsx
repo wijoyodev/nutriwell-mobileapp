@@ -23,7 +23,7 @@ const PinLoginScreen = () => {
       pin,
     }).then(response => {
       if (response.success) {
-        navigate(MAIN_HOME);
+        navigate(HOME_SCREEN);
       } else {
         // handle error
       }

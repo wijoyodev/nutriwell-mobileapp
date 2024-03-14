@@ -32,7 +32,7 @@ type MenuItem = {
 };
 
 const ProfileMenuComponent = () => {
-  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
+  const { navigate, reset } = useNavigation<NavigationProp<ParamListBase>>();
 
   const modalRef = useRef<CustomModalHandle | null>();
   const menuList: Menu[] = [
@@ -152,7 +152,10 @@ const ProfileMenuComponent = () => {
           <CustomButton
             onPress={() => {
               modalRef.current?.closeModal();
-              navigate(LOGIN_SCREEN);
+              reset({
+                index: 0,
+                routes: [{ name: LOGIN_SCREEN }],
+              });
             }}
             text={'KELUAR AKUN'}
             textStyle={{

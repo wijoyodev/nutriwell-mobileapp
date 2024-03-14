@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Share, Text, View } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 import Colors from 'themes/Colors';
 
 export type InviteNetworkComponentProps = {
@@ -11,6 +12,14 @@ export type InviteNetworkComponentProps = {
 const InviteNetworkComponent: React.FC<InviteNetworkComponentProps> = ({
   code,
 }) => {
+  const shareReferralCode = () => {
+    Share.share({
+      message: 'Bagikan Kode Referensi',
+      title: 'Yuk, Ajak Temanmu!',
+      url: 'http://nutriwell/code/' + code,
+    });
+  };
+
   return (
     <View
       style={{
@@ -45,12 +54,18 @@ const InviteNetworkComponent: React.FC<InviteNetworkComponentProps> = ({
           {code}
         </Text>
 
-        <Text style={{ color: Colors.blue, fontSize: 16, fontWeight: 'bold' }}>
+        <Text
+          onPress={() => Clipboard.setString(code)}
+          style={{ color: Colors.blue, fontSize: 16, fontWeight: 'bold' }}>
           SALIN
         </Text>
       </View>
 
-      <CustomButton backgroundColor={Colors.blue} text={'BAGIKAN'} />
+      <CustomButton
+        onPress={shareReferralCode}
+        backgroundColor={Colors.blue}
+        text={'BAGIKAN'}
+      />
     </View>
   );
 };
