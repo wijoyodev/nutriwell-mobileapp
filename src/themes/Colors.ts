@@ -13,6 +13,7 @@ const Colors = {
   darkGreen: '#089156',
   placeholder: '#949BA6',
   grey: '#F3F4F9',
+  grey2: '#66686D',
   lightGrey: '#B5B5C4',
   disabled: '#D3D5DB',
   disabledBg: '#F3F6F9',

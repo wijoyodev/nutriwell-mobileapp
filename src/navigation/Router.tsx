@@ -29,6 +29,7 @@ import {
   UPLINE_INFORMATION_SCREEN,
   UPDATE_PIN_SCREEN,
   TERMS_AND_CONDITION_SCREEN,
+  INVOICE_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
 import LoginScreen from 'screen/login/LoginScreen';
@@ -53,6 +54,7 @@ import EditProfileScreen from 'screen/edit-profile/EditProfileScreen';
 import UplineInformationScreen from 'screen/upline-information/UplineInformationScreen';
 import UpdatePinSreen from 'screen/update-pin/UpdatePinScreen';
 import TermsAndConditionScreen from 'screen/terms-and-condition/TermsAndConditionScreen';
+import InvoiceScreen from 'screen/invoice/InvoiceScreen';
 
 const Stack = createStackNavigator();
 
@@ -248,6 +250,14 @@ const screens: ScreenObject[] = [
     screen: TermsAndConditionScreen,
     options: {
       headerTitle: 'Syarat & Ketentuan',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: INVOICE_SCREEN,
+    screen: InvoiceScreen,
+    options: {
+      headerTitle: 'Invoice',
       headerTitleAlign: 'center',
     },
   },

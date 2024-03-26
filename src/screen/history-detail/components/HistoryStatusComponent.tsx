@@ -5,6 +5,12 @@ import Colors from 'themes/Colors';
 import { HistoryDetail } from '../HistoryDetailScreen';
 import dayjs from 'dayjs';
 import Status from 'themes/Status';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import { INVOICE_SCREEN } from 'navigation/constants';
 
 export type HistoryStatusComponentProps = {
   history: HistoryDetail;
@@ -13,6 +19,7 @@ export type HistoryStatusComponentProps = {
 const HistoryStatusComponent: React.FC<HistoryStatusComponentProps> = ({
   history,
 }) => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const statusLabel = Status.get(history.status)?.label ?? '';
   const statusColor = Status.get(history.status)?.color ?? '';
   return (
@@ -52,7 +59,9 @@ const HistoryStatusComponent: React.FC<HistoryStatusComponentProps> = ({
           marginTop: 12,
         }}>
         <Text style={{ fontSize: 14, color: Colors.black }}>Invoice</Text>
-        <Text style={{ fontSize: 14, color: Colors.blue, fontWeight: 'bold' }}>
+        <Text
+          onPress={() => navigate(INVOICE_SCREEN)}
+          style={{ fontSize: 14, color: Colors.blue, fontWeight: 'bold' }}>
           Lihat Invoice
         </Text>
       </View>
