@@ -30,6 +30,7 @@ import {
   UPDATE_PIN_SCREEN,
   TERMS_AND_CONDITION_SCREEN,
   INVOICE_SCREEN,
+  TRACKING_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
 import LoginScreen from 'screen/login/LoginScreen';
@@ -55,6 +56,7 @@ import UplineInformationScreen from 'screen/upline-information/UplineInformation
 import UpdatePinSreen from 'screen/update-pin/UpdatePinScreen';
 import TermsAndConditionScreen from 'screen/terms-and-condition/TermsAndConditionScreen';
 import InvoiceScreen from 'screen/invoice/InvoiceScreen';
+import TrackingScreen from 'screen/tracking/TrackingScreen';
 
 const Stack = createStackNavigator();
 
@@ -258,6 +260,14 @@ const screens: ScreenObject[] = [
     screen: InvoiceScreen,
     options: {
       headerTitle: 'Invoice',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: TRACKING_SCREEN,
+    screen: TrackingScreen,
+    options: {
+      headerTitle: 'Lacak',
       headerTitleAlign: 'center',
     },
   },

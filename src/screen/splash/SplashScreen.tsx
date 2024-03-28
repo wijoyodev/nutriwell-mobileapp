@@ -4,7 +4,7 @@ import {
   ParamListBase,
   useFocusEffect,
 } from '@react-navigation/native';
-import { HOME_SCREEN, REGISTER_SCREEN } from 'navigation/constants';
+import { HOME_SCREEN, REGISTER_SCREEN, TRACKING_SCREEN } from 'navigation/constants';
 import React from 'react';
 import { Button, Image, Linking, StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -40,6 +40,11 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
       <Button
         onPress={() => Linking.openURL('nutriwell://app/register')}
         title={'Go to Link URL'}
+      />
+
+      <Button
+        onPress={() => navigate(TRACKING_SCREEN)}
+        title={'Go to Tracking'}
       />
     </View>
   );

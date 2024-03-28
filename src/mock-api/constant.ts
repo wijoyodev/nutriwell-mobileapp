@@ -9,7 +9,7 @@ import {
 } from 'screen/check-out/CheckOutScreen';
 import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
 import { NetworkDetail } from 'screen/network-detail/NetworkDetailScreen';
-import { OrderHistory } from 'screen/order-history/OrderHistoryScreen';
+import { HistoryItem, OrderHistory } from 'screen/order-history/OrderHistoryScreen';
 import {
   HistoryRewardSummary,
   RewardHistory,
@@ -19,6 +19,7 @@ import {
   RewardSummary,
 } from 'screen/reward-home/RewardHomeScreen';
 import { Product } from 'screen/shop-home/ShopHomeScreen';
+import { TrackingTimelineItem } from 'screen/tracking/components/TrackingComponent';
 
 export const product: Product = {
   imageUrl: '',
@@ -271,3 +272,55 @@ export const uplineInformation: UplineInformationResponse = {
 
 export const imageUrlTes =
   'https://api.mentorbaik.com/file//c50c245c37607c374a2cef7c017bf89b7b200d54.jpg';
+
+export type InvoiceResponse = {
+  orderId: string;
+  totalPayment: number;
+  paymentDate: Date;
+  shippingAddress: Address;
+  items: HistoryItem[];
+  shippingCost: number;
+  shippingOption: ShippingOption;
+  paymentMethod: PaymentMethod;
+};
+export const invoice: InvoiceResponse = {
+  orderId: '123123',
+  totalPayment: 3130000,
+  paymentDate: new Date(),
+  shippingAddress: address,
+  items: [
+    {
+      name: 'GARAM Kurang Natrium 200 gram',
+      quantity: 20,
+      price: 1250000,
+      imageUrl: '',
+    },
+  ],
+  shippingCost: 10000,
+  shippingOption: {
+    name: 'Sicepat Express',
+    price: 10000,
+    minEtd: 2,
+    maxEtd: 3,
+    etdType: 'days',
+  },
+  paymentMethod: {
+    name: 'Transfer Bank (BCA)',
+  },
+};
+
+export const trackingItems: TrackingTimelineItem[] = [
+  {
+    description: 'Pesanan Anda telah diterima di alamat tujuan oleh Roy Kim.',
+    date: new Date(),
+  },
+  {
+    description:
+      'Pesanan Anda sedang diantarkan oleh kurir menuju alamat tujuan Anda.',
+    date: new Date(),
+  },
+  {
+    description: 'Pesanan menunggu dijemput kurir',
+    date: new Date(),
+  },
+];

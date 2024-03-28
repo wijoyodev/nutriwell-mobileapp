@@ -106,7 +106,7 @@ const HistoryDetailScreen = () => {
         <PaymentMethodComponent history={history} />
         <OrderHistoryComponent history={history} />
       </ScrollView>
-      <View style={{ padding: 16 }}>
+      <View style={{ padding: 16, paddingTop: 0 }}>
         <CustomButton backgroundColor={Colors.blue} text={'BAYAR SEKARANG'} />
       </View>
     </View>

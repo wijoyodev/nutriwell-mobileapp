@@ -4,6 +4,8 @@ import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { HistoryDetail } from '../HistoryDetailScreen';
 import dayjs from 'dayjs';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { TRACKING_SCREEN } from 'navigation/constants';
 
 export type ShippingInfoComponentProps = {
   history: HistoryDetail;
@@ -12,6 +14,7 @@ export type ShippingInfoComponentProps = {
 const ShippingInfoComponent: React.FC<ShippingInfoComponentProps> = ({
   history,
 }) => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   if (!history.shipping) {
     return <></>;
   }
@@ -20,7 +23,9 @@ const ShippingInfoComponent: React.FC<ShippingInfoComponentProps> = ({
       style={{ padding: 16, borderTopColor: Colors.grey, borderTopWidth: 4 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text>INFORMASI PENGIRIMAN</Text>
-        <Text style={{ fontSize: 14, fontWeight: 'bold', color: Colors.blue }}>
+        <Text
+          onPress={() => navigate(TRACKING_SCREEN)}
+          style={{ fontSize: 14, fontWeight: 'bold', color: Colors.blue }}>
           Lacak
         </Text>
       </View>

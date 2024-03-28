@@ -6,6 +6,7 @@ import {
   historyList,
   historyRewardSummary,
   imageUrlTes,
+  invoice,
   networkDetail,
   networkList,
   orderHistoryList,
@@ -14,6 +15,7 @@ import {
   profile,
   rewardSummary,
   shippingOptions,
+  trackingItems,
   uplineInformation,
 } from './constant';
 
@@ -90,6 +92,19 @@ export default function () {
       this.get('/bank', () => ({
         success: true,
         data: bankResponse,
+      }));
+
+      this.get('/invoice', () => ({
+        success: true,
+        data: invoice,
+      }));
+
+      this.get('/tracking', () => ({
+        success: true,
+        data: {
+          resi: '9812318312',
+          items: trackingItems,
+        },
       }));
 
       this.post('/login', (schema, request) => {
