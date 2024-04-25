@@ -3,6 +3,7 @@ import {
   address,
   bankResponse,
   cartItems,
+  history,
   historyList,
   historyRewardSummary,
   imageUrlTes,
@@ -59,6 +60,10 @@ export default function () {
 
       this.get('/order/history', () => ({
         data: orderHistoryList,
+      }));
+
+      this.get('/order/history/id', () => ({
+        data: history,
       }));
 
       this.get('/network', () => ({

@@ -2,14 +2,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import {
-  ActivityIndicator,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { registerDataSchema } from '../schema/registerDataSchema';
 import CustomTextInput from 'components/CustomTextInput';
@@ -40,17 +33,17 @@ export type ProfileForm = {
   gender: string;
   phoneNumber: string;
   imageUrl?: string;
+  code: string;
 };
 
 export type InputProfileComponentProps = {
   email: string;
-  onComplete?: () => void;
+  onComplete?: (data: ProfileForm) => void;
 };
 const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
   email,
   onComplete,
 }) => {
-  const [code, setCode] = useState('+62');
 
   const formInitialValues: ProfileForm = {
     name: '',
@@ -59,6 +52,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
     gender: 'male',
     phoneNumber: '',
     imageUrl: '',
+    code: '+62',
   };
 
   const formMethods = useForm({
@@ -79,7 +73,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
 
   const handleSave: SubmitHandler<ProfileForm> = (data: ProfileForm) => {
     console.log(data);
-    onComplete?.();
+    onComplete?.(data);
   };
 
   const handleUpdateImage = () => {
@@ -102,6 +96,8 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
     //     console.log(err);
     //   });
   };
+
+  const code = watch('code');
 
   return (
     <View
@@ -185,7 +181,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
           render={({ field: { onChange, value } }) => (
             <CustomPhoneInput
               code={code}
-              onChangeCode={setCode}
+              onChangeCode={codeValue => setValue('code', codeValue)}
               onChangeText={onChange}
               value={value}
               placeholder={'cth: 812 9999 0000'}

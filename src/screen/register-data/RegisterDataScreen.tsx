@@ -11,8 +11,11 @@ import {
 } from '@react-navigation/native';
 import { HeaderBackButton } from '@react-navigation/elements';
 import PinConfirmationComponent from './components/PinConfirmationComponent';
-import InputProfileComponent from './components/InputProfileComponent';
+import InputProfileComponent, {
+  ProfileForm,
+} from './components/InputProfileComponent';
 import SuccessRegisterComponent from './components/SuccessRegisterComponent';
+import register from 'network/auth/register';
 
 export type RegisterDataScreenProps = {
   navigation: NavigationProp<ParamListBase>;
@@ -39,7 +42,6 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   }, [progress]);
 
   const onBack = () => {
-    console.log('progress', progress);
     if (progress > 1) {
       setProgress(progress - 1);
       return;
@@ -51,6 +53,22 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   const onComplete = (pin: string) => {
     nextProgress();
     setSelectedPin(pin);
+  };
+
+  const registerUser = (data: ProfileForm) => {
+    register({
+      email: data.email,
+      referrer_code: referralCode,
+      password: selectedPin,
+      confirm_password: selectedPin,
+      phone_number: data.code,
+      phone_number_country: data.phoneNumber,
+      gender: data.gender,
+      date_of_birth: data.birthDate,
+      full_name: data.name,
+    }).then(() => {
+      nextProgress();
+    });
   };
 
   const nextProgress = () => {
@@ -93,7 +111,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
         />
       )}
       {progress === 3 && (
-        <InputProfileComponent email={email} onComplete={nextProgress} />
+        <InputProfileComponent email={email} onComplete={registerUser} />
       )}
       {progress === 4 && <SuccessRegisterComponent />}
     </View>

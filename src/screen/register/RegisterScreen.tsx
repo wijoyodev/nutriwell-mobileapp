@@ -3,11 +3,22 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import CustomTextInput from 'components/CustomTextInput';
 import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Image, LayoutChangeEvent, StatusBar, Text, View, useWindowDimensions } from 'react-native';
+import {
+  Image,
+  LayoutChangeEvent,
+  StatusBar,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import Colors from 'themes/Colors';
 import { registerFormSchema } from './schema/registerFormSchema';
 import CustomButton from 'components/CustomButton';
-import { NavigationProp, ParamListBase, useFocusEffect } from '@react-navigation/native';
+import {
+  NavigationProp,
+  ParamListBase,
+  useFocusEffect,
+} from '@react-navigation/native';
 import { LOGIN_SCREEN, REGISTER_DATA_SCREEN } from 'navigation/constants';
 
 type RegisterForm = {

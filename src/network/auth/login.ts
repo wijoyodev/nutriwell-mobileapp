@@ -7,7 +7,7 @@ export type LoginResponse = {
 
 export type LoginRequest = {
   email: string;
-  pin: string;
+  password: string;
 };
 
 type ApiCallLogin = (

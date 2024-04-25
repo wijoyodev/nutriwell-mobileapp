@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
 import React from 'react';
-import { ScrollView, StatusBar, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
 import HeaderStatusComponent from './components/HeaderStatusComponent';
 import HistoryStatusComponent from './components/HistoryStatusComponent';
@@ -11,6 +11,7 @@ import OrderHistoryComponent from './components/OrderHistoryComponent';
 import ShippingInfoComponent from './components/ShippingInfoComponent';
 import { useFocusEffect } from '@react-navigation/native';
 import { HistoryItem } from 'screen/order-history/OrderHistoryScreen';
+import useGetHistoryDetail from './service/useGetHistoryDetail';
 
 type ShippingInfo = {
   name: string;
@@ -46,48 +47,8 @@ export type HistoryDetail = {
   payment: PaymentInfo;
 };
 
-const history: HistoryDetail = {
-  orderId: '934229034',
-  createdDate: new Date(),
-  status: 0,
-  items: [
-    {
-      name: 'GARAM Kurang Natrium 200 gram',
-      quantity: 20,
-      price: 1250000,
-      imageUrl: '',
-    },
-    {
-      name: 'GARAM Kurang Natrium 200 gram',
-      quantity: 2,
-      price: 1250000,
-      imageUrl: '',
-    },
-  ],
-  shipping: {
-    name: 'JNE Regular',
-    resi: '032483294203942',
-    date: new Date(),
-    etdDate: new Date(),
-    price: 10000,
-  },
-  shippingAddress: {
-    name: 'Yahya',
-    phoneNumber: '(+62) 123712361',
-    province: 'Jawa Barat',
-    city: 'Bekasi',
-    district: 'Cikarang Utara',
-    streetAddress: 'Jl. Kesejahteraan no. 7',
-    postalCode: '17530',
-  },
-  payment: {
-    name: 'Transfer Bank',
-    date: new Date(),
-    approvedDate: new Date(),
-  },
-};
-
 const HistoryDetailScreen = () => {
+  const { historyDetail: history, loading } = useGetHistoryDetail();
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
@@ -99,15 +60,22 @@ const HistoryDetailScreen = () => {
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
         style={{ flex: 1 }}>
-        <HeaderStatusComponent history={history} />
-        <HistoryStatusComponent history={history} />
-        <ShippingInfoComponent history={history} />
-        <ShippingAddressComponent history={history} />
-        <PaymentMethodComponent history={history} />
-        <OrderHistoryComponent history={history} />
+        {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
+        {history !== undefined && (
+          <>
+            <HeaderStatusComponent history={history} />
+            <HistoryStatusComponent history={history} />
+            <ShippingInfoComponent history={history} />
+            <ShippingAddressComponent history={history} />
+            <PaymentMethodComponent history={history} />
+            <OrderHistoryComponent history={history} />
+          </>
+        )}
       </ScrollView>
       <View style={{ padding: 16, paddingTop: 0 }}>
-        <CustomButton backgroundColor={Colors.blue} text={'BAYAR SEKARANG'} />
+        {(history?.status ?? -1) === 0 && (
+          <CustomButton backgroundColor={Colors.blue} text={'BAYAR SEKARANG'} />
+        )}
       </View>
     </View>
   );

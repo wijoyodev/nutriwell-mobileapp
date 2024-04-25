@@ -7,6 +7,7 @@ import {
   PaymentMethod,
   ShippingOption,
 } from 'screen/check-out/CheckOutScreen';
+import { HistoryDetail } from 'screen/history-detail/HistoryDetailScreen';
 import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
 import { NetworkDetail } from 'screen/network-detail/NetworkDetailScreen';
 import { HistoryItem, OrderHistory } from 'screen/order-history/OrderHistoryScreen';
@@ -324,3 +325,44 @@ export const trackingItems: TrackingTimelineItem[] = [
     date: new Date(),
   },
 ];
+
+export const history: HistoryDetail = {
+  orderId: '934229034',
+  createdDate: new Date(),
+  status: 0,
+  items: [
+    {
+      name: 'GARAM Kurang Natrium 200 gram',
+      quantity: 20,
+      price: 1250000,
+      imageUrl: '',
+    },
+    {
+      name: 'GARAM Kurang Natrium 200 gram',
+      quantity: 2,
+      price: 1250000,
+      imageUrl: '',
+    },
+  ],
+  shipping: {
+    name: 'JNE Regular',
+    resi: '032483294203942',
+    date: new Date(),
+    etdDate: new Date(),
+    price: 10000,
+  },
+  shippingAddress: {
+    name: 'Yahya',
+    phoneNumber: '(+62) 123712361',
+    province: 'Jawa Barat',
+    city: 'Bekasi',
+    district: 'Cikarang Utara',
+    streetAddress: 'Jl. Kesejahteraan no. 7',
+    postalCode: '17530',
+  },
+  payment: {
+    name: 'Transfer Bank',
+    date: new Date(),
+    approvedDate: new Date(),
+  },
+};
