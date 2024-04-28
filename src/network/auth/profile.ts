@@ -12,7 +12,7 @@ export type ProfileResponse = {
 
 type ApiCallGetProfile = () => Promise<PublicAPIResponse<ProfileResponse>>;
 
-const getProfileEndpoint = '/profile';
+const getProfileEndpoint = '/user/me';
 const getProfile: ApiCallGetProfile = async () => {
   const response = await Api.get(getProfileEndpoint);
   return response;

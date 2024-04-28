@@ -2,7 +2,10 @@ import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 
 export type LoginResponse = {
-  accessToken: string;
+  email: string;
+  full_name: string;
+  token: string;
+  refreshToken: string;
 };
 
 export type LoginRequest = {

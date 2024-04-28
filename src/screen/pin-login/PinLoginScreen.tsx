@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationProp,
   ParamListBase,
@@ -7,7 +8,7 @@ import {
 } from '@react-navigation/native';
 import CustomPin from 'components/CustomPin';
 import { FORGET_PIN_SCREEN, HOME_SCREEN } from 'navigation/constants';
-import login from 'network/auth/login';
+import login, { LoginResponse } from 'network/auth/login';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -27,12 +28,20 @@ const PinLoginScreen = () => {
       email: params?.email,
       password: pin,
     }).then(response => {
-      if (response.success) {
+      if (response.result) {
+        saveData(response.result);
         navigate(HOME_SCREEN);
       } else {
         // handle error
       }
     });
+  };
+
+  const saveData = async (data: LoginResponse) => {
+    await AsyncStorage.setItem('token', data.token);
+    await AsyncStorage.setItem('refreshToken', data.refreshToken);
+    await AsyncStorage.setItem('email', data.email);
+    await AsyncStorage.setItem('full_name', data.full_name);
   };
 
   return (
