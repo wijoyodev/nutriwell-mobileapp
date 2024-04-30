@@ -16,7 +16,7 @@ import React, { useEffect } from 'react';
 
 function App(): React.JSX.Element {
   useEffect(() => {
-    mockApi();
+    // mockApi();
   }, []);
   return (
     <NavigationContainer

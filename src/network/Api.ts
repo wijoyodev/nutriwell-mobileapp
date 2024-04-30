@@ -1,12 +1,13 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getAccessToken } from 'service/StorageUtils';
+import refresh from './auth/refresh';
 const qs = require('qs');
 
 // const API_URL = 'https://api.mentorbaik.com';
 const API_URL = 'https://suitable-evidently-caribou.ngrok-free.app';
 
 const post = async (url: string, data: any) => {
-  const token = await AsyncStorage.getItem('token');
-  console.log(token);
+  const token = await getAccessToken();
+  console.log('token: ', token);
   const headers = token
     ? {
         'Content-Type': 'application/json',
@@ -16,6 +17,7 @@ const post = async (url: string, data: any) => {
         'Content-Type': 'application/json',
       };
 
+  console.log(API_URL + url);
   let response = await fetch(API_URL + url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -26,11 +28,7 @@ const post = async (url: string, data: any) => {
     })
     .then(result => {
       if (result.status === 0 && result.error === 'access_denied') {
-        // return this.handleDenied(withToken).then(responseAfterDenied => {
-        //   if (responseAfterDenied.status === 1) {
-        //     return this.post(url, data, withToken);
-        //   }
-        // });
+        return handleDenied(() => post(url, data));
       }
       return result;
     });
@@ -39,7 +37,8 @@ const post = async (url: string, data: any) => {
 
 const get = async (url: string, data: any = null) => {
   try {
-    const token = await AsyncStorage.getItem('token');
+    const token = await getAccessToken();
+    console.log('token: ', token);
     const headers = token
       ? {
           'Content-Type': 'application/json',
@@ -49,6 +48,7 @@ const get = async (url: string, data: any = null) => {
           'Content-Type': 'application/json',
         };
 
+    console.log(`${API_URL}${url}${data ? '?' : ''}${qs.stringify(data)}`);
     let response = await fetch(
       `${API_URL}${url}${data ? '?' : ''}${qs.stringify(data)}`,
       {
@@ -60,11 +60,7 @@ const get = async (url: string, data: any = null) => {
       })
       .then(result => {
         if (result.status === 0 && result.error === 'access_denied') {
-          // return this.handleDenied(withToken).then(responseAfterDenied => {
-          //   if (responseAfterDenied.status === 1) {
-          //     return this.get(url, data, withToken);
-          //   }
-          // });
+          return handleDenied(() => get(url, data));
         }
         return result;
       });
@@ -81,7 +77,7 @@ const get = async (url: string, data: any = null) => {
 };
 
 const upload = async (url: string, data: any) => {
-  const token = await AsyncStorage.getItem('token');
+  const token = await getAccessToken();
   const headers = token
     ? {
         Authorization: 'Bearer ' + token,
@@ -113,11 +109,7 @@ const upload = async (url: string, data: any) => {
     .then(result => {
       console.log('Media Upload Result: ', result);
       if (result.status === 0 && result.error === 'access_denied') {
-        // return this.handleDenied(withToken).then(responseAfterDenied => {
-        //   if (responseAfterDenied.status === 1) {
-        //     return this.upload(url, data, withToken);
-        //   }
-        // });
+        return handleDenied(() => upload(url, data));
       }
       return result;
     })
@@ -129,6 +121,14 @@ const upload = async (url: string, data: any) => {
       };
     });
   return response;
+};
+
+const handleDenied = (callback: () => any) => {
+  return refresh().then(response => {
+    if (response.result) {
+      return callback();
+    }
+  });
 };
 
 const Api = {

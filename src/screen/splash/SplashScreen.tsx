@@ -1,12 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationProp,
   ParamListBase,
   useFocusEffect,
 } from '@react-navigation/native';
 import { HOME_SCREEN, REGISTER_SCREEN, TRACKING_SCREEN } from 'navigation/constants';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Image, Linking, StatusBar, View } from 'react-native';
+import { getAccessToken } from 'service/StorageUtils';
 import Colors from 'themes/Colors';
 
 export type SplashScreenProps = {
@@ -20,6 +22,19 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
     StatusBar.setBackgroundColor(Colors.darkBlue);
     StatusBar.setBarStyle('light-content');
   });
+
+  const checkToken = async () => {
+    const token = await getAccessToken();
+    if (token) {
+      navigate(HOME_SCREEN)
+    } else {
+      navigate(REGISTER_SCREEN);
+    }
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   return (
     <View

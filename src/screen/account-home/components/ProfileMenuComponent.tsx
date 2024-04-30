@@ -19,6 +19,7 @@ import CustomButton from 'components/CustomButton';
 import Colors from 'themes/Colors';
 import CustomModal, { CustomModalHandle } from 'components/CustomModal';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import logout from 'network/auth/logout';
 
 export type Menu = {
   name: string;
@@ -94,6 +95,10 @@ const ProfileMenuComponent = () => {
     return <ProfileMenuItemComponent {...info.item} />;
   };
 
+  const logoutUser = async () => {
+    await logout();
+  };
+
   return (
     <View style={{ paddingHorizontal: 16 }}>
       <FlatList
@@ -151,6 +156,7 @@ const ProfileMenuComponent = () => {
           />
           <CustomButton
             onPress={() => {
+              logoutUser();
               modalRef.current?.closeModal();
               reset({
                 index: 0,

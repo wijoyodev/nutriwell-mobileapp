@@ -10,13 +10,15 @@ import CustomPin from 'components/CustomPin';
 import { FORGET_PIN_SCREEN, HOME_SCREEN } from 'navigation/constants';
 import login, { LoginResponse } from 'network/auth/login';
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { setAccessToken, setEmail, setFullName, setRefreshToken } from 'service/StorageUtils';
 import Colors from 'themes/Colors';
 
 const PinLoginScreen = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute();
   const [pin, setPin] = useState('');
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (pin.length === 6) {
       handleLogin();
@@ -24,24 +26,31 @@ const PinLoginScreen = () => {
   }, [pin]);
 
   const handleLogin = () => {
+    setLoading(true);
     login({
       email: params?.email,
       password: pin,
-    }).then(response => {
-      if (response.result) {
-        saveData(response.result);
-        navigate(HOME_SCREEN);
-      } else {
-        // handle error
-      }
-    });
+    })
+      .then(response => {
+        setLoading(false);
+        if (response.result) {
+          saveData(response.result);
+          navigate(HOME_SCREEN);
+        } else {
+          // handle error
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        console.log(err);
+      });
   };
 
   const saveData = async (data: LoginResponse) => {
-    await AsyncStorage.setItem('token', data.token);
-    await AsyncStorage.setItem('refreshToken', data.refreshToken);
-    await AsyncStorage.setItem('email', data.email);
-    await AsyncStorage.setItem('full_name', data.full_name);
+    await setAccessToken(data.token);
+    await setRefreshToken(data.refreshToken);
+    await setEmail(data.email);
+    await setFullName(data.full_name);
   };
 
   return (
@@ -69,6 +78,8 @@ const PinLoginScreen = () => {
           }}>
           Lupa PIN
         </Text>
+
+        {loading && <ActivityIndicator />}
       </View>
     </View>
   );
