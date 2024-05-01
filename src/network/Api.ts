@@ -1,5 +1,5 @@
-import { getAccessToken } from 'service/StorageUtils';
-import refresh from './auth/refresh';
+import { getAccessToken, getRefreshToken } from 'service/StorageUtils';
+import { PublicAPIResponse } from './model';
 const qs = require('qs');
 
 // const API_URL = 'https://api.mentorbaik.com';
@@ -76,7 +76,7 @@ const get = async (url: string, data: any = null) => {
   }
 };
 
-const upload = async (url: string, data: any) => {
+const postWithForm = async (url: string, data: any) => {
   const token = await getAccessToken();
   const headers = token
     ? {
@@ -88,15 +88,9 @@ const upload = async (url: string, data: any) => {
       };
 
   const formData = new FormData();
-  // for (let k in data) {
-  //   formData.append(k, data[k]);
-  // }
-
-  formData.append('file', {
-    name: data.name,
-    type: data.type !== null ? data.type : 'video/mp4',
-    uri: data.uri,
-  });
+  for (let k in data) {
+    formData.append(k, data[k]);
+  }
 
   let response = await fetch(API_URL + url, {
     method: 'POST',
@@ -109,7 +103,7 @@ const upload = async (url: string, data: any) => {
     .then(result => {
       console.log('Media Upload Result: ', result);
       if (result.status === 0 && result.error === 'access_denied') {
-        return handleDenied(() => upload(url, data));
+        return handleDenied(() => postWithForm(url, data));
       }
       return result;
     })
@@ -131,10 +125,40 @@ const handleDenied = (callback: () => any) => {
   });
 };
 
+export type RefreshResponse = {
+  user_id: string;
+  email: string;
+  full_name: string;
+  phone_number: string;
+  gender: string;
+  date_of_birth: string;
+  avatar_url: string;
+  token: string;
+  refresh_token: string;
+};
+
+export type RefreshRequest = {
+  token: string;
+  refresh_token: string;
+};
+
+const refresh: () => Promise<PublicAPIResponse<RefreshResponse>> = async () => {
+  const token = await getAccessToken();
+  const refresh_token = await getRefreshToken();
+
+  const request: RefreshRequest = {
+    token,
+    refresh_token,
+  };
+
+  const response = await Api.post('/refresh', request);
+  return response;
+};
+
 const Api = {
   post,
   get,
-  upload,
+  postWithForm,
 };
 
 export default Api;

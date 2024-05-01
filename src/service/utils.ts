@@ -1,4 +1,5 @@
 import { launchImageLibrary } from 'react-native-image-picker';
+import { getAvatar, getEmail, getFullName } from './StorageUtils';
 
 const groupBy = (list: any[], keyGetter: (x: any) => any) => {
   const map = new Map();
@@ -47,40 +48,41 @@ const openGallery = (onSuccess: (attachment: any) => void = () => {}) => {
           };
           console.log({ attachment });
 
-          if (attachment.size > 0) {
-            // On Success
-            onSuccess(attachment);
-            // showLoading();
-            // uploadImage(attachment, navigation)
-            //   .then(payload => {
-            //     closeLoading();
-            //     console.log('Ini payload dari uploadImage', payload);
-            //     if (payload.file_url !== undefined) {
-            //       addImage(payload.file_url);
-            //       setSnackbar(true);
-            //       setSnackbarText('Image successfully attached.');
-            //       setIsSnackbarError(false);
-            //     } else {
-            //       setSnackbar(true);
-            //       setSnackbarText('Image failed to attach.');
-            //       setIsSnackbarError(true);
-            //     }
-            //   })
-            //   .catch(e => {
-            //     console.log('Ini failednya: ', e);
-            //     closeLoading();
-            //     setSnackbar(true);
-            //     setSnackbarText(
-            //       "Sorry, there's something wrong when attaching image.",
-            //     );
-            //     setIsSnackbarError(true);
-            //   });
-          } else {
-            // Handle fail
-            // setSnackbar(true);
-            // setSnackbarText("Sorry, this image can't be attached");
-            // setIsSnackbarError(true);
-          }
+          onSuccess(attachment);
+          // if (attachment.size > 0) {
+          //   // On Success
+          //   onSuccess(attachment);
+          //   // showLoading();
+          //   // uploadImage(attachment, navigation)
+          //   //   .then(payload => {
+          //   //     closeLoading();
+          //   //     console.log('Ini payload dari uploadImage', payload);
+          //   //     if (payload.file_url !== undefined) {
+          //   //       addImage(payload.file_url);
+          //   //       setSnackbar(true);
+          //   //       setSnackbarText('Image successfully attached.');
+          //   //       setIsSnackbarError(false);
+          //   //     } else {
+          //   //       setSnackbar(true);
+          //   //       setSnackbarText('Image failed to attach.');
+          //   //       setIsSnackbarError(true);
+          //   //     }
+          //   //   })
+          //   //   .catch(e => {
+          //   //     console.log('Ini failednya: ', e);
+          //   //     closeLoading();
+          //   //     setSnackbar(true);
+          //   //     setSnackbarText(
+          //   //       "Sorry, there's something wrong when attaching image.",
+          //   //     );
+          //   //     setIsSnackbarError(true);
+          //   //   });
+          // } else {
+          //   // Handle fail
+          //   // setSnackbar(true);
+          //   // setSnackbarText("Sorry, this image can't be attached");
+          //   // setIsSnackbarError(true);
+          // }
         }
       },
     );
@@ -89,10 +91,29 @@ const openGallery = (onSuccess: (attachment: any) => void = () => {}) => {
   }
 };
 
+export type ProfileData = {
+  email: string;
+  name: string;
+  imageUrl: string;
+};
+
+const getProfileFromStorage: () => Promise<ProfileData> = async () => {
+  const email = await getEmail();
+  const name = await getFullName();
+  const imageUrl = await getAvatar();
+
+  return {
+    email,
+    name,
+    imageUrl,
+  };
+};
+
 const Utils = {
   groupBy,
   getPriceString,
   openGallery,
+  getProfileFromStorage,
 };
 
 export default Utils;

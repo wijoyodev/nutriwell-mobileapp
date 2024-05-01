@@ -2,8 +2,13 @@ import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 
 export type LoginResponse = {
+  user_id: string;
   email: string;
   full_name: string;
+  phone_number: string;
+  gender: string;
+  date_of_birth: string;
+  avatar_url: string;
   token: string;
   refreshToken: string;
 };

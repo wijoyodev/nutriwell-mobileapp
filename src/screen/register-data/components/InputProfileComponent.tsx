@@ -32,8 +32,9 @@ export type ProfileForm = {
   birthDate: Date;
   gender: string;
   phoneNumber: string;
-  imageUrl?: string;
+  image: any;
   code: string;
+  country: string;
 };
 
 export type InputProfileComponentProps = {
@@ -44,15 +45,15 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
   email,
   onComplete,
 }) => {
-
   const formInitialValues: ProfileForm = {
     name: '',
     email,
     birthDate: new Date(),
     gender: 'male',
     phoneNumber: '',
-    imageUrl: '',
+    image: null,
     code: '+62',
+    country: 'ID',
   };
 
   const formMethods = useForm({
@@ -69,7 +70,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
     setValue,
   } = formMethods;
 
-  const imageUrl = watch('imageUrl');
+  const image = watch('image');
 
   const handleSave: SubmitHandler<ProfileForm> = (data: ProfileForm) => {
     console.log(data);
@@ -81,20 +82,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
   };
 
   const handleUploadImage = (attachment: any) => {
-    setValue('imageUrl', imageUrlTes);
-    // setLoadingVisible(true);
-    // uploadImage(attachment)
-    //   .then(response => {
-    //     console.log('Response: ', response);
-    //     setLoadingVisible(false);
-    //     if (response.data.imageUrl !== undefined) {
-    //       setValue('imageUrl', response.imageUrl);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     setLoadingVisible(false);
-    //     console.log(err);
-    //   });
+    setValue('image', attachment);
   };
 
   const code = watch('code');
@@ -128,7 +116,7 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
             borderRadius: 40,
             marginTop: 16,
           }}>
-          <CustomProfileImage size={80} imageUrl={imageUrl} />
+          <CustomProfileImage size={80} image={image} />
           <View
             style={{
               backgroundColor: Colors.grey,
@@ -181,6 +169,9 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
           render={({ field: { onChange, value } }) => (
             <CustomPhoneInput
               code={code}
+              onChangeCountry={countryValue =>
+                setValue('country', countryValue)
+              }
               onChangeCode={codeValue => setValue('code', codeValue)}
               onChangeText={onChange}
               value={value}

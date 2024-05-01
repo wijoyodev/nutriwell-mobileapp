@@ -8,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import CountryPicker, { Country, CountryCodeList, getCallingCode } from 'react-native-country-picker-modal';
+import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -22,6 +22,8 @@ export type CustomPhoneInputProps = {
   disabled?: boolean;
   code: string;
   onChangeCode?: (text: string) => void;
+  country: string;
+  onChangeCountry?: (text: string) => void;
 };
 
 const CustomPhoneInput: React.FC<CustomPhoneInputProps> = props => {
@@ -61,9 +63,10 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = props => {
           <CountryPicker
             withFlag={true}
             withCallingCode={true}
-            onSelect={(country: Country) =>
-              props.onChangeCode?.(`+${country.callingCode}`)
-            }
+            onSelect={(country: Country) => {
+              props.onChangeCode?.(`+${country.callingCode}`);
+              props.onChangeCountry?.(country.cca2);
+            }}
             onClose={() => setVisible(false)}
             renderFlagButton={() => <></>}
             renderCountryFilter={() => <></>}

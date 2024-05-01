@@ -7,14 +7,17 @@ import Icon from 'react-native-vector-icons/Ionicons';
 export type CustomProfileImageProps = {
   imageUrl?: string;
   size: number;
+  image?: any;
 };
 
 const CustomProfileImage: React.FC<CustomProfileImageProps> = ({
   imageUrl,
   size,
+  image,
 }) => {
   const [loadingImage, setLoadingImage] = useState<boolean>(false);
 
+  const source = imageUrl ? { uri: imageUrl } : image;
   return (
     <View
       style={{
@@ -26,9 +29,7 @@ const CustomProfileImage: React.FC<CustomProfileImageProps> = ({
       <ImageBackground
         onLoadStart={() => setLoadingImage(true)}
         onLoad={() => setLoadingImage(false)}
-        source={{
-          uri: imageUrl,
-        }}
+        source={source}
         borderRadius={size}
         style={{
           height: size,
@@ -37,7 +38,7 @@ const CustomProfileImage: React.FC<CustomProfileImageProps> = ({
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        {!loadingImage && !imageUrl && (
+        {!loadingImage && !imageUrl && !image && (
           <Icon name={'person-circle-sharp'} color={Colors.blue} size={size} />
         )}
         {loadingImage && <ActivityIndicator color={Colors.blue} />}

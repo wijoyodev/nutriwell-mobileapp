@@ -13,6 +13,7 @@ export const registerDataSchema = object().shape({
   birthDate: date().required(),
   gender: string().required(),
   phoneNumber: string().required(),
-  imageUrl: string(),
+  image: object().nullable(),
   code: string().required(),
+  country: string().required(),
 });

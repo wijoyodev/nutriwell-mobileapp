@@ -14,7 +14,7 @@ export type RegisterRequest = {
   phone_number: string;
   gender: string;
   date_of_birth: Date;
-  avatar?: string;
+  avatar?: any;
   role?: string;
   full_name: string;
 };
@@ -25,7 +25,7 @@ type ApiCallRegister = (
 
 const registerEndpoint = '/register';
 const register: ApiCallRegister = async (request: RegisterRequest) => {
-  const response = await Api.post(registerEndpoint, request);
+  const response = await Api.postWithForm(registerEndpoint, request);
   return response;
 };
 

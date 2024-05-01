@@ -9,6 +9,7 @@ import {
 import CustomPin from 'components/CustomPin';
 import { FORGET_PIN_SCREEN, HOME_SCREEN } from 'navigation/constants';
 import login, { LoginResponse } from 'network/auth/login';
+import { PublicAPIResponse } from 'network/model';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { setAccessToken, setEmail, setFullName, setRefreshToken } from 'service/StorageUtils';
@@ -31,19 +32,23 @@ const PinLoginScreen = () => {
       email: params?.email,
       password: pin,
     })
-      .then(response => {
-        setLoading(false);
-        if (response.result) {
-          saveData(response.result);
-          navigate(HOME_SCREEN);
-        } else {
-          // handle error
-        }
-      })
+      .then(handleLoginResponse)
       .catch(err => {
         setLoading(false);
         console.log(err);
       });
+  };
+
+  const handleLoginResponse = async (
+    response: PublicAPIResponse<LoginResponse>,
+  ) => {
+    setLoading(false);
+    if (response.result) {
+      saveData(response.result);
+      navigate(HOME_SCREEN);
+    } else {
+      // handle error
+    }
   };
 
   const saveData = async (data: LoginResponse) => {
