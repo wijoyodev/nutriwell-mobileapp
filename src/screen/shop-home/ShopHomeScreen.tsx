@@ -20,13 +20,6 @@ import { CART_SCREEN } from 'navigation/constants';
 import Utils from 'service/Utils';
 import useGetProduct from './service/useGetProduct';
 
-export type Product = {
-  imageUrl: string;
-  name: string;
-  price: number;
-  description: string;
-};
-
 const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();

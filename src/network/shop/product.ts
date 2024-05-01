@@ -2,7 +2,15 @@ import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 import { Product } from 'screen/shop-home/ShopHomeScreen';
 
-type ApiCallGetProduct = () => Promise<PublicAPIResponse<Product>>;
+export type ProductResponse = {
+  id: number;
+  product_images: string[];
+  product_name: string;
+  price: number;
+  description: string;
+};
+
+type ApiCallGetProduct = () => Promise<PublicAPIResponse<ProductResponse[]>>;
 
 const getProductEndpoint = '/product';
 const getProduct: ApiCallGetProduct = async () => {

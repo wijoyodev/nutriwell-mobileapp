@@ -1,5 +1,5 @@
 import { launchImageLibrary } from 'react-native-image-picker';
-import { getAvatar, getEmail, getFullName } from './StorageUtils';
+import { getAvatar, getBirthDate, getEmail, getFullName, getGender, getPhoneNumber, getUserId } from './StorageUtils';
 
 const groupBy = (list: any[], keyGetter: (x: any) => any) => {
   const map = new Map();
@@ -95,17 +95,29 @@ export type ProfileData = {
   email: string;
   name: string;
   imageUrl: string;
+  gender: string;
+  userId: string;
+  birthDate: Date;
+  phoneNumber: string;
 };
 
 const getProfileFromStorage: () => Promise<ProfileData> = async () => {
   const email = await getEmail();
   const name = await getFullName();
   const imageUrl = await getAvatar();
+  const gender = await getGender();
+  const userId = await getUserId();
+  const birthDate = await getBirthDate();
+  const phoneNumber = await getPhoneNumber();
 
   return {
     email,
     name,
     imageUrl,
+    gender,
+    userId,
+    birthDate,
+    phoneNumber,
   };
 };
 

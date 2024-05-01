@@ -12,7 +12,7 @@ import login, { LoginResponse } from 'network/auth/login';
 import { PublicAPIResponse } from 'network/model';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
-import { setAccessToken, setEmail, setFullName, setRefreshToken } from 'service/StorageUtils';
+import { setAccessToken, setAvatar, setBirthDate, setEmail, setFullName, setGender, setPhoneNumber, setRefreshToken, setUserId } from 'service/StorageUtils';
 import Colors from 'themes/Colors';
 
 const PinLoginScreen = () => {
@@ -52,10 +52,16 @@ const PinLoginScreen = () => {
   };
 
   const saveData = async (data: LoginResponse) => {
+    console.log('Response: ', data);
     await setAccessToken(data.token);
     await setRefreshToken(data.refreshToken);
     await setEmail(data.email);
     await setFullName(data.full_name);
+    await setAvatar(data.avatar_url);
+    await setGender(data.gender);
+    await setBirthDate(data.date_of_birth);
+    await setPhoneNumber(data.phone_number);
+    await setUserId(data.user_id.toString());
   };
 
   return (

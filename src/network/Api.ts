@@ -1,4 +1,4 @@
-import { getAccessToken, getRefreshToken } from 'service/StorageUtils';
+import { getAccessToken, getRefreshToken, setAccessToken, setAvatar, setBirthDate, setEmail, setFullName, setGender, setPhoneNumber, setRefreshToken, setUserId } from 'service/StorageUtils';
 import { PublicAPIResponse } from './model';
 const qs = require('qs');
 
@@ -7,7 +7,6 @@ const API_URL = 'https://suitable-evidently-caribou.ngrok-free.app';
 
 const post = async (url: string, data: any) => {
   const token = await getAccessToken();
-  console.log('token: ', token);
   const headers = token
     ? {
         'Content-Type': 'application/json',
@@ -38,7 +37,6 @@ const post = async (url: string, data: any) => {
 const get = async (url: string, data: any = null) => {
   try {
     const token = await getAccessToken();
-    console.log('token: ', token);
     const headers = token
       ? {
           'Content-Type': 'application/json',
@@ -126,7 +124,7 @@ const handleDenied = (callback: () => any) => {
 };
 
 export type RefreshResponse = {
-  user_id: string;
+  user_id: number;
   email: string;
   full_name: string;
   phone_number: string;
@@ -151,7 +149,21 @@ const refresh: () => Promise<PublicAPIResponse<RefreshResponse>> = async () => {
     refresh_token,
   };
 
-  const response = await Api.post('/refresh', request);
+  const response: PublicAPIResponse<RefreshResponse> = await Api.post(
+    '/refresh',
+    request,
+  );
+
+  await setAccessToken(response.result.token);
+  await setRefreshToken(response.result.refresh_token);
+  await setEmail(response.result.email);
+  await setFullName(response.result.full_name);
+  await setAvatar(response.result.avatar_url);
+  await setGender(response.result.gender);
+  await setBirthDate(response.result.date_of_birth);
+  await setPhoneNumber(response.result.phone_number);
+  await setUserId(response.result.user_id.toString());
+
   return response;
 };
 

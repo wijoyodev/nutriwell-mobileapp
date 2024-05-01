@@ -3,6 +3,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const EMAIL_KEY = 'email';
 const FULL_NAME_KEY = 'full_name';
 const AVATAR_KEY = 'avatar';
+const GENDER_KEY = 'gender';
+const PHONE_NUMBER_KEY = 'phone_number';
+const BIRTH_DATE_KEY = 'birth_date';
+const USER_ID_KEY = 'user_id';
 const ACCESS_TOKEN_KEY = 'token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
 
@@ -56,6 +60,46 @@ const setAvatar = async (avatar: string): Promise<void> => {
   await AsyncStorage.setItem(AVATAR_KEY, avatar);
 };
 
+const getGender = async (): Promise<string> => {
+  const gender = await AsyncStorage.getItem(GENDER_KEY);
+
+  return gender ?? '';
+};
+
+const setGender = async (gender: string): Promise<void> => {
+  await AsyncStorage.setItem(GENDER_KEY, gender);
+};
+
+const getPhoneNumber = async (): Promise<string> => {
+  const phoneNumber = await AsyncStorage.getItem(PHONE_NUMBER_KEY);
+
+  return phoneNumber ?? '';
+};
+
+const setPhoneNumber = async (phoneNumber: string): Promise<void> => {
+  await AsyncStorage.setItem(PHONE_NUMBER_KEY, phoneNumber);
+};
+
+const getBirthDate = async (): Promise<Date> => {
+  const birthDate = await AsyncStorage.getItem(BIRTH_DATE_KEY);
+
+  return new Date(birthDate ?? '') ?? new Date();
+};
+
+const setBirthDate = async (birthDate: string): Promise<void> => {
+  await AsyncStorage.setItem(BIRTH_DATE_KEY, birthDate);
+};
+
+const getUserId = async (): Promise<string> => {
+  const userId = await AsyncStorage.getItem(USER_ID_KEY);
+
+  return userId ?? '';
+};
+
+const setUserId = async (userId: string): Promise<void> => {
+  await AsyncStorage.setItem(USER_ID_KEY, userId);
+};
+
 export {
   getAccessToken,
   setAccessToken,
@@ -67,4 +111,12 @@ export {
   setFullName,
   getAvatar,
   setAvatar,
+  getGender,
+  setGender,
+  getPhoneNumber,
+  setPhoneNumber,
+  getBirthDate,
+  setBirthDate,
+  getUserId,
+  setUserId,
 };

@@ -2,7 +2,7 @@ import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 
 export type LoginResponse = {
-  user_id: string;
+  user_id: number;
   email: string;
   full_name: string;
   phone_number: string;
