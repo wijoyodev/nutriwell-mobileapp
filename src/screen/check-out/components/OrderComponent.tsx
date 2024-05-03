@@ -11,6 +11,7 @@ import { PaymentMethod, ShippingOption } from '../CheckOutScreen';
 import { CartItem } from 'screen/cart/CartScreen';
 import useGetShippingOption from '../service/useGetShippingOption';
 import useGetPaymentMethod from '../service/useGetPaymentMethod';
+import Utils from 'service/Utils';
 
 export type OrderComponentProps = {
   items: CartItem[];
@@ -29,6 +30,7 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       style={{
         backgroundColor: Colors.white,
         flex: 1,
@@ -74,11 +76,9 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
                     justifyContent: 'space-between',
                   }}>
                   <Text style={{ color: Colors.black, fontSize: 14 }}>
-                    {item?.name} (Rp{item?.price})
+                    {item?.name} ({Utils.getPriceString(item?.price ?? 0)})
                   </Text>
-                  <Text style={{ fontSize: 14 }}>
-                    {item?.minEtd}-{item?.maxEtd} {item?.etdType}
-                  </Text>
+                  <Text style={{ fontSize: 14 }}>{item?.etd}</Text>
                 </View>
               )}
             />

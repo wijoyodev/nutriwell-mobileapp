@@ -11,7 +11,13 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Colors from 'themes/Colors';
 
-const ShopHeaderComponent = () => {
+type ShopHeaderComponentProps = {
+  quantity: number;
+};
+
+const ShopHeaderComponent: React.FC<ShopHeaderComponentProps> = ({
+  quantity,
+}) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
   return (
@@ -56,6 +62,7 @@ const ShopHeaderComponent = () => {
             paddingVertical: 8,
             borderRadius: 12,
           }}>
+          <Text>{quantity}</Text>
           <FeatherIcon name={'shopping-cart'} color={Colors.darkBlue} />
         </TouchableOpacity>
       </View>

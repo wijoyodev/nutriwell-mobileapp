@@ -33,6 +33,7 @@ export type OrderHistoryResponse = {
   courier_service_name: string;
   courier_company: string;
   courier_type: string;
+  external_id: string | null;
   total_purchase: number;
   payment_date: string | null;
   payment_method: string | null;

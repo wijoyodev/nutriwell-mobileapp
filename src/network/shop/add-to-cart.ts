@@ -2,8 +2,8 @@ import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 
 type AddToCartRequest = {
-  product_id: string;
-  quantity: string;
+  product_id: number;
+  quantity: number;
 };
 
 type ApiCallAddToCart = (

@@ -9,46 +9,18 @@ import ShippingAddressComponent from './components/ShippingAddressComponent';
 import PaymentMethodComponent from './components/PaymentMethodComponent';
 import OrderHistoryComponent from './components/OrderHistoryComponent';
 import ShippingInfoComponent from './components/ShippingInfoComponent';
-import { useFocusEffect } from '@react-navigation/native';
-import { HistoryItem } from 'screen/order-history/OrderHistoryScreen';
+import {
+  ParamListBase,
+  RouteProp,
+  useFocusEffect,
+  useRoute,
+} from '@react-navigation/native';
 import useGetHistoryDetail from './service/useGetHistoryDetail';
 
-type ShippingInfo = {
-  name: string;
-  resi: string;
-  date: Date;
-  etdDate: Date;
-  price: number;
-};
-
-type ShippingAddress = {
-  name: string;
-  phoneNumber: string;
-  province: string;
-  city: string;
-  district: string;
-  streetAddress: string;
-  postalCode: string;
-};
-
-type PaymentInfo = {
-  name: string;
-  date: Date;
-  approvedDate?: Date;
-};
-
-export type HistoryDetail = {
-  orderId: string;
-  createdDate: Date;
-  status: number;
-  items: HistoryItem[];
-  shipping: ShippingInfo;
-  shippingAddress: ShippingAddress;
-  payment: PaymentInfo;
-};
-
 const HistoryDetailScreen = () => {
-  const { historyDetail: history, loading } = useGetHistoryDetail();
+  const { params } = useRoute<RouteProp<ParamListBase>>();
+  const { historyDetail: history, loading } = useGetHistoryDetail(params?.id);
+
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');

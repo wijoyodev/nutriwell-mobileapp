@@ -32,7 +32,11 @@ const HistoryComponent: React.FC<HistoryProps> = ({ history }) => {
 
   return (
     <TouchableOpacity
-      onPress={() => navigate(HISTORY_DETAIL_SCREEN)}
+      onPress={() =>
+        navigate(HISTORY_DETAIL_SCREEN, {
+          id: history.id,
+        })
+      }
       style={{
         borderColor: Colors.grey,
         borderWidth: 1,

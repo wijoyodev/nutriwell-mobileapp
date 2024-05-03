@@ -2,21 +2,18 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import OrderComponent from './components/OrderComponent';
-import SummaryComponent from './components/SummaryComponent';
 import Colors from 'themes/Colors';
 import FooterCheckOutComponent from './components/FooterCheckOutComponent';
 import { FormProvider, useForm } from 'react-hook-form';
 import { checkoutSchema } from './schema/checkoutSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CartItem } from 'screen/cart/CartScreen';
 import useCheckout from './service/useCheckout';
+import useGetCart from 'screen/cart/service/useGetCart';
 
 export type ShippingOption = {
   name: string;
   price: number;
-  minEtd: number;
-  maxEtd: number;
-  etdType: string;
+  etd: string;
 } | null;
 
 export type PaymentMethod = {
@@ -41,6 +38,7 @@ export type CheckoutForm = {
 
 const CheckOutScreen = () => {
   const { loading, checkoutData } = useCheckout();
+  const { cartItems } = useGetCart();
 
   useEffect(() => {
     if (checkoutData) {
@@ -66,8 +64,8 @@ const CheckOutScreen = () => {
     <View style={{ backgroundColor: Colors.white, flex: 1 }}>
       <FormProvider {...formMethods}>
         {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
-        {checkoutData !== undefined ? (
-          <OrderComponent items={checkoutData?.items ?? []} />
+        {cartItems !== undefined ? (
+          <OrderComponent items={cartItems ?? []} />
         ) : (
           <View style={{ flex: 1 }} />
         )}

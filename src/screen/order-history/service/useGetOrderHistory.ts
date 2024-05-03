@@ -44,7 +44,7 @@ const mapOrderHistoryResponse: (
   return response.map(history => ({
     id: history.id,
     orderId: history.order_number,
-    createdDate: history.created_at,
+    createdDate: new Date(history.created_at),
     status: history.status,
     totalPrice: history.total_purchase,
     items: [

@@ -14,6 +14,7 @@ const useGetCart = () => {
         setLoading(false);
         const cartItemsValue: CartItem[] = response.result.map(cartItem => ({
           id: cartItem.id,
+          product_id: cartItem.product_id,
           name: cartItem.product_name,
           price: cartItem.price,
           quantity: cartItem.quantity,

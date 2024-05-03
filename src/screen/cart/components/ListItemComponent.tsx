@@ -62,7 +62,10 @@ const ListItemComponent: React.FC<ListItemComponentProps> = ({
             {info.item.quantity > 0 && (
               <TouchableOpacity
                 onPress={() =>
-                  updateItemQuantity?.(info.item.id, info.item.quantity - 1)
+                  updateItemQuantity?.(
+                    info.item.product_id,
+                    info.item.quantity - 1,
+                  )
                 }
                 style={{
                   borderColor: Colors.blue,
@@ -83,7 +86,10 @@ const ListItemComponent: React.FC<ListItemComponentProps> = ({
             </Text>
             <TouchableOpacity
               onPress={() =>
-                updateItemQuantity?.(info.item.id, info.item.quantity + 1)
+                updateItemQuantity?.(
+                  info.item.product_id,
+                  info.item.quantity + 1,
+                )
               }
               style={{
                 backgroundColor: Colors.blue,

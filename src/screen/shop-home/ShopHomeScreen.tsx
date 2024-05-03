@@ -19,12 +19,31 @@ import {
 import { CART_SCREEN } from 'navigation/constants';
 import Utils from 'service/Utils';
 import useGetProduct from './service/useGetProduct';
+import addToCart from 'network/shop/add-to-cart';
+import useGetCart from 'screen/cart/service/useGetCart';
 
 const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
   const { loading, product } = useGetProduct();
+  const { loading: loadingCart, cartItems } = useGetCart();
+  const mapCartItems = Utils.groupBy(
+    cartItems ?? [],
+    cartItem => cartItem.product_id,
+  );
+
+  const handleAddToCart = () => {
+    const request = {
+      product_id: product?.id ?? 0,
+      quantity: mapCartItems.get(product?.id)?.[0].quantity + 1,
+    };
+
+    console.log('Request post cart: ', request);
+    addToCart(request).then(response => {
+      console.log('Response add to cart: ', response);
+    });
+  };
 
   return (
     <View
@@ -33,7 +52,9 @@ const ShopHomeScreen = () => {
         paddingBottom: 16,
         backgroundColor: Colors.white,
       }}>
-      <ShopHeaderComponent />
+      <ShopHeaderComponent
+        quantity={mapCartItems.get(product?.id)?.[0]?.quantity ?? 0}
+      />
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {loading && (
           <View style={{ backgroundColor: Colors.blue }}>
@@ -109,6 +130,7 @@ const ShopHomeScreen = () => {
           zIndex: 5,
         }}>
         <CustomButton
+          onPress={handleAddToCart}
           containerStyle={{ flex: 1, borderColor: Colors.blue, borderWidth: 1 }}
           textStyle={{
             color: Colors.blue,
