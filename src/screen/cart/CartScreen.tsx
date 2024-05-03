@@ -8,10 +8,11 @@ import { useFocusEffect } from '@react-navigation/native';
 import useGetCart from './service/useGetCart';
 
 export type CartItem = {
-  id: string;
+  id: number;
   name: string;
   price: number;
   quantity: number;
+  totalPrice: number;
   imageUrl: string;
 };
 
@@ -30,7 +31,7 @@ const CartScreen = () => {
     StatusBar.setBarStyle('dark-content');
   });
 
-  const updateItemQuantity = (id: string, quantity: number) => {
+  const updateItemQuantity = (id: number, quantity: number) => {
     const newItems =
       items?.map(item => {
         if (item.id === id) {

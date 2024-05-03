@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { History, HistoryItem } from '../OrderHistoryScreen';
 import Colors from 'themes/Colors';
 import HistoryItemHeaderComponent from './HistoryItemHeaderComponent';
 import HistoryItemComponent from './HistoryItemComponent';
@@ -19,9 +18,10 @@ import {
 } from '@react-navigation/native';
 import { HISTORY_DETAIL_SCREEN } from 'navigation/constants';
 import Utils from 'service/Utils';
+import { HistoryItem, OrderHistory } from '../service/useGetOrderHistory';
 
 export type HistoryProps = {
-  history: History;
+  history: OrderHistory;
 };
 
 const HistoryComponent: React.FC<HistoryProps> = ({ history }) => {

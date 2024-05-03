@@ -62,7 +62,9 @@ const ShopHomeScreen = () => {
             />
 
             <Image
-              source={require('../../assets/images/product_image.png')}
+              source={{
+                uri: product.imageUrl,
+              }}
               style={{
                 width: width - 32,
                 height: height / 2.25,

@@ -29,7 +29,7 @@ const HistoryItemHeaderComponent: React.FC<HistoryProps> = ({ history }) => {
           {dayjs(history.createdDate).locale('id').format('DD MMM YYYY')}
         </Text>
         <Text style={{ color: Colors.black, fontSize: 14 }}>
-          {history.orderId}
+          #{history.orderId}
         </Text>
       </View>
 

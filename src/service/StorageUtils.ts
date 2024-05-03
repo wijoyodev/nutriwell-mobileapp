@@ -7,6 +7,7 @@ const GENDER_KEY = 'gender';
 const PHONE_NUMBER_KEY = 'phone_number';
 const BIRTH_DATE_KEY = 'birth_date';
 const USER_ID_KEY = 'user_id';
+const PHONE_COUNTRY_CODE_KEY = 'phone_country_code';
 const ACCESS_TOKEN_KEY = 'token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
 
@@ -100,6 +101,16 @@ const setUserId = async (userId: string): Promise<void> => {
   await AsyncStorage.setItem(USER_ID_KEY, userId);
 };
 
+const getPhoneCountryCode = async (): Promise<string> => {
+  const phoneCountry = await AsyncStorage.getItem(PHONE_COUNTRY_CODE_KEY);
+
+  return phoneCountry ?? '';
+};
+
+const setPhoneCountryCode = async (phoneCountry: string): Promise<void> => {
+  await AsyncStorage.setItem(PHONE_COUNTRY_CODE_KEY, phoneCountry);
+};
+
 export {
   getAccessToken,
   setAccessToken,
@@ -119,4 +130,6 @@ export {
   setBirthDate,
   getUserId,
   setUserId,
+  getPhoneCountryCode,
+  setPhoneCountryCode,
 };

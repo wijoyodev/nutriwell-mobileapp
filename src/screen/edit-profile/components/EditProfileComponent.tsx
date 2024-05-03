@@ -49,26 +49,14 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({
   } = useFormContext();
 
   const imageUrl = watch('imageUrl');
+  const image = watch('image');
 
   const handleUpdateImage = () => {
     Utils.openGallery(handleUploadImage);
   };
 
   const handleUploadImage = (attachment: any) => {
-    setValue('imageUrl', imageUrlTes);
-    // setLoadingVisible(true);
-    // uploadImage(attachment)
-    //   .then(response => {
-    //     console.log('Response: ', response);
-    //     setLoadingVisible(false);
-    //     if (response.data.imageUrl !== undefined) {
-    //       setValue('imageUrl', response.imageUrl);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     setLoadingVisible(false);
-    //     console.log(err);
-    //   });
+    setValue('image', attachment);
   };
 
   return (
@@ -83,7 +71,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({
           borderRadius: 40,
           marginTop: 16,
         }}>
-        <CustomProfileImage size={80} imageUrl={imageUrl} />
+        <CustomProfileImage size={80} imageUrl={imageUrl} image={image} />
         <View
           style={{
             backgroundColor: Colors.grey,

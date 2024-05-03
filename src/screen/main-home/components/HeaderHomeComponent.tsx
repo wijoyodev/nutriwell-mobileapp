@@ -19,6 +19,11 @@ const HeaderHomeComponent: React.FC<HeaderHomeComponentProps> = () => {
       </View>
     );
   }
+
+  if (!profile) {
+    return <></>;
+  }
+
   return (
     <View
       style={{

@@ -1,5 +1,4 @@
 import { useFocusEffect } from '@react-navigation/native';
-import getProfile, { ProfileResponse } from 'network/auth/profile';
 import { useCallback, useState } from 'react';
 import Utils, { ProfileData } from 'service/Utils';
 

@@ -16,4 +16,5 @@ export const registerDataSchema = object().shape({
   image: object().nullable(),
   code: string().required(),
   country: string().required(),
+  imageUrl: string(),
 });

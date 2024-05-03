@@ -19,6 +19,7 @@ const useGetProduct = () => {
       setLoading(true);
       getProduct().then(response => {
         setLoading(false);
+
         const productValue: Product = {
           id: response.result[0].id,
           name: response.result[0].product_name,
@@ -26,7 +27,6 @@ const useGetProduct = () => {
           price: response.result[0].price,
           description: response.result[0].description,
         };
-
         setProduct(productValue);
       });
     }, []),

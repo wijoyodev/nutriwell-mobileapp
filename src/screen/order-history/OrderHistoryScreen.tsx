@@ -14,22 +14,7 @@ import Colors from 'themes/Colors';
 import { useFocusEffect } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Utils from 'service/Utils';
-import useGetOrderHistory from './service/useGetOrderHistory';
-
-export type OrderHistory = {
-  orderId: string;
-  createdDate: Date;
-  status: number;
-  items: HistoryItem[];
-  totalPrice: number;
-};
-
-export type HistoryItem = {
-  name: string;
-  quantity: number;
-  price: number;
-  imageUrl: string;
-};
+import useGetOrderHistory, { OrderHistory } from './service/useGetOrderHistory';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -57,7 +42,7 @@ const tabList: TabType[] = [
   },
   {
     title: 'DIBATALKAN',
-    status: -1,
+    status: 4,
   },
 ];
 
@@ -76,6 +61,8 @@ const OrderHistoryScreen = () => {
     orderHistory ?? [],
     history => history.status,
   );
+
+  console.log('Order history: ', orderHistory);
 
   const tabBarLabel = (focused: boolean, name: string) => {
     return (

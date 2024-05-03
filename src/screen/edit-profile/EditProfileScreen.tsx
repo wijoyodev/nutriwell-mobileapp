@@ -26,7 +26,9 @@ const EditProfileScreen = () => {
     birthDate: new Date(),
     phoneNumber: '',
     gender: 'male',
-    imageUrl: '',
+    image: null,
+    code: '+62',
+    country: 'ID',
   };
 
   let code = '+62';

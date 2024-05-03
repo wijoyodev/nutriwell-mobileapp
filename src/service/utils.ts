@@ -1,5 +1,14 @@
 import { launchImageLibrary } from 'react-native-image-picker';
-import { getAvatar, getBirthDate, getEmail, getFullName, getGender, getPhoneNumber, getUserId } from './StorageUtils';
+import {
+  getAvatar,
+  getBirthDate,
+  getEmail,
+  getFullName,
+  getGender,
+  getPhoneCountryCode,
+  getPhoneNumber,
+  getUserId,
+} from './StorageUtils';
 
 const groupBy = (list: any[], keyGetter: (x: any) => any) => {
   const map = new Map();
@@ -49,40 +58,6 @@ const openGallery = (onSuccess: (attachment: any) => void = () => {}) => {
           console.log({ attachment });
 
           onSuccess(attachment);
-          // if (attachment.size > 0) {
-          //   // On Success
-          //   onSuccess(attachment);
-          //   // showLoading();
-          //   // uploadImage(attachment, navigation)
-          //   //   .then(payload => {
-          //   //     closeLoading();
-          //   //     console.log('Ini payload dari uploadImage', payload);
-          //   //     if (payload.file_url !== undefined) {
-          //   //       addImage(payload.file_url);
-          //   //       setSnackbar(true);
-          //   //       setSnackbarText('Image successfully attached.');
-          //   //       setIsSnackbarError(false);
-          //   //     } else {
-          //   //       setSnackbar(true);
-          //   //       setSnackbarText('Image failed to attach.');
-          //   //       setIsSnackbarError(true);
-          //   //     }
-          //   //   })
-          //   //   .catch(e => {
-          //   //     console.log('Ini failednya: ', e);
-          //   //     closeLoading();
-          //   //     setSnackbar(true);
-          //   //     setSnackbarText(
-          //   //       "Sorry, there's something wrong when attaching image.",
-          //   //     );
-          //   //     setIsSnackbarError(true);
-          //   //   });
-          // } else {
-          //   // Handle fail
-          //   // setSnackbar(true);
-          //   // setSnackbarText("Sorry, this image can't be attached");
-          //   // setIsSnackbarError(true);
-          // }
         }
       },
     );
@@ -99,6 +74,7 @@ export type ProfileData = {
   userId: string;
   birthDate: Date;
   phoneNumber: string;
+  phoneCountryCode: string;
 };
 
 const getProfileFromStorage: () => Promise<ProfileData> = async () => {
@@ -109,6 +85,7 @@ const getProfileFromStorage: () => Promise<ProfileData> = async () => {
   const userId = await getUserId();
   const birthDate = await getBirthDate();
   const phoneNumber = await getPhoneNumber();
+  const phoneCountryCode = await getPhoneCountryCode();
 
   return {
     email,
@@ -118,6 +95,7 @@ const getProfileFromStorage: () => Promise<ProfileData> = async () => {
     userId,
     birthDate,
     phoneNumber,
+    phoneCountryCode,
   };
 };
 

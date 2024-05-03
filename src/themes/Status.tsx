@@ -18,7 +18,7 @@ export type Status = {
 
 const Status = new Map<number, Status>([
   [
-    -1,
+    4,
     {
       label: 'Dibatalkan',
       color: '#F22929',

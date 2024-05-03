@@ -1,14 +1,16 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
-import { HistoryDetail } from 'screen/history-detail/HistoryDetailScreen';
+import { OrderHistoryResponse } from './order-history';
 
-type ApiCallGetOrderHistoryDetail = () => Promise<
-  PublicAPIResponse<HistoryDetail>
->;
+type ApiCallGetOrderHistoryDetail = (
+  id: string,
+) => Promise<PublicAPIResponse<OrderHistoryResponse[]>>;
 
-const getOrderHistoryDetailEndpoint = '/order/history/id';
-const getOrderHistoryDetail: ApiCallGetOrderHistoryDetail = async () => {
-  const response = await Api.get(getOrderHistoryDetailEndpoint);
+const getOrderHistoryDetailEndpoint = '/order/';
+const getOrderHistoryDetail: ApiCallGetOrderHistoryDetail = async (
+  id: string,
+) => {
+  const response = await Api.get(getOrderHistoryDetailEndpoint + id);
   return response;
 };
 

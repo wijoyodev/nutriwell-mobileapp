@@ -15,7 +15,7 @@ import Utils from 'service/Utils';
 
 export type ListItemComponentProps = {
   items?: CartItem[];
-  updateItemQuantity?: (id: string, quantity: number) => void;
+  updateItemQuantity?: (id: number, quantity: number) => void;
 };
 
 const ListItemComponent: React.FC<ListItemComponentProps> = ({
@@ -26,7 +26,9 @@ const ListItemComponent: React.FC<ListItemComponentProps> = ({
     return (
       <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
         <Image
-          source={require('../../../assets/images/product_image.png')}
+          source={{
+            uri: info.item.imageUrl,
+          }}
           style={{
             height: 88,
             width: 88,

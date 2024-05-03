@@ -44,7 +44,7 @@ const PinLoginScreen = () => {
   ) => {
     setLoading(false);
     if (response.result) {
-      saveData(response.result);
+      await saveData(response.result);
       navigate(HOME_SCREEN);
     } else {
       // handle error

@@ -43,6 +43,7 @@ const ProfileScreen = () => {
       phoneNumber: data.phoneNumber,
       birthDate: data.birthDate,
       gender: data.gender,
+      imageUrl: data.imageUrl,
     };
     return profileForm;
   };

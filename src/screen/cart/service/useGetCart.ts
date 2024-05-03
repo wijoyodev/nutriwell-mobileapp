@@ -12,7 +12,15 @@ const useGetCart = () => {
       setLoading(true);
       getCart().then(response => {
         setLoading(false);
-        setCartItems(response.data);
+        const cartItemsValue: CartItem[] = response.result.map(cartItem => ({
+          id: cartItem.id,
+          name: cartItem.product_name,
+          price: cartItem.price,
+          quantity: cartItem.quantity,
+          totalPrice: cartItem.total_price,
+          imageUrl: cartItem.product_images?.[0] ?? '',
+        }));
+        setCartItems(cartItemsValue);
       });
     }, []),
   );

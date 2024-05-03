@@ -32,9 +32,10 @@ export type ProfileForm = {
   birthDate: Date;
   gender: string;
   phoneNumber: string;
-  image: any;
+  image?: any;
   code: string;
   country: string;
+  imageUrl?: string;
 };
 
 export type InputProfileComponentProps = {

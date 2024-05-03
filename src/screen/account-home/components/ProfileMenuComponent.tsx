@@ -20,6 +20,7 @@ import Colors from 'themes/Colors';
 import CustomModal, { CustomModalHandle } from 'components/CustomModal';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import logout from 'network/auth/logout';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type Menu = {
   name: string;
@@ -97,6 +98,7 @@ const ProfileMenuComponent = () => {
 
   const logoutUser = async () => {
     await logout();
+    await AsyncStorage.clear();
   };
 
   return (

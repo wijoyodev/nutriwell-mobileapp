@@ -17,7 +17,7 @@ const CustomProfileImage: React.FC<CustomProfileImageProps> = ({
 }) => {
   const [loadingImage, setLoadingImage] = useState<boolean>(false);
 
-  const source = imageUrl ? { uri: imageUrl } : image;
+  const source = image ? image : { uri: imageUrl };
   return (
     <View
       style={{
