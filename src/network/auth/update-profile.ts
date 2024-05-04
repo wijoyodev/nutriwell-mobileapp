@@ -2,21 +2,27 @@ import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 
 export type ProfileResponse = {
-  name: string;
-  email: string;
-  imageUrl: string;
-  birthDate: Date;
-  phoneNumber: string;
-  gender: string;
+  id: number;
+  full_name?: string;
+  avatar?: any;
+  date_of_birth?: string;
+  phone_number?: string;
+  gender?: string;
+  account_bank?: string;
+  account_bank_name?: string;
+  account_bank_number?: string;
 };
 
 export type ProfileRequest = {
-  name: string;
-  email: string;
-  imageUrl?: string;
-  birthDate: Date;
-  phoneNumber: string;
-  gender: string;
+  id: number;
+  full_name?: string;
+  avatar?: any;
+  date_of_birth?: string;
+  phone_number?: string;
+  gender?: string;
+  account_bank?: string;
+  account_bank_name?: string;
+  account_bank_number?: string;
 };
 
 type ApiCallUpdateProfile = (

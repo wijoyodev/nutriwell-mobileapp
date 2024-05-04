@@ -15,6 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { registerDataSchema } from 'screen/register-data/schema/registerDataSchema';
 import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
 import updateProfile from 'network/auth/update-profile';
+import { getUserId } from 'service/StorageUtils';
 
 const EditProfileScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
@@ -50,10 +51,14 @@ const EditProfileScreen = () => {
 
   const { handleSubmit: handleFormSubmit } = formMethods;
 
-  const handleSave: SubmitHandler<ProfileForm> = (data: ProfileForm) => {
+  const handleSave: SubmitHandler<ProfileForm> = async (data: ProfileForm) => {
     console.log(data);
-    updateProfile(data).then(response => {
-      if (response.success) {
+    const userId = await getUserId();
+    updateProfile({
+      id: parseInt(userId, 10),
+      ...data,
+    }).then(response => {
+      if (response.result) {
         goBack();
       } else {
         console.log('FAILED');

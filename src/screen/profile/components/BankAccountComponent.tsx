@@ -9,7 +9,6 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { BANK_ACCOUNT_SCREEN } from 'navigation/constants';
-import { BankResponse } from 'network/auth/bank-account';
 import useGetBankAccount from '../service/useGetBankAccount';
 
 // bankValue = null;
@@ -61,13 +60,13 @@ const BankAccountComponent: React.FC<BankAccountComponentProps> = () => {
                 fontWeight: 'bold',
                 marginBottom: 4,
               }}>
-              {bankAccount?.accountHolder}
+              {bankAccount?.account_bank_name}
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              {bankAccount?.bank?.name}
+              {bankAccount?.account_bank}
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              {bankAccount?.accountNumber}
+              {bankAccount?.account_bank_number}
             </Text>
           </View>
         ) : (

@@ -9,9 +9,7 @@ setLocale({
 });
 
 export const bankSchema = object().shape({
-  bank: object().nonNullable().shape({
-    name: string().required(),
-  }),
+  bank: string().required(),
   accountHolder: string().required(),
   accountNumber: string().required(),
 });

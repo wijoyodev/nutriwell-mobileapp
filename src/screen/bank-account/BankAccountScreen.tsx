@@ -15,6 +15,8 @@ import { ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { bankSchema } from './schema/bankSchema';
 import CustomPicker from 'components/CustomPicker';
+import updateProfile from 'network/auth/update-profile';
+import { getUserId } from 'service/StorageUtils';
 
 export type BankOption = {
   name: string;
@@ -33,23 +35,27 @@ const bankOptions = [
 ];
 
 export type BankForm = {
-  bank: BankOption;
+  bank: string;
   accountHolder: string;
   accountNumber: string;
-} | null;
+};
 
 const BankAccountScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute<RouteProp<ParamListBase>>();
 
   let formInitialValues: BankForm = {
-    bank: null,
+    bank: '',
     accountHolder: '',
     accountNumber: '',
   };
 
   if (params?.data) {
-    formInitialValues = params.data;
+    formInitialValues = {
+      bank: params?.data.account_bank,
+      accountHolder: params?.data.account_bank_name,
+      accountNumber: params?.data.account_bank_number,
+    };
   }
 
   const formMethods = useForm({
@@ -64,8 +70,21 @@ const BankAccountScreen = () => {
     formState: { errors },
   } = formMethods;
 
-  const submit: SubmitHandler<BankForm> = (data: BankForm) => {
-    goBack();
+  const submit: SubmitHandler<BankForm> = async (data: BankForm) => {
+    console.log(data);
+    const userId = await getUserId();
+    updateProfile({
+      id: parseInt(userId, 10),
+      account_bank: data.bank,
+      account_bank_name: data.accountHolder,
+      account_bank_number: data.accountNumber,
+    }).then(response => {
+      if (response.result) {
+        goBack();
+      } else {
+        console.log('Failed: ', response);
+      }
+    });
   };
 
   return (
@@ -87,7 +106,7 @@ const BankAccountScreen = () => {
             render={({ field: { onChange, value } }) => (
               <CustomPicker
                 value={value}
-                onSelect={onChange}
+                onSelect={item => onChange(item.name)}
                 renderValue={(item: BankOption) => item?.name}
                 items={bankOptions}
                 placeholder="Pilih akun bank"

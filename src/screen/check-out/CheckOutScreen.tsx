@@ -7,7 +7,6 @@ import FooterCheckOutComponent from './components/FooterCheckOutComponent';
 import { FormProvider, useForm } from 'react-hook-form';
 import { checkoutSchema } from './schema/checkoutSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import useCheckout from './service/useCheckout';
 import useGetCart from 'screen/cart/service/useGetCart';
 
 export type ShippingOption = {
@@ -37,19 +36,19 @@ export type CheckoutForm = {
 };
 
 const CheckOutScreen = () => {
-  const { loading, checkoutData } = useCheckout();
-  const { cartItems } = useGetCart();
+  // const { loading, checkoutData } = useCheckout();
+  const { loading, cartItems } = useGetCart();
 
-  useEffect(() => {
-    if (checkoutData) {
-      setValue('address', checkoutData.address);
-    }
-  }, [checkoutData]);
+  // useEffect(() => {
+  //   if (checkoutData) {
+  //     setValue('address', checkoutData.address);
+  //   }
+  // }, [checkoutData]);
 
   const formInitialValues: CheckoutForm = {
     shippingOption: null,
     paymentMethod: null,
-    address: checkoutData?.address ?? null,
+    // address: checkoutData?.address ?? null,
   };
 
   const formMethods = useForm({
@@ -70,7 +69,7 @@ const CheckOutScreen = () => {
           <View style={{ flex: 1 }} />
         )}
 
-        <FooterCheckOutComponent items={checkoutData?.items ?? []} />
+        <FooterCheckOutComponent items={cartItems ?? []} />
       </FormProvider>
     </View>
   );
