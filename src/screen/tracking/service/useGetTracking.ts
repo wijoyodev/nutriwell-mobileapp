@@ -15,10 +15,17 @@ const useGetTracking = (shipmentNumber: string) => {
         setLoading(false);
         setTracking(response.result);
       });
-    }, []),
+    }, [shipmentNumber]),
   );
 
-  return { loading, tracking };
+  const refetch = () => {
+    getTrackShipment(shipmentNumber).then(response => {
+      setLoading(false);
+      setTracking(response.result);
+    });
+  };
+
+  return { loading, tracking, refetch };
 };
 
 export default useGetTracking;

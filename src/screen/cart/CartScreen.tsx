@@ -20,7 +20,7 @@ export type CartItem = {
 };
 
 const CartScreen = () => {
-  const { loading, cartItems } = useGetCart();
+  const { loading, cartItems, refetch } = useGetCart();
   const [items, setItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ const CartScreen = () => {
       product_id,
       quantity,
     });
+    refetch();
   };
 
   const renderEmpty = () => {
