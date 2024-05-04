@@ -8,9 +8,11 @@ setLocale({
 });
 
 export const shippingAddressSchema = object().shape({
+  id: string(),
   name: string().required(),
   phoneNumber: string().required(),
   province: string().required(),
+  code: string().required(),
   city: string().required(),
   district: string().required(),
   postalCode: string().required(),

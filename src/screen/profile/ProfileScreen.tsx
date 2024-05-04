@@ -15,7 +15,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { EDIT_PROFILE_SCREEN } from 'navigation/constants';
 import useGetProfile from './service/useGetProfile';
 import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
-import { ProfileResponse } from 'network/auth/profile';
+import { ProfileData } from 'service/Utils';
 
 const ProfileScreen = () => {
   const { setOptions, navigate } =
@@ -34,13 +34,15 @@ const ProfileScreen = () => {
     StatusBar.setBarStyle('dark-content');
   });
 
-  const convertProfileForm: (a: ProfileResponse) => ProfileForm = (
-    data: ProfileResponse,
+  const convertProfileForm: (a: ProfileData) => ProfileForm = (
+    data: ProfileData,
   ) => {
     const profileForm: ProfileForm = {
       name: data.name,
       email: data.email,
       phoneNumber: data.phoneNumber,
+      code: data.phoneCountryCode,
+      country: data.phoneCountryCode,
       birthDate: data.birthDate,
       gender: data.gender,
       imageUrl: data.imageUrl,

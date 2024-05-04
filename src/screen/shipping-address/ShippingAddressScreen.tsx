@@ -2,7 +2,9 @@
 import {
   NavigationProp,
   ParamListBase,
+  RouteProp,
   useNavigation,
+  useRoute,
 } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import CustomPhoneInput from 'components/CustomPhoneInput';
@@ -14,6 +16,8 @@ import { Keyboard, ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { shippingAddressSchema } from './schema/shippingAddressSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import updateAddress from 'network/shop/update-address';
+import createAddress, { AddressRequest } from 'network/shop/create-address';
 
 type AddressOption = {
   name: string;
@@ -56,8 +60,10 @@ const districtOptions: AddressOption[] = [
 ];
 
 export type ShippingAddressForm = {
+  id: string;
   name: string;
   phoneNumber: string;
+  code: string;
   province: string;
   city: string;
   district: string;
@@ -67,17 +73,23 @@ export type ShippingAddressForm = {
 
 const ShippingAddressScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
-  const [code, setCode] = useState('+62');
+  const { params } = useRoute<RouteProp<ParamListBase>>();
 
-  const formInitialValues: ShippingAddressForm = {
+  let formInitialValues: ShippingAddressForm = {
+    id: '',
     name: '',
     phoneNumber: '',
+    code: '+62',
     province: '',
     city: '',
     district: '',
     streetAddress: '',
     postalCode: '',
   };
+
+  if (params?.data) {
+    formInitialValues = params?.data;
+  }
 
   const formMethods = useForm({
     resolver: yupResolver(shippingAddressSchema),
@@ -87,8 +99,10 @@ const ShippingAddressScreen = () => {
 
   const {
     control,
+    watch,
     handleSubmit: handleFormSubmit,
     formState: { errors },
+    setValue,
   } = formMethods;
 
   const renderOption = (item: AddressOption) => (
@@ -106,8 +120,32 @@ const ShippingAddressScreen = () => {
     data: ShippingAddressForm,
   ) => {
     console.log(data);
-    goBack();
+    const request: AddressRequest = {
+      recipient_name: data.name,
+      recipient_phone_number: data.phoneNumber,
+      phone_number_country: data.code,
+      province: data.province,
+      city: data.city,
+      district: data.district,
+      postal_code: data.postalCode,
+      address_detail: data.streetAddress,
+    };
+    if (data.id) {
+      updateAddress(request).then(handleSaveAddress);
+    } else {
+      createAddress(request).then(handleSaveAddress);
+    }
   };
+
+  const handleSaveAddress = (response: any) => {
+    if (response.result) {
+      goBack();
+    } else {
+      console.log('Failed');
+    }
+  };
+
+  const code = watch('code');
 
   return (
     <View
@@ -148,7 +186,7 @@ const ShippingAddressScreen = () => {
                 value={value}
                 onChangeText={onChange}
                 code={code}
-                onChangeCode={setCode}
+                onChangeCode={codeValue => setValue('code', codeValue)}
                 placeholder={'cth: 812 9999 0000'}
                 error={errors?.phoneNumber?.message ?? ''}
               />

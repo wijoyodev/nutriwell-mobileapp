@@ -25,7 +25,7 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
   } = useFormContext();
   const address = watch('address');
 
-  const { loading, shippingOptions } = useGetShippingOption();
+  const { loading, shippingOptions } = useGetShippingOption(41113, items);
   const { loading: loadingPayment, paymentMethods } = useGetPaymentMethod();
 
   return (

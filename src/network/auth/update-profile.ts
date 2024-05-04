@@ -19,6 +19,7 @@ export type ProfileRequest = {
   avatar?: any;
   date_of_birth?: string;
   phone_number?: string;
+  phone_number_country?: string;
   gender?: string;
   account_bank?: string;
   account_bank_name?: string;
@@ -29,9 +30,9 @@ type ApiCallUpdateProfile = (
   request: ProfileRequest,
 ) => Promise<PublicAPIResponse<ProfileResponse>>;
 
-const updateProfileEndpoint = '/profile';
+const updateProfileEndpoint = '/user';
 const updateProfile: ApiCallUpdateProfile = async (request: ProfileRequest) => {
-  const response = await Api.post(updateProfileEndpoint, request);
+  const response = await Api.patchWithForm(updateProfileEndpoint, request);
   return response;
 };
 

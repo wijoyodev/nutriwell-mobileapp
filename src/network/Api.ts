@@ -1,4 +1,16 @@
-import { getAccessToken, getRefreshToken, setAccessToken, setAvatar, setBirthDate, setEmail, setFullName, setGender, setPhoneNumber, setRefreshToken, setUserId } from 'service/StorageUtils';
+import {
+  getAccessToken,
+  getRefreshToken,
+  setAccessToken,
+  setAvatar,
+  setBirthDate,
+  setEmail,
+  setFullName,
+  setGender,
+  setPhoneNumber,
+  setRefreshToken,
+  setUserId,
+} from 'service/StorageUtils';
 import { PublicAPIResponse } from './model';
 const qs = require('qs');
 
@@ -28,6 +40,35 @@ const post = async (url: string, data: any) => {
     .then(result => {
       if (result.status === 0 && result.error === 'access_denied') {
         return handleDenied(() => post(url, data));
+      }
+      return result;
+    });
+  return response;
+};
+
+const patch = async (url: string, data: any) => {
+  const token = await getAccessToken();
+  const headers = token
+    ? {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      }
+    : {
+        'Content-Type': 'application/json',
+      };
+
+  console.log(API_URL + url);
+  let response = await fetch(API_URL + url, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: headers,
+  })
+    .then(payload => {
+      return payload.json();
+    })
+    .then(result => {
+      if (result.status === 0 && result.error === 'access_denied') {
+        return handleDenied(() => patch(url, data));
       }
       return result;
     });
@@ -115,6 +156,48 @@ const postWithForm = async (url: string, data: any) => {
   return response;
 };
 
+const patchWithForm = async (url: string, data: any) => {
+  const token = await getAccessToken();
+  const headers = token
+    ? {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'multipart/form-data',
+      }
+    : {
+        'Content-Type': 'multipart/form-data',
+      };
+
+  const formData = new FormData();
+  for (let k in data) {
+    formData.append(k, data[k]);
+  }
+
+  console.log('Form data: ', formData);
+  let response = await fetch(API_URL + url, {
+    method: 'PATCH',
+    body: formData,
+    headers: headers,
+  })
+    .then(payload => {
+      return payload.json();
+    })
+    .then(result => {
+      console.log('Media Upload Result: ', result);
+      if (result.status === 0 && result.error === 'access_denied') {
+        return handleDenied(() => patchWithForm(url, data));
+      }
+      return result;
+    })
+    .catch(err => {
+      return {
+        status: 0,
+        error: err,
+        message: err.message,
+      };
+    });
+  return response;
+};
+
 const handleDenied = (callback: () => any) => {
   return refresh().then(response => {
     if (response.result) {
@@ -169,8 +252,10 @@ const refresh: () => Promise<PublicAPIResponse<RefreshResponse>> = async () => {
 
 const Api = {
   post,
+  patch,
   get,
   postWithForm,
+  patchWithForm,
 };
 
 export default Api;

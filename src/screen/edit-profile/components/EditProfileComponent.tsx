@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import {
   ActivityIndicator,
-  ImageBackground,
   Modal,
   ScrollView,
   Text,
@@ -17,8 +16,6 @@ import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CustomPhoneInput from 'components/CustomPhoneInput';
 import Utils from 'service/Utils';
-import uploadImage from 'network/auth/upload-image';
-import { imageUrlTes } from 'mock-api/constant';
 import CustomProfileImage from 'components/CustomProfileImage';
 
 const genderList = [

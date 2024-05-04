@@ -10,6 +10,7 @@ import {
 } from '@react-navigation/native';
 import { SHIPPING_ADDRESS_SCREEN } from 'navigation/constants';
 import { Address } from '../CheckOutScreen';
+import { ShippingAddressForm } from 'screen/shipping-address/ShippingAddressScreen';
 
 export type ShippingAddressComponentProps = {
   address: Address;
@@ -20,10 +21,28 @@ const ShippingAddressComponent: React.FC<ShippingAddressComponentProps> = ({
   error,
 }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
+
+  const handleNavigate = () => {
+    const addressValue: ShippingAddressForm = {
+      id: address?.id ?? '',
+      name: address?.name ?? '',
+      phoneNumber: address?.phoneNumber ?? '',
+      code: address?.code ?? '+62',
+      province: address?.province ?? '',
+      city: address?.city ?? '',
+      district: address?.district ?? '',
+      streetAddress: address?.streetAddress ?? '',
+      postalCode: address?.postalCode ?? '',
+    };
+
+    navigate(SHIPPING_ADDRESS_SCREEN, {
+      data: addressValue,
+    });
+  };
   return (
     <>
       <TouchableOpacity
-        onPress={() => navigate(SHIPPING_ADDRESS_SCREEN)}
+        onPress={handleNavigate}
         style={{
           borderColor: Colors.grey,
           borderRadius: 12,

@@ -14,7 +14,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerDataSchema } from 'screen/register-data/schema/registerDataSchema';
 import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
-import updateProfile from 'network/auth/update-profile';
+import updateProfile, { ProfileRequest } from 'network/auth/update-profile';
 import { getUserId } from 'service/StorageUtils';
 
 const EditProfileScreen = () => {
@@ -33,14 +33,8 @@ const EditProfileScreen = () => {
   };
 
   let code = '+62';
-  if (params.data) {
-    const phoneNumberSplitted = params.data.phoneNumber.split(' ');
-    const phoneNumber = phoneNumberSplitted[1];
-    code = phoneNumberSplitted[0].replace('(', '').replace(')', '');
-    formInitialValues = {
-      ...params.data,
-      phoneNumber,
-    };
+  if (params?.data) {
+    formInitialValues = params?.data;
   }
 
   const formMethods = useForm({
@@ -49,15 +43,27 @@ const EditProfileScreen = () => {
     reValidateMode: 'onChange',
   });
 
-  const { handleSubmit: handleFormSubmit } = formMethods;
+  const {
+    handleSubmit: handleFormSubmit,
+    formState: { errors },
+  } = formMethods;
 
   const handleSave: SubmitHandler<ProfileForm> = async (data: ProfileForm) => {
     console.log(data);
     const userId = await getUserId();
-    updateProfile({
+    const request: ProfileRequest = {
       id: parseInt(userId, 10),
-      ...data,
-    }).then(response => {
+      full_name: data.name,
+      date_of_birth: data.birthDate.toISOString(),
+      gender: data.gender,
+      phone_number: data.phoneNumber,
+      phone_number_country: data.code,
+    };
+    if (data.image) {
+      request.avatar = data.image;
+    }
+    updateProfile(request).then(response => {
+      console.log('Response update: ', response);
       if (response.result) {
         goBack();
       } else {

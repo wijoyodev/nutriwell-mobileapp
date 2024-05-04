@@ -8,6 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { checkoutSchema } from './schema/checkoutSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useGetCart from 'screen/cart/service/useGetCart';
+import useGetAddress from './service/useGetAddress';
 
 export type ShippingOption = {
   name: string;
@@ -20,8 +21,10 @@ export type PaymentMethod = {
 } | null;
 
 export type Address = {
+  id: string;
   name: string;
   phoneNumber: string;
+  code: string;
   province: string;
   city: string;
   district: string;
@@ -37,18 +40,19 @@ export type CheckoutForm = {
 
 const CheckOutScreen = () => {
   // const { loading, checkoutData } = useCheckout();
+  const { address } = useGetAddress();
   const { loading, cartItems } = useGetCart();
 
-  // useEffect(() => {
-  //   if (checkoutData) {
-  //     setValue('address', checkoutData.address);
-  //   }
-  // }, [checkoutData]);
+  useEffect(() => {
+    if (address) {
+      setValue('address', address);
+    }
+  }, [address]);
 
   const formInitialValues: CheckoutForm = {
     shippingOption: null,
     paymentMethod: null,
-    // address: checkoutData?.address ?? null,
+    address: address ?? null,
   };
 
   const formMethods = useForm({

@@ -30,6 +30,8 @@ const BankAccountComponent: React.FC<BankAccountComponentProps> = () => {
     </View>
   );
 
+  console.log('Bank Account: ', bankAccount);
+
   return (
     <View
       style={{ padding: 16, borderTopColor: Colors.grey, borderTopWidth: 4 }}>
@@ -51,7 +53,7 @@ const BankAccountComponent: React.FC<BankAccountComponentProps> = () => {
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        {bankAccount ? (
+        {bankAccount?.account_bank ? (
           <View>
             <Text
               style={{

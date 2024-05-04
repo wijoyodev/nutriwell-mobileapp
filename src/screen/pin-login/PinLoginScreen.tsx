@@ -12,7 +12,7 @@ import login, { LoginResponse } from 'network/auth/login';
 import { PublicAPIResponse } from 'network/model';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
-import { setAccessToken, setAvatar, setBirthDate, setEmail, setFullName, setGender, setPhoneNumber, setRefreshToken, setUserId } from 'service/StorageUtils';
+import { setAccessToken, setAvatar, setBirthDate, setEmail, setFullName, setGender, setPhoneCountryCode, setPhoneNumber, setRefreshToken, setUserId } from 'service/StorageUtils';
 import Colors from 'themes/Colors';
 
 const PinLoginScreen = () => {
@@ -62,6 +62,7 @@ const PinLoginScreen = () => {
     await setBirthDate(data.date_of_birth);
     await setPhoneNumber(data.phone_number);
     await setUserId(data.user_id.toString());
+    await setPhoneCountryCode(data.phone_number_country)
   };
 
   return (

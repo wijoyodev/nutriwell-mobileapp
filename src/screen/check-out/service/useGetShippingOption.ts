@@ -16,13 +16,14 @@ const useGetShippingOption = (postalCode: number, cartItems: CartItem[]) => {
       setLoading(true);
       const request: CalculateCourierRatesRequest = {
         destination_postal_code: postalCode,
-        items: cartItems.map(cartItem => ({
+        items: cartItems?.map(cartItem => ({
           name: cartItem.name,
           value: cartItem.totalPrice,
           weight: cartItem.totalWeight,
           quantity: cartItem.quantity,
         })),
       };
+
       calculateCourierRates(request).then(response => {
         setLoading(false);
         setShippingOptions(convertShippingOptions(response.result));
@@ -31,19 +32,19 @@ const useGetShippingOption = (postalCode: number, cartItems: CartItem[]) => {
       return () => {
         setShippingOptions([]);
       };
-    }, []),
+    }, [cartItems, postalCode]),
   );
 
   return { loading, shippingOptions };
 };
 
 const convertShippingOptions = (response: CalculateCourierRatesResponse[]) => {
-  const shippingOptions: ShippingOption[] = response.map(courier => ({
+  const shippingOptions: ShippingOption[] = response?.map(courier => ({
     name: `${courier.courier_name} ${courier.courier_service_name}`,
     price: courier.price,
     etd: courier.duration,
   }));
-  return shippingOptions;
+  return shippingOptions ?? [];
 };
 
 export default useGetShippingOption;

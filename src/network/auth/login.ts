@@ -6,6 +6,7 @@ export type LoginResponse = {
   email: string;
   full_name: string;
   phone_number: string;
+  phone_number_country: string;
   gender: string;
   date_of_birth: string;
   avatar_url: string;
