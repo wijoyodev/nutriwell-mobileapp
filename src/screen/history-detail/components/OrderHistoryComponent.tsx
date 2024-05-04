@@ -2,9 +2,9 @@
 import React from 'react';
 import { FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
-import { HistoryDetail } from '../HistoryDetailScreen';
-import { HistoryItem } from 'screen/order-history/OrderHistoryScreen';
 import Utils from 'service/Utils';
+import { HistoryItem } from 'screen/order-history/service/useGetOrderHistory';
+import { HistoryDetail } from '../service/useGetHistoryDetail';
 
 export type OrderHistoryComponentProps = {
   history: HistoryDetail;

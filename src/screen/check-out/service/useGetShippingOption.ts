@@ -22,7 +22,7 @@ const useGetShippingOption = (postalCode: number, cartItems: CartItem[]) => {
       };
       calculateCourierRates(request).then(response => {
         setLoading(false);
-        setShippingOptions(response.data);
+        setShippingOptions(convertShippingOptions(response.result));
       });
 
       return () => {

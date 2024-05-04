@@ -6,9 +6,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Clipboard from '@react-native-clipboard/clipboard';
 import TrackingComponent from './components/TrackingComponent';
 import useGetTracking from './service/useGetTracking';
+import { ParamListBase, RouteProp, useRoute } from '@react-navigation/native';
 
 const TrackingScreen = () => {
-  const { tracking, loading } = useGetTracking();
+  const { params } = useRoute<RouteProp<ParamListBase>>();
+  const { tracking, loading } = useGetTracking(params?.shipment_number);
+
+  const timelineItems = tracking?.history?.map(item => ({
+    description: item.note,
+    date: new Date(item.updated_at),
+  }));
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <View
@@ -24,7 +31,7 @@ const TrackingScreen = () => {
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
           <Text
             style={{ fontSize: 14, color: Colors.black, fontWeight: 'bold' }}>
-            {tracking?.resi}
+            {params?.shipment_number}
           </Text>
           <Icon
             onPress={() => Clipboard.setString(tracking?.resi ?? '')}
@@ -36,7 +43,7 @@ const TrackingScreen = () => {
 
       <TrackingComponent
         loading={loading ?? false}
-        items={tracking?.items ?? []}
+        items={timelineItems ?? []}
       />
     </View>
   );

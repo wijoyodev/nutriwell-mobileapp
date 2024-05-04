@@ -1,9 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import dayjs from 'dayjs';
 import React from 'react';
-import { ActivityIndicator, FlatList, ListRenderItemInfo, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItemInfo,
+  Text,
+  View,
+} from 'react-native';
 import Colors from 'themes/Colors';
-import StepIndicator from 'react-native-step-indicator';
 import TrackingItemComponent from './TrackingItemComponent';
 
 export type TrackingTimelineItem = {

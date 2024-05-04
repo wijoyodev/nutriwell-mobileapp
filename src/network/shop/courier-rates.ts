@@ -20,7 +20,7 @@ export type CalculateCourierRatesResponse = {
 
 type ApiCallCalculateCourierRates = (
   request: CalculateCourierRatesRequest,
-) => Promise<PublicAPIResponse<any>>;
+) => Promise<PublicAPIResponse<CalculateCourierRatesResponse[]>>;
 
 const CalculateCourierRatesEndpoint = '/courier-rates';
 const calculateCourierRates: ApiCallCalculateCourierRates = async (

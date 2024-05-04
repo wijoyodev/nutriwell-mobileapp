@@ -1,17 +1,19 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import getTracking, { TrackingResponse } from 'network/shop/tracking';
+import getTrackShipment, {
+  TrackShipmentResponse,
+} from 'network/shop/track-shipment';
 
-const useGetTracking = () => {
-  const [tracking, setTracking] = useState<TrackingResponse>();
+const useGetTracking = (shipmentNumber: string) => {
+  const [tracking, setTracking] = useState<TrackShipmentResponse>();
   const [loading, setLoading] = useState<boolean>();
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getTracking().then(response => {
+      getTrackShipment(shipmentNumber).then(response => {
         setLoading(false);
-        setTracking(response.data);
+        setTracking(response.result);
       });
     }, []),
   );
