@@ -24,7 +24,7 @@ const ShippingAddressComponent: React.FC<ShippingAddressComponentProps> = ({
 
   const handleNavigate = () => {
     const addressValue: ShippingAddressForm = {
-      id: address?.id ?? '',
+      id: address?.id.toString() ?? '',
       name: address?.name ?? '',
       phoneNumber: address?.phoneNumber ?? '',
       code: address?.code ?? '+62',

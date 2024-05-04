@@ -41,6 +41,10 @@ const useGetShippingOption = (postalCode: number, cartItems: CartItem[]) => {
 const convertShippingOptions = (response: CalculateCourierRatesResponse[]) => {
   const shippingOptions: ShippingOption[] = response?.map(courier => ({
     name: `${courier.courier_name} ${courier.courier_service_name}`,
+    courierName: courier.courier_name,
+    courierCompany: courier.company,
+    courierServiceName: courier.courier_service_name,
+    courierType: courier.service_type,
     price: courier.price,
     etd: courier.duration,
   }));

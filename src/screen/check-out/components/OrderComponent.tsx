@@ -7,7 +7,7 @@ import ShippingAddressComponent from './ShippingAddressComponent';
 import SummaryComponent from './SummaryComponent';
 import CustomPicker from 'components/CustomPicker';
 import { Controller, useFormContext } from 'react-hook-form';
-import { PaymentMethod, ShippingOption } from '../CheckOutScreen';
+import { Address, PaymentMethod, ShippingOption } from '../CheckOutScreen';
 import { CartItem } from 'screen/cart/CartScreen';
 import useGetShippingOption from '../service/useGetShippingOption';
 import useGetPaymentMethod from '../service/useGetPaymentMethod';
@@ -23,9 +23,12 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
     watch,
     formState: { errors },
   } = useFormContext();
-  const address = watch('address');
+  const address: Address = watch('address');
 
-  const { loading, shippingOptions } = useGetShippingOption(41113, items);
+  const { loading, shippingOptions } = useGetShippingOption(
+    parseInt(address?.postalCode ?? '0', 10),
+    items,
+  );
   const { loading: loadingPayment, paymentMethods } = useGetPaymentMethod();
 
   return (

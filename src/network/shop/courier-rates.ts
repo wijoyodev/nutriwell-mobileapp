@@ -14,6 +14,8 @@ export type CalculateCourierRatesRequest = {
 export type CalculateCourierRatesResponse = {
   courier_name: string;
   courier_service_name: string;
+  company: string;
+  service_type: string;
   duration: string;
   price: number;
 };

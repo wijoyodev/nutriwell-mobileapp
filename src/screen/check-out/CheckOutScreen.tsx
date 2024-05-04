@@ -12,6 +12,10 @@ import useGetAddress from './service/useGetAddress';
 
 export type ShippingOption = {
   name: string;
+  courierName: string;
+  courierCompany: string;
+  courierType: string;
+  courierServiceName: string;
   price: number;
   etd: string;
 } | null;
@@ -21,7 +25,7 @@ export type PaymentMethod = {
 } | null;
 
 export type Address = {
-  id: string;
+  id: number;
   name: string;
   phoneNumber: string;
   code: string;

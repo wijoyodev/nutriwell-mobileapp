@@ -22,7 +22,7 @@ const useGetAddress = () => {
 
 const convertAddress = (response: AddressResponse) => {
   const address: Address = {
-    id: response.id.toString(),
+    id: response.id,
     name: response.recipient_name,
     phoneNumber: response.recipient_phone_number,
     code:
