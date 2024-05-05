@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import ModalOrderCreated, {
@@ -17,10 +17,13 @@ export type FooterCheckOutComponentProps = {
   items: CartItem[];
 };
 
-const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({ items }) => {
+const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
+  items,
+}) => {
   const { handleSubmit: handleFormSubmit, watch } = useFormContext();
   const shippingOption: ShippingOption = watch('shippingOption');
   const shippingPrice = shippingOption?.price ?? 0;
+  const [loading, setLoading] = useState<boolean>(false);
 
   const modalRef = useRef<ModalOrderCreatedHandle | null>();
 
@@ -32,7 +35,7 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({ items
     );
   };
 
-  const submit: SubmitHandler<CheckoutForm> = async (data: CheckoutForm) => {
+  const submit: SubmitHandler<any> = async (data: CheckoutForm) => {
     console.log(data);
     const userId = await getUserId();
 
@@ -47,9 +50,11 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({ items
       courier_rate: data.shippingOption?.price ?? 0,
       total_purchase: getTotalPrice() + (data.shippingOption?.price ?? 0),
     };
+    setLoading(true);
     createOrder(request).then(response => {
+      setLoading(false);
       if (response.result) {
-        modalRef.current?.openModal();
+        modalRef.current?.openModal(response.result.invoice_url);
       }
     });
   };
@@ -76,6 +81,7 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({ items
       </View>
 
       <CustomButton
+        loading={loading}
         onPress={handleFormSubmit(submit)}
         backgroundColor={Colors.blue}
         text={'BUAT PESANAN'}

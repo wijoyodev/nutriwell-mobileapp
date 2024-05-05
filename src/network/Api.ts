@@ -28,7 +28,7 @@ const post = async (url: string, data: any) => {
         'Content-Type': 'application/json',
       };
 
-  console.log(API_URL + url);
+  console.log('POST ', API_URL + url);
   let response = await fetch(API_URL + url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -57,7 +57,7 @@ const patch = async (url: string, data: any) => {
         'Content-Type': 'application/json',
       };
 
-  console.log(API_URL + url);
+  console.log('PATCH ', API_URL + url);
   let response = await fetch(API_URL + url, {
     method: 'PATCH',
     body: JSON.stringify(data),
@@ -87,7 +87,7 @@ const get = async (url: string, data: any = null) => {
           'Content-Type': 'application/json',
         };
 
-    console.log(`${API_URL}${url}${data ? '?' : ''}${qs.stringify(data)}`);
+    console.log(`GET ${API_URL}${url}${data ? '?' : ''}${qs.stringify(data)}`);
     let response = await fetch(
       `${API_URL}${url}${data ? '?' : ''}${qs.stringify(data)}`,
       {

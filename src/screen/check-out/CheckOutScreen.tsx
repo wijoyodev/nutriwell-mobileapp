@@ -20,10 +20,6 @@ export type ShippingOption = {
   etd: string;
 } | null;
 
-export type PaymentMethod = {
-  name: string;
-} | null;
-
 export type Address = {
   id: number;
   name: string;
@@ -38,7 +34,6 @@ export type Address = {
 
 export type CheckoutForm = {
   shippingOption: ShippingOption;
-  paymentMethod: PaymentMethod;
   address: Address;
 };
 
@@ -55,7 +50,6 @@ const CheckOutScreen = () => {
 
   const formInitialValues: CheckoutForm = {
     shippingOption: null,
-    paymentMethod: null,
     address: address ?? null,
   };
 

@@ -119,7 +119,6 @@ const ShippingAddressScreen = () => {
   const submit: SubmitHandler<ShippingAddressForm> = (
     data: ShippingAddressForm,
   ) => {
-    console.log(data);
     const request: AddressRequest = {
       recipient_name: data.name,
       recipient_phone_number: data.phoneNumber,
@@ -130,6 +129,7 @@ const ShippingAddressScreen = () => {
       postal_code: data.postalCode,
       address_detail: data.streetAddress,
     };
+    console.log(request);
     if (data.id) {
       updateAddress(request).then(handleSaveAddress);
     } else {

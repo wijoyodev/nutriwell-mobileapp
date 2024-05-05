@@ -22,6 +22,7 @@ export type CartItem = {
 const CartScreen = () => {
   const { loading, cartItems, refetch } = useGetCart();
   const [items, setItems] = useState<CartItem[]>([]);
+  const [success, setSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (cartItems !== undefined) {
@@ -29,12 +30,19 @@ const CartScreen = () => {
     }
   }, [cartItems]);
 
+  useEffect(() => {
+    if (success) {
+      console.log('Success then refetch');
+      refetch();
+    }
+  }, [success]);
+
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
   });
 
-  const updateItemQuantity = async (product_id: number, quantity: number) => {
+  const updateItemQuantity = (product_id: number, quantity: number) => {
     const newItems =
       items?.map(item => {
         if (item.product_id === product_id) {
@@ -47,11 +55,15 @@ const CartScreen = () => {
         return item;
       }) ?? [];
     setItems(newItems);
-    await addToCart({
+    addToCart({
       product_id,
       quantity,
+    }).then(response => {
+      if (response.result) {
+        setSuccess(true);
+      }
     });
-    refetch();
+    
   };
 
   const renderEmpty = () => {

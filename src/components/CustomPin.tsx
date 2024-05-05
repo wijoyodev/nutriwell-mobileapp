@@ -49,6 +49,10 @@ const CustomPin: React.FC<CustomPinProps> = ({ value, onChangeValue }) => {
         cellStyleFocused={null}
         value={value}
         autoFocus={true}
+        textStyle={{
+          fontSize: 24,
+          color: Colors.black,
+        }}
         onTextChange={onChangeValue}
       />
     </View>

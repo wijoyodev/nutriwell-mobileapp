@@ -14,12 +14,12 @@ export type OrderRequest = {
 };
 
 export type OrderResponse = {
-
+  invoice_url: string;
 };
 
 type ApiCallCreateOrder = (
   request: OrderRequest,
-) => Promise<PublicAPIResponse<OrderResponse[]>>;
+) => Promise<PublicAPIResponse<OrderResponse>>;
 
 const createOrderEndpoint = '/order';
 const createOrder: ApiCallCreateOrder = async (request: OrderRequest) => {

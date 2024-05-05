@@ -3,6 +3,7 @@ import { PublicAPIResponse } from 'network/model';
 
 export type AddressResponse = {
   id: number;
+  user_id: number;
   recipient_name: string;
   recipient_phone_number: string;
   phone_number_country: string;

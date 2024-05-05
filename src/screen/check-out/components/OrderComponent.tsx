@@ -7,10 +7,9 @@ import ShippingAddressComponent from './ShippingAddressComponent';
 import SummaryComponent from './SummaryComponent';
 import CustomPicker from 'components/CustomPicker';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Address, PaymentMethod, ShippingOption } from '../CheckOutScreen';
+import { Address, ShippingOption } from '../CheckOutScreen';
 import { CartItem } from 'screen/cart/CartScreen';
 import useGetShippingOption from '../service/useGetShippingOption';
-import useGetPaymentMethod from '../service/useGetPaymentMethod';
 import Utils from 'service/Utils';
 
 export type OrderComponentProps = {
@@ -29,7 +28,6 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
     parseInt(address?.postalCode ?? '0', 10),
     items,
   );
-  const { loading: loadingPayment, paymentMethods } = useGetPaymentMethod();
 
   return (
     <ScrollView
@@ -53,42 +51,45 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
           error={errors?.address?.message ?? ''}
         />
 
-        <Text style={{ marginVertical: 12, fontSize: 14, color: Colors.black }}>
-          Pengiriman
-        </Text>
-        <Controller
-          control={control}
-          name={'shippingOption'}
-          render={({ field: { onChange, value } }) => (
-            <CustomPicker
-              items={shippingOptions}
-              title={'Pilih Pengiriman'}
-              placeholder="Pilih pengiriman"
-              value={value}
-              renderValue={(item: ShippingOption) =>
-                `${item?.name} (Rp${item?.price})`
-              }
-              loading={loading}
-              error={errors?.shippingOption?.message ?? ''}
-              onSelect={onChange}
-              renderOption={(item: ShippingOption) => (
-                <View
-                  style={{
-                    paddingVertical: 8,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={{ color: Colors.black, fontSize: 14 }}>
-                    {item?.name} ({Utils.getPriceString(item?.price ?? 0)})
-                  </Text>
-                  <Text style={{ fontSize: 14 }}>{item?.etd}</Text>
-                </View>
-              )}
-            />
-          )}
-        />
-
         <View style={{ marginBottom: 16 }}>
+          <Text
+            style={{ marginVertical: 12, fontSize: 14, color: Colors.black }}>
+            Pengiriman
+          </Text>
+          <Controller
+            control={control}
+            name={'shippingOption'}
+            render={({ field: { onChange, value } }) => (
+              <CustomPicker
+                items={shippingOptions}
+                title={'Pilih Pengiriman'}
+                placeholder="Pilih pengiriman"
+                value={value}
+                renderValue={(item: ShippingOption) =>
+                  `${item?.name} (${Utils.getPriceString(item?.price ?? 0)})`
+                }
+                loading={loading}
+                error={errors?.shippingOption?.message ?? ''}
+                onSelect={onChange}
+                renderOption={(item: ShippingOption) => (
+                  <View
+                    style={{
+                      paddingVertical: 8,
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text style={{ color: Colors.black, fontSize: 14 }}>
+                      {item?.name} ({Utils.getPriceString(item?.price ?? 0)})
+                    </Text>
+                    <Text style={{ fontSize: 14 }}>{item?.etd}</Text>
+                  </View>
+                )}
+              />
+            )}
+          />
+        </View>
+
+        {/* <View style={{ marginBottom: 16 }}>
           <Text
             style={{ marginVertical: 12, fontSize: 14, color: Colors.black }}>
             Metode Pembayaran
@@ -119,7 +120,7 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
               />
             )}
           />
-        </View>
+        </View> */}
       </View>
 
       <SummaryComponent items={items} />

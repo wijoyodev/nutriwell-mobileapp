@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { ReactElement } from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
   Text,
   TextStyle,
@@ -8,7 +9,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import Colors from 'themes/Colors';
-import LinearGradient from 'react-native-linear-gradient';
 
 type CustomButtonProps = {
   onPress?: () => void;
@@ -18,6 +18,7 @@ type CustomButtonProps = {
   buttonIcon?: ReactElement;
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
+  loading?: boolean;
 };
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -28,6 +29,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   buttonIcon,
   containerStyle,
   textStyle,
+  loading,
 }) => {
   return (
     <TouchableOpacity
@@ -40,15 +42,19 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       }}
       disabled={disabled}>
       {buttonIcon}
-      <Text
-        style={{
-          ...styles.buttonText,
-          ...textStyle,
-          fontSize: 14,
-          marginLeft: buttonIcon ? 15 : 0,
-        }}>
-        {text}
-      </Text>
+      {loading ? (
+        <ActivityIndicator color={Colors.white} size={'large'} />
+      ) : (
+        <Text
+          style={{
+            ...styles.buttonText,
+            ...textStyle,
+            fontSize: 14,
+            marginLeft: buttonIcon ? 15 : 0,
+          }}>
+          {text}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };

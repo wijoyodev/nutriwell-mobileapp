@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { CartItem } from '../CartScreen';
 import getCart, { CartItemResponse } from 'network/shop/cart';
 
@@ -7,22 +7,17 @@ const useGetCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      setLoading(true);
-      getCart().then(response => {
-        setLoading(false);
-        setCartItems(convertToCartItem(response.result));
-      });
-    }, []),
-  );
-
-  const refetch = () => {
+  const refetch = useCallback(() => {
+    setLoading(true);
     getCart().then(response => {
       setLoading(false);
       setCartItems(convertToCartItem(response.result));
     });
-  };
+  }, []);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   return { loading, cartItems, refetch };
 };
@@ -40,6 +35,6 @@ const convertToCartItem: (response: CartItemResponse[]) => CartItem[] = (
     totalWeight: cartItem.total_weight,
     imageUrl: cartItem.product_images?.[0] ?? '',
   }));
-}
+};
 
 export default useGetCart;

@@ -5,20 +5,21 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
-import { HOME_SCREEN } from 'navigation/constants';
+import { CHECK_OUT_PAYMENT_SCREEN, HOME_SCREEN } from 'navigation/constants';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 export type ModalOrderCreatedHandle = {
-  openModal: () => void;
+  openModal: (invoiceUrl: string) => void;
 };
 
 const ModalOrderCreated = forwardRef<ModalOrderCreatedHandle, {}>((_, ref) => {
   useImperativeHandle(ref, () => ({
-    openModal() {
+    openModal(invoice: string) {
       setVisible(true);
+      setInvoiceUrl(invoice);
     },
     closeModal() {
       setVisible(false);
@@ -26,6 +27,7 @@ const ModalOrderCreated = forwardRef<ModalOrderCreatedHandle, {}>((_, ref) => {
   }));
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const [visible, setVisible] = useState(false);
+  const [invoiceUrl, setInvoiceUrl] = useState('');
 
   const closeModal = () => {
     setVisible(false);
@@ -80,10 +82,12 @@ const ModalOrderCreated = forwardRef<ModalOrderCreatedHandle, {}>((_, ref) => {
           <CustomButton
             onPress={() => {
               closeModal();
-              navigate(HOME_SCREEN);
+              navigate(CHECK_OUT_PAYMENT_SCREEN, {
+                invoice_url: invoiceUrl,
+              });
             }}
             backgroundColor={Colors.blue}
-            text={'TUTUP'}
+            text={'LANJUT'}
           />
         </View>
       </Pressable>

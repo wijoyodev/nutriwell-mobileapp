@@ -2,6 +2,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
 import { Address } from '../CheckOutScreen';
 import getAddress, { AddressResponse } from 'network/shop/address';
+import { getUserId } from 'service/StorageUtils';
 
 const useGetAddress = () => {
   const [address, setAddress] = useState<Address>();
@@ -10,9 +11,15 @@ const useGetAddress = () => {
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getAddress().then(response => {
+      getAddress().then(async (response) => {
+        console.log('Response address: ', response);
         setLoading(false);
-        setAddress(convertAddress(response.result?.[0]));
+
+        const userId = await getUserId();
+        const addressValue = response.result.filter(
+          addressResponse => addressResponse.user_id.toString() === userId,
+        )?.[0];
+        setAddress(convertAddress(addressValue));
       });
     }, []),
   );

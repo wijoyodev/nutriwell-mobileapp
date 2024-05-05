@@ -9,9 +9,6 @@ setLocale({
 });
 
 export const checkoutSchema = object().shape({
-  paymentMethod: object().nonNullable().shape({
-    name: string().required(),
-  }),
   shippingOption: object().nonNullable().shape({
     name: string().required(),
   }),

@@ -31,6 +31,7 @@ import {
   TERMS_AND_CONDITION_SCREEN,
   INVOICE_SCREEN,
   TRACKING_SCREEN,
+  CHECK_OUT_PAYMENT_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
 import LoginScreen from 'screen/login/LoginScreen';
@@ -57,6 +58,7 @@ import UpdatePinSreen from 'screen/update-pin/UpdatePinScreen';
 import TermsAndConditionScreen from 'screen/terms-and-condition/TermsAndConditionScreen';
 import InvoiceScreen from 'screen/invoice/InvoiceScreen';
 import TrackingScreen from 'screen/tracking/TrackingScreen';
+import CheckOutPaymentScreen from 'screen/check-out-payment/CheckOutPaymentScreen';
 
 const Stack = createStackNavigator();
 
@@ -138,6 +140,14 @@ const screens: ScreenObject[] = [
   {
     name: CHECK_OUT_SCREEN,
     screen: CheckOutScreen,
+    options: {
+      headerTitle: 'Check Out',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: CHECK_OUT_PAYMENT_SCREEN,
+    screen: CheckOutPaymentScreen,
     options: {
       headerTitle: 'Check Out',
       headerTitleAlign: 'center',
