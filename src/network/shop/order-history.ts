@@ -28,6 +28,7 @@ export type OrderHistoryResponse = {
   id: number;
   order_number: string;
   status: number;
+  address_shipment_id: number;
   courier_name: string;
   courier_rate: number;
   courier_service_name: string;

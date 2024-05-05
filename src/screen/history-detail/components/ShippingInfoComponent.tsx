@@ -19,7 +19,7 @@ const ShippingInfoComponent: React.FC<ShippingInfoComponentProps> = ({
   history,
 }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
-  if (!history.shipping) {
+  if (!history.shipping.resi) {
     return <></>;
   }
   return (

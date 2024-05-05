@@ -274,41 +274,6 @@ export const uplineInformation: UplineInformationResponse = {
 export const imageUrlTes =
   'https://api.mentorbaik.com/file//c50c245c37607c374a2cef7c017bf89b7b200d54.jpg';
 
-export type InvoiceResponse = {
-  orderId: string;
-  totalPayment: number;
-  paymentDate: Date;
-  shippingAddress: Address;
-  items: HistoryItem[];
-  shippingCost: number;
-  shippingOption: ShippingOption;
-  paymentMethod: PaymentMethod;
-};
-export const invoice: InvoiceResponse = {
-  orderId: '123123',
-  totalPayment: 3130000,
-  paymentDate: new Date(),
-  shippingAddress: address,
-  items: [
-    {
-      name: 'GARAM Kurang Natrium 200 gram',
-      quantity: 20,
-      price: 1250000,
-      imageUrl: '',
-    },
-  ],
-  shippingCost: 10000,
-  shippingOption: {
-    name: 'Sicepat Express',
-    price: 10000,
-    minEtd: 2,
-    maxEtd: 3,
-    etdType: 'days',
-  },
-  paymentMethod: {
-    name: 'Transfer Bank (BCA)',
-  },
-};
 
 export const trackingItems: TrackingTimelineItem[] = [
   {

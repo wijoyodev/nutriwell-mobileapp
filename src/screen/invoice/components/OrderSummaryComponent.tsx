@@ -3,10 +3,36 @@ import React from 'react';
 import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
 import OrderItemComponent from './OrderItemComponent';
 import Colors from 'themes/Colors';
+import { Invoice } from '../InvoiceScreen';
+import { HistoryItem } from 'screen/order-history/service/useGetOrderHistory';
+import Utils from 'service/Utils';
 
-const OrderSummaryComponent = () => {
-  const renderItem = (info: ListRenderItemInfo) => {
-    return <OrderItemComponent />;
+type OrderSummaryComponentProps = {
+  invoice: Invoice;
+};
+
+const OrderSummaryComponent: React.FC<OrderSummaryComponentProps> = ({
+  invoice,
+}) => {
+  const renderItem = (info: ListRenderItemInfo<HistoryItem>) => {
+    return <OrderItemComponent item={info.item} />;
+  };
+
+  const getTotalQuantity = () => {
+    const totalItemQtyList = invoice?.items?.map(item => item.quantity) ?? [];
+    return totalItemQtyList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
+
+  const getTotalPrice = () => {
+    const totalItemPriceList =
+      invoice?.items?.map(item => item.price * item.quantity) ?? [];
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
   };
 
   return (
@@ -19,7 +45,7 @@ const OrderSummaryComponent = () => {
         }}>
         <Text>RINCIAN PESANAN</Text>
 
-        <FlatList data={['']} renderItem={renderItem} />
+        <FlatList data={invoice?.items ?? []} renderItem={renderItem} />
       </View>
       <View
         style={{
@@ -34,13 +60,17 @@ const OrderSummaryComponent = () => {
             marginBottom: 16,
           }}>
           <Text style={{ fontSize: 14, color: Colors.black }}>
-            Subtotal (2 produk)
+            Subtotal ({getTotalQuantity()} produk)
           </Text>
-          <Text style={{ fontSize: 14, color: Colors.black }}>Rp3.120.000</Text>
+          <Text style={{ fontSize: 14, color: Colors.black }}>
+            {Utils.getPriceString(getTotalPrice())}
+          </Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ fontSize: 14, color: Colors.black }}>Ongkir</Text>
-          <Text style={{ fontSize: 14, color: Colors.black }}>Rp10.000</Text>
+          <Text style={{ fontSize: 14, color: Colors.black }}>
+            {Utils.getPriceString(invoice.shippingCost)}
+          </Text>
         </View>
       </View>
       <View
@@ -55,7 +85,7 @@ const OrderSummaryComponent = () => {
           </Text>
           <Text
             style={{ fontSize: 14, color: Colors.black, fontWeight: 'bold' }}>
-            Rp3.130.000
+            {Utils.getPriceString(invoice.totalPayment)}
           </Text>
         </View>
       </View>

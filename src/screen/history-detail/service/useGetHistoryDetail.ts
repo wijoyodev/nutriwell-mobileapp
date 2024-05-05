@@ -10,9 +10,14 @@ type ShippingInfo = {
   date: Date;
   etdDate: Date;
   price: number;
+  courierName: string;
+  courierServiceName: string;
+  courierCompany: string;
+  courierType: string;
 };
 
 type ShippingAddress = {
+  id: number;
   name: string;
   phoneNumber: string;
   province: string;
@@ -22,7 +27,7 @@ type ShippingAddress = {
   postalCode: string;
 };
 
-type PaymentInfo = {
+export type PaymentInfo = {
   name: string;
   date: Date;
   approvedDate?: Date;
@@ -36,6 +41,7 @@ export type HistoryDetail = {
   shipping: ShippingInfo;
   shippingAddress: ShippingAddress;
   payment: PaymentInfo;
+  totalPurchase: number;
 };
 
 const useGetHistoryDetail = (id: string) => {
@@ -46,6 +52,7 @@ const useGetHistoryDetail = (id: string) => {
     useCallback(() => {
       setLoading(true);
       getOrderHistoryDetail(id).then(response => {
+        console.log('Order history id: ', id, ' & response: ', response);
         setLoading(false);
         setHistoryDetail(convertHistoryDetail(response.result[0]));
       });
@@ -72,6 +79,7 @@ const convertHistoryDetail: (
       },
     ],
     shippingAddress: {
+      id: response.address_shipment_id,
       name: response.user_detail.recipient_name,
       phoneNumber: response.user_detail.recipient_phone_number,
       streetAddress: response.user_detail.address_detail,
@@ -90,6 +98,10 @@ const convertHistoryDetail: (
       date: response.receive_date
         ? new Date(response.receive_date)
         : new Date(),
+      courierName: response.courier_name,
+      courierServiceName: response.courier_service_name,
+      courierCompany: response.courier_company,
+      courierType: response.courier_type,
     },
     payment: {
       name: response.payment_method ?? '',
@@ -100,6 +112,7 @@ const convertHistoryDetail: (
         ? new Date(response.payment_date)
         : new Date(),
     },
+    totalPurchase: response.total_purchase,
   };
 
   return detail;

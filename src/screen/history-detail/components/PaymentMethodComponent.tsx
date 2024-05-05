@@ -2,8 +2,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
-import { HistoryDetail } from '../HistoryDetailScreen';
 import dayjs from 'dayjs';
+import { HistoryDetail } from '../service/useGetHistoryDetail';
 
 export type PaymentMethodComponentProps = {
   history: HistoryDetail;
@@ -12,6 +12,10 @@ export type PaymentMethodComponentProps = {
 const PaymentMethodComponent: React.FC<PaymentMethodComponentProps> = ({
   history,
 }) => {
+  if (!history.payment.name) {
+    return <></>;
+  }
+
   return (
     <View
       style={{ padding: 16, borderTopColor: Colors.grey, borderTopWidth: 4 }}>

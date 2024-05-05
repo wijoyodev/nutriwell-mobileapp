@@ -1,14 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import { InvoiceResponse } from 'mock-api/constant';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
+import { Invoice } from '../InvoiceScreen';
+import Utils from 'service/Utils';
+import dayjs from 'dayjs';
 
 export type InvoiceSummaryComponentProps = {
-  invoice: InvoiceResponse;
+  invoice: Invoice;
 };
 
-const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({ invoice }) => {
+const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({
+  invoice,
+}) => {
   return (
     <View style={{ borderBottomWidth: 6, borderBottomColor: Colors.grey }}>
       <View
@@ -24,7 +28,7 @@ const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({ invoi
             fontWeight: 'bold',
             marginBottom: 16,
           }}>
-          No. Pesanan: 934229034
+          No. Pesanan: {invoice.orderId}
         </Text>
 
         <View style={{ flexDirection: 'row' }}>
@@ -35,7 +39,7 @@ const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({ invoi
             </Text>
             <Text
               style={{ color: Colors.black, fontSize: 14, fontWeight: 'bold' }}>
-              Rp3.130.000
+              {Utils.getPriceString(invoice.totalPayment)}
             </Text>
           </View>
           <View style={{ flex: 2 }}>
@@ -45,7 +49,7 @@ const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({ invoi
             </Text>
             <Text
               style={{ color: Colors.black, fontSize: 14, fontWeight: 'bold' }}>
-              03/03/2024
+              {dayjs(invoice.paymentDate).format('DD/MM/YYYY')}
             </Text>
           </View>
         </View>
@@ -55,17 +59,16 @@ const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({ invoi
         <Text>PENGIRIMAN</Text>
 
         <Text style={{ fontSize: 14, color: Colors.black, fontWeight: 'bold' }}>
-          {/* {history.shippingAddress.name} */}John Doe
+          {invoice?.shippingAddress?.name}
         </Text>
         <Text style={{ fontSize: 14, color: Colors.black }}>
-          {/* {history.shippingAddress.phoneNumber} */}(+62) 812312312
+          {invoice?.shippingAddress?.phoneNumber}
         </Text>
         <Text style={{ fontSize: 14, color: Colors.black, lineHeight: 20 }}>
-          {/* {history.shippingAddress.streetAddress},{' '}
-          {history.shippingAddress.district}, {history.shippingAddress.city},{' '}
-          {history.shippingAddress.province}, {history.shippingAddress.postalCode} */}
-          Ruko Prominence, Jl. Jalur Sutera Boulevard No.2, Kab Tangerang,
-          Banten, ID 12345
+          {invoice?.shippingAddress?.streetAddress},{' '}
+          {invoice?.shippingAddress?.district}, {invoice?.shippingAddress?.city}
+          , {invoice?.shippingAddress?.province},{' '}
+          {invoice?.shippingAddress?.postalCode}
         </Text>
       </View>
     </View>

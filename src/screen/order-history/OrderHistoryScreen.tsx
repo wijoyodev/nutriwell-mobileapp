@@ -62,8 +62,6 @@ const OrderHistoryScreen = () => {
     history => history.status,
   );
 
-  console.log('Order history: ', orderHistory);
-
   const tabBarLabel = (focused: boolean, name: string) => {
     return (
       <View>
