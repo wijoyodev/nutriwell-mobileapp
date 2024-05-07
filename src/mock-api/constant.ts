@@ -1,4 +1,4 @@
-import { BankResponse } from 'network/auth/bank-account';
+import { BankResponse } from 'network/auth/user-by-id';
 import { ProfileResponse } from 'network/auth/profile';
 import { UplineInformationResponse } from 'network/reward/upline';
 import { CartItem } from 'screen/cart/CartScreen';

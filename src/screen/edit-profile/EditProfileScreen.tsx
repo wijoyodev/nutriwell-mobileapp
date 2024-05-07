@@ -14,8 +14,17 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerDataSchema } from 'screen/register-data/schema/registerDataSchema';
 import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
-import updateProfile, { ProfileRequest } from 'network/auth/update-profile';
-import { getUserId } from 'service/StorageUtils';
+import updateProfile, { ProfileRequest, ProfileResponse } from 'network/auth/update-profile';
+import {
+  getUserId,
+  setAvatar,
+  setBirthDate,
+  setEmail,
+  setFullName,
+  setGender,
+  setPhoneCountryCode,
+  setPhoneNumber,
+} from 'service/StorageUtils';
 
 const EditProfileScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
@@ -34,7 +43,8 @@ const EditProfileScreen = () => {
 
   let code = '+62';
   if (params?.data) {
-    formInitialValues = params?.data;
+    const phoneNumber = params?.data.phoneNumber.slice(1);
+    formInitialValues = { ...params?.data, phoneNumber };
   }
 
   const formMethods = useForm({
@@ -50,10 +60,9 @@ const EditProfileScreen = () => {
 
   const handleSave: SubmitHandler<ProfileForm> = async (data: ProfileForm) => {
     console.log(data);
-    const userId = await getUserId();
     const request: ProfileRequest = {
-      id: parseInt(userId, 10),
       full_name: data.name,
+      email: data.email,
       date_of_birth: data.birthDate.toISOString(),
       gender: data.gender,
       phone_number: data.phoneNumber,
@@ -62,14 +71,44 @@ const EditProfileScreen = () => {
     if (data.image) {
       request.avatar = data.image;
     }
-    updateProfile(request).then(response => {
-      console.log('Response update: ', response);
+    updateProfile(request).then(async response => {
       if (response.result) {
+        await saveData(response.result);
         goBack();
       } else {
         console.log('FAILED');
       }
     });
+  };
+
+  const saveData = async (response: ProfileResponse) => {
+    if (response.updated_data.full_name) {
+      await setFullName(response.updated_data.full_name);
+    }
+
+    if (response.updated_data.email) {
+      await setEmail(response.updated_data.email);
+    }
+
+    if (response.updated_data.date_of_birth) {
+      await setBirthDate(response.updated_data.date_of_birth);
+    }
+
+    if (response.updated_data.gender) {
+      await setGender(response.updated_data.gender);
+    }
+
+    if (response.updated_data.phone_number) {
+      await setPhoneNumber(response.updated_data.phone_number);
+    }
+
+    if (response.updated_data.phone_number_country) {
+      await setPhoneCountryCode(response.updated_data.phone_number_country);
+    }
+
+    if (response.updated_data.avatar_url) {
+      await setAvatar(response.updated_data.avatar_url);
+    }
   };
 
   return (

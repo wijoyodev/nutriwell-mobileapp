@@ -131,6 +131,8 @@ const postWithForm = async (url: string, data: any) => {
     formData.append(k, data[k]);
   }
 
+  console.log('POST with Form ', API_URL + url);
+  console.log('Form Data: ', formData);
   let response = await fetch(API_URL + url, {
     method: 'POST',
     body: formData,
@@ -140,7 +142,7 @@ const postWithForm = async (url: string, data: any) => {
       return payload.json();
     })
     .then(result => {
-      console.log('Media Upload Result: ', result);
+      console.log('POST Form Result: ', result);
       if (result.status === 0 && result.error === 'access_denied') {
         return handleDenied(() => postWithForm(url, data));
       }
@@ -182,7 +184,7 @@ const patchWithForm = async (url: string, data: any) => {
       return payload.json();
     })
     .then(result => {
-      console.log('Media Upload Result: ', result);
+      console.log('PATCH Form Result: ', result);
       if (result.status === 0 && result.error === 'access_denied') {
         return handleDenied(() => patchWithForm(url, data));
       }

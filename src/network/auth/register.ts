@@ -2,7 +2,16 @@ import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 
 export type RegisterResponse = {
-  accessToken: string;
+  user_id: number;
+  email: string;
+  full_name: string;
+  phone_number: string;
+  phone_number_country: string;
+  gender: string;
+  date_of_birth: string;
+  avatar_url: string;
+  token: string;
+  refreshToken: string;
 };
 
 export type RegisterRequest = {
@@ -13,9 +22,8 @@ export type RegisterRequest = {
   phone_number_country: string;
   phone_number: string;
   gender: string;
-  date_of_birth: Date;
+  date_of_birth: string;
   avatar?: any;
-  role?: string;
   full_name: string;
 };
 

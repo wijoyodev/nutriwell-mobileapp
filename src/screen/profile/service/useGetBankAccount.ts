@@ -1,5 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
-import getBankAccount, { BankResponse } from 'network/auth/bank-account';
+import getUserById from 'network/auth/user-by-id';
+import getBankAccount from 'network/auth/user-by-id';
 import { useCallback, useState } from 'react';
 
 export type BankInfo = {
@@ -15,7 +16,7 @@ const useGetBankAccount = () => {
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getBankAccount().then(response => {
+      getUserById().then(response => {
         setLoading(false);
         const bankAccountInfo: BankInfo = {
           account_bank: response.result.data?.[0].account_bank,

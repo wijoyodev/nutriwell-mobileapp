@@ -15,7 +15,9 @@ import InputProfileComponent, {
   ProfileForm,
 } from './components/InputProfileComponent';
 import SuccessRegisterComponent from './components/SuccessRegisterComponent';
-import register from 'network/auth/register';
+import register, { RegisterRequest, RegisterResponse } from 'network/auth/register';
+import { PublicAPIResponse } from 'network/model';
+import { setAccessToken, setAvatar, setBirthDate, setEmail, setFullName, setGender, setPhoneCountryCode, setPhoneNumber, setRefreshToken, setUserId } from 'service/StorageUtils';
 
 export type RegisterDataScreenProps = {
   navigation: NavigationProp<ParamListBase>;
@@ -56,20 +58,50 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   };
 
   const registerUser = (data: ProfileForm) => {
-    register({
+    const request: RegisterRequest = {
       email: data.email,
       referrer_code: referralCode,
       password: selectedPin,
       confirm_password: selectedPin,
       phone_number: data.phoneNumber,
-      phone_number_country: data.country,
-      avatar: data.image,
+      phone_number_country: data.code,
       gender: data.gender,
-      date_of_birth: data.birthDate,
+      date_of_birth: data.birthDate.toISOString(),
       full_name: data.name,
-    }).then(() => {
+    };
+
+    if (data.image) {
+      request.avatar = data.image;
+    }
+    register(request).then(handleRegisterResponse);
+  };
+
+  const handleRegisterResponse = async (
+    response: PublicAPIResponse<RegisterResponse>,
+  ) => {
+    // setLoading(false);
+    if (response.result) {
+      await saveData(response.result);
       nextProgress();
-    });
+    } else {
+      // handle error
+    }
+  };
+
+  const saveData = async (data: RegisterResponse) => {
+    console.log('Response: ', data);
+    await setAccessToken(data.token);
+    await setRefreshToken(data.refreshToken);
+    await setEmail(data.email);
+    await setFullName(data.full_name);
+    if (data.avatar_url) {
+      await setAvatar(data.avatar_url);
+    }
+    await setGender(data.gender);
+    await setBirthDate(data.date_of_birth);
+    await setPhoneNumber(data.phone_number);
+    await setUserId(data.user_id.toString());
+    await setPhoneCountryCode(data.phone_number_country)
   };
 
   const nextProgress = () => {

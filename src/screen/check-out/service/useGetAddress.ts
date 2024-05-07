@@ -11,14 +11,11 @@ const useGetAddress = () => {
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getAddress().then(async (response) => {
+      getAddress().then(response => {
         console.log('Response address: ', response);
         setLoading(false);
 
-        const userId = await getUserId();
-        const addressValue = response.result.filter(
-          addressResponse => addressResponse.user_id.toString() === userId,
-        )?.[0];
+        const addressValue = response.result?.[0];
         setAddress(convertAddress(addressValue));
       });
     }, []),

@@ -15,7 +15,7 @@ export type LoginResponse = {
 };
 
 export type LoginRequest = {
-  email: string;
+  user_account: string;
   password: string;
 };
 

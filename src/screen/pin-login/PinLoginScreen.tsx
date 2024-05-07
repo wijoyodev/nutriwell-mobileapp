@@ -29,7 +29,7 @@ const PinLoginScreen = () => {
   const handleLogin = () => {
     setLoading(true);
     login({
-      email: params?.email,
+      user_account: params?.email,
       password: pin,
     })
       .then(handleLoginResponse)
@@ -57,7 +57,9 @@ const PinLoginScreen = () => {
     await setRefreshToken(data.refreshToken);
     await setEmail(data.email);
     await setFullName(data.full_name);
-    await setAvatar(data.avatar_url);
+    if (data.avatar_url) {
+      await setAvatar(data.avatar_url);
+    }
     await setGender(data.gender);
     await setBirthDate(data.date_of_birth);
     await setPhoneNumber(data.phone_number);

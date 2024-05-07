@@ -19,7 +19,7 @@ export type AddressResponse = {
 
 type ApiCallGetAddress = () => Promise<PublicAPIResponse<AddressResponse[]>>;
 
-const getAddressEndpoint = '/address';
+const getAddressEndpoint = '/address/me';
 const getAddress: ApiCallGetAddress = async () => {
   const response = await Api.get(getAddressEndpoint);
   return response;
