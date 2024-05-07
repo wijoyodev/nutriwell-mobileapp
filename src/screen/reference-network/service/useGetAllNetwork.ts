@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
-import getAllNetwork from 'network/reward/all-network';
+import getAllNetwork from 'network/reward/list-network';
 
 const useGetAllNetwork = () => {
   const [network, setNetwork] = useState<NetworkType[]>();

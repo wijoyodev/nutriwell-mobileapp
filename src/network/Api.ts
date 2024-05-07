@@ -78,6 +78,7 @@ const patch = async (url: string, data: any) => {
 const get = async (url: string, data: any = null) => {
   try {
     const token = await getAccessToken();
+    // console.log('Token: ', token);
     const headers = token
       ? {
           'Content-Type': 'application/json',

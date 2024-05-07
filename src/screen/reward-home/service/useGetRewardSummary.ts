@@ -1,23 +1,50 @@
-import { useCallback, useState } from 'react'
-import { RewardSummary } from '../RewardHomeScreen';
+import { useCallback, useState } from 'react';
+import { NetworkType, RewardSummary } from '../RewardHomeScreen';
 import { useFocusEffect } from '@react-navigation/native';
-import getRewardSummary from 'network/reward/summary';
+import getListNetwork, { NetworkResponse } from 'network/reward/list-network';
 
 const useGetRewardSummary = () => {
-  const [rewardSummary, setRewardSummary] = useState<RewardSummary>();
+  const [rewardSummary, setRewardSummary] = useState<RewardSummary>({
+    totalReward: 0,
+    totalReferenceNetwork: 0,
+    redeemableReward: 0,
+    monthlyReward: 0,
+    referenceNetworkList: [],
+    referralCode: '',
+  });
+
   const [loading, setLoading] = useState<boolean>();
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getRewardSummary().then(response => {
+      getListNetwork().then(response => {
+        console.log(response);
         setLoading(false);
-        setRewardSummary(response.data);
+        const rewardSummaryValue: RewardSummary = {
+          ...rewardSummary,
+          referenceNetworkList: response.result.data.map(item =>
+            convertNetworkResponseToNetworkType(item),
+          ),
+        };
+
+        setRewardSummary(rewardSummaryValue);
       });
     }, []),
   );
 
   return { loading, rewardSummary };
+};
+
+const convertNetworkResponseToNetworkType = (response: NetworkResponse) => {
+  const networkType: NetworkType = {
+    name: response.full_name,
+    level: response.level,
+    network: response.downlines,
+    imageUrl: response.avatar_url,
+  };
+
+  return networkType;
 };
 
 export default useGetRewardSummary;
