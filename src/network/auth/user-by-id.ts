@@ -24,7 +24,7 @@ export type UserResponse = {
   }[];
 };
 
-type ApiCallGetUserById = () => Promise<PublicAPIResponse<BankResponse>>;
+type ApiCallGetUserById = () => Promise<PublicAPIResponse<UserResponse>>;
 
 const getUserByIdEndpoint = '/user';
 const getUserById: ApiCallGetUserById = async () => {

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import getNetwork from 'network/reward/network';
 import { NetworkDetail } from 'screen/network-detail/NetworkDetailScreen';
+import getUserById, { UserResponse } from 'network/auth/user-by-id';
 
 const useGetNetwork = () => {
   const [network, setNetwork] = useState<NetworkDetail>();
@@ -10,14 +10,32 @@ const useGetNetwork = () => {
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getNetwork().then(response => {
+      getUserById().then(response => {
+        console.log('Response network: ', response.result.network_reference);
         setLoading(false);
-        setNetwork(response.data);
+        setNetwork(convertUserResponseToNetwork(response.result));
       });
     }, []),
   );
 
   return { loading, network };
+};
+
+const convertUserResponseToNetwork = (response: UserResponse) => {
+  const networkValue: NetworkDetail = {
+    name: '',
+    imageUrl: '',
+    joinDate: new Date(),
+    level: 1,
+    monthlyPurchase: 0,
+    networks: response.network_reference.map(item => ({
+      level: item.level,
+      totalNetwork: item.total_network,
+      totalActive: item.transactions,
+    })),
+  };
+
+  return networkValue;
 };
 
 export default useGetNetwork;
