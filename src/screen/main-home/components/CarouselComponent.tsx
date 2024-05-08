@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Colors from 'themes/Colors';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import useGetBanner from '../service/useGetBanner';
 
 export type CarouselItem = {
   imageUrl: string;
@@ -36,6 +37,8 @@ const CarouselComponent = () => {
   const { width } = useWindowDimensions();
   const [heightView, setHeightView] = useState(0);
   const [index, setIndex] = useState(0);
+
+  const { loading, banners } = useGetBanner();
 
   const SLIDER_WIDTH = Dimensions.get('window').width * 1.325;
   const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -76,7 +79,7 @@ const CarouselComponent = () => {
         <Carousel
           layoutCardOffset={9}
           ref={isCarousel}
-          data={data}
+          data={banners ?? []}
           renderItem={renderItem}
           sliderWidth={SLIDER_WIDTH}
           itemWidth={ITEM_WIDTH}
