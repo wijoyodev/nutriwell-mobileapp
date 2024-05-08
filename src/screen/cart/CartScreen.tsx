@@ -7,12 +7,14 @@ import ListItemComponent from './components/ListItemComponent';
 import { useFocusEffect } from '@react-navigation/native';
 import useGetCart from './service/useGetCart';
 import addToCart from 'network/shop/add-to-cart';
+import updateCart from 'network/shop/update-cart';
 
 export type CartItem = {
   id: number;
   product_id: number;
   name: string;
   price: number;
+  weight: number;
   quantity: number;
   totalPrice: number;
   totalWeight: number;
@@ -42,10 +44,10 @@ const CartScreen = () => {
     StatusBar.setBarStyle('dark-content');
   });
 
-  const updateItemQuantity = (product_id: number, quantity: number) => {
+  const updateItemQuantity = (cartItem: CartItem, quantity: number) => {
     const newItems =
       items?.map(item => {
-        if (item.product_id === product_id) {
+        if (item.id === cartItem.id) {
           return {
             ...item,
             quantity,
@@ -55,15 +57,15 @@ const CartScreen = () => {
         return item;
       }) ?? [];
     setItems(newItems);
-    addToCart({
-      product_id,
+    updateCart(cartItem.id, {
       quantity,
+      price: cartItem.price,
+      weight: cartItem.weight,
     }).then(response => {
       if (response.result) {
         setSuccess(true);
       }
     });
-    
   };
 
   const renderEmpty = () => {

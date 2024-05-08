@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -21,6 +21,8 @@ import Utils from 'service/Utils';
 import useGetProduct from './service/useGetProduct';
 import addToCart from 'network/shop/add-to-cart';
 import useGetCart from 'screen/cart/service/useGetCart';
+import { CartItem } from 'screen/cart/CartScreen';
+import updateCart from 'network/shop/update-cart';
 
 const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -33,16 +35,38 @@ const ShopHomeScreen = () => {
     cartItem => cartItem.product_id,
   );
 
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    if ((cartItems ?? []).length > 0) {
+      setQuantity(cartItems?.[0].quantity ?? 0);
+    }
+  }, [cartItems]);
+
   const handleAddToCart = () => {
-    const request = {
+    const cartItemList: CartItem[] = mapCartItems.get(product?.id) ?? [];
+    let request = {
       product_id: product?.id ?? 0,
-      quantity: mapCartItems.get(product?.id)?.[0].quantity + 1,
+      quantity: 0,
     };
 
-    console.log('Request post cart: ', request);
-    addToCart(request).then(response => {
-      console.log('Response add to cart: ', response);
-    });
+    if (cartItemList.length === 0) {
+      request.quantity = 1;
+      addToCart(request).then(response => {
+        console.log('Response add to cart: ', response);
+        setQuantity(quantity + 1);
+      });
+    } else {
+      const cartItem: CartItem = cartItemList?.[0];
+      updateCart(cartItem.id, {
+        quantity: cartItem.quantity + 1,
+        weight: cartItem.weight,
+        price: cartItem.price,
+      }).then(response => {
+        console.log('Response update cart: ', response);
+        setQuantity(quantity + 1);
+      });
+    }
   };
 
   return (
@@ -52,9 +76,7 @@ const ShopHomeScreen = () => {
         paddingBottom: 16,
         backgroundColor: Colors.white,
       }}>
-      <ShopHeaderComponent
-        quantity={mapCartItems.get(product?.id)?.[0]?.quantity ?? 0}
-      />
+      <ShopHeaderComponent quantity={quantity} />
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {loading && (
           <View style={{ backgroundColor: Colors.blue }}>

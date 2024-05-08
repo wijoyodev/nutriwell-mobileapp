@@ -7,6 +7,7 @@ export type CartItemResponse = {
   product_id: number;
   product_name: string;
   price: number;
+  product_weight: number;
   quantity: number;
   total_price: number;
   total_weight: number;

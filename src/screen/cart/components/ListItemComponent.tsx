@@ -15,7 +15,7 @@ import Utils from 'service/Utils';
 
 export type ListItemComponentProps = {
   items?: CartItem[];
-  updateItemQuantity?: (id: number, quantity: number) => void;
+  updateItemQuantity?: (item: CartItem, quantity: number) => void;
 };
 
 const ListItemComponent: React.FC<ListItemComponentProps> = ({
@@ -62,10 +62,7 @@ const ListItemComponent: React.FC<ListItemComponentProps> = ({
             {info.item.quantity > 0 && (
               <TouchableOpacity
                 onPress={() =>
-                  updateItemQuantity?.(
-                    info.item.product_id,
-                    info.item.quantity - 1,
-                  )
+                  updateItemQuantity?.(info.item, info.item.quantity - 1)
                 }
                 style={{
                   borderColor: Colors.blue,
@@ -86,10 +83,7 @@ const ListItemComponent: React.FC<ListItemComponentProps> = ({
             </Text>
             <TouchableOpacity
               onPress={() =>
-                updateItemQuantity?.(
-                  info.item.product_id,
-                  info.item.quantity + 1,
-                )
+                updateItemQuantity?.(info.item, info.item.quantity + 1)
               }
               style={{
                 backgroundColor: Colors.blue,
