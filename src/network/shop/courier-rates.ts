@@ -17,6 +17,7 @@ export type CalculateCourierRatesResponse = {
   company: string;
   service_type: string;
   duration: string;
+  shipment_duration_range: string;
   price: number;
 };
 

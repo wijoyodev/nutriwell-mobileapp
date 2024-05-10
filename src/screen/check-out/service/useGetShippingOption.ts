@@ -45,6 +45,7 @@ const convertShippingOptions = (response: CalculateCourierRatesResponse[]) => {
     courierCompany: courier.company,
     courierServiceName: courier.courier_service_name,
     courierType: courier.service_type,
+    shipmentDurationRange: courier.shipment_duration_range,
     price: courier.price,
     etd: courier.duration,
   }));

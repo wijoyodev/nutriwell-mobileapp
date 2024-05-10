@@ -12,6 +12,9 @@ import { CartItem } from 'screen/cart/CartScreen';
 import Utils from 'service/Utils';
 import createOrder, { OrderRequest } from 'network/shop/create-order';
 import { getUserId } from 'service/StorageUtils';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 export type FooterCheckOutComponentProps = {
   items: CartItem[];
@@ -26,6 +29,7 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
 
   const modalRef = useRef<ModalOrderCreatedHandle | null>();
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
 
   const getTotalPrice = () => {
     const totalItemPriceList = items.map(item => item.price * item.quantity);
@@ -48,15 +52,25 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
       courier_type: data.shippingOption?.courierType ?? '',
       courier_service_name: data.shippingOption?.courierServiceName ?? '',
       courier_rate: data.shippingOption?.price ?? 0,
+      shipment_duration_range: data.shippingOption?.shipmentDurationRange ?? '',
       total_purchase: getTotalPrice() + (data.shippingOption?.price ?? 0),
     };
     setLoading(true);
-    createOrder(request).then(response => {
-      setLoading(false);
-      if (response.result) {
-        modalRef.current?.openModal(response.result.invoice_url);
-      }
-    });
+    createOrder(request)
+      .then(response => {
+        console.log('Request create order: ', request);
+        console.log('Response create order:', response);
+        setLoading(false);
+        if (response.result) {
+          modalRef.current?.openModal(response.result.invoice_url);
+        } else {
+          snackbarRef.current?.showSnackbarError('Terdapat kesalahan');
+        }
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+        snackbarRef.current?.showSnackbarUnknownError();
+      });
   };
 
   return (
@@ -88,6 +102,8 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
       />
 
       <ModalOrderCreated ref={el => (modalRef.current = el)} />
+
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

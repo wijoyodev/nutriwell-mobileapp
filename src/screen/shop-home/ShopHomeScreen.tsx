@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -23,6 +23,7 @@ import addToCart from 'network/shop/add-to-cart';
 import useGetCart from 'screen/cart/service/useGetCart';
 import { CartItem } from 'screen/cart/CartScreen';
 import updateCart from 'network/shop/update-cart';
+import CustomSnackbar, { CustomSnackbarHandle } from 'components/CustomSnackbar';
 
 const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -37,9 +38,13 @@ const ShopHomeScreen = () => {
 
   const [quantity, setQuantity] = useState(0);
 
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
+
   useEffect(() => {
     if ((cartItems ?? []).length > 0) {
       setQuantity(cartItems?.[0].quantity ?? 0);
+    } else {
+      setQuantity(0);
     }
   }, [cartItems]);
 
@@ -50,11 +55,15 @@ const ShopHomeScreen = () => {
       quantity: 0,
     };
 
+    console.log('cartItemList: ', cartItemList);
+
     if (cartItemList.length === 0) {
       request.quantity = 1;
       addToCart(request).then(response => {
+        console.log('Request add to cart: ', request);
         console.log('Response add to cart: ', response);
         setQuantity(quantity + 1);
+        snackbarRef?.current?.showSnackbarSuccess('Success add to cart');
       });
     } else {
       const cartItem: CartItem = cartItemList?.[0];
@@ -65,6 +74,7 @@ const ShopHomeScreen = () => {
       }).then(response => {
         console.log('Response update cart: ', response);
         setQuantity(quantity + 1);
+        snackbarRef?.current?.showSnackbarSuccess('Success add to cart');
       });
     }
   };
@@ -166,6 +176,8 @@ const ShopHomeScreen = () => {
           text={'BELI SEKARANG'}
         />
       </View>
+
+      <CustomSnackbar />
     </View>
   );
 };

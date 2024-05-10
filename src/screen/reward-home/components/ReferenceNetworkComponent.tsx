@@ -34,7 +34,11 @@ const ReferenceNetworkComponent: React.FC<ReferenceNetworkComponentProps> = ({
   const renderItem = (info: ListRenderItemInfo<NetworkType>) => {
     return (
       <TouchableOpacity
-        onPress={() => navigate(NETWORK_DETAIL_SCREEN)}
+        onPress={() =>
+          navigate(NETWORK_DETAIL_SCREEN, {
+            id: info.item.id,
+          })
+        }
         style={{
           flexDirection: 'row',
           alignItems: 'center',

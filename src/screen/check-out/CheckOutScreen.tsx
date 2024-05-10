@@ -17,6 +17,7 @@ export type ShippingOption = {
   courierType: string;
   courierServiceName: string;
   price: number;
+  shipmentDurationRange: string;
   etd: string;
 } | null;
 

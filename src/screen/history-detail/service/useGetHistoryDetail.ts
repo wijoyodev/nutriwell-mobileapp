@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import getOrderHistoryDetail from 'network/shop/order-history-detail';
 import { HistoryItem } from 'screen/order-history/service/useGetOrderHistory';
-import { OrderHistoryResponse } from 'network/shop/order-history';
+import { OrderHistoryItemResponse, OrderHistoryResponse } from 'network/shop/order-history';
 
 type ShippingInfo = {
   name: string;
@@ -28,6 +28,7 @@ type ShippingAddress = {
 };
 
 export type PaymentInfo = {
+  paymentUrl: string;
   name: string;
   date: Date;
   approvedDate?: Date;
@@ -63,8 +64,8 @@ const useGetHistoryDetail = (id: string) => {
 };
 
 const convertHistoryDetail: (
-  response: OrderHistoryResponse,
-) => HistoryDetail = (response: OrderHistoryResponse) => {
+  response: OrderHistoryItemResponse,
+) => HistoryDetail = (response: OrderHistoryItemResponse) => {
   const detail: HistoryDetail = {
     orderId: response.order_number,
     createdDate: new Date(response.created_at),
@@ -91,8 +92,8 @@ const convertHistoryDetail: (
     shipping: {
       name: response.courier_name,
       price: response.courier_rate,
-      etdDate: response.delivery_date
-        ? new Date(response.delivery_date)
+      etdDate: response.estimated_delivery_date
+        ? new Date(response.estimated_delivery_date)
         : new Date(),
       resi: response.external_id ?? '',
       date: response.receive_date
@@ -104,12 +105,13 @@ const convertHistoryDetail: (
       courierType: response.courier_type,
     },
     payment: {
+      paymentUrl: response.payment_url,
       name: response.payment_method ?? '',
       approvedDate: response.payment_date
         ? new Date(response.payment_date)
         : new Date(),
-      date: response.payment_date
-        ? new Date(response.payment_date)
+      date: response.payment_expiry_date
+        ? new Date(response.payment_expiry_date)
         : new Date(),
     },
     totalPurchase: response.total_purchase,

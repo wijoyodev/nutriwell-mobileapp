@@ -24,7 +24,7 @@ export type UserDetailResponse = {
   code: string;
 };
 
-export type OrderHistoryResponse = {
+export type OrderHistoryItemResponse = {
   id: number;
   order_number: string;
   status: number;
@@ -34,8 +34,11 @@ export type OrderHistoryResponse = {
   courier_service_name: string;
   courier_company: string;
   courier_type: string;
+  estimated_delivery_date: string;
   external_id: string | null;
   total_purchase: number;
+  payment_url: string;
+  payment_expiry_date: string | null;
   payment_date: string | null;
   payment_method: string | null;
   shipment_number: string | null;
@@ -48,8 +51,15 @@ export type OrderHistoryResponse = {
   updated_at: string;
 };
 
+export type OrderHistoryResponse = {
+  data: OrderHistoryItemResponse[];
+  limit: number;
+  offset: number;
+  total: number;
+};
+
 type ApiCallGetOrderHistory = () => Promise<
-  PublicAPIResponse<OrderHistoryResponse[]>
+  PublicAPIResponse<OrderHistoryResponse>
 >;
 
 const getOrderHistoryEndpoint = '/orders';

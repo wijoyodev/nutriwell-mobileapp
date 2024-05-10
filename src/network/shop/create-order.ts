@@ -10,6 +10,7 @@ export type OrderRequest = {
   courier_type: string;
   courier_service_name: string;
   courier_rate: number;
+  shipment_duration_range: string;
   total_purchase: number;
 };
 

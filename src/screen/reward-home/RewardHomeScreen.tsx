@@ -8,6 +8,7 @@ import Colors from 'themes/Colors';
 import useGetRewardSummary from './service/useGetRewardSummary';
 
 export type NetworkType = {
+  id: number;
   name: string;
   level: number;
   network: number;

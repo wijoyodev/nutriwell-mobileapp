@@ -10,14 +10,18 @@ import PaymentMethodComponent from './components/PaymentMethodComponent';
 import OrderHistoryComponent from './components/OrderHistoryComponent';
 import ShippingInfoComponent from './components/ShippingInfoComponent';
 import {
+  NavigationProp,
   ParamListBase,
   RouteProp,
   useFocusEffect,
+  useNavigation,
   useRoute,
 } from '@react-navigation/native';
 import useGetHistoryDetail from './service/useGetHistoryDetail';
+import { CHECK_OUT_PAYMENT_SCREEN } from 'navigation/constants';
 
 const HistoryDetailScreen = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute<RouteProp<ParamListBase>>();
   const { historyDetail: history, loading } = useGetHistoryDetail(params?.id);
 
@@ -45,8 +49,16 @@ const HistoryDetailScreen = () => {
         )}
       </ScrollView>
       <View style={{ padding: 16, paddingTop: 0 }}>
-        {(history?.status ?? -1) === 0 && (
-          <CustomButton backgroundColor={Colors.blue} text={'BAYAR SEKARANG'} />
+        {(history?.status ?? 4) === 0 && (
+          <CustomButton
+            onPress={() => {
+              navigate(CHECK_OUT_PAYMENT_SCREEN, {
+                invoice_url: history.invoiceUrl,
+              });
+            }}
+            backgroundColor={Colors.blue}
+            text={'BAYAR SEKARANG'}
+          />
         )}
       </View>
     </View>

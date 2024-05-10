@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import getOrderHistory, {
-  OrderHistoryResponse,
+  OrderHistoryItemResponse,
 } from 'network/shop/order-history';
 
 export type OrderHistory = {
@@ -11,6 +11,7 @@ export type OrderHistory = {
   status: number;
   items: HistoryItem[];
   totalPrice: number;
+  paymentUrl: string;
 };
 
 export type HistoryItem = {
@@ -29,8 +30,9 @@ const useGetOrderHistory = () => {
     useCallback(() => {
       setLoading(true);
       getOrderHistory().then(response => {
+        console.log('Response order history list: ', response.result.data);
         setLoading(false);
-        setOrderHistory(mapOrderHistoryResponse(response.result));
+        setOrderHistory(mapOrderHistoryResponse(response.result.data));
       });
     }, []),
   );
@@ -39,10 +41,10 @@ const useGetOrderHistory = () => {
 };
 
 const mapOrderHistoryResponse: (
-  response: OrderHistoryResponse[],
-) => OrderHistory[] = (response: OrderHistoryResponse[]) => {
+  response: OrderHistoryItemResponse[],
+) => OrderHistory[] = (response: OrderHistoryItemResponse[]) => {
   return response.map(history => ({
-    id: history.id,
+    id: history.id.toString(),
     orderId: history.order_number,
     createdDate: new Date(history.created_at),
     status: history.status,
@@ -53,9 +55,10 @@ const mapOrderHistoryResponse: (
         quantity: history.product_detail.quantity,
         price: history.product_detail.price,
         totalPrice: history.product_detail.total_price,
-        imageUrl: history.product_detail.product_image,
+        imageUrl: history.product_detail.product_image?.[0] ?? '',
       },
     ],
+    paymentUrl: history.payment_url,
   }));
 };
 

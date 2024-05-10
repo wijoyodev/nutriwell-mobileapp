@@ -38,6 +38,7 @@ const useGetRewardSummary = () => {
 
 const convertNetworkResponseToNetworkType = (response: NetworkResponse) => {
   const networkType: NetworkType = {
+    id: response.id,
     name: response.full_name,
     level: response.level,
     network: response.downlines,
