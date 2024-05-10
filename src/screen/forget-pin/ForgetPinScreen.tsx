@@ -11,6 +11,7 @@ import Colors from 'themes/Colors';
 import ModalCheckEmail, {
   ModalCheckEmailHandle,
 } from './components/ModalCheckEmail';
+import resetPassword from 'network/auth/reset-password';
 
 const ForgetPinScreen = () => {
   const modalRef = useRef<ModalCheckEmailHandle | null>();
@@ -33,7 +34,12 @@ const ForgetPinScreen = () => {
 
   const submit: SubmitHandler<LoginForm> = (data: LoginForm) => {
     console.log(data);
-    modalRef?.current?.openModal();
+    resetPassword({
+      email: data.email,
+    }).then(response => {
+      console.log('Response reset password: ', response);
+      modalRef?.current?.openModal();
+    });
   };
 
   return (

@@ -116,6 +116,7 @@ const OrderHistoryScreen = () => {
           tabBarStyle: {
             padding: 0,
           },
+          tabBarScrollEnabled: true,
           swipeEnabled: true,
           tabBarLabel: ({ focused }) => tabBarLabel(focused, route.name),
         })}
