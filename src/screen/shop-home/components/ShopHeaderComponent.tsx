@@ -61,8 +61,29 @@ const ShopHeaderComponent: React.FC<ShopHeaderComponentProps> = ({
             paddingHorizontal: 10,
             paddingVertical: 8,
             borderRadius: 12,
+            position: 'relative',
           }}>
-          <Text>{quantity}</Text>
+          {quantity > 0 && (
+            <View
+              style={{
+                position: 'absolute',
+                backgroundColor: Colors.orangeIcon,
+                width: 14,
+                height: 14,
+                borderRadius: 12,
+                flex: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                right: -4,
+                top: -4,
+              }}>
+              <Text style={{ fontSize: 8, color: Colors.white }}>
+                {quantity}
+              </Text>
+            </View>
+          )}
+
           <FeatherIcon name={'shopping-cart'} color={Colors.darkBlue} />
         </TouchableOpacity>
       </View>
