@@ -7,12 +7,26 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import CustomPin from 'components/CustomPin';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 import { FORGET_PIN_SCREEN, HOME_SCREEN } from 'navigation/constants';
 import login, { LoginResponse } from 'network/auth/login';
 import { PublicAPIResponse } from 'network/model';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
-import { setAccessToken, setAvatar, setBirthDate, setEmail, setFullName, setGender, setPhoneCountryCode, setPhoneNumber, setRefreshToken, setUserId } from 'service/StorageUtils';
+import {
+  setAccessToken,
+  setAvatar,
+  setBirthDate,
+  setEmail,
+  setFullName,
+  setGender,
+  setPhoneCountryCode,
+  setPhoneNumber,
+  setRefreshToken,
+  setUserId,
+} from 'service/StorageUtils';
 import Colors from 'themes/Colors';
 
 const PinLoginScreen = () => {
@@ -20,6 +34,9 @@ const PinLoginScreen = () => {
   const { params } = useRoute();
   const [pin, setPin] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
+
   useEffect(() => {
     if (pin.length === 6) {
       handleLogin();
@@ -36,18 +53,21 @@ const PinLoginScreen = () => {
       .catch(err => {
         setLoading(false);
         console.log(err);
+        snackbarRef.current?.showSnackbarUnknownError();
       });
   };
 
   const handleLoginResponse = async (
     response: PublicAPIResponse<LoginResponse>,
   ) => {
+    console.log('Response login: ', response);
     setLoading(false);
     if (response.result) {
       await saveData(response.result);
       navigate(HOME_SCREEN);
     } else {
       // handle error
+      snackbarRef.current?.showSnackbarError('PIN tidak sesuai');
     }
   };
 
@@ -64,7 +84,7 @@ const PinLoginScreen = () => {
     await setBirthDate(data.date_of_birth);
     await setPhoneNumber(data.phone_number);
     await setUserId(data.user_id.toString());
-    await setPhoneCountryCode(data.phone_number_country)
+    await setPhoneCountryCode(data.phone_number_country);
   };
 
   return (
@@ -89,12 +109,15 @@ const PinLoginScreen = () => {
             fontSize: 14,
             fontWeight: 'bold',
             marginTop: 8,
+            marginBottom: 16,
           }}>
           Lupa PIN
         </Text>
 
         {loading && <ActivityIndicator />}
       </View>
+
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import Utils from 'service/Utils';
 import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
 import useGetNetwork from './service/useGetNetwork';
+import { ParamListBase, RouteProp, useRoute } from '@react-navigation/native';
 
 export type NetworkDetail = {
   name: string;
@@ -19,7 +20,8 @@ export type NetworkDetail = {
 };
 
 const NetworkDetailScreen = () => {
-  const { loading, network } = useGetNetwork();
+  const { params } = useRoute<RouteProp<ParamListBase>>();
+  const { loading, network } = useGetNetwork(params?.id);
 
   return (
     <ScrollView
