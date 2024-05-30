@@ -5,7 +5,7 @@ import {
   RouteProp,
   useNavigation,
 } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -24,9 +24,14 @@ type NetworkLevelProps = {
 };
 
 const NetworkLevelScreen: React.FC<NetworkLevelProps> = ({ route }) => {
-  const { loading, network: networkList } = useGetNetworkLevel();
+  const { level, user_id } = route.params;
+  const [offset, setOffset] = useState(0);
+  const { loading, network: networkList } = useGetNetworkLevel(
+    level,
+    user_id,
+    offset,
+  );
   const { setOptions } = useNavigation<NavigationProp<ParamListBase>>();
-  const { level } = route.params;
 
   useEffect(() => {
     setOptions({
@@ -44,6 +49,11 @@ const NetworkLevelScreen: React.FC<NetworkLevelProps> = ({ route }) => {
       {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
       {(networkList?.length ?? 0) > 0 ? (
         <FlatList
+          onEndReached={() => {
+            if (networkList.length > 0) {
+              setOffset(networkList.length);
+            }
+          }}
           showsVerticalScrollIndicator={false}
           data={networkList}
           renderItem={renderItem}

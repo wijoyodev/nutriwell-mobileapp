@@ -3,8 +3,8 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
 import CustomProfileImage from 'components/CustomProfileImage';
+import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
 
 export type NetworkInfoProps = {
   network: NetworkType;
@@ -42,7 +42,7 @@ const NetworkInfoComponent: React.FC<NetworkInfoProps> = ({
             <View
               style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
               <Icon name={'person-outline'} />
-              <Text>Gill Lucy</Text>
+              <Text>{network.uplineName}</Text>
             </View>
           </View>
         </View>

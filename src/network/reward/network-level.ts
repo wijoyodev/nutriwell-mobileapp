@@ -1,12 +1,22 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
-import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
+import { NetworkListResponse } from './list-network';
 
-type ApiCallGetNetworkLevel = () => Promise<PublicAPIResponse<NetworkType[]>>;
+export type GetNetworkLevelRequest = {
+  level: number;
+  user_id: number;
+  offset: number;
+};
 
-const getNetworkLevelEndpoint = '/network/level';
-const getNetworkLevel: ApiCallGetNetworkLevel = async () => {
-  const response = await Api.get(getNetworkLevelEndpoint);
+type ApiCallGetNetworkLevel = (
+  request: GetNetworkLevelRequest,
+) => Promise<PublicAPIResponse<NetworkListResponse>>;
+
+const getNetworkLevelEndpoint = '/network';
+const getNetworkLevel: ApiCallGetNetworkLevel = async (
+  request: GetNetworkLevelRequest,
+) => {
+  const response = await Api.get(getNetworkLevelEndpoint, request);
   return response;
 };
 

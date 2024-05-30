@@ -19,6 +19,10 @@ export type NetworkResponse = {
   phone_number: string;
   has_transaction: number;
   total_downlines: number;
+  upline: {
+    full_name: string;
+    join_date: string;
+  };
 };
 
 export type NetworkListResponse = {

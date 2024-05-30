@@ -14,6 +14,7 @@ export type NetworkType = {
   level: number;
   network: number;
   imageUrl?: string;
+  uplineName?: string;
 };
 
 export type RewardSummary = {

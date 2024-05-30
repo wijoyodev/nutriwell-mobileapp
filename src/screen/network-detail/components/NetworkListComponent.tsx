@@ -13,7 +13,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {
   NavigationProp,
   ParamListBase,
+  RouteProp,
   useNavigation,
+  useRoute,
 } from '@react-navigation/native';
 import { NETWORK_LEVEL_SCREEN } from 'navigation/constants';
 import { NetworkTypeSummary } from 'screen/main-home/components/ReferenceNetworkComponent';
@@ -25,12 +27,16 @@ export type NetworkListComponentProps = {
 const NetworkListComponent: React.FC<NetworkListComponentProps> = ({
   networks,
 }) => {
+  const { params } = useRoute<RouteProp<ParamListBase>>();
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const renderItem = (info: ListRenderItemInfo<NetworkTypeSummary>) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigate(NETWORK_LEVEL_SCREEN, { level: info.item.level })
+          navigate(NETWORK_LEVEL_SCREEN, {
+            level: info.item.level,
+            user_id: params?.id,
+          })
         }
         style={{
           paddingHorizontal: 16,
