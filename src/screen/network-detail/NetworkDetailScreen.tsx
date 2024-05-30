@@ -53,7 +53,7 @@ const NetworkDetailScreen = () => {
           }}>
           <Text style={{ color: Colors.black, fontSize: 14 }}>Level</Text>
           <Text style={{ color: Colors.black, fontSize: 14 }}>
-            #{network?.level}
+            #{params?.level}
           </Text>
         </View>
         <View

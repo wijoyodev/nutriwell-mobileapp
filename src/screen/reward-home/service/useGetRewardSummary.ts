@@ -18,7 +18,7 @@ const useGetRewardSummary = () => {
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getListNetwork().then(response => {
+      getListNetwork(0).then(response => {
         console.log(response);
         setLoading(false);
         const rewardSummaryValue: RewardSummary = {
@@ -39,9 +39,10 @@ const useGetRewardSummary = () => {
 const convertNetworkResponseToNetworkType = (response: NetworkResponse) => {
   const networkType: NetworkType = {
     id: response.id,
+    userId: response.user_id,
     name: response.full_name,
     level: response.level,
-    network: response.downlines,
+    network: response.total_downlines,
     imageUrl: response.avatar_url,
   };
 

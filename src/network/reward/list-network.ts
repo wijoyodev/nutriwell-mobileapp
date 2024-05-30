@@ -1,31 +1,44 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
-import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
+import { getUserId } from 'service/StorageUtils';
 
 export type NetworkResponse = {
   id: number;
   user_id: number;
   level: number;
+  upline_first_id: number;
+  upline_second_id: number;
+  upline_third_id: number;
+  upline_fourth_id: number;
+  upline_fifth_id: number;
   full_name: string;
   avatar_url: string;
   referrer_code: string;
   referral_code: string;
   email: string;
   phone_number: string;
-  downlines: number;
+  has_transaction: number;
+  total_downlines: number;
 };
 
 export type NetworkListResponse = {
   data: NetworkResponse[];
+  offset: number;
+  limit: number;
+  total_network: number;
 };
 
-type ApiCallGetListNetwork = () => Promise<
-  PublicAPIResponse<NetworkListResponse>
->;
+type ApiCallGetListNetwork = (
+  offset: number,
+) => Promise<PublicAPIResponse<NetworkListResponse>>;
 
 const getListNetworkEndpoint = '/network';
-const getListNetwork: ApiCallGetListNetwork = async () => {
-  const response = await Api.get(getListNetworkEndpoint);
+const getListNetwork: ApiCallGetListNetwork = async (offset: number) => {
+  const userId = await getUserId();
+  const response = await Api.get(getListNetworkEndpoint, {
+    offset,
+    user_id: userId,
+  });
   return response;
 };
 

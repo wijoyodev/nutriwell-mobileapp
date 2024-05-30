@@ -36,7 +36,8 @@ const ReferenceNetworkComponent: React.FC<ReferenceNetworkComponentProps> = ({
       <TouchableOpacity
         onPress={() =>
           navigate(NETWORK_DETAIL_SCREEN, {
-            id: info.item.id,
+            id: info.item.userId,
+            level: info.item.level,
           })
         }
         style={{

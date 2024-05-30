@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -16,7 +16,8 @@ import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
 import useGetAllNetwork from './service/useGetAllNetwork';
 
 const ReferenceNetworkScreen = () => {
-  const { loading, network } = useGetAllNetwork();
+  const [offset, setOffset] = useState(0);
+  const { loading, network } = useGetAllNetwork(offset);
 
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
@@ -32,7 +33,16 @@ const ReferenceNetworkScreen = () => {
       style={{ flex: 1, backgroundColor: Colors.white, paddingHorizontal: 16 }}>
       {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
       {(network?.length ?? 0) > 0 ? (
-        <FlatList data={network} renderItem={renderItem} />
+        <FlatList
+          onEndReached={() => {
+            if (network.length > 0) {
+              setOffset(network.length);
+            }
+          }}
+          showsVerticalScrollIndicator={false}
+          data={network}
+          renderItem={renderItem}
+        />
       ) : (
         <View
           style={{

@@ -9,6 +9,7 @@ import useGetRewardSummary from './service/useGetRewardSummary';
 
 export type NetworkType = {
   id: number;
+  userId: number;
   name: string;
   level: number;
   network: number;

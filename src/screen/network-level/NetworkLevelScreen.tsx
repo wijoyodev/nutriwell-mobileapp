@@ -6,7 +6,14 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { ActivityIndicator, FlatList, Image, ListRenderItemInfo, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  ListRenderItemInfo,
+  Text,
+  View,
+} from 'react-native';
 import NetworkInfoComponent from './components/NetworkInfoComponent';
 import Colors from 'themes/Colors';
 import { NetworkType } from 'screen/reward-home/RewardHomeScreen';

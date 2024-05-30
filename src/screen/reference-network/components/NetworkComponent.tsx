@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { NetworkType } from 'screen/reward-home/components/ReferenceNetworkComponent';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,6 +11,7 @@ import {
 } from '@react-navigation/native';
 import { NETWORK_DETAIL_SCREEN } from 'navigation/constants';
 import CustomProfileImage from 'components/CustomProfileImage';
+import { NetworkType } from 'screen/reward-home/RewardHomeScreen';
 
 export type NetworkComponentProps = {
   network: NetworkType;
@@ -25,7 +25,12 @@ const NetworkComponent: React.FC<NetworkComponentProps> = ({
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   return (
     <TouchableOpacity
-      onPress={() => navigate(NETWORK_DETAIL_SCREEN)}
+      onPress={() =>
+        navigate(NETWORK_DETAIL_SCREEN, {
+          id: network.userId,
+          level: network.level,
+        })
+      }
       style={{
         flexDirection: 'row',
         alignItems: 'center',
