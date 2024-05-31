@@ -21,13 +21,20 @@ export type RewardSummary = {
   totalReward: number;
   redeemableReward: number;
   monthlyReward: number;
-  totalReferenceNetwork: number;
   referralCode: string;
+};
+
+export type NetworkSummary = {
+  totalReferenceNetwork: number;
   referenceNetworkList: NetworkType[];
 };
 
 const RewardHomeScreen = () => {
-  const { loading, rewardSummary: reward } = useGetRewardSummary();
+  const {
+    loading,
+    rewardSummary: reward,
+    networkSummary,
+  } = useGetRewardSummary();
   return (
     <ScrollView
       style={{ backgroundColor: Colors.white }}
@@ -41,13 +48,16 @@ const RewardHomeScreen = () => {
       )}
       {reward && (
         <>
-          <RedeemableRewardComponent reward={reward} />
+          <RedeemableRewardComponent
+            reward={reward}
+            networkSummary={networkSummary}
+          />
           <InviteNetworkComponent code={reward?.referralCode ?? ''} />
         </>
       )}
 
       <ReferenceNetworkComponent
-        networkList={reward?.referenceNetworkList ?? []}
+        networkList={networkSummary?.referenceNetworkList ?? []}
       />
     </ScrollView>
   );

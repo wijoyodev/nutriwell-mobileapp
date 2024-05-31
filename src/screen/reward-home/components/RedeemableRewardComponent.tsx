@@ -14,15 +14,17 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Colors from 'themes/Colors';
-import { RewardSummary } from '../RewardHomeScreen';
+import { NetworkSummary, RewardSummary } from '../RewardHomeScreen';
 import Utils from 'service/Utils';
 
 export type RedeemableRewardComponentProps = {
   reward: RewardSummary;
+  networkSummary: NetworkSummary;
 };
 
 const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
   reward,
+  networkSummary,
 }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const modalRef = useRef<CustomModalHandle | null>();
@@ -100,7 +102,7 @@ const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
                 fontWeight: 'bold',
                 marginTop: 4,
               }}>
-              Rp1.500.000
+              {Utils.getPriceString(reward.monthlyReward)}
             </Text>
           </View>
           <View style={{ flex: 2 }}>
@@ -117,7 +119,7 @@ const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
                 fontWeight: 'bold',
                 marginTop: 4,
               }}>
-              56
+              {networkSummary.totalReferenceNetwork}
             </Text>
           </View>
         </View>
