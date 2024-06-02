@@ -20,6 +20,7 @@ import {
   useFocusEffect,
 } from '@react-navigation/native';
 import { LOGIN_SCREEN, REGISTER_DATA_SCREEN } from 'navigation/constants';
+import verificationEmail from 'network/auth/verification-email';
 
 type RegisterForm = {
   email: string;
@@ -59,7 +60,17 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
 
   const handleRegister: SubmitHandler<RegisterForm> = (data: RegisterForm) => {
     console.log(data);
-    navigate(REGISTER_DATA_SCREEN, data);
+    verificationEmail({
+      email: data.email,
+      referrer_code: data.referralCode ?? '',
+    }).then(response => {
+      if (response.result) {
+        navigate(REGISTER_DATA_SCREEN, data);
+      } else {
+        console.log('Error');
+        // TODO: show snackbar
+      }
+    });
   };
 
   const handleLogin = () => {
