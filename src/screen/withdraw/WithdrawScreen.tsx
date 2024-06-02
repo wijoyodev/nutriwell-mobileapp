@@ -1,6 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-import CustomButton from 'components/CustomButton';
-import CustomTextInput from 'components/CustomTextInput';
 import React, { useEffect, useState } from 'react';
 import { StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -12,6 +10,7 @@ import {
   useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
+import createDisbursement, { DisbursementRequest } from 'network/reward/create-disbursement';
 
 const WithdrawScreen = () => {
   useFocusEffect(() => {
@@ -35,8 +34,16 @@ const WithdrawScreen = () => {
     }
   }, [progress]);
 
-  const handleSubmit = () => {
-    setProgress(2);
+  const handleSubmit = (request: DisbursementRequest) => {
+    console.log('Request disbursement: ', request);
+    createDisbursement(request).then(response => {
+      if (response.result) {
+        setProgress(2);
+      } else {
+        console.log('Error');
+        // TODO: show snackbar
+      }
+    });
   };
 
   return (

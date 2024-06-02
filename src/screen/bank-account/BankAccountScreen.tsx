@@ -72,9 +72,7 @@ const BankAccountScreen = () => {
 
   const submit: SubmitHandler<BankForm> = async (data: BankForm) => {
     console.log(data);
-    const userId = await getUserId();
     updateProfile({
-      id: parseInt(userId, 10),
       account_bank: data.bank,
       account_bank_name: data.accountHolder,
       account_bank_number: data.accountNumber,
@@ -107,7 +105,6 @@ const BankAccountScreen = () => {
               <CustomPicker
                 value={value}
                 onSelect={item => onChange(item.name)}
-                renderValue={(item: BankOption) => item?.name}
                 items={bankOptions}
                 placeholder="Pilih akun bank"
                 error={errors?.bank?.message ?? ''}

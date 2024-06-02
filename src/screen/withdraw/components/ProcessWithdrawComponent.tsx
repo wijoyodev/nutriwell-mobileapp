@@ -10,13 +10,14 @@ import { withdrawSchema } from '../schema/withdrawSchema';
 import { useRoute } from '@react-navigation/native';
 import Utils from 'service/Utils';
 import useGetBankAccount from '../service/useGetBankAccount';
+import { DisbursementRequest } from 'network/reward/create-disbursement';
 
 type WithdrawForm = {
   nominal: string;
 };
 
 export type ProcessWithdrawComponentProps = {
-  onSubmit?: () => void;
+  onSubmit?: (request: DisbursementRequest) => void;
 };
 
 const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
@@ -43,7 +44,13 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
 
   const submit: SubmitHandler<WithdrawForm> = (data: WithdrawForm) => {
     console.log(data);
-    onSubmit?.();
+    const request: DisbursementRequest = {
+      amount: parseInt(data.nominal, 10),
+      account_bank: bankAccount?.account_bank ?? '',
+      account_bank_name: bankAccount?.account_bank_name ?? '',
+      account_bank_number: bankAccount?.account_bank_number ?? '',
+    };
+    onSubmit?.(request);
   };
 
   const renderValue = (text: string) => {
@@ -129,7 +136,7 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
               borderWidth: 1,
               borderRadius: 16,
             }}>
-            {bankAccount ? (
+            {bankAccount?.account_bank ? (
               <>
                 <Text
                   style={{
@@ -137,7 +144,7 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
                     color: Colors.black,
                     fontWeight: 'bold',
                   }}>
-                  {bankAccount?.accountHolder}
+                  {bankAccount?.account_bank_name}
                 </Text>
                 <Text
                   style={{
@@ -145,14 +152,14 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
                     color: Colors.black,
                     marginTop: 6,
                   }}>
-                  {bankAccount?.bank?.name}
+                  {bankAccount?.account_bank}
                 </Text>
                 <Text
                   style={{
                     fontSize: 14,
                     color: Colors.black,
                   }}>
-                  {bankAccount?.accountNumber}
+                  {bankAccount?.account_bank_number}
                 </Text>
               </>
             ) : (
@@ -169,7 +176,7 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
 
       <View style={{ padding: 16 }}>
         <CustomButton
-          disabled={!bankAccount}
+          disabled={!bankAccount?.account_bank}
           onPress={handleFormSubmit(submit)}
           backgroundColor={Colors.blue}
           text={'TARIK SEKARANG'}

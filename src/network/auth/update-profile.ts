@@ -18,7 +18,7 @@ export type ProfileResponse = {
 export type ProfileRequest = {
   full_name?: string;
   avatar?: any;
-  email: string;
+  email?: string;
   date_of_birth?: string;
   phone_number?: string;
   phone_number_country?: string;
