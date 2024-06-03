@@ -2,14 +2,17 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
-import { HistoryRewardSummary } from '../RewardHistoryScreen';
 import Utils from 'service/Utils';
 
 export type RewardSummaryComponentProps = {
-  summary: HistoryRewardSummary;
+  totalReward: number;
+  totalWithdraw: number;
 };
 
-const RewardSummaryComponent: React.FC<RewardSummaryComponentProps> = ({ summary }) => {
+const RewardSummaryComponent: React.FC<RewardSummaryComponentProps> = ({
+  totalReward,
+  totalWithdraw,
+}) => {
   return (
     <View style={{ padding: 16 }}>
       <Text style={{ fontSize: 12 }}>TOTAL REWARD</Text>
@@ -20,7 +23,7 @@ const RewardSummaryComponent: React.FC<RewardSummaryComponentProps> = ({ summary
           fontWeight: 'bold',
           marginTop: 4,
         }}>
-        {Utils.getPriceString(summary.totalReward)}
+        {Utils.getPriceString(totalReward)}
       </Text>
 
       <View style={{ flexDirection: 'row', marginTop: 16 }}>
@@ -33,7 +36,7 @@ const RewardSummaryComponent: React.FC<RewardSummaryComponentProps> = ({ summary
               fontWeight: 'bold',
               marginTop: 4,
             }}>
-            {Utils.getPriceString(summary.successWithdraw)}
+            {Utils.getPriceString(totalWithdraw)}
           </Text>
         </View>
         <View style={{ flex: 2 }}>
@@ -45,9 +48,7 @@ const RewardSummaryComponent: React.FC<RewardSummaryComponentProps> = ({ summary
               fontWeight: 'bold',
               marginTop: 4,
             }}>
-            {Utils.getPriceString(
-              summary.totalReward - summary.successWithdraw,
-            )}
+            {Utils.getPriceString(totalReward - totalWithdraw)}
           </Text>
         </View>
       </View>

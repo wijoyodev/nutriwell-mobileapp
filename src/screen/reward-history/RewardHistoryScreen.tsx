@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -14,19 +14,14 @@ import Colors from 'themes/Colors';
 import RewardHistoryItem from './components/RewardHistoryItem';
 import { useFocusEffect } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Utils from 'service/Utils';
 import useGetRewardHistory from './service/useGetRewardHistory';
+import useGetDisbursement from './service/useGetDisbursement';
 
 export type RewardHistory = {
   date: Date;
   description: string;
   reward: number;
   isIncome: boolean;
-};
-
-export type HistoryRewardSummary = {
-  totalReward: number;
-  successWithdraw: number;
 };
 
 const Tab = createMaterialTopTabNavigator();
@@ -48,7 +43,11 @@ const tabList: TabType[] = [
 ];
 
 const RewardHistoryScreen = () => {
-  const { rewardHistory, loading } = useGetRewardHistory();
+  const [offset, setOffset] = useState(0);
+
+  const { rewardHistory } = useGetRewardHistory();
+  const { disbursementHistory, totalWithdraw, totalReward, loading } =
+    useGetDisbursement(offset);
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
@@ -73,13 +72,8 @@ const RewardHistoryScreen = () => {
     );
   };
 
-  const groupHistory = Utils.groupBy(
-    rewardHistory?.history ?? [],
-    history => history.isIncome,
-  );
-
   const renderHistoryList = (isIncome: boolean) => {
-    const histories = groupHistory.get(isIncome) ?? [];
+    const histories = isIncome ? rewardHistory : disbursementHistory;
     if (histories.length === 0) {
       return (
         <View
@@ -101,6 +95,13 @@ const RewardHistoryScreen = () => {
 
     return (
       <FlatList
+        onEndReached={() => {
+          if (!isIncome) {
+            if (disbursementHistory.length > 0) {
+              setOffset(disbursementHistory.length);
+            }
+          }
+        }}
         showsVerticalScrollIndicator={false}
         data={histories}
         renderItem={renderItem}
@@ -112,8 +113,11 @@ const RewardHistoryScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
-      {rewardHistory?.summary !== undefined && (
-        <RewardSummaryComponent summary={rewardHistory?.summary} />
+      {!loading && (
+        <RewardSummaryComponent
+          totalReward={totalReward}
+          totalWithdraw={totalWithdraw}
+        />
       )}
 
       <Tab.Navigator

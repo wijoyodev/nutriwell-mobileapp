@@ -1,19 +1,24 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import getRewardHistory, {
-  RewardHistoryResponse,
-} from 'network/reward/history';
+import getReward from 'network/reward/reward';
+import { RewardHistory } from '../RewardHistoryScreen';
 
 const useGetRewardHistory = () => {
-  const [rewardHistory, setRewardHistory] = useState<RewardHistoryResponse>();
+  const [rewardHistory, setRewardHistory] = useState<RewardHistory[]>([]);
   const [loading, setLoading] = useState<boolean>();
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getRewardHistory().then(response => {
+      getReward().then(response => {
         setLoading(false);
-        setRewardHistory(response.data);
+        const histories: RewardHistory[] = response.result.data.map(item => ({
+          date: new Date(item.created_at),
+          description: item.description,
+          reward: item.reward_profit,
+          isIncome: true,
+        }));
+        setRewardHistory(histories);
       });
     }, []),
   );
