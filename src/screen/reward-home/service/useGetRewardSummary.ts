@@ -1,5 +1,9 @@
 import { useCallback, useState } from 'react';
-import { NetworkSummary, NetworkType, RewardSummary } from '../RewardHomeScreen';
+import {
+  NetworkSummary,
+  NetworkType,
+  RewardSummary,
+} from '../RewardHomeScreen';
 import { useFocusEffect } from '@react-navigation/native';
 import getListNetwork, { NetworkResponse } from 'network/reward/list-network';
 import getReward from 'network/reward/reward';
@@ -9,7 +13,6 @@ const useGetRewardSummary = () => {
     totalReward: 0,
     redeemableReward: 0,
     monthlyReward: 0,
-    referralCode: '',
   });
 
   const [networkSummary, setNetworkSummary] = useState<NetworkSummary>({

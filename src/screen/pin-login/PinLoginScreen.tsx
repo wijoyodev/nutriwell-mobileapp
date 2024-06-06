@@ -24,6 +24,7 @@ import {
   setGender,
   setPhoneCountryCode,
   setPhoneNumber,
+  setReferralCode,
   setRefreshToken,
   setUserId,
 } from 'service/StorageUtils';
@@ -85,6 +86,7 @@ const PinLoginScreen = () => {
     await setPhoneNumber(data.phone_number);
     await setUserId(data.user_id.toString());
     await setPhoneCountryCode(data.phone_number_country);
+    await setReferralCode(data.referral_code);
   };
 
   return (

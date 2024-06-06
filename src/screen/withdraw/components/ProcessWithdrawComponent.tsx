@@ -46,7 +46,7 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
     console.log(data);
     const request: DisbursementRequest = {
       amount: parseInt(data.nominal, 10),
-      account_bank: bankAccount?.account_bank ?? '',
+      account_bank_code: bankAccount?.account_bank_code ?? '',
       account_bank_name: bankAccount?.account_bank_name ?? '',
       account_bank_number: bankAccount?.account_bank_number ?? '',
     };

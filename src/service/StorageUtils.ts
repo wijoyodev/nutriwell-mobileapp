@@ -10,6 +10,7 @@ const USER_ID_KEY = 'user_id';
 const PHONE_COUNTRY_CODE_KEY = 'phone_country_code';
 const ACCESS_TOKEN_KEY = 'token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
+const REFERRAL_CODE_KEY = 'referral_code';
 
 const getAccessToken = async (): Promise<string> => {
   const accessToken = await AsyncStorage.getItem(ACCESS_TOKEN_KEY);
@@ -29,6 +30,16 @@ const getRefreshToken = async (): Promise<string> => {
 
 const setRefreshToken = async (refreshToken: string): Promise<void> => {
   await AsyncStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+};
+
+const getReferralCode = async (): Promise<string> => {
+  const referralCode = await AsyncStorage.getItem(REFERRAL_CODE_KEY);
+
+  return referralCode ?? '';
+};
+
+const setReferralCode = async (referralCode: string): Promise<void> => {
+  await AsyncStorage.setItem(REFERRAL_CODE_KEY, referralCode);
 };
 
 const getEmail = async (): Promise<string> => {
@@ -116,6 +127,8 @@ export {
   setAccessToken,
   getRefreshToken,
   setRefreshToken,
+  getReferralCode,
+  setReferralCode,
   getEmail,
   setEmail,
   getFullName,

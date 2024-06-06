@@ -2,12 +2,15 @@ import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 
 export type ProfileResponse = {
-  name: string;
-  email: string;
-  imageUrl: string;
-  birthDate: Date;
-  phoneNumber: string;
-  gender: string;
+  data: {
+    upline: {
+      code: string;
+      full_name: string;
+      join_date: string;
+      phone_number: string;
+      avatar_url: string;
+    };
+  }[];
 };
 
 type ApiCallGetProfile = () => Promise<PublicAPIResponse<ProfileResponse>>;

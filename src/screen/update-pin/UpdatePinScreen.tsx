@@ -13,6 +13,8 @@ import CustomPin from 'components/CustomPin';
 import CustomButton from 'components/CustomButton';
 import CustomModal, { CustomModalHandle } from 'components/CustomModal';
 import Icon from 'react-native-vector-icons/AntDesign';
+import updateProfile from 'network/auth/update-profile';
+import CustomSnackbar, { CustomSnackbarHandle } from 'components/CustomSnackbar';
 
 const UpdatePinSreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -22,6 +24,7 @@ const UpdatePinSreen = () => {
   const [pin, setPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
 
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
   const modalRef = useRef<CustomModalHandle | null>();
 
   useFocusEffect(() => {
@@ -67,9 +70,24 @@ const UpdatePinSreen = () => {
   }, [pin]);
 
   useEffect(() => {
-    if (confirmPin.length === 6) {
+    if (progress === 3 && confirmPin.length === 6) {
       if (pin === confirmPin) {
-        modalRef.current?.openModal();
+        updateProfile({
+          old_password: oldPin,
+          password: pin,
+          confirm_password: confirmPin,
+        }).then(response => {
+          console.log('Response change PIN: ', response);
+          if (response.result) {
+            modalRef.current?.openModal();
+          } else {
+            snackbarRef.current?.showSnackbarError('PIN lama tidak sesuai');
+            setProgress(1);
+            setOldPin('');
+            setPin('');
+            setConfirmPin('');
+          }
+        });
       } else {
         // error tidak sesuai
       }
@@ -142,6 +160,7 @@ const UpdatePinSreen = () => {
           />
         </View>
       </CustomModal>
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

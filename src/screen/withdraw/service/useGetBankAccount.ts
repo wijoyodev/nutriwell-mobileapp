@@ -13,6 +13,7 @@ const useGetBankAccount = () => {
       getUserById().then(response => {
         setLoading(false);
         const bankAccountInfo: BankInfo = {
+          account_bank_code: response.result.data?.[0].account_bank_code,
           account_bank: response.result.data?.[0].account_bank,
           account_bank_name: response.result.data?.[0].account_bank_name,
           account_bank_number: response.result.data?.[0].account_bank_number,

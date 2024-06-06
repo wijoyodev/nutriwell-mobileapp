@@ -3,7 +3,7 @@ import { PublicAPIResponse } from 'network/model';
 
 export type DisbursementRequest = {
   amount: number;
-  account_bank: string;
+  account_bank_code: string;
   account_bank_name: string;
   account_bank_number: string;
 };

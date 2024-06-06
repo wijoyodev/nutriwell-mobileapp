@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import getUpline, { UplineInformationResponse } from 'network/reward/upline';
+import { UplineInformationResponse } from 'network/reward/upline';
+import getProfile from 'network/auth/profile';
 
 const useGetUpline = () => {
   const [upline, setUpline] = useState<UplineInformationResponse>();
@@ -9,9 +10,16 @@ const useGetUpline = () => {
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getUpline().then(response => {
+      getProfile().then(response => {
+        console.log('Response profile: ', response.result.data);
+        const data = response.result.data[0].upline;
         setLoading(false);
-        setUpline(response.data);
+        setUpline({
+          name: data.full_name,
+          joinDate: new Date(data.join_date),
+          phoneNumber: data.phone_number,
+          imageUrl: data.avatar_url,
+        });
       });
     }, []),
   );

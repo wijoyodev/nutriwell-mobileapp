@@ -17,7 +17,7 @@ const UplineInformationScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white, padding: 16 }}>
       {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
-      {upline !== undefined && (
+      {upline?.name ? (
         <>
           <View
             style={{
@@ -70,6 +70,12 @@ const UplineInformationScreen = () => {
             </Text>
           </View>
         </>
+      ) : (
+        <View>
+          <Text style={{ textAlign: 'center', color: Colors.black }}>
+            Tidak memiliki upline
+          </Text>
+        </View>
       )}
     </View>
   );

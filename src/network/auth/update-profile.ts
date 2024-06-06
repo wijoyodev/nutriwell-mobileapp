@@ -27,6 +27,9 @@ export type ProfileRequest = {
   account_bank?: string;
   account_bank_name?: string;
   account_bank_number?: string;
+  old_password?: string;
+  password?: string;
+  confirm_password?: string;
 };
 
 type ApiCallUpdateProfile = (

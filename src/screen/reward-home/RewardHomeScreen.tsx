@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, View } from 'react-native';
 import RewardHeaderComponent from './components/RewardHeaderComponent';
 import RedeemableRewardComponent from './components/RedeemableRewardComponent';
@@ -6,6 +6,7 @@ import InviteNetworkComponent from './components/InviteNetworkComponent';
 import ReferenceNetworkComponent from './components/ReferenceNetworkComponent';
 import Colors from 'themes/Colors';
 import useGetRewardSummary from './service/useGetRewardSummary';
+import { getReferralCode } from 'service/StorageUtils';
 
 export type NetworkType = {
   id: number;
@@ -21,7 +22,6 @@ export type RewardSummary = {
   totalReward: number;
   redeemableReward: number;
   monthlyReward: number;
-  referralCode: string;
 };
 
 export type NetworkSummary = {
@@ -35,6 +35,13 @@ const RewardHomeScreen = () => {
     rewardSummary: reward,
     networkSummary,
   } = useGetRewardSummary();
+
+  const [referralCode, setReferralCode] = useState('');
+
+  useEffect(() => {
+    getReferralCode().then(setReferralCode);
+  }, []);
+
   return (
     <ScrollView
       style={{ backgroundColor: Colors.white }}
@@ -52,7 +59,7 @@ const RewardHomeScreen = () => {
             reward={reward}
             networkSummary={networkSummary}
           />
-          <InviteNetworkComponent code={reward?.referralCode ?? ''} />
+          <InviteNetworkComponent code={referralCode ?? ''} />
         </>
       )}
 

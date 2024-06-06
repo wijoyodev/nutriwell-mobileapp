@@ -1,6 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
 import getUserById from 'network/auth/user-by-id';
-import getBankAccount from 'network/auth/user-by-id';
 import { useCallback, useState } from 'react';
 
 export type BankInfo = {
