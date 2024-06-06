@@ -17,22 +17,12 @@ import { bankSchema } from './schema/bankSchema';
 import CustomPicker from 'components/CustomPicker';
 import updateProfile from 'network/auth/update-profile';
 import { getUserId } from 'service/StorageUtils';
+import useGetBankOptions from './service/useGetBankOptions';
 
 export type BankOption = {
   name: string;
-} | null;
-
-const bankOptions = [
-  {
-    name: 'BCA',
-  },
-  {
-    name: 'BNI',
-  },
-  {
-    name: 'MANDIRI',
-  },
-];
+  code: string;
+};
 
 export type BankForm = {
   bank: string;
@@ -43,6 +33,7 @@ export type BankForm = {
 const BankAccountScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute<RouteProp<ParamListBase>>();
+  const { bankOptions, loading } = useGetBankOptions();
 
   let formInitialValues: BankForm = {
     bank: '',
@@ -52,10 +43,11 @@ const BankAccountScreen = () => {
 
   if (params?.data) {
     formInitialValues = {
-      bank: params?.data.account_bank,
+      bank: `${params?.data.account_bank}#${params?.data.account_bank_code}`,
       accountHolder: params?.data.account_bank_name,
-      accountNumber: params?.data.account_bank_number,
+      accountNumber: String(params?.data.account_bank_number),
     };
+    console.log('Form initial: ', formInitialValues);
   }
 
   const formMethods = useForm({
@@ -66,14 +58,18 @@ const BankAccountScreen = () => {
 
   const {
     control,
+    watch,
     handleSubmit: handleFormSubmit,
     formState: { errors },
+    setValue,
   } = formMethods;
 
+
   const submit: SubmitHandler<BankForm> = async (data: BankForm) => {
-    console.log(data);
+    const bankValues = data.bank.split('#');
     updateProfile({
-      account_bank: data.bank,
+      account_bank_code: bankValues[1],
+      account_bank: bankValues[0],
       account_bank_name: data.accountHolder,
       account_bank_number: data.accountNumber,
     }).then(response => {
@@ -84,6 +80,8 @@ const BankAccountScreen = () => {
       }
     });
   };
+
+  const bank = watch('bank');
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
@@ -98,31 +96,29 @@ const BankAccountScreen = () => {
           <Text style={{ fontSize: 14, color: Colors.black, marginBottom: 6 }}>
             Bank
           </Text>
-          <Controller
-            control={control}
-            name={'bank'}
-            render={({ field: { onChange, value } }) => (
-              <CustomPicker
-                value={value}
-                onSelect={item => onChange(item.name)}
-                items={bankOptions}
-                placeholder="Pilih akun bank"
-                error={errors?.bank?.message ?? ''}
-                renderOption={(item: BankOption) => (
-                  <Text
-                    style={{
-                      color: Colors.black,
-                      fontSize: 14,
-                      paddingVertical: 8,
-                    }}>
-                    {item?.name}
-                  </Text>
-                )}
-              />
+
+          <CustomPicker
+            value={bank}
+            onSelect={(item: BankOption) => {
+              console.log('Item Bank: ', item);
+              setValue('bank', `${item.name}-${item.code}`);
+            }}
+            items={bankOptions}
+            placeholder="Pilih akun bank"
+            error={errors?.bank?.message ?? ''}
+            renderValue={(item: string) => item.split('#')[0]}
+            renderOption={(item: BankOption) => (
+              <Text
+                style={{
+                  color: Colors.black,
+                  fontSize: 14,
+                  paddingVertical: 8,
+                }}>
+                {item?.name}
+              </Text>
             )}
           />
         </View>
-
         <View style={{ marginTop: 16 }}>
           <Text style={{ fontSize: 14, color: Colors.black, marginBottom: 6 }}>
             Nama Pemilik Rekening

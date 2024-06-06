@@ -83,6 +83,7 @@ const CustomPicker: React.FC<CustomPickerProps> = props => {
             padding: 16,
             borderTopStartRadius: 16,
             borderTopEndRadius: 16,
+            maxHeight: '90%',
           }}>
           <Text
             style={{
@@ -98,6 +99,7 @@ const CustomPicker: React.FC<CustomPickerProps> = props => {
             <ActivityIndicator color={Colors.blue} size={'large'} />
           )}
           <FlatList
+            showsVerticalScrollIndicator={false}
             data={props.items}
             renderItem={(info: ListRenderItemInfo<any>) => (
               <TouchableOpacity

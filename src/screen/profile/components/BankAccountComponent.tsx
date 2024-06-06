@@ -68,7 +68,7 @@ const BankAccountComponent: React.FC<BankAccountComponentProps> = () => {
               {bankAccount?.account_bank}
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              {bankAccount?.account_bank_number}
+              {String(bankAccount?.account_bank_number)}
             </Text>
           </View>
         ) : (

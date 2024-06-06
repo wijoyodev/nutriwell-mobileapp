@@ -23,6 +23,7 @@ export type ProfileRequest = {
   phone_number?: string;
   phone_number_country?: string;
   gender?: string;
+  account_bank_code?: string;
   account_bank?: string;
   account_bank_name?: string;
   account_bank_number?: string;
