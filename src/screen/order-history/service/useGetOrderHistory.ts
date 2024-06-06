@@ -22,19 +22,27 @@ export type HistoryItem = {
   imageUrl: string;
 };
 
-const useGetOrderHistory = () => {
-  const [orderHistory, setOrderHistory] = useState<OrderHistory[]>();
+const useGetOrderHistory = (status: number, offset: number) => {
+  const [orderHistory, setOrderHistory] = useState<OrderHistory[]>([]);
   const [loading, setLoading] = useState<boolean>();
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      getOrderHistory().then(response => {
-        console.log('Response order history list: ', response.result.data);
+      if (offset === 0) {
+        setOrderHistory([]);
+      }
+      getOrderHistory({ status, offset }).then(response => {
         setLoading(false);
-        setOrderHistory(mapOrderHistoryResponse(response.result.data));
+
+        const histories: OrderHistory[] = mapOrderHistoryResponse(
+          response.result.data,
+        );
+        const orderHistoryList: OrderHistory[] =
+          offset === 0 ? histories : [...orderHistory, ...histories];
+        setOrderHistory(orderHistoryList);
       });
-    }, []),
+    }, [status, offset]),
   );
 
   return { loading, orderHistory };

@@ -13,13 +13,18 @@ import { HeaderBackButton } from '@react-navigation/elements';
 import { HOME_SCREEN } from 'navigation/constants';
 
 const CheckOutPaymentScreen = () => {
-  const { navigate, setOptions } =
+  const { navigate, setOptions, goBack } =
     useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute<RouteProp<ParamListBase>>();
   const invoice_url = params?.invoice_url;
 
   const onBack = () => {
-    navigate(HOME_SCREEN);
+    console.log('Params: ', params);
+    if (params?.isHistory) {
+      goBack?.();
+    } else {
+      navigate?.(HOME_SCREEN);
+    }
   };
 
   const headerLeft = (props: any) => (
@@ -48,14 +53,6 @@ const CheckOutPaymentScreen = () => {
           domStorageEnabled={true}
           mixedContentMode={'always'}
           nestedScrollEnabled
-          onNavigationStateChange={evt => {
-            if (evt.url.indexOf('callback') != -1) {
-              navigate('ThankyouScreen', {
-                title: 'Thank You',
-                content: `Terima kasih telah subscribe di Mentorbaik.\nSemoga perjalanan investasi anda memberikan hasil yang baik.\r\n\r\nJika ada pertanyaan, silakan email:\r\n mentorbaik.info@gmail.com`,
-              });
-            }
-          }}
         />
       )}
     </View>

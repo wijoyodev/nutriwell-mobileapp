@@ -16,6 +16,7 @@ const useGetDisbursement = (offset: number) => {
       setLoading(true);
       getDisbursement(offset).then(response => {
         setLoading(false);
+        console.log('Response disbursements: ', response.result);
         const list: RewardHistory[] = response.result.data.map(item => ({
           date: new Date(item.success_disbursement_date),
           description: item.description,

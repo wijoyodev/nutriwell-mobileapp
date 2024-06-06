@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -47,7 +47,9 @@ const tabList: TabType[] = [
 ];
 
 const OrderHistoryScreen = () => {
-  const { loading, orderHistory } = useGetOrderHistory();
+  const [offset, setOffset] = useState(0);
+  const [status, setStatus] = useState(0);
+  const { loading, orderHistory } = useGetOrderHistory(status, offset);
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
@@ -56,11 +58,6 @@ const OrderHistoryScreen = () => {
   const renderItem = (info: ListRenderItemInfo<OrderHistory>) => {
     return <HistoryComponent history={info.item} />;
   };
-
-  const groupHistory = Utils.groupBy(
-    orderHistory ?? [],
-    history => history.status,
-  );
 
   const tabBarLabel = (focused: boolean, name: string) => {
     return (
@@ -77,9 +74,8 @@ const OrderHistoryScreen = () => {
     );
   };
 
-  const renderHistoryList = (status: number) => {
-    const histories = groupHistory.get(status) ?? [];
-    if (histories.length === 0) {
+  const renderHistoryList = () => {
+    if (orderHistory.length === 0) {
       return (
         <View
           style={{
@@ -101,8 +97,13 @@ const OrderHistoryScreen = () => {
     return (
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={histories}
+        data={orderHistory}
         renderItem={renderItem}
+        onEndReached={() => {
+          if (orderHistory.length > 0) {
+            setOffset(orderHistory.length);
+          }
+        }}
         ListFooterComponent={<View style={{ marginBottom: 16 }} />}
       />
     );
@@ -124,8 +125,14 @@ const OrderHistoryScreen = () => {
         style={{ flex: 1 }}>
         {tabList.map(tab => (
           <Tab.Screen
+            listeners={{
+              tabPress: _ => {
+                setStatus(tab.status);
+                setOffset(0);
+              },
+            }}
             name={tab.title}
-            children={() => renderHistoryList(tab.status)}
+            children={renderHistoryList}
           />
         ))}
       </Tab.Navigator>

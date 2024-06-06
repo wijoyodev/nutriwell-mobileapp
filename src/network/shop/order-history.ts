@@ -1,5 +1,6 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
+import { getUserId } from 'service/StorageUtils';
 
 export type ProductDetailResponse = {
   price: number;
@@ -58,13 +59,24 @@ export type OrderHistoryResponse = {
   total: number;
 };
 
-type ApiCallGetOrderHistory = () => Promise<
-  PublicAPIResponse<OrderHistoryResponse>
->;
+export type OrderHistoryRequest = {
+  status: number;
+  offset: number;
+};
+
+type ApiCallGetOrderHistory = (
+  request: OrderHistoryRequest,
+) => Promise<PublicAPIResponse<OrderHistoryResponse>>;
 
 const getOrderHistoryEndpoint = '/orders';
-const getOrderHistory: ApiCallGetOrderHistory = async () => {
-  const response = await Api.get(getOrderHistoryEndpoint);
+const getOrderHistory: ApiCallGetOrderHistory = async (
+  request: OrderHistoryRequest,
+) => {
+  const user_id = await getUserId();
+  const response = await Api.get(getOrderHistoryEndpoint, {
+    ...request,
+    user_id,
+  });
   return response;
 };
 

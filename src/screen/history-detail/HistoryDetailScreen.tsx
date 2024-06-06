@@ -54,6 +54,7 @@ const HistoryDetailScreen = () => {
             onPress={() => {
               navigate(CHECK_OUT_PAYMENT_SCREEN, {
                 invoice_url: history.invoiceUrl,
+                isHistory: true,
               });
             }}
             backgroundColor={Colors.blue}

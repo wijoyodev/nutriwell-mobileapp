@@ -1,5 +1,6 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
+import { getUserId } from 'service/StorageUtils';
 
 export type DisbursementHistoryResponse = {
   id: number;
@@ -30,9 +31,11 @@ type ApiCallGetDisbursement = (
 
 const getDisbursementEndpoint = '/disbursement';
 const getDisbursement: ApiCallGetDisbursement = async (offset: number) => {
+  const user_id = await getUserId();
   const response = await Api.get(getDisbursementEndpoint, {
     status: 'COMPLETED',
     offset,
+    user_id,
   });
   return response;
 };

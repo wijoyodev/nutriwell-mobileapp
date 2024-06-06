@@ -12,6 +12,7 @@ const useGetRewardHistory = () => {
       setLoading(true);
       getReward().then(response => {
         setLoading(false);
+        console.log('Response rewards: ', response.result);
         const histories: RewardHistory[] = response.result.data.map(item => ({
           date: new Date(item.created_at),
           description: item.description,

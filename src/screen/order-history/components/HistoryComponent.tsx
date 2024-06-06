@@ -16,7 +16,10 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
-import { CHECK_OUT_PAYMENT_SCREEN, HISTORY_DETAIL_SCREEN } from 'navigation/constants';
+import {
+  CHECK_OUT_PAYMENT_SCREEN,
+  HISTORY_DETAIL_SCREEN,
+} from 'navigation/constants';
 import Utils from 'service/Utils';
 import { HistoryItem, OrderHistory } from '../service/useGetOrderHistory';
 
@@ -76,6 +79,7 @@ const HistoryComponent: React.FC<HistoryProps> = ({ history }) => {
             onPress={() => {
               navigate(CHECK_OUT_PAYMENT_SCREEN, {
                 invoice_url: history.paymentUrl,
+                isHistory: true,
               });
             }}
             containerStyle={{ paddingHorizontal: 12 }}
