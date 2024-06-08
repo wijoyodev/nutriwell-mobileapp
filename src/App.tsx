@@ -6,7 +6,6 @@
  */
 
 import { NavigationContainer } from '@react-navigation/native';
-import mockApi from 'mock-api';
 import Router from 'navigation/Router';
 import React, { useEffect } from 'react';
 
@@ -18,15 +17,19 @@ function App(): React.JSX.Element {
   useEffect(() => {
     // mockApi();
   }, []);
+  const config = {
+    screens: {
+      RegisterDataScreen: 'register',
+      ResetPinScreen: 'reset',
+    },
+  };
   return (
     <NavigationContainer
       linking={{
-        prefixes: ['nutriwell://app'],
-        config: {
-          screens: {
-            RegisterDataScreen: 'register',
-          },
-        },
+        prefixes: [
+          'https://presumably-proud-tetra.ngrok-free.app', // Universal Link
+        ],
+        config,
       }}>
       <Router />
     </NavigationContainer>
