@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { yupResolver } from '@hookform/resolvers/yup';
 import CustomTextInput from 'components/CustomTextInput';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import {
   Image,
@@ -17,10 +17,15 @@ import CustomButton from 'components/CustomButton';
 import {
   NavigationProp,
   ParamListBase,
+  RouteProp,
   useFocusEffect,
+  useRoute,
 } from '@react-navigation/native';
-import { LOGIN_SCREEN, REGISTER_DATA_SCREEN } from 'navigation/constants';
+import { LOGIN_SCREEN } from 'navigation/constants';
 import verificationEmail from 'network/auth/verification-email';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 type RegisterForm = {
   email: string;
@@ -35,11 +40,22 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
   navigation: { navigate },
 }) => {
   const [heightView, setHeightView] = useState(0);
+  const { params } = useRoute<RouteProp<ParamListBase>>();
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
 
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
   });
+
+  useEffect(() => {
+    if (params?.isExpired) {
+      snackbarRef?.current?.showSnackbarError(
+        'Verification has been expired. Please try again.',
+      );
+    }
+  }, [params]);
 
   const formInitialValues: RegisterForm = {
     email: '',
@@ -64,8 +80,9 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
       email: data.email,
       referrer_code: data.referralCode ?? '',
     }).then(response => {
-      if (response.result) {
-        navigate(REGISTER_DATA_SCREEN, data);
+      console.log('Response verification email: ', response.result);
+      if (response.result.status === 'OK') {
+        snackbarRef.current?.showSnackbarSuccess('Email berhasil dikirim.');
       } else {
         console.log('Error');
         // TODO: show snackbar
@@ -164,6 +181,8 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
           </Text>
         </Text>
       </View>
+
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

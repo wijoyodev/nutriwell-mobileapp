@@ -1,7 +1,9 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
 
-export type VerificationEmailResponse = any;
+export type VerificationEmailResponse = {
+  status: string;
+};
 
 export type VerificationEmailRequest = {
   email: string;

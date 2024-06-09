@@ -19,7 +19,9 @@ function App(): React.JSX.Element {
   }, []);
   const config = {
     screens: {
-      RegisterDataScreen: 'register',
+      RegisterDataScreen: {
+        path: 'verification-email/:token',
+      },
       ResetPinScreen: 'reset',
     },
   };
@@ -27,7 +29,7 @@ function App(): React.JSX.Element {
     <NavigationContainer
       linking={{
         prefixes: [
-          'https://presumably-proud-tetra.ngrok-free.app', // Universal Link
+          'https://suitable-evidently-caribou.ngrok-free.app', // Universal Link
         ],
         config,
       }}>

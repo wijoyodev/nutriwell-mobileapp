@@ -1,6 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useEffect, useState } from 'react';
-import { Text, View, useWindowDimensions } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  ActivityIndicator,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import InputPinComponent from './components/InputPinComponent';
 import ProgressBar from 'react-native-progress/Bar';
 import Colors from 'themes/Colors';
@@ -15,9 +20,29 @@ import InputProfileComponent, {
   ProfileForm,
 } from './components/InputProfileComponent';
 import SuccessRegisterComponent from './components/SuccessRegisterComponent';
-import register, { RegisterRequest, RegisterResponse } from 'network/auth/register';
+import register, {
+  RegisterRequest,
+  RegisterResponse,
+} from 'network/auth/register';
 import { PublicAPIResponse } from 'network/model';
-import { setAccessToken, setAvatar, setBirthDate, setEmail, setFullName, setGender, setPhoneCountryCode, setPhoneNumber, setReferralCode, setRefreshToken, setUserId } from 'service/StorageUtils';
+import {
+  setAccessToken,
+  setAvatar,
+  setBirthDate,
+  setEmail,
+  setFullName,
+  setGender,
+  setPhoneCountryCode,
+  setPhoneNumber,
+  setReferralCode,
+  setRefreshToken,
+  setUserId,
+} from 'service/StorageUtils';
+import verificationEmailToken from 'network/auth/verification-email-token';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
+import { REGISTER_SCREEN } from 'navigation/constants';
 
 export type RegisterDataScreenProps = {
   navigation: NavigationProp<ParamListBase>;
@@ -28,7 +53,10 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   navigation,
   route,
 }) => {
-  const { email, referralCode } = route.params;
+  const [emailData, setEmailData] = useState('');
+  const [referrerCodeData, setReferrerCodeData] = useState('');
+
+  const { token } = route.params;
   const { width } = useWindowDimensions();
   const [progress, setProgress] = useState(1);
   const [selectedPin, setSelectedPin] = useState('');
@@ -36,6 +64,23 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   const headerLeft = (props: any) => (
     <HeaderBackButton {...props} onPress={onBack} />
   );
+
+  useEffect(() => {
+    console.log('Token from params: ', token);
+    if (token) {
+      verificationEmailToken(token).then(response => {
+        console.log('Response verification email token: ', response);
+        if (response.result) {
+          setEmailData(response.result.email);
+          setReferrerCodeData(response.result.referrer_code);
+        } else if (response.message === 'TokenExpiredError') {
+          navigation.navigate(REGISTER_SCREEN, {
+            isExpired: true,
+          });
+        }
+      });
+    }
+  }, [token]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -60,7 +105,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   const registerUser = (data: ProfileForm) => {
     const request: RegisterRequest = {
       email: data.email,
-      referrer_code: referralCode,
+      referrer_code: referrerCodeData,
       password: selectedPin,
       confirm_password: selectedPin,
       phone_number: data.phoneNumber,
@@ -109,6 +154,19 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
     setProgress(progress + 1);
   };
 
+  if (!emailData) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.white,
+          paddingVertical: 24,
+        }}>
+        <ActivityIndicator size={'large'} color={Colors.blue} />
+      </View>
+    );
+  }
+
   return (
     <View
       style={{
@@ -145,7 +203,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
         />
       )}
       {progress === 3 && (
-        <InputProfileComponent email={email} onComplete={registerUser} />
+        <InputProfileComponent email={emailData} onComplete={registerUser} />
       )}
       {progress === 4 && <SuccessRegisterComponent />}
     </View>
