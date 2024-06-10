@@ -45,17 +45,23 @@ const CartScreen = () => {
   });
 
   const updateItemQuantity = (cartItem: CartItem, quantity: number) => {
-    const newItems =
-      items?.map(item => {
-        if (item.id === cartItem.id) {
-          return {
-            ...item,
-            quantity,
-          };
-        }
+    let newItems = [];
+    if (quantity === 0) {
+      newItems = items?.filter(item => item.id !== cartItem.id);
+    } else {
+      newItems =
+        items?.map(item => {
+          if (item.id === cartItem.id) {
+            return {
+              ...item,
+              quantity,
+            };
+          }
 
-        return item;
-      }) ?? [];
+          return item;
+        }) ?? [];
+    }
+
     setItems(newItems);
     updateCart(cartItem.id, {
       quantity,

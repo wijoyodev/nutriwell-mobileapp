@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { CartItem } from '../CartScreen';
 import getCart, { CartItemResponse } from 'network/shop/cart';
 

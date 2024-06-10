@@ -23,7 +23,9 @@ import addToCart from 'network/shop/add-to-cart';
 import useGetCart from 'screen/cart/service/useGetCart';
 import { CartItem } from 'screen/cart/CartScreen';
 import updateCart from 'network/shop/update-cart';
-import CustomSnackbar, { CustomSnackbarHandle } from 'components/CustomSnackbar';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -177,7 +179,7 @@ const ShopHomeScreen = () => {
         />
       </View>
 
-      <CustomSnackbar />
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };
