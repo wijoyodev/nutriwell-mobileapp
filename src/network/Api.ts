@@ -159,17 +159,23 @@ const postWithForm = async (url: string, data: any) => {
   return response;
 };
 
-const patchWithForm = async (url: string, data: any) => {
+const patchWithForm = async (url: string, data: any, resetToken?: string) => {
   const token = await getAccessToken();
-  const headers = token
+  const resetTokenHeader = resetToken
+    ? {
+        'x-reset-token': resetToken,
+      }
+    : {};
+  let headers = token
     ? {
         Authorization: 'Bearer ' + token,
         'Content-Type': 'multipart/form-data',
+        ...resetTokenHeader,
       }
     : {
         'Content-Type': 'multipart/form-data',
+        ...resetTokenHeader,
       };
-
   const formData = new FormData();
   for (let k in data) {
     formData.append(k, data[k]);

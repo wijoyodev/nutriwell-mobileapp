@@ -2,7 +2,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import CustomButton from 'components/CustomButton';
 import CustomTextInput from 'components/CustomTextInput';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { LoginForm } from 'screen/login/LoginScreen';
@@ -15,6 +15,7 @@ import resetPassword from 'network/auth/reset-password';
 
 const ForgetPinScreen = () => {
   const modalRef = useRef<ModalCheckEmailHandle | null>();
+  const [loading, setLoading] = useState(false);
 
   const formInitialValues: LoginForm = {
     email: '',
@@ -34,12 +35,19 @@ const ForgetPinScreen = () => {
 
   const submit: SubmitHandler<LoginForm> = (data: LoginForm) => {
     console.log(data);
+    setLoading(true);
     resetPassword({
       email: data.email,
-    }).then(response => {
-      console.log('Response reset password: ', response);
-      modalRef?.current?.openModal();
-    });
+    })
+      .then(response => {
+        setLoading(false);
+        console.log('Response reset password: ', response);
+        modalRef?.current?.openModal();
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+        setLoading(false);
+      });
   };
 
   return (
@@ -84,6 +92,7 @@ const ForgetPinScreen = () => {
       />
 
       <CustomButton
+        loading={loading}
         onPress={handleFormSubmit(submit)}
         containerStyle={{ marginTop: 32 }}
         backgroundColor={Colors.blue}

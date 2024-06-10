@@ -3,7 +3,7 @@ import { PublicAPIResponse } from 'network/model';
 
 export type ResetPasswordTokenResponse = {
   user_id: string;
-  token: string;
+  resetToken: string;
 };
 
 type ApiCallResetPasswordToken = (

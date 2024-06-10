@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomPin from 'components/CustomPin';
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { HeaderBackButton } from '@react-navigation/elements';
 import {
@@ -14,6 +14,7 @@ import {
 import SuccessResetPinComponent from './components/SuccessResetPinComponent';
 import resetPasswordToken from 'network/auth/reset-password-token';
 import { LOGIN_SCREEN } from 'navigation/constants';
+import updateProfile from 'network/auth/update-profile';
 
 const ResetPinScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -66,7 +67,7 @@ const ResetPinScreen = () => {
         console.log('Response verification email token: ', response);
         if (response.result) {
           setUserId(response.result.user_id);
-          setResetToken(response.result.token);
+          setResetToken(response.result.resetToken);
         } else if (response.message === 'TokenExpiredError') {
           navigation.navigate(LOGIN_SCREEN, {
             isExpired: true,
@@ -89,8 +90,31 @@ const ResetPinScreen = () => {
   }, [pin, confirmPin]);
 
   const resetPin = () => {
-    setProgress(progress + 1);
+    updateProfile(
+      {
+        password: pin,
+        confirm_password: confirmPin,
+      },
+      resetToken,
+    ).then(response => {
+      console.log('Response update new pin: ', response);
+      setProgress(progress + 1);
+    });
   };
+
+  if (!resetToken) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.white,
+          paddingHorizontal: 16,
+          paddingVertical: 24,
+        }}>
+        <ActivityIndicator size={'large'} color={Colors.blue} />
+      </View>
+    );
+  }
 
   return (
     <View

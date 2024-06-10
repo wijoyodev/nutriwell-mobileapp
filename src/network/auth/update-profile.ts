@@ -34,14 +34,19 @@ export type ProfileRequest = {
 
 type ApiCallUpdateProfile = (
   request: ProfileRequest,
+  resetToken?: string,
 ) => Promise<PublicAPIResponse<ProfileResponse>>;
 
 const updateProfileEndpoint = '/user';
-const updateProfile: ApiCallUpdateProfile = async (request: ProfileRequest) => {
+const updateProfile: ApiCallUpdateProfile = async (
+  request: ProfileRequest,
+  resetToken?: string,
+) => {
   const userId = await getUserId();
   const response = await Api.patchWithForm(
     `${updateProfileEndpoint}/${userId}`,
     request,
+    resetToken,
   );
   return response;
 };

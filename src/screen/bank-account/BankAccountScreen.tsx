@@ -64,7 +64,6 @@ const BankAccountScreen = () => {
     setValue,
   } = formMethods;
 
-
   const submit: SubmitHandler<BankForm> = async (data: BankForm) => {
     const bankValues = data.bank.split('#');
     updateProfile({
