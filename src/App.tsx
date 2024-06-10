@@ -22,7 +22,9 @@ function App(): React.JSX.Element {
       RegisterDataScreen: {
         path: 'verification-email/:token',
       },
-      ResetPinScreen: 'reset',
+      ResetPinScreen: {
+        path: 'reset-password/:token',
+      },
     },
   };
   return (

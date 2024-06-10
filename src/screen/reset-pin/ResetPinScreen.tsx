@@ -7,12 +7,21 @@ import { HeaderBackButton } from '@react-navigation/elements';
 import {
   NavigationProp,
   ParamListBase,
+  RouteProp,
   useNavigation,
+  useRoute,
 } from '@react-navigation/native';
 import SuccessResetPinComponent from './components/SuccessResetPinComponent';
+import resetPasswordToken from 'network/auth/reset-password-token';
+import { LOGIN_SCREEN } from 'navigation/constants';
 
 const ResetPinScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const route = useRoute<RouteProp<ParamListBase>>();
+  const { token } = route.params;
+
+  const [userId, setUserId] = useState('');
+  const [resetToken, setResetToken] = useState('');
   const [progress, setProgress] = useState(1);
 
   const [pin, setPin] = useState('');
@@ -49,6 +58,23 @@ const ResetPinScreen = () => {
       setProgress(progress + 1);
     }
   }, [pin]);
+
+  useEffect(() => {
+    console.log('Token from params: ', token);
+    if (token) {
+      resetPasswordToken(token).then(response => {
+        console.log('Response verification email token: ', response);
+        if (response.result) {
+          setUserId(response.result.user_id);
+          setResetToken(response.result.token);
+        } else if (response.message === 'TokenExpiredError') {
+          navigation.navigate(LOGIN_SCREEN, {
+            isExpired: true,
+          });
+        }
+      });
+    }
+  }, [token]);
 
   useEffect(() => {
     if (confirmPin.length === 6) {

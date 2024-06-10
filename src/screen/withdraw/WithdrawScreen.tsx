@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
 import ProcessWithdrawComponent from './components/ProcessWithdrawComponent';
@@ -10,9 +10,16 @@ import {
   useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
-import createDisbursement, { DisbursementRequest } from 'network/reward/create-disbursement';
+import createDisbursement, {
+  DisbursementRequest,
+} from 'network/reward/create-disbursement';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 const WithdrawScreen = () => {
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
+
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
@@ -40,8 +47,7 @@ const WithdrawScreen = () => {
       if (response.result) {
         setProgress(2);
       } else {
-        console.log('Error');
-        // TODO: show snackbar
+        snackbarRef.current?.showSnackbarUnknownError();
       }
     });
   };
@@ -53,6 +59,7 @@ const WithdrawScreen = () => {
       ) : (
         <SuccessWithdrawComponent />
       )}
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

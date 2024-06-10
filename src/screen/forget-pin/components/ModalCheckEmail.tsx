@@ -5,7 +5,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
-import { RESET_PIN_SCREEN } from 'navigation/constants';
+import { LOGIN_SCREEN, RESET_PIN_SCREEN } from 'navigation/constants';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -33,7 +33,7 @@ const ModalCheckEmail = forwardRef<ModalCheckEmailHandle, ModalCheckEmailProps>(
     };
 
     const openEmail = () => {
-      navigate(RESET_PIN_SCREEN);
+      navigate(LOGIN_SCREEN);
     };
 
     return (

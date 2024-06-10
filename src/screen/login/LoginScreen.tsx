@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { yupResolver } from '@hookform/resolvers/yup';
 import CustomTextInput from 'components/CustomTextInput';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import {
   Image,
@@ -17,9 +17,12 @@ import CustomButton from 'components/CustomButton';
 import {
   NavigationProp,
   ParamListBase,
+  RouteProp,
   useFocusEffect,
+  useRoute,
 } from '@react-navigation/native';
 import { PIN_LOGIN_SCREEN, REGISTER_SCREEN } from 'navigation/constants';
+import CustomSnackbar, { CustomSnackbarHandle } from 'components/CustomSnackbar';
 
 export type LoginForm = {
   email: string;
@@ -33,11 +36,22 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
   navigation: { navigate },
 }) => {
   const [heightView, setHeightView] = useState(0);
+  const { params } = useRoute<RouteProp<ParamListBase>>();
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
 
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
   });
+
+  useEffect(() => {
+    if (params?.isExpired) {
+      snackbarRef?.current?.showSnackbarError(
+        'Reset password has been expired. Please try again.',
+      );
+    }
+  }, [params]);
 
   const formInitialValues: LoginForm = {
     email: '',
@@ -139,6 +153,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
           </Text>
         </Text>
       </View>
+
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

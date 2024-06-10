@@ -28,13 +28,14 @@ const convertUserResponseToNetwork = (response: UserResponse) => {
     joinDate: new Date(),
     level: 1,
     monthlyPurchase: 0,
-    networks: response.network_reference
-      .map(item => ({
-        level: item.level,
-        totalNetwork: item.total_network,
-        totalActive: item.transactions,
-      }))
-      .sort((a, b) => a.level - b.level),
+    networks:
+      response.network_reference
+        ?.map(item => ({
+          level: item.level,
+          totalNetwork: item.total_network,
+          totalActive: item.transactions,
+        }))
+        .sort((a, b) => a.level - b.level) ?? [],
   };
 
   return networkValue;

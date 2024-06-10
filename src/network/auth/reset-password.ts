@@ -1,6 +1,5 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
-import { getUserId } from 'service/StorageUtils';
 
 export type ResetPasswordResponse = {
   message: string;

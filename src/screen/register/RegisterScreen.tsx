@@ -81,11 +81,10 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
       referrer_code: data.referralCode ?? '',
     }).then(response => {
       console.log('Response verification email: ', response.result);
-      if (response.result.status === 'OK') {
+      if (response.result.status) {
         snackbarRef.current?.showSnackbarSuccess('Email berhasil dikirim.');
       } else {
-        console.log('Error');
-        // TODO: show snackbar
+        snackbarRef.current?.showSnackbarUnknownError();
       }
     });
   };
