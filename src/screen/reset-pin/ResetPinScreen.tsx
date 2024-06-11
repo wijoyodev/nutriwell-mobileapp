@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomPin from 'components/CustomPin';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { HeaderBackButton } from '@react-navigation/elements';
@@ -15,6 +15,7 @@ import SuccessResetPinComponent from './components/SuccessResetPinComponent';
 import resetPasswordToken from 'network/auth/reset-password-token';
 import { LOGIN_SCREEN } from 'navigation/constants';
 import updateProfile from 'network/auth/update-profile';
+import CustomSnackbar, { CustomSnackbarHandle } from 'components/CustomSnackbar';
 
 const ResetPinScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -29,6 +30,8 @@ const ResetPinScreen = () => {
   const [confirmPin, setConfirmPin] = useState('');
 
   const [error, setError] = useState('');
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
 
   const headerLeft = (props: any) => (
     <HeaderBackButton {...props} onPress={onBack} />
@@ -63,6 +66,11 @@ const ResetPinScreen = () => {
   useEffect(() => {
     console.log('Token from params: ', token);
     if (token) {
+      setProgress(1);
+      setPin('');
+      setConfirmPin('');
+      setUserId('');
+      setResetToken('');
       resetPasswordToken(token).then(response => {
         console.log('Response verification email token: ', response);
         if (response.result) {
@@ -96,9 +104,14 @@ const ResetPinScreen = () => {
         confirm_password: confirmPin,
       },
       resetToken,
+      userId,
     ).then(response => {
       console.log('Response update new pin: ', response);
-      setProgress(progress + 1);
+      if (response.result?.status) {
+        setProgress(progress + 1);
+      } else {
+        snackbarRef?.current?.showSnackbarUnknownError();
+      }
     });
   };
 
@@ -152,6 +165,7 @@ const ResetPinScreen = () => {
         </View>
       )}
       {progress === 3 && <SuccessResetPinComponent />}
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

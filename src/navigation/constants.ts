@@ -26,3 +26,4 @@ export const TERMS_AND_CONDITION_SCREEN = 'TermsAndConditionScreen';
 export const MAIN_HOME = 'main-home';
 export const INVOICE_SCREEN = 'InvoiceScreen';
 export const TRACKING_SCREEN = 'TrackingScreen';
+export const BANNER_CONTENT_SCREEN = 'BannerContentScreen';

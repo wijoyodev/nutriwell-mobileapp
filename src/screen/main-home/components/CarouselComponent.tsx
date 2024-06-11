@@ -1,32 +1,28 @@
 /* eslint-disable react-native/no-inline-styles */
-import { imageUrlTes } from 'mock-api/constant';
 import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
   LayoutChangeEvent,
+  TouchableOpacity,
   View,
   useWindowDimensions,
 } from 'react-native';
 import Colors from 'themes/Colors';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import useGetBanner from '../service/useGetBanner';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import { BANNER_CONTENT_SCREEN } from 'navigation/constants';
 
 export type CarouselItem = {
   imageUrl: string;
+  title: string;
+  description: string;
 };
-
-const data: CarouselItem[] = [
-  {
-    imageUrl: imageUrlTes,
-  },
-  {
-    imageUrl: imageUrlTes,
-  },
-  {
-    imageUrl: imageUrlTes,
-  },
-];
 
 type CarouselRenderType = {
   item: CarouselItem;
@@ -34,6 +30,7 @@ type CarouselRenderType = {
 };
 
 const CarouselComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const { width } = useWindowDimensions();
   const [heightView, setHeightView] = useState(0);
   const [index, setIndex] = useState(0);
@@ -52,10 +49,13 @@ const CarouselComponent = () => {
 
   const renderItem = (info: CarouselRenderType) => {
     return (
-      <Image
-        source={{ uri: info.item.imageUrl }}
-        style={{ height: 150, width: width - 32, borderRadius: 22 }}
-      />
+      <TouchableOpacity
+        onPress={() => navigate(BANNER_CONTENT_SCREEN, info.item)}>
+        <Image
+          source={{ uri: info.item.imageUrl }}
+          style={{ height: 150, width: width - 32, borderRadius: 22 }}
+        />
+      </TouchableOpacity>
     );
   };
 
@@ -88,7 +88,7 @@ const CarouselComponent = () => {
           useScrollView={true}
         />
         <Pagination
-          dotsLength={data.length}
+          dotsLength={banners?.length ?? 0}
           activeDotIndex={index}
           carouselRef={isCarousel}
           containerStyle={{
@@ -110,7 +110,7 @@ const CarouselComponent = () => {
             marginHorizontal: 0,
             backgroundColor: Colors.orange,
           }}
-          inactiveDotOpacity={0.4}
+          inactiveDotOpacity={1}
           inactiveDotScale={0.8}
           tappableDots={true}
         />

@@ -181,7 +181,9 @@ const patchWithForm = async (url: string, data: any, resetToken?: string) => {
     formData.append(k, data[k]);
   }
 
+  console.log('Headers: ', headers);
   console.log('Form data: ', formData);
+  console.log('URL UPDATE ', API_URL + url);
   let response = await fetch(API_URL + url, {
     method: 'PATCH',
     body: formData,

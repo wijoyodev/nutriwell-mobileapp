@@ -15,6 +15,8 @@ const useGetBanner = () => {
         setBanners(
           response.result.map(item => ({
             imageUrl: item.image_url,
+            title: item.title,
+            description: item.description,
           })),
         );
       });

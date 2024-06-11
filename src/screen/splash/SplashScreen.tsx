@@ -26,7 +26,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
   const checkToken = async () => {
     const token = await getAccessToken();
     if (token) {
-      navigate(HOME_SCREEN)
+      navigate(HOME_SCREEN);
     } else {
       navigate(REGISTER_SCREEN);
     }
@@ -45,22 +45,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
         backgroundColor: Colors.darkBlue,
       }}>
       <Image source={require('../../assets/images/splash_image.png')} />
-      <Button
-        onPress={() => navigate(REGISTER_SCREEN)}
-        title={'Go to register'}
-      />
-
-      <Button onPress={() => navigate(HOME_SCREEN)} title={'Go to home'} />
-
-      <Button
-        onPress={() => Linking.openURL('nutriwell://app/register')}
-        title={'Go to Link URL'}
-      />
-
-      <Button
-        onPress={() => navigate(TRACKING_SCREEN)}
-        title={'Go to Tracking'}
-      />
     </View>
   );
 };

@@ -32,6 +32,7 @@ import {
   INVOICE_SCREEN,
   TRACKING_SCREEN,
   CHECK_OUT_PAYMENT_SCREEN,
+  BANNER_CONTENT_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
 import LoginScreen from 'screen/login/LoginScreen';
@@ -59,6 +60,7 @@ import TermsAndConditionScreen from 'screen/terms-and-condition/TermsAndConditio
 import InvoiceScreen from 'screen/invoice/InvoiceScreen';
 import TrackingScreen from 'screen/tracking/TrackingScreen';
 import CheckOutPaymentScreen from 'screen/check-out-payment/CheckOutPaymentScreen';
+import BannerContentScreen from 'screen/banner-content/BannerContentScreen';
 
 const Stack = createStackNavigator();
 
@@ -262,6 +264,14 @@ const screens: ScreenObject[] = [
     screen: TermsAndConditionScreen,
     options: {
       headerTitle: 'Syarat & Ketentuan',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: BANNER_CONTENT_SCREEN,
+    screen: BannerContentScreen,
+    options: {
+      headerTitle: '',
       headerTitleAlign: 'center',
     },
   },
