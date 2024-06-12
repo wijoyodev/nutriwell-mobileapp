@@ -53,7 +53,7 @@ const ResetPinScreen = () => {
       setConfirmPin('');
       return;
     } else {
-      navigation.goBack();
+      navigation.navigate(LOGIN_SCREEN);
     }
   };
 

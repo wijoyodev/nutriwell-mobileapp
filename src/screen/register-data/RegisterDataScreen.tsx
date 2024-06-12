@@ -13,6 +13,7 @@ import {
   NavigationProp,
   ParamListBase,
   RouteProp,
+  useNavigation,
 } from '@react-navigation/native';
 import { HeaderBackButton } from '@react-navigation/elements';
 import PinConfirmationComponent from './components/PinConfirmationComponent';
@@ -42,7 +43,7 @@ import verificationEmailToken from 'network/auth/verification-email-token';
 import CustomSnackbar, {
   CustomSnackbarHandle,
 } from 'components/CustomSnackbar';
-import { REGISTER_SCREEN } from 'navigation/constants';
+import { HOME_SCREEN, REGISTER_SCREEN } from 'navigation/constants';
 
 export type RegisterDataScreenProps = {
   navigation: NavigationProp<ParamListBase>;
@@ -93,7 +94,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
       setProgress(progress - 1);
       return;
     } else {
-      navigation.goBack();
+      navigation.navigate(REGISTER_SCREEN);
     }
   };
 
