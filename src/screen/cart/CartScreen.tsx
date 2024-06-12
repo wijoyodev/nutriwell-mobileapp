@@ -6,8 +6,8 @@ import FooterCartComponent from './components/FooterCartComponent';
 import ListItemComponent from './components/ListItemComponent';
 import { useFocusEffect } from '@react-navigation/native';
 import useGetCart from './service/useGetCart';
-import addToCart from 'network/shop/add-to-cart';
 import updateCart from 'network/shop/update-cart';
+import deleteCart from 'network/shop/delete-cart';
 
 export type CartItem = {
   id: number;
@@ -48,6 +48,11 @@ const CartScreen = () => {
     let newItems = [];
     if (quantity === 0) {
       newItems = items?.filter(item => item.id !== cartItem.id);
+      deleteCart(cartItem.id).then(response => {
+        if (response.result) {
+          setSuccess(true);
+        }
+      });
     } else {
       newItems =
         items?.map(item => {
@@ -60,18 +65,19 @@ const CartScreen = () => {
 
           return item;
         }) ?? [];
+
+      updateCart(cartItem.id, {
+        quantity,
+        price: cartItem.price,
+        weight: cartItem.weight,
+      }).then(response => {
+        if (response.result) {
+          setSuccess(true);
+        }
+      });
     }
 
     setItems(newItems);
-    updateCart(cartItem.id, {
-      quantity,
-      price: cartItem.price,
-      weight: cartItem.weight,
-    }).then(response => {
-      if (response.result) {
-        setSuccess(true);
-      }
-    });
   };
 
   const renderEmpty = () => {

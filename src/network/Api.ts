@@ -75,6 +75,35 @@ const patch = async (url: string, data: any) => {
   return response;
 };
 
+const deleteApi = async (url: string, data: any) => {
+  const token = await getAccessToken();
+  const headers = token
+    ? {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      }
+    : {
+        'Content-Type': 'application/json',
+      };
+
+  console.log('DELETE ', API_URL + url);
+  let response = await fetch(API_URL + url, {
+    method: 'DELETE',
+    body: JSON.stringify(data),
+    headers: headers,
+  })
+    .then(payload => {
+      return payload.json();
+    })
+    .then(result => {
+      if (result.status === 0 && result.error === 'access_denied') {
+        return handleDenied(() => deleteApi(url, data));
+      }
+      return result;
+    });
+  return response;
+};
+
 const get = async (url: string, data: any = null) => {
   try {
     const token = await getAccessToken();
@@ -265,6 +294,7 @@ const Api = {
   post,
   patch,
   get,
+  deleteApi,
   postWithForm,
   patchWithForm,
 };
