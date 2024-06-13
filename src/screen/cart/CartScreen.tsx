@@ -48,11 +48,6 @@ const CartScreen = () => {
     let newItems = [];
     if (quantity === 0) {
       newItems = items?.filter(item => item.id !== cartItem.id);
-      deleteCart(cartItem.id).then(response => {
-        if (response.result) {
-          setSuccess(true);
-        }
-      });
     } else {
       newItems =
         items?.map(item => {
@@ -65,18 +60,17 @@ const CartScreen = () => {
 
           return item;
         }) ?? [];
-
-      updateCart(cartItem.id, {
-        quantity,
-        price: cartItem.price,
-        weight: cartItem.weight,
-      }).then(response => {
-        if (response.result) {
-          setSuccess(true);
-        }
-      });
     }
 
+    updateCart(cartItem.id, {
+      quantity,
+      price: cartItem.price,
+      weight: cartItem.weight,
+    }).then(response => {
+      if (response.result) {
+        setSuccess(true);
+      }
+    });
     setItems(newItems);
   };
 

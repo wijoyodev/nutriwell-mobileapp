@@ -11,7 +11,6 @@ import CustomRadioButton from 'components/CustomRadioButton';
 import CustomButton from 'components/CustomButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CustomPhoneInput from 'components/CustomPhoneInput';
-import { imageUrlTes } from 'mock-api/constant';
 import Utils from 'service/Utils';
 import CustomProfileImage from 'components/CustomProfileImage';
 
@@ -41,10 +40,12 @@ export type ProfileForm = {
 export type InputProfileComponentProps = {
   email: string;
   onComplete?: (data: ProfileForm) => void;
+  loading: boolean;
 };
 const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
   email,
   onComplete,
+  loading,
 }) => {
   const formInitialValues: ProfileForm = {
     name: '',

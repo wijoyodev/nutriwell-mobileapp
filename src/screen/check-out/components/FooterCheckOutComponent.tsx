@@ -55,6 +55,7 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
       shipment_duration_range: data.shippingOption?.shipmentDurationRange ?? '',
       total_purchase: getTotalPrice() + (data.shippingOption?.price ?? 0),
     };
+
     setLoading(true);
     createOrder(request)
       .then(response => {

@@ -9,6 +9,7 @@ import { checkoutSchema } from './schema/checkoutSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useGetCart from 'screen/cart/service/useGetCart';
 import useGetAddress from './service/useGetAddress';
+import SummaryComponent from './components/SummaryComponent';
 
 export type ShippingOption = {
   name: string;
@@ -72,6 +73,7 @@ const CheckOutScreen = () => {
           <View style={{ flex: 1 }} />
         )}
 
+        <SummaryComponent items={cartItems ?? []} />
         <FooterCheckOutComponent items={cartItems ?? []} />
       </FormProvider>
     </View>

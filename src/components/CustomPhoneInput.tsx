@@ -22,7 +22,7 @@ export type CustomPhoneInputProps = {
   disabled?: boolean;
   code: string;
   onChangeCode?: (text: string) => void;
-  country: string;
+  country?: string;
   onChangeCountry?: (text: string) => void;
 };
 

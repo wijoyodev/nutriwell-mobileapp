@@ -29,6 +29,7 @@ const post = async (url: string, data: any) => {
       };
 
   console.log('POST ', API_URL + url);
+  console.log('Request body: ', data);
   let response = await fetch(API_URL + url, {
     method: 'POST',
     body: JSON.stringify(data),

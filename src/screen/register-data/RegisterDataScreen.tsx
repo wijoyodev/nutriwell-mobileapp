@@ -13,7 +13,6 @@ import {
   NavigationProp,
   ParamListBase,
   RouteProp,
-  useNavigation,
 } from '@react-navigation/native';
 import { HeaderBackButton } from '@react-navigation/elements';
 import PinConfirmationComponent from './components/PinConfirmationComponent';
@@ -40,10 +39,10 @@ import {
   setUserId,
 } from 'service/StorageUtils';
 import verificationEmailToken from 'network/auth/verification-email-token';
+import { REGISTER_SCREEN } from 'navigation/constants';
 import CustomSnackbar, {
   CustomSnackbarHandle,
 } from 'components/CustomSnackbar';
-import { HOME_SCREEN, REGISTER_SCREEN } from 'navigation/constants';
 
 export type RegisterDataScreenProps = {
   navigation: NavigationProp<ParamListBase>;
@@ -54,6 +53,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   navigation,
   route,
 }) => {
+  const [loading, setLoading] = useState(false);
   const [emailData, setEmailData] = useState('');
   const [referrerCodeData, setReferrerCodeData] = useState('');
 
@@ -61,6 +61,8 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   const { width } = useWindowDimensions();
   const [progress, setProgress] = useState(1);
   const [selectedPin, setSelectedPin] = useState('');
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
 
   const headerLeft = (props: any) => (
     <HeaderBackButton {...props} onPress={onBack} />
@@ -119,18 +121,24 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
     if (data.image) {
       request.avatar = data.image;
     }
-    register(request).then(handleRegisterResponse);
+    setLoading(true);
+    register(request)
+      .then(handleRegisterResponse)
+      .catch(err => {
+        console.log('Error register: ', err);
+        setLoading(false);
+      });
   };
 
   const handleRegisterResponse = async (
     response: PublicAPIResponse<RegisterResponse>,
   ) => {
-    // setLoading(false);
+    setLoading(false);
     if (response.result) {
       await saveData(response.result);
       nextProgress();
     } else {
-      // handle error
+      snackbarRef?.current?.showSnackbarUnknownError();
     }
   };
 
@@ -204,9 +212,14 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
         />
       )}
       {progress === 3 && (
-        <InputProfileComponent email={emailData} onComplete={registerUser} />
+        <InputProfileComponent
+          email={emailData}
+          onComplete={registerUser}
+          loading={loading}
+        />
       )}
       {progress === 4 && <SuccessRegisterComponent />}
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

@@ -10,7 +10,7 @@ import CustomButton from 'components/CustomButton';
 import CustomPhoneInput from 'components/CustomPhoneInput';
 import CustomPicker from 'components/CustomPicker';
 import CustomTextInput from 'components/CustomTextInput';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -60,7 +60,7 @@ const districtOptions: AddressOption[] = [
 ];
 
 export type ShippingAddressForm = {
-  id: string;
+  id?: string;
   name: string;
   phoneNumber: string;
   code: string;
@@ -74,6 +74,8 @@ export type ShippingAddressForm = {
 const ShippingAddressScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute<RouteProp<ParamListBase>>();
+
+  const [loading, setLoading] = useState(false);
 
   let formInitialValues: ShippingAddressForm = {
     id: '',
@@ -130,14 +132,27 @@ const ShippingAddressScreen = () => {
       address_detail: data.streetAddress,
     };
     console.log(request);
+    setLoading(true);
     if (data.id) {
-      updateAddress(request).then(handleSaveAddress);
+      updateAddress(request)
+        .then(handleSaveAddress)
+        .then(err => {
+          console.log('Error update address: ', err);
+          setLoading(false);
+        });
     } else {
-      createAddress(request).then(handleSaveAddress);
+      createAddress(request)
+        .then(handleSaveAddress)
+        .then(err => {
+          console.log('Error create address: ', err);
+          setLoading(false);
+        });
     }
   };
 
   const handleSaveAddress = (response: any) => {
+    setLoading(false);
+    console.log('Response save address: ', response);
     if (response.result) {
       goBack();
     } else {
@@ -294,6 +309,7 @@ const ShippingAddressScreen = () => {
 
       <View style={{ backgroundColor: Colors.white, padding: 16 }}>
         <CustomButton
+          loading={loading}
           onPress={handleFormSubmit(submit)}
           backgroundColor={Colors.blue}
           text={'SIMPAN'}

@@ -57,9 +57,7 @@ const CustomSnackbar = forwardRef<CustomSnackbarHandle, {}>((_, ref) => {
         label: 'OK',
         onPress: hideSnackbar,
       }}>
-      <Text style={{ color: isError ? Colors.white : Colors.darkGreen }}>
-        {snackbarText}
-      </Text>
+      <Text style={{ color: Colors.white }}>{snackbarText}</Text>
     </Snackbar>
   );
 });

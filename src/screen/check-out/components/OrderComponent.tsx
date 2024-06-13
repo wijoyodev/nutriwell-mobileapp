@@ -88,42 +88,7 @@ const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
             )}
           />
         </View>
-
-        {/* <View style={{ marginBottom: 16 }}>
-          <Text
-            style={{ marginVertical: 12, fontSize: 14, color: Colors.black }}>
-            Metode Pembayaran
-          </Text>
-          <Controller
-            control={control}
-            name={'paymentMethod'}
-            render={({ field: { onChange, value } }) => (
-              <CustomPicker
-                value={value}
-                items={paymentMethods}
-                onSelect={onChange}
-                loading={loadingPayment}
-                error={errors?.paymentMethod?.message ?? ''}
-                renderValue={(item: PaymentMethod) => item?.name}
-                renderOption={(item: PaymentMethod) => (
-                  <Text
-                    style={{
-                      color: Colors.black,
-                      fontSize: 14,
-                      paddingVertical: 8,
-                    }}>
-                    {item?.name}
-                  </Text>
-                )}
-                title="Pilih metode pembayaran"
-                placeholder="Pilih metode pembayaran"
-              />
-            )}
-          />
-        </View> */}
       </View>
-
-      <SummaryComponent items={items} />
     </ScrollView>
   );
 };

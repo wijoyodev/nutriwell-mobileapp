@@ -40,6 +40,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
   navigation: { navigate },
 }) => {
   const [heightView, setHeightView] = useState(0);
+  const [loading, setLoading] = useState(false);
   const { params } = useRoute<RouteProp<ParamListBase>>();
 
   const snackbarRef = useRef<CustomSnackbarHandle | null>();
@@ -76,17 +77,24 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
 
   const handleRegister: SubmitHandler<RegisterForm> = (data: RegisterForm) => {
     console.log(data);
+    setLoading(true);
     verificationEmail({
       email: data.email,
       referrer_code: data.referralCode ?? '',
-    }).then(response => {
-      console.log('Response verification email: ', response.result);
-      if (response.result.status) {
-        snackbarRef.current?.showSnackbarSuccess('Email berhasil dikirim.');
-      } else {
-        snackbarRef.current?.showSnackbarUnknownError();
-      }
-    });
+    })
+      .then(response => {
+        setLoading(false);
+        console.log('Response verification email: ', response);
+        if (response.result?.status) {
+          snackbarRef.current?.showSnackbarSuccess('Email berhasil dikirim.');
+        } else {
+          snackbarRef.current?.showSnackbarUnknownError();
+        }
+      })
+      .catch(err => {
+        console.log('Error verification email: ', err);
+        setLoading(false);
+      });
   };
 
   const handleLogin = () => {
@@ -162,6 +170,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
         />
 
         <CustomButton
+          loading={loading}
           onPress={handleFormSubmit(handleRegister)}
           backgroundColor={Colors.blue}
           text={'VERIFIKASI EMAIL'}
