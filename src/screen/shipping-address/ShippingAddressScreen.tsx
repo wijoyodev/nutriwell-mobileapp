@@ -10,7 +10,7 @@ import CustomButton from 'components/CustomButton';
 import CustomPhoneInput from 'components/CustomPhoneInput';
 import CustomPicker from 'components/CustomPicker';
 import CustomTextInput from 'components/CustomTextInput';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -18,6 +18,9 @@ import { shippingAddressSchema } from './schema/shippingAddressSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import updateAddress from 'network/shop/update-address';
 import createAddress, { AddressRequest } from 'network/shop/create-address';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 type AddressOption = {
   name: string;
@@ -76,6 +79,8 @@ const ShippingAddressScreen = () => {
   const { params } = useRoute<RouteProp<ParamListBase>>();
 
   const [loading, setLoading] = useState(false);
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
 
   let formInitialValues: ShippingAddressForm = {
     id: '',
@@ -139,6 +144,7 @@ const ShippingAddressScreen = () => {
         .catch(err => {
           console.log('Error update address: ', err);
           setLoading(false);
+          snackbarRef?.current?.showSnackbarUnknownError();
         });
     } else {
       createAddress(request)
@@ -146,6 +152,7 @@ const ShippingAddressScreen = () => {
         .catch(err => {
           console.log('Error create address: ', err);
           setLoading(false);
+          snackbarRef?.current?.showSnackbarUnknownError();
         });
     }
   };
@@ -315,6 +322,7 @@ const ShippingAddressScreen = () => {
           text={'SIMPAN'}
         />
       </View>
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

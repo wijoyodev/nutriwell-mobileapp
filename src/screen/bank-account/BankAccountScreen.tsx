@@ -9,7 +9,7 @@ import {
 } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import CustomTextInput from 'components/CustomTextInput';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -18,6 +18,9 @@ import CustomPicker from 'components/CustomPicker';
 import updateProfile from 'network/auth/update-profile';
 import { getUserId } from 'service/StorageUtils';
 import useGetBankOptions from './service/useGetBankOptions';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 export type BankOption = {
   name: string;
@@ -33,7 +36,11 @@ export type BankForm = {
 const BankAccountScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute<RouteProp<ParamListBase>>();
-  const { bankOptions, loading } = useGetBankOptions();
+  const { bankOptions } = useGetBankOptions();
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
+
+  const [loading, setLoading] = useState(false);
 
   let formInitialValues: BankForm = {
     bank: '',
@@ -66,18 +73,27 @@ const BankAccountScreen = () => {
 
   const submit: SubmitHandler<BankForm> = async (data: BankForm) => {
     const bankValues = data.bank.split('#');
+    setLoading(true);
     updateProfile({
       account_bank_code: bankValues[1],
       account_bank: bankValues[0],
       account_bank_name: data.accountHolder,
       account_bank_number: data.accountNumber,
-    }).then(response => {
-      if (response.result) {
-        goBack();
-      } else {
-        console.log('Failed: ', response);
-      }
-    });
+    })
+      .then(response => {
+        setLoading(false);
+        if (response.result) {
+          goBack();
+        } else {
+          console.log('Failed: ', response);
+          snackbarRef?.current?.showSnackbarUnknownError();
+        }
+      })
+      .catch(err => {
+        console.log('Error update profile: ', err);
+        setLoading(false);
+        snackbarRef?.current?.showSnackbarUnknownError();
+      });
   };
 
   const bank = watch('bank');
@@ -161,11 +177,13 @@ const BankAccountScreen = () => {
           paddingBottom: 16,
         }}>
         <CustomButton
+          loading={loading}
           onPress={handleFormSubmit(submit)}
           backgroundColor={Colors.blue}
           text={'SIMPAN'}
         />
       </View>
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };

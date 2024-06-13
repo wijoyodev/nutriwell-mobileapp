@@ -31,7 +31,7 @@ const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
-  const { loading, product } = useGetProduct();
+  const { loading, product, isError } = useGetProduct();
   const { loading: loadingCart, cartItems } = useGetCart();
   const mapCartItems = Utils.groupBy(
     cartItems ?? [],
@@ -49,6 +49,12 @@ const ShopHomeScreen = () => {
       setQuantity(0);
     }
   }, [cartItems]);
+
+  useEffect(() => {
+    if (isError) {
+      snackbarRef?.current?.showSnackbarUnknownError();
+    }
+  }, [isError]);
 
   const handleAddToCart = () => {
     const cartItemList: CartItem[] = mapCartItems.get(product?.id) ?? [];

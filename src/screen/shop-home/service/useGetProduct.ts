@@ -12,27 +12,35 @@ type Product = {
 
 const useGetProduct = () => {
   const [product, setProduct] = useState<Product>();
-  const [loading, setLoading] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   useFocusEffect(
     useCallback(() => {
+      setIsError(false);
       setLoading(true);
-      getProduct().then(response => {
-        setLoading(false);
+      getProduct()
+        .then(response => {
+          setLoading(false);
 
-        const productValue: Product = {
-          id: response.result[0].id,
-          name: response.result[0].product_name,
-          imageUrl: response.result[0].product_images?.[0] ?? '',
-          price: response.result[0].price,
-          description: response.result[0].description,
-        };
-        setProduct(productValue);
-      });
+          const productValue: Product = {
+            id: response.result[0].id,
+            name: response.result[0].product_name,
+            imageUrl: response.result[0].product_images?.[0] ?? '',
+            price: response.result[0].price,
+            description: response.result[0].description,
+          };
+          setProduct(productValue);
+        })
+        .catch(err => {
+          console.log('Error get product: ', err);
+          setLoading(false);
+          setIsError(true);
+        });
     }, []),
   );
 
-  return { loading, product };
+  return { loading, product, isError };
 };
 
 export default useGetProduct;

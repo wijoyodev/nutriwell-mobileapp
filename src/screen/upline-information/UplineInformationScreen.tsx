@@ -1,18 +1,30 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useFocusEffect } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ActivityIndicator, StatusBar, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import useGetUpline from './service/useGetUpline';
 import CustomProfileImage from 'components/CustomProfileImage';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 const UplineInformationScreen = () => {
-  const { upline, loading } = useGetUpline();
+  const { upline, loading, isError } = useGetUpline();
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
+
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);
     StatusBar.setBarStyle('dark-content');
   });
+
+  useEffect(() => {
+    if (isError) {
+      snackbarRef?.current?.showSnackbarUnknownError();
+    }
+  }, [isError]);
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white, padding: 16 }}>
@@ -77,6 +89,7 @@ const UplineInformationScreen = () => {
           </Text>
         </View>
       )}
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };
