@@ -136,14 +136,14 @@ const ShippingAddressScreen = () => {
     if (data.id) {
       updateAddress(request)
         .then(handleSaveAddress)
-        .then(err => {
+        .catch(err => {
           console.log('Error update address: ', err);
           setLoading(false);
         });
     } else {
       createAddress(request)
         .then(handleSaveAddress)
-        .then(err => {
+        .catch(err => {
           console.log('Error create address: ', err);
           setLoading(false);
         });
