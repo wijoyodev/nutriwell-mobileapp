@@ -67,24 +67,33 @@ const ShopHomeScreen = () => {
 
     if (cartItemList.length === 0) {
       request.quantity = 1;
-      addToCart(request).then(response => {
-        console.log('Request add to cart: ', request);
-        console.log('Response add to cart: ', response);
-        setQuantity(quantity + 1);
-        snackbarRef?.current?.showSnackbarSuccess('Success add to cart');
-      });
+      addToCart(request)
+        .then(response => {
+          console.log('Request add to cart: ', request);
+          console.log('Response add to cart: ', response);
+          setQuantity(quantity + 1);
+          snackbarRef?.current?.showSnackbarSuccess('Success add to cart');
+        })
+        .catch(handleError);
     } else {
       const cartItem: CartItem = cartItemList?.[0];
       updateCart(cartItem.id, {
         quantity: cartItem.quantity + 1,
         weight: cartItem.weight,
         price: cartItem.price,
-      }).then(response => {
-        console.log('Response update cart: ', response);
-        setQuantity(quantity + 1);
-        snackbarRef?.current?.showSnackbarSuccess('Success add to cart');
-      });
+      })
+        .then(response => {
+          console.log('Response update cart: ', response);
+          setQuantity(quantity + 1);
+          snackbarRef?.current?.showSnackbarSuccess('Success add to cart');
+        })
+        .catch(handleError);
     }
+  };
+
+  const handleError = (err: any) => {
+    console.log('Error update cart: ', err);
+    snackbarRef?.current?.showSnackbarUnknownError();
   };
 
   const handleBuyNow = () => {
@@ -94,12 +103,14 @@ const ShopHomeScreen = () => {
         product_id: product?.id ?? 0,
         quantity: 1,
       };
-      addToCart(request).then(response => {
-        console.log('Request add to cart: ', request);
-        console.log('Response add to cart: ', response);
-        setQuantity(quantity + 1);
-        navigate(CART_SCREEN);
-      });
+      addToCart(request)
+        .then(response => {
+          console.log('Request add to cart: ', request);
+          console.log('Response add to cart: ', response);
+          setQuantity(quantity + 1);
+          navigate(CART_SCREEN);
+        })
+        .catch(handleError);
     } else {
       navigate(CART_SCREEN);
     }

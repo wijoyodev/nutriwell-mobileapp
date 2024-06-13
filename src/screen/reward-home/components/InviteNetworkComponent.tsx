@@ -14,7 +14,7 @@ const InviteNetworkComponent: React.FC<InviteNetworkComponentProps> = ({
 }) => {
   const shareReferralCode = () => {
     Share.share({
-      message: 'Bagikan Kode Referensi',
+      message: 'Bagikan Kode Referensi: ' + code,
       title: 'Yuk, Ajak Temanmu!',
       url: 'http://nutriwell/code/' + code,
     });

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { View } from 'react-native';
 import Colors from 'themes/Colors';
 import EditProfileComponent from './components/EditProfileComponent';
@@ -14,7 +14,10 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerDataSchema } from 'screen/register-data/schema/registerDataSchema';
 import { ProfileForm } from 'screen/register-data/components/InputProfileComponent';
-import updateProfile, { ProfileRequest, ProfileResponse } from 'network/auth/update-profile';
+import updateProfile, {
+  ProfileRequest,
+  ProfileResponse,
+} from 'network/auth/update-profile';
 import {
   getUserId,
   setAvatar,
@@ -25,10 +28,15 @@ import {
   setPhoneCountryCode,
   setPhoneNumber,
 } from 'service/StorageUtils';
+import CustomSnackbar, { CustomSnackbarHandle } from 'components/CustomSnackbar';
 
 const EditProfileScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute();
+
+  const [loading, setLoading] = useState(false);
+
+  const snackbarRef = useRef<CustomSnackbarHandle | null>();
 
   let formInitialValues: ProfileForm = {
     name: '',
@@ -71,14 +79,23 @@ const EditProfileScreen = () => {
     if (data.image) {
       request.avatar = data.image;
     }
-    updateProfile(request).then(async response => {
-      if (response.result) {
-        await saveData(response.result);
-        goBack();
-      } else {
-        console.log('FAILED');
-      }
-    });
+    setLoading(true);
+    updateProfile(request)
+      .then(async response => {
+        setLoading(false);
+        if (response.result) {
+          await saveData(response.result);
+          goBack();
+        } else {
+          console.log('FAILED: ', response);
+          snackbarRef?.current?.showSnackbarUnknownError();
+        }
+      })
+      .catch(err => {
+        console.log('Error update profile: ', err);
+        setLoading(false);
+        snackbarRef?.current?.showSnackbarUnknownError();
+      });
   };
 
   const saveData = async (response: ProfileResponse) => {
@@ -128,6 +145,7 @@ const EditProfileScreen = () => {
           text={'SIMPAN'}
         />
       </View>
+      <CustomSnackbar ref={el => (snackbarRef.current = el)} />
     </View>
   );
 };
