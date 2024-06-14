@@ -10,11 +10,14 @@ setLocale({
 export const shippingAddressSchema = object().shape({
   id: string(),
   name: string().required(),
-  phoneNumber: string().required(),
+  phoneNumber: string()
+    .required()
+    .matches(/^\d+$/, 'Please insert number')
+    .min(8, 'Min. 8 numbers'),
   province: string().required(),
   code: string().required(),
   city: string().required(),
   district: string().required(),
-  postalCode: string().required(),
+  postalCode: string().matches(/^\d+$/).required(),
   streetAddress: string().required(),
 });

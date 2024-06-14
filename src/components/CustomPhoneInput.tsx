@@ -80,7 +80,7 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = props => {
         <TextInput
           returnKeyLabel="Done"
           returnKeyType="done"
-          keyboardType={'default'}
+          keyboardType={'numeric'}
           {...props}
           placeholder={props.placeholder}
           value={props.value}
