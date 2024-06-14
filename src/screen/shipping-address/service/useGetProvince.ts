@@ -2,9 +2,10 @@ import { useCallback, useState } from 'react';
 
 import { useFocusEffect } from '@react-navigation/native';
 import getProvince, { ProvinceResponse } from 'network/address-list/province';
+import { AddressOption } from '../ShippingAddressScreen';
 
 const useGetProvince = () => {
-  const [provinces, setProvinces] = useState<ProvinceResponse[]>([]);
+  const [provinces, setProvinces] = useState<AddressOption[]>([]);
   const [loading, setLoading] = useState<boolean>();
 
   useFocusEffect(
@@ -13,7 +14,12 @@ const useGetProvince = () => {
       getProvince().then(response => {
         console.log(response);
         setLoading(false);
-        setProvinces(response.result);
+        setProvinces(
+          response.result.map(item => ({
+            id: item.id,
+            name: item.province,
+          })),
+        );
       });
     }, []),
   );

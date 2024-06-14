@@ -22,46 +22,13 @@ import CustomSnackbar, {
   CustomSnackbarHandle,
 } from 'components/CustomSnackbar';
 import useGetProvince from './service/useGetProvince';
+import useGetCity from './service/useGetCity';
+import useGetDistrict from './service/useGetDistrict';
 
-type AddressOption = {
+export type AddressOption = {
+  id: number;
   name: string;
 };
-
-const provinceOptions: AddressOption[] = [
-  {
-    name: 'Jawa Barat',
-  },
-  {
-    name: 'Jawa Tengah',
-  },
-  {
-    name: 'Jawa Timur',
-  },
-];
-
-const cityOptions: AddressOption[] = [
-  {
-    name: 'Bekasi Barat',
-  },
-  {
-    name: 'Bekasi Kota',
-  },
-  {
-    name: 'Bekasi Timur',
-  },
-];
-
-const districtOptions: AddressOption[] = [
-  {
-    name: 'Cikarang Barat',
-  },
-  {
-    name: 'Cikarang Kota',
-  },
-  {
-    name: 'Cikarang Timur',
-  },
-];
 
 export type ShippingAddressForm = {
   id?: string;
@@ -82,8 +49,6 @@ const ShippingAddressScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const snackbarRef = useRef<CustomSnackbarHandle | null>();
-
-  const { provinces } = useGetProvince();
 
   let formInitialValues: ShippingAddressForm = {
     id: '',
@@ -115,6 +80,13 @@ const ShippingAddressScreen = () => {
     setValue,
   } = formMethods;
 
+  const province = watch('province');
+  const city = watch('city');
+
+  const { provinces } = useGetProvince();
+  const { cityList } = useGetCity(parseInt(province.split('#')[0], 10));
+  const { districtList } = useGetDistrict(parseInt(city.split('#')[0], 10));
+
   const renderOption = (item: AddressOption) => (
     <Text
       style={{
@@ -133,9 +105,9 @@ const ShippingAddressScreen = () => {
       recipient_name: data.name,
       recipient_phone_number: data.phoneNumber,
       phone_number_country: data.code,
-      province: data.province,
-      city: data.city,
-      district: data.district,
+      province: data.province.split('#')[1],
+      city: data.city.split('#')[1],
+      district: data.district.split('#')[1],
       postal_code: data.postalCode,
       address_detail: data.streetAddress,
     };
@@ -229,11 +201,14 @@ const ShippingAddressScreen = () => {
             name={'province'}
             render={({ field: { onChange, value } }) => (
               <CustomPicker
-                items={provinceOptions}
+                items={provinces}
                 placeholder={'Pilih provinsi'}
                 renderOption={renderOption}
                 value={value}
-                onSelect={(item: AddressOption) => onChange(item.name)}
+                renderValue={(val: string) => val.split('#')?.[1] ?? ''}
+                onSelect={(item: AddressOption) =>
+                  onChange(`${item.id}#${item.name}`)
+                }
                 error={errors?.province?.message ?? ''}
               />
             )}
@@ -249,11 +224,14 @@ const ShippingAddressScreen = () => {
             name={'city'}
             render={({ field: { onChange, value } }) => (
               <CustomPicker
-                items={cityOptions}
+                items={cityList}
                 placeholder={'Pilih kota'}
                 renderOption={renderOption}
                 value={value}
-                onSelect={(item: AddressOption) => onChange(item.name)}
+                renderValue={(val: string) => val.split('#')?.[1] ?? ''}
+                onSelect={(item: AddressOption) =>
+                  onChange(`${item.id}#${item.name}`)
+                }
                 error={errors?.city?.message ?? ''}
               />
             )}
@@ -269,11 +247,14 @@ const ShippingAddressScreen = () => {
             name={'district'}
             render={({ field: { onChange, value } }) => (
               <CustomPicker
-                items={districtOptions}
+                items={districtList}
                 placeholder={'Pilih kecamatan'}
                 renderOption={renderOption}
                 value={value}
-                onSelect={(item: AddressOption) => onChange(item.name)}
+                renderValue={(val: string) => val.split('#')?.[1] ?? ''}
+                onSelect={(item: AddressOption) =>
+                  onChange(`${item.id}#${item.name}`)
+                }
                 error={errors?.district?.message ?? ''}
               />
             )}
