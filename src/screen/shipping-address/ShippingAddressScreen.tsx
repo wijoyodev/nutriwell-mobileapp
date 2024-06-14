@@ -21,6 +21,7 @@ import createAddress, { AddressRequest } from 'network/shop/create-address';
 import CustomSnackbar, {
   CustomSnackbarHandle,
 } from 'components/CustomSnackbar';
+import useGetProvince from './service/useGetProvince';
 
 type AddressOption = {
   name: string;
@@ -81,6 +82,8 @@ const ShippingAddressScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const snackbarRef = useRef<CustomSnackbarHandle | null>();
+
+  const { provinces } = useGetProvince();
 
   let formInitialValues: ShippingAddressForm = {
     id: '',
