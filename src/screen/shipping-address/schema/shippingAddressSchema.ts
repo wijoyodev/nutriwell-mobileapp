@@ -18,6 +18,9 @@ export const shippingAddressSchema = object().shape({
   code: string().required(),
   city: string().required(),
   district: string().required(),
-  postalCode: string().matches(/^\d+$/).required(),
+  postalCode: string()
+    .matches(/^\d+$/, 'Please insert number')
+    .max(5, 'Max. 5 digits')
+    .required(),
   streetAddress: string().required(),
 });

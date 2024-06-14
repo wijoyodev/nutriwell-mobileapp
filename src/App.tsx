@@ -16,11 +16,9 @@ import Colors from 'themes/Colors';
 // }>;
 
 function App(): React.JSX.Element {
-  useEffect(() => {
-    // mockApi();
-  }, []);
   const config = {
     screens: {
+      LoginScreen: 'login',
       RegisterDataScreen: {
         path: 'verification-email/:token',
       },

@@ -12,10 +12,13 @@ import {
   setUserId,
 } from 'service/StorageUtils';
 import { PublicAPIResponse } from './model';
+import { Linking } from 'react-native';
 const qs = require('qs');
 
 // const API_URL = 'https://api.mentorbaik.com';
 const API_URL = 'https://suitable-evidently-caribou.ngrok-free.app';
+
+const TOKEN_EXPIRED_ERROR = 'TokenExpiredError';
 
 const post = async (url: string, data: any) => {
   const token = await getAccessToken();
@@ -39,7 +42,7 @@ const post = async (url: string, data: any) => {
       return payload.json();
     })
     .then(result => {
-      if (result.status === 0 && result.error === 'access_denied') {
+      if (result.message === TOKEN_EXPIRED_ERROR) {
         return handleDenied(() => post(url, data));
       }
       return result;
@@ -68,7 +71,7 @@ const patch = async (url: string, data: any) => {
       return payload.json();
     })
     .then(result => {
-      if (result.status === 0 && result.error === 'access_denied') {
+      if (result.message === TOKEN_EXPIRED_ERROR) {
         return handleDenied(() => patch(url, data));
       }
       return result;
@@ -97,7 +100,7 @@ const deleteApi = async (url: string, data: any) => {
       return payload.json();
     })
     .then(result => {
-      if (result.status === 0 && result.error === 'access_denied') {
+      if (result.message === TOKEN_EXPIRED_ERROR) {
         return handleDenied(() => deleteApi(url, data));
       }
       return result;
@@ -129,7 +132,7 @@ const get = async (url: string, data: any = null) => {
         return payload.json();
       })
       .then(result => {
-        if (result.status === 0 && result.error === 'access_denied') {
+        if (result.message === TOKEN_EXPIRED_ERROR) {
           return handleDenied(() => get(url, data));
         }
         return result;
@@ -174,7 +177,7 @@ const postWithForm = async (url: string, data: any) => {
     })
     .then(result => {
       console.log('POST Form Result: ', result);
-      if (result.status === 0 && result.error === 'access_denied') {
+      if (result.message === TOKEN_EXPIRED_ERROR) {
         return handleDenied(() => postWithForm(url, data));
       }
       return result;
@@ -224,7 +227,7 @@ const patchWithForm = async (url: string, data: any, resetToken?: string) => {
     })
     .then(result => {
       console.log('PATCH Form Result: ', result);
-      if (result.status === 0 && result.error === 'access_denied') {
+      if (result.message === TOKEN_EXPIRED_ERROR) {
         return handleDenied(() => patchWithForm(url, data));
       }
       return result;
@@ -240,11 +243,9 @@ const patchWithForm = async (url: string, data: any, resetToken?: string) => {
 };
 
 const handleDenied = (callback: () => any) => {
-  return refresh().then(response => {
-    if (response.result) {
-      return callback();
-    }
-  });
+  console.log('handle denied');
+  Linking.openURL(`${API_URL}/login`);
+  // return refresh();
 };
 
 export type RefreshResponse = {
@@ -264,7 +265,13 @@ export type RefreshRequest = {
   refresh_token: string;
 };
 
-const refresh: () => Promise<PublicAPIResponse<RefreshResponse>> = async () => {
+// TODO: need to handle refresh token properly in the future
+const refresh: (
+  callback: () => any,
+) => Promise<PublicAPIResponse<RefreshResponse>> = async (
+  callback: () => any,
+) => {
+  console.log('Call refresh token');
   const token = await getAccessToken();
   const refresh_token = await getRefreshToken();
 
@@ -278,17 +285,22 @@ const refresh: () => Promise<PublicAPIResponse<RefreshResponse>> = async () => {
     request,
   );
 
-  await setAccessToken(response.result.token);
-  await setRefreshToken(response.result.refresh_token);
-  await setEmail(response.result.email);
-  await setFullName(response.result.full_name);
-  await setAvatar(response.result.avatar_url);
-  await setGender(response.result.gender);
-  await setBirthDate(response.result.date_of_birth);
-  await setPhoneNumber(response.result.phone_number);
-  await setUserId(response.result.user_id.toString());
+  console.log('Response refresh: ', response);
+  if (response.result) {
+    await setAccessToken(response.result.token);
+    await setRefreshToken(response.result.refresh_token);
+    await setEmail(response.result.email);
+    await setFullName(response.result.full_name);
+    await setAvatar(response.result.avatar_url);
+    await setGender(response.result.gender);
+    await setBirthDate(response.result.date_of_birth);
+    await setPhoneNumber(response.result.phone_number);
+    await setUserId(response.result.user_id.toString());
 
-  return response;
+    return callback();
+  } else {
+    return null;
+  }
 };
 
 const Api = {
