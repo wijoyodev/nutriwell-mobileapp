@@ -107,7 +107,7 @@ const ShippingAddressScreen = () => {
       phone_number_country: data.code,
       province: data.province.split('#')[1],
       city: data.city.split('#')[1],
-      district: data.district.split('#')[1],
+      district: data.district,
       postal_code: data.postalCode,
       address_detail: data.streetAddress,
     };
@@ -251,10 +251,7 @@ const ShippingAddressScreen = () => {
                 placeholder={'Pilih kecamatan'}
                 renderOption={renderOption}
                 value={value}
-                renderValue={(val: string) => val.split('#')?.[1] ?? ''}
-                onSelect={(item: AddressOption) =>
-                  onChange(`${item.id}#${item.name}`)
-                }
+                onSelect={(item: AddressOption) => onChange(item.name)}
                 error={errors?.district?.message ?? ''}
               />
             )}

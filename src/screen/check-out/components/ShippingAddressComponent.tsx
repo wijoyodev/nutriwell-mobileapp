@@ -11,6 +11,8 @@ import {
 import { SHIPPING_ADDRESS_SCREEN } from 'navigation/constants';
 import { Address } from '../CheckOutScreen';
 import { ShippingAddressForm } from 'screen/shipping-address/ShippingAddressScreen';
+import getProvince from 'network/address-list/province';
+import getCity from 'network/address-list/city';
 
 export type ShippingAddressComponentProps = {
   address: Address;
@@ -22,14 +24,32 @@ const ShippingAddressComponent: React.FC<ShippingAddressComponentProps> = ({
 }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
-  const handleNavigate = () => {
+  const handleNavigate = async () => {
+    let provinceValue = address?.province ?? '';
+    if (provinceValue) {
+      const response = await getProvince();
+      const province = response.result.filter(
+        item => item.province === provinceValue,
+      )[0];
+      provinceValue = `${province.id}#${province.province}`;
+    }
+
+    let cityValue = address?.city ?? '';
+    if (cityValue) {
+      const response = await getCity(parseInt(provinceValue.split('#')[0], 10));
+      const province = response.result.filter(
+        item => item.city === cityValue,
+      )[0];
+      cityValue = `${province.id}#${province.city}`;
+    }
+
     const addressValue: ShippingAddressForm = {
       id: address?.id.toString() ?? '',
       name: address?.name ?? '',
       phoneNumber: address?.phoneNumber ?? '',
       code: address?.code ?? '+62',
-      province: address?.province ?? '',
-      city: address?.city ?? '',
+      province: provinceValue,
+      city: cityValue,
       district: address?.district ?? '',
       streetAddress: address?.streetAddress ?? '',
       postalCode: address?.postalCode ?? '',
