@@ -18,12 +18,14 @@ type WithdrawForm = {
 
 export type ProcessWithdrawComponentProps = {
   onSubmit?: (request: DisbursementRequest) => void;
+  loading?: boolean;
 };
 
 const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
   onSubmit,
+  loading,
 }) => {
-  const { loading, bankAccount } = useGetBankAccount();
+  const { loading: loadingBankAccount, bankAccount } = useGetBankAccount();
   const { params } = useRoute();
   const redeemableReward = params?.redeemableReward ?? 0;
   const formInitialValues: WithdrawForm = {
@@ -127,7 +129,9 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
           }}>
           <Text>AKUN BANK</Text>
 
-          {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
+          {loadingBankAccount && (
+            <ActivityIndicator color={Colors.blue} size={'large'} />
+          )}
           <View
             style={{
               marginTop: 16,
@@ -176,6 +180,7 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
 
       <View style={{ padding: 16 }}>
         <CustomButton
+          loading={loading}
           disabled={!bankAccount?.account_bank}
           onPress={handleFormSubmit(submit)}
           backgroundColor={Colors.blue}

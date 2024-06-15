@@ -39,11 +39,15 @@ const BankAccountComponent: React.FC<BankAccountComponentProps> = () => {
 
       {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
       <TouchableOpacity
-        onPress={() =>
-          navigate(BANK_ACCOUNT_SCREEN, {
-            data: bankAccount,
-          })
-        }
+        onPress={() => {
+          if (bankAccount?.account_bank) {
+            navigate(BANK_ACCOUNT_SCREEN, {
+              data: bankAccount,
+            });
+          } else {
+            navigate(BANK_ACCOUNT_SCREEN);
+          }
+        }}
         style={{
           marginTop: 16,
           padding: 16,

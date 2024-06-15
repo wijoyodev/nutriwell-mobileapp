@@ -116,12 +116,12 @@ const BankAccountScreen = () => {
             value={bank}
             onSelect={(item: BankOption) => {
               console.log('Item Bank: ', item);
-              setValue('bank', `${item.name}-${item.code}`);
+              setValue('bank', `${item.name}#${item.code}`);
             }}
             items={bankOptions}
             placeholder="Pilih akun bank"
             error={errors?.bank?.message ?? ''}
-            renderValue={(item: string) => item.split('#')[0]}
+            renderValue={(item: string) => item?.split('#')?.[0] ?? ''}
             renderOption={(item: BankOption) => (
               <Text
                 style={{
