@@ -33,6 +33,12 @@ const useGetOrderHistory = (status: number, offset: number) => {
         setOrderHistory([]);
       }
       getOrderHistory({ status, offset }).then(response => {
+        console.log(
+          'Response order history list: ',
+          response,
+          ' offset: ',
+          offset,
+        );
         setLoading(false);
 
         const histories: OrderHistory[] = mapOrderHistoryResponse(
@@ -42,7 +48,7 @@ const useGetOrderHistory = (status: number, offset: number) => {
           offset === 0 ? histories : [...orderHistory, ...histories];
         setOrderHistory(orderHistoryList);
       });
-    }, [status, offset]),
+    }, [offset, status]),
   );
 
   return { loading, orderHistory };

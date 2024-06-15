@@ -136,9 +136,12 @@ const ShippingAddressScreen = () => {
     setLoading(false);
     console.log('Response save address: ', response);
     if (response.result) {
+      snackbarRef?.current?.showSnackbarSuccess(
+        'Berhasil mengubah alamat pengiriman.',
+      );
       goBack();
     } else {
-      console.log('Failed');
+      snackbarRef?.current?.showSnackbarUnknownError();
     }
   };
 
@@ -206,9 +209,11 @@ const ShippingAddressScreen = () => {
                 renderOption={renderOption}
                 value={value}
                 renderValue={(val: string) => val.split('#')?.[1] ?? ''}
-                onSelect={(item: AddressOption) =>
-                  onChange(`${item.id}#${item.name}`)
-                }
+                onSelect={(item: AddressOption) => {
+                  onChange(`${item.id}#${item.name}`);
+                  setValue('city', '');
+                  setValue('district', '');
+                }}
                 error={errors?.province?.message ?? ''}
               />
             )}
@@ -229,9 +234,10 @@ const ShippingAddressScreen = () => {
                 renderOption={renderOption}
                 value={value}
                 renderValue={(val: string) => val.split('#')?.[1] ?? ''}
-                onSelect={(item: AddressOption) =>
-                  onChange(`${item.id}#${item.name}`)
-                }
+                onSelect={(item: AddressOption) => {
+                  onChange(`${item.id}#${item.name}`);
+                  setValue('district', '');
+                }}
                 error={errors?.city?.message ?? ''}
               />
             )}

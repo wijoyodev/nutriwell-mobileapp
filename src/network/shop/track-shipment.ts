@@ -18,7 +18,7 @@ type ApiCallGetTrackShipment = (
   shipmentNumber: string,
 ) => Promise<PublicAPIResponse<TrackShipmentResponse>>;
 
-const getTrackShipmentEndpoint = '/order/track/';
+const getTrackShipmentEndpoint = '/order/track';
 const getTrackShipment: ApiCallGetTrackShipment = async (
   shipmentNumber: string,
 ) => {

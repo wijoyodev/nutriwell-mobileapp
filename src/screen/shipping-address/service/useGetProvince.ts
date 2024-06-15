@@ -12,7 +12,6 @@ const useGetProvince = () => {
     useCallback(() => {
       setLoading(true);
       getProvince().then(response => {
-        console.log(response);
         setLoading(false);
         setProvinces(
           response.result.map(item => ({

@@ -16,7 +16,7 @@ import { Linking } from 'react-native';
 const qs = require('qs');
 
 // const API_URL = 'https://api.mentorbaik.com';
-const API_URL = 'https://suitable-evidently-caribou.ngrok-free.app';
+const API_URL = 'https://witty-previously-sunbeam.ngrok-free.app';
 
 const TOKEN_EXPIRED_ERROR = 'TokenExpiredError';
 

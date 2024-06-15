@@ -40,8 +40,7 @@ const Status = new Map<number, Status>([
           <Text>Silakan lakukan pembayaran paling lambat </Text>
           <Text style={{ fontWeight: 'bold' }}>
             {dayjs(paymentDate).format('DD MMM YYYY HH:mm')}
-          </Text>{' '}
-          <Text>dengan metode {method}</Text>
+          </Text>
         </>
       ),
     },

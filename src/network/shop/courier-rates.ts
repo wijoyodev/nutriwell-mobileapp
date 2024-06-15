@@ -19,6 +19,7 @@ export type CalculateCourierRatesResponse = {
   duration: string;
   shipment_duration_range: string;
   price: number;
+  type: string;
 };
 
 type ApiCallCalculateCourierRates = (

@@ -25,6 +25,7 @@ const useGetShippingOption = (postalCode: number, cartItems: CartItem[]) => {
       };
 
       calculateCourierRates(request).then(response => {
+        console.log('Response courier rates: ', response);
         setLoading(false);
         setShippingOptions(convertShippingOptions(response.result));
       });
@@ -44,7 +45,7 @@ const convertShippingOptions = (response: CalculateCourierRatesResponse[]) => {
     courierName: courier.courier_name,
     courierCompany: courier.company,
     courierServiceName: courier.courier_service_name,
-    courierType: courier.service_type,
+    courierType: courier.type,
     shipmentDurationRange: courier.shipment_duration_range,
     price: courier.price,
     etd: courier.duration,

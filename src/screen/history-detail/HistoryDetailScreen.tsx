@@ -33,9 +33,8 @@ const HistoryDetailScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <ScrollView
-        stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1 }}>
+        style={{ paddingBottom: 16 }}>
         {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
         {history !== undefined && (
           <>
@@ -53,7 +52,7 @@ const HistoryDetailScreen = () => {
           <CustomButton
             onPress={() => {
               navigate(CHECK_OUT_PAYMENT_SCREEN, {
-                invoice_url: history.invoiceUrl,
+                invoice_url: history?.payment.paymentUrl,
                 isHistory: true,
               });
             }}

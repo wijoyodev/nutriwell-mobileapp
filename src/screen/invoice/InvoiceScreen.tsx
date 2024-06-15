@@ -54,7 +54,7 @@ const InvoiceScreen = () => {
             <OrderSummaryComponent invoice={invoice} />
             <OrderMethodComponent invoice={invoice} />
           </ScrollView>
-          <CustomButton
+          {/* <CustomButton
             containerStyle={{
               margin: 16,
               marginTop: 0,
@@ -64,7 +64,7 @@ const InvoiceScreen = () => {
             text={'DOWNLOAD'}
             backgroundColor={Colors.white}
             textStyle={{ color: Colors.blue }}
-          />
+          /> */}
         </>
       )}
     </View>

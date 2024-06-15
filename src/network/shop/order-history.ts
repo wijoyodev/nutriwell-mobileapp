@@ -68,7 +68,7 @@ type ApiCallGetOrderHistory = (
   request: OrderHistoryRequest,
 ) => Promise<PublicAPIResponse<OrderHistoryResponse>>;
 
-const getOrderHistoryEndpoint = '/orders';
+const getOrderHistoryEndpoint = '/order';
 const getOrderHistory: ApiCallGetOrderHistory = async (
   request: OrderHistoryRequest,
 ) => {

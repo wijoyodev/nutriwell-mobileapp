@@ -12,10 +12,12 @@ const TrackingScreen = () => {
   const { params } = useRoute<RouteProp<ParamListBase>>();
   const { tracking, loading } = useGetTracking(params?.shipment_number);
 
-  const timelineItems = tracking?.history?.map(item => ({
-    description: item.note,
-    date: new Date(item.updated_at),
-  }));
+  const timelineItems = tracking?.history
+    ?.map(item => ({
+      description: item.note,
+      date: new Date(item.updated_at),
+    }))
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
       <View

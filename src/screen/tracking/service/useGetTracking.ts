@@ -12,6 +12,7 @@ const useGetTracking = (shipmentNumber: string) => {
     useCallback(() => {
       setLoading(true);
       getTrackShipment(shipmentNumber).then(response => {
+        console.log('Response track: ', response.result.history);
         setLoading(false);
         setTracking(response.result);
       });
