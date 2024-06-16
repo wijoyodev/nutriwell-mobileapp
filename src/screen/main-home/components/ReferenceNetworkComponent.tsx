@@ -96,9 +96,9 @@ const ReferenceNetworkComponent = () => {
         </Text>
       </View>
 
-      {(network?.networks?.length ?? 0) > 0 ? (
+      {(network?.length ?? 0) > 0 ? (
         <>
-          <FlatList data={network?.networks} renderItem={renderItem} />
+          <FlatList data={network ?? []} renderItem={renderItem} />
 
           <Text style={{ fontStyle: 'italic', marginTop: 12 }}>
             *Sudah bertransaksi = dalam bulan ini

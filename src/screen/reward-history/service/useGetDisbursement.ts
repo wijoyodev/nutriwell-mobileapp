@@ -27,8 +27,8 @@ const useGetDisbursement = (offset: number) => {
           offset === 0 ? list : [...disbursementHistory, ...list];
         setDisbursementHistory(data);
 
-        setTotalWithdraw(response.result.disburse_success.total_value);
-        setTotalReward(response.result.total_rewards);
+        setTotalWithdraw(response.result.disburse_success?.total_value ?? 0);
+        setTotalReward(response.result.total_rewards ?? 0);
       });
     }, [offset]),
   );

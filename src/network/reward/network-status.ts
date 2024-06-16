@@ -1,5 +1,6 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
+import { getUserId } from 'service/StorageUtils';
 
 export type NetworkDetailResponse = {
   totalStat: {
@@ -26,12 +27,14 @@ export type NetworkDetailResponse = {
 };
 
 type ApiCallGetNetworkStatus = (
-  id: string,
+  id?: string,
 ) => Promise<PublicAPIResponse<NetworkDetailResponse>>;
 
 const getNetworkStatusEndpoint = '/network/status';
-const getNetworkStatus: ApiCallGetNetworkStatus = async (id: string) => {
-  const response = await Api.get(getNetworkStatusEndpoint, { user_id: id });
+const getNetworkStatus: ApiCallGetNetworkStatus = async (id?: string) => {
+  const userId = await getUserId();
+  let user_id = id ? id : userId;
+  const response = await Api.get(getNetworkStatusEndpoint, { user_id });
 
   return response;
 };

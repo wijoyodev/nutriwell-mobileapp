@@ -58,6 +58,7 @@ const WithdrawScreen = () => {
       .catch(err => {
         console.log('Error create disbursement: ', err);
         setLoading(false);
+        snackbarRef.current?.showSnackbarUnknownError();
       });
   };
 
