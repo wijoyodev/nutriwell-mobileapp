@@ -37,7 +37,7 @@
         <category android:name="android.intent.category.BROWSABLE" />
 
         <data android:scheme="https" />
-        <data android:host="suitable-evidently-caribou.ngrok-free.app" />
+        <data android:host="witty-previously-sunbeam.ngrok-free.app" />
       </intent-filter>
     </activity>
   </application>

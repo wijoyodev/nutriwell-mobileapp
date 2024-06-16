@@ -7,6 +7,7 @@
 
 import { NavigationContainer } from '@react-navigation/native';
 import Router from 'navigation/Router';
+import { API_URL } from 'network/Api';
 import React, { useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import Colors from 'themes/Colors';
@@ -35,7 +36,7 @@ function App(): React.JSX.Element {
       <NavigationContainer
         linking={{
           prefixes: [
-            'https://suitable-evidently-caribou.ngrok-free.app', // Universal Link
+            API_URL, // Universal Link
           ],
           config,
         }}>
