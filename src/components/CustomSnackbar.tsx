@@ -55,6 +55,9 @@ const CustomSnackbar = forwardRef<CustomSnackbarHandle, {}>((_, ref) => {
       onDismiss={hideSnackbar}
       action={{
         label: 'OK',
+        labelStyle: {
+          color: Colors.white,
+        },
         onPress: hideSnackbar,
       }}>
       <Text style={{ color: Colors.white }}>{snackbarText}</Text>

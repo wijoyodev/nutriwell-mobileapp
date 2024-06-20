@@ -299,6 +299,7 @@ const Router = () => {
       initialRouteName={'SplashScreen'}
       screenOptions={{
         // headerShown: false,
+        headerBackTitleVisible: false,
         gestureEnabled: false,
       }}
       screenListeners={({ navigation }) => ({
