@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useRef, useState } from 'react';
-import { StatusBar, View } from 'react-native';
+import { SafeAreaView, StatusBar, View } from 'react-native';
 import Colors from 'themes/Colors';
 import ProcessWithdrawComponent from './components/ProcessWithdrawComponent';
 import SuccessWithdrawComponent from './components/SuccessWithdrawComponent';
@@ -63,14 +63,14 @@ const WithdrawScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.white }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       {progress === 1 ? (
         <ProcessWithdrawComponent loading={loading} onSubmit={handleSubmit} />
       ) : (
         <SuccessWithdrawComponent />
       )}
       <CustomSnackbar ref={el => (snackbarRef.current = el)} />
-    </View>
+    </SafeAreaView>
   );
 };
 

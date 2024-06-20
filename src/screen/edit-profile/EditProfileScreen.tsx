@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
 import React, { useRef, useState } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import Colors from 'themes/Colors';
 import EditProfileComponent from './components/EditProfileComponent';
 import {
@@ -129,7 +129,7 @@ const EditProfileScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.white }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <FormProvider {...formMethods}>
         <EditProfileComponent countryCode={code} />
       </FormProvider>
@@ -146,7 +146,7 @@ const EditProfileScreen = () => {
         />
       </View>
       <CustomSnackbar ref={el => (snackbarRef.current = el)} />
-    </View>
+    </SafeAreaView>
   );
 };
 

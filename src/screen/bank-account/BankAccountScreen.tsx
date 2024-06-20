@@ -11,7 +11,7 @@ import CustomButton from 'components/CustomButton';
 import CustomTextInput from 'components/CustomTextInput';
 import React, { useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { ScrollView, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { bankSchema } from './schema/bankSchema';
 import CustomPicker from 'components/CustomPicker';
@@ -99,7 +99,7 @@ const BankAccountScreen = () => {
   const bank = watch('bank');
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.white }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ flex: 1, paddingHorizontal: 16 }}>
@@ -184,7 +184,7 @@ const BankAccountScreen = () => {
         />
       </View>
       <CustomSnackbar ref={el => (snackbarRef.current = el)} />
-    </View>
+    </SafeAreaView>
   );
 };
 

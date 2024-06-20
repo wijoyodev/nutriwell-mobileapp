@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, StatusBar, Text, View } from 'react-native';
+import { ActivityIndicator, Image, SafeAreaView, StatusBar, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import FooterCartComponent from './components/FooterCartComponent';
 import ListItemComponent from './components/ListItemComponent';
@@ -94,7 +94,7 @@ const CartScreen = () => {
   };
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: Colors.white,
@@ -111,7 +111,7 @@ const CartScreen = () => {
       ) : (
         renderEmpty()
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

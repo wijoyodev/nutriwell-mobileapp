@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, View } from 'react-native';
 import OrderComponent from './components/OrderComponent';
 import Colors from 'themes/Colors';
 import FooterCheckOutComponent from './components/FooterCheckOutComponent';
@@ -64,7 +64,7 @@ const CheckOutScreen = () => {
   const { setValue } = formMethods;
 
   return (
-    <View style={{ backgroundColor: Colors.white, flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: Colors.white, flex: 1 }}>
       <FormProvider {...formMethods}>
         {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
         {cartItems !== undefined ? (
@@ -76,7 +76,7 @@ const CheckOutScreen = () => {
         <SummaryComponent items={cartItems ?? []} />
         <FooterCheckOutComponent items={cartItems ?? []} />
       </FormProvider>
-    </View>
+    </SafeAreaView>
   );
 };
 

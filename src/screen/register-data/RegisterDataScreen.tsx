@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
+  SafeAreaView,
   Text,
   View,
   useWindowDimensions,
@@ -177,7 +178,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   }
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: Colors.white,
@@ -220,7 +221,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
       )}
       {progress === 4 && <SuccessRegisterComponent />}
       <CustomSnackbar ref={el => (snackbarRef.current = el)} />
-    </View>
+    </SafeAreaView>
   );
 };
 

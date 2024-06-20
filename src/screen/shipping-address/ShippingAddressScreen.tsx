@@ -12,7 +12,7 @@ import CustomPicker from 'components/CustomPicker';
 import CustomTextInput from 'components/CustomTextInput';
 import React, { useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { ScrollView, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import { shippingAddressSchema } from './schema/shippingAddressSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -148,7 +148,7 @@ const ShippingAddressScreen = () => {
   const code = watch('code');
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: Colors.white,
@@ -310,7 +310,7 @@ const ShippingAddressScreen = () => {
         />
       </View>
       <CustomSnackbar ref={el => (snackbarRef.current = el)} />
-    </View>
+    </SafeAreaView>
   );
 };
 

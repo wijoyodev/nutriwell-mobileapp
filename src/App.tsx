@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -9,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Router from 'navigation/Router';
 import { API_URL } from 'network/Api';
 import React, { useEffect } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import Colors from 'themes/Colors';
 
 // type SectionProps = PropsWithChildren<{
