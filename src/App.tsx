@@ -8,9 +8,10 @@
 
 import { NavigationContainer } from '@react-navigation/native';
 import Router from 'navigation/Router';
+import { DEEP_LINK_URL } from 'navigation/constants';
 import { API_URL } from 'network/Api';
-import React, { useEffect } from 'react';
-import { KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
+import React from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import Colors from 'themes/Colors';
 
 // type SectionProps = PropsWithChildren<{
@@ -38,6 +39,7 @@ function App(): React.JSX.Element {
         linking={{
           prefixes: [
             API_URL, // Universal Link
+            DEEP_LINK_URL, // Deep Link
           ],
           config,
         }}>

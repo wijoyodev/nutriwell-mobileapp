@@ -13,6 +13,7 @@ import {
 } from 'service/StorageUtils';
 import { PublicAPIResponse } from './model';
 import { Linking } from 'react-native';
+import { LOGIN_SCREEN_LINK } from 'navigation/constants';
 const qs = require('qs');
 
 // const API_URL = 'https://api.mentorbaik.com';
@@ -244,7 +245,7 @@ const patchWithForm = async (url: string, data: any, resetToken?: string) => {
 
 const handleDenied = (callback: () => any) => {
   console.log('handle denied');
-  Linking.openURL(`${API_URL}/login`);
+  Linking.openURL(LOGIN_SCREEN_LINK);
   // return refresh();
 };
 
