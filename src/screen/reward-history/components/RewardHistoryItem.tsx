@@ -25,12 +25,27 @@ const RewardHistoryItem: React.FC<RewardHistoryItemProps> = ({
       <Text style={{ fontSize: 12 }}>
         {dayjs(history.date).format('DD MMMM YYYY')}
       </Text>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text style={{ fontSize: 14, color: Colors.black }}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: Colors.black,
+            flexWrap: 'wrap',
+            flex: 0.7,
+          }}>
           {history.description}
         </Text>
         <Text
           style={{
+            flex: 0.3,
+            textAlign: 'right',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
             fontSize: 14,
             fontWeight: 'bold',
             color: history.isIncome ? Colors.darkGreen : Colors.red,
