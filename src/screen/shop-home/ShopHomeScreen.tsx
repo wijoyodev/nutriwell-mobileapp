@@ -26,6 +26,7 @@ import updateCart from 'network/shop/update-cart';
 import CustomSnackbar, {
   CustomSnackbarHandle,
 } from 'components/CustomSnackbar';
+import ProductImageComponent from './components/ProductImageComponent';
 
 const ShopHomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -125,44 +126,14 @@ const ShopHomeScreen = () => {
           backgroundColor: Colors.white,
         }}>
         <ShopHeaderComponent quantity={quantity} />
-        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {loading && (
             <View style={{ backgroundColor: Colors.blue }}>
               <ActivityIndicator color={Colors.white} size={'large'} />
             </View>
           )}
           {product !== undefined && (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginBottom: 16,
-                paddingTop: 16,
-                position: 'relative',
-              }}>
-              <View
-                style={{
-                  position: 'absolute',
-                  backgroundColor: Colors.blue,
-                  height: height / 4.5,
-                  width: width,
-                  top: 0,
-                  borderBottomStartRadius: 16,
-                  borderBottomEndRadius: 16,
-                }}
-              />
-
-              <Image
-                source={{
-                  uri: product.imageUrl,
-                }}
-                style={{
-                  width: width - 32,
-                  height: height / 2.25,
-                  borderRadius: 16,
-                }}
-              />
-            </View>
+            <ProductImageComponent product={product} carousel={true} />
           )}
 
           <View style={{ paddingHorizontal: 16 }}>

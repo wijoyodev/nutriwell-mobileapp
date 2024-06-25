@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import getProduct from 'network/shop/product';
 
-type Product = {
+export type Product = {
   id: number;
   name: string;
-  imageUrl: string;
+  imageUrls: string[];
   price: number;
   description: string;
 };
@@ -26,7 +26,7 @@ const useGetProduct = () => {
           const productValue: Product = {
             id: response.result[0].id,
             name: response.result[0].product_name,
-            imageUrl: response.result[0].product_images?.[0] ?? '',
+            imageUrls: response.result[0].product_images ?? [],
             price: response.result[0].price,
             description: response.result[0].description,
           };
