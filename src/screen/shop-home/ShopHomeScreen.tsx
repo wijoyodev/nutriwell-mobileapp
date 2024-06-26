@@ -133,7 +133,7 @@ const ShopHomeScreen = () => {
             </View>
           )}
           {product !== undefined && (
-            <ProductImageComponent product={product} carousel={true} />
+            <ProductImageComponent product={product} carousel={false} />
           )}
 
           <View style={{ paddingHorizontal: 16 }}>
