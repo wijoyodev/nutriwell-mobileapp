@@ -10,7 +10,7 @@ import CustomButton from 'components/CustomButton';
 import CustomPhoneInput from 'components/CustomPhoneInput';
 import CustomPicker from 'components/CustomPicker';
 import CustomTextInput from 'components/CustomTextInput';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -83,9 +83,40 @@ const ShippingAddressScreen = () => {
   const province = watch('province');
   const city = watch('city');
 
-  const { provinces } = useGetProvince();
-  const { cityList } = useGetCity(parseInt(province.split('#')[0], 10));
+  const { provinces, fetched: provinceFetched } = useGetProvince();
+  const { cityList, fetched: cityFetched } = useGetCity(
+    parseInt(province.split('#')[0], 10),
+  );
   const { districtList } = useGetDistrict(parseInt(city.split('#')[0], 10));
+
+  const [provinceList, setProvinceList] = useState<AddressOption[]>([]);
+  const [cityPickerList, setCityPickerList] = useState<AddressOption[]>([]);
+
+  useEffect(() => {
+    if (provinceFetched) {
+      setProvinceList(provinces);
+    }
+  }, [provinceFetched, provinces]);
+
+  useEffect(() => {
+    if (cityFetched) {
+      setCityPickerList(cityList);
+    }
+  }, [cityFetched, cityList]);
+
+  const handleSearchProvince = (text: string) => {
+    const provinceValues = provinces.filter(item =>
+      item.name.toLowerCase().includes(text.toLowerCase()),
+    );
+    setProvinceList(provinceValues);
+  };
+
+  const handleSearchCity = (text: string) => {
+    const cityValues = cityList.filter(item =>
+      item.name.toLowerCase().includes(text.toLowerCase()),
+    );
+    setCityPickerList(cityValues);
+  };
 
   const renderOption = (item: AddressOption) => (
     <Text
@@ -208,6 +239,9 @@ const ShippingAddressScreen = () => {
                 placeholder={'Pilih provinsi'}
                 renderOption={renderOption}
                 value={value}
+                enableSearch={true}
+                placeholderSearch={'Cari provinsi'}
+                onChangeSearch={handleSearchProvince}
                 renderValue={(val: string) => val.split('#')?.[1] ?? ''}
                 onSelect={(item: AddressOption) => {
                   onChange(`${item.id}#${item.name}`);
@@ -234,6 +268,9 @@ const ShippingAddressScreen = () => {
                 renderOption={renderOption}
                 value={value}
                 renderValue={(val: string) => val.split('#')?.[1] ?? ''}
+                enableSearch={true}
+                placeholderSearch={'Cari kota'}
+                onChangeSearch={handleSearchCity}
                 onSelect={(item: AddressOption) => {
                   onChange(`${item.id}#${item.name}`);
                   setValue('district', '');

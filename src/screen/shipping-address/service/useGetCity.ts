@@ -7,6 +7,7 @@ import { AddressOption } from '../ShippingAddressScreen';
 const useGetCity = (id: number) => {
   const [cityList, setCityList] = useState<AddressOption[]>([]);
   const [loading, setLoading] = useState<boolean>();
+  const [fetched, setFetched] = useState<boolean>(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -21,6 +22,7 @@ const useGetCity = (id: number) => {
               name: item.city,
             })),
           );
+          setFetched(true);
         });
       } else {
         setCityList([]);
@@ -28,7 +30,7 @@ const useGetCity = (id: number) => {
     }, [id]),
   );
 
-  return { loading, cityList };
+  return { loading, cityList, fetched };
 };
 
 export default useGetCity;

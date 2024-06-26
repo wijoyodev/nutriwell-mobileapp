@@ -7,6 +7,7 @@ import { AddressOption } from '../ShippingAddressScreen';
 const useGetProvince = () => {
   const [provinces, setProvinces] = useState<AddressOption[]>([]);
   const [loading, setLoading] = useState<boolean>();
+  const [fetched, setFetched] = useState<boolean>(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -19,11 +20,12 @@ const useGetProvince = () => {
             name: item.province,
           })),
         );
+        setFetched(true);
       });
     }, []),
   );
 
-  return { loading, provinces };
+  return { loading, provinces, fetched };
 };
 
 export default useGetProvince;
