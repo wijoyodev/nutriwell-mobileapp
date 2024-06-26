@@ -5,6 +5,7 @@ import {
   FlatList,
   ListRenderItemInfo,
   Text,
+  TextInput,
   TextStyle,
   TouchableOpacity,
   View,
@@ -27,6 +28,9 @@ export type CustomPickerProps = {
   renderValue?: (a: any) => any;
   onSelect?: (item: any) => void;
   loading?: boolean;
+  enableSearch?: boolean;
+  placeholderSearch?: string;
+  onChangeSearch?: (text: string) => void;
 };
 
 const CustomPicker: React.FC<CustomPickerProps> = props => {
@@ -98,30 +102,58 @@ const CustomPicker: React.FC<CustomPickerProps> = props => {
           {props.loading && (
             <ActivityIndicator color={Colors.blue} size={'large'} />
           )}
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={props.items}
-            renderItem={(info: ListRenderItemInfo<any>) => (
-              <TouchableOpacity
-                onPress={() => {
-                  props.onSelect?.(info.item);
-                  modalRef.current?.closeModal();
-                }}>
-                {props.renderOption ? (
-                  props.renderOption(info.item)
-                ) : (
-                  <Text
-                    style={{
-                      color: Colors.black,
-                      fontSize: 14,
-                      paddingVertical: 8,
-                    }}>
-                    {info.item}
-                  </Text>
-                )}
-              </TouchableOpacity>
-            )}
-          />
+          {props.enableSearch && (
+            <TextInput
+              placeholderTextColor={Colors.grey2}
+              style={{
+                paddingHorizontal: 0,
+                paddingVertical: 10,
+                borderBottomWidth: 1,
+                borderColor: Colors.grey,
+                color: Colors.black,
+              }}
+              onChangeText={value => {
+                props.onChangeSearch?.(value);
+              }}
+              placeholder={props.placeholderSearch}
+            />
+          )}
+          {(props?.items ?? []).length > 0 ? (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={props.items}
+              renderItem={(info: ListRenderItemInfo<any>) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    props.onSelect?.(info.item);
+                    modalRef.current?.closeModal();
+                  }}>
+                  {props.renderOption ? (
+                    props.renderOption(info.item)
+                  ) : (
+                    <Text
+                      style={{
+                        color: Colors.black,
+                        fontSize: 14,
+                        paddingVertical: 8,
+                      }}>
+                      {info.item}
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              )}
+            />
+          ) : (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: 16,
+              }}>
+              <Text>Tidak ada data</Text>
+            </View>
+          )}
         </View>
       </CustomModal>
     </>

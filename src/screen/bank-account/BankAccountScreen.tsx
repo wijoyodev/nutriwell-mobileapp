@@ -9,7 +9,7 @@ import {
 } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import CustomTextInput from 'components/CustomTextInput';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
@@ -27,6 +27,21 @@ export type BankOption = {
   code: string;
 };
 
+const bankOptionList: BankOption[] = [
+  {
+    name: 'BCA',
+    code: 'BCA',
+  },
+  {
+    name: 'BRI',
+    code: 'BRI',
+  },
+  {
+    name: 'Mandiri',
+    code: 'Mandiri',
+  },
+];
+
 export type BankForm = {
   bank: string;
   accountHolder: string;
@@ -36,11 +51,18 @@ export type BankForm = {
 const BankAccountScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute<RouteProp<ParamListBase>>();
-  const { bankOptions } = useGetBankOptions();
+  const { bankOptions, fetched } = useGetBankOptions();
 
   const snackbarRef = useRef<CustomSnackbarHandle | null>();
 
   const [loading, setLoading] = useState(false);
+  const [bankList, setBankList] = useState<BankOption[]>([]);
+
+  useEffect(() => {
+    if (fetched) {
+      setBankList(bankOptions);
+    }
+  }, [fetched, bankOptions]);
 
   let formInitialValues: BankForm = {
     bank: '',
@@ -96,6 +118,15 @@ const BankAccountScreen = () => {
       });
   };
 
+  const handleSearch = (text: string) => {
+    const bankValues = bankOptions.filter(
+      item =>
+        item.code.toLowerCase().includes(text.toLowerCase()) ||
+        item.name.toLowerCase().includes(text.toLowerCase()),
+    );
+    setBankList(bankValues);
+  };
+
   const bank = watch('bank');
 
   return (
@@ -118,10 +149,13 @@ const BankAccountScreen = () => {
               console.log('Item Bank: ', item);
               setValue('bank', `${item.name}#${item.code}`);
             }}
-            items={bankOptions}
+            items={bankList}
             placeholder="Pilih akun bank"
             error={errors?.bank?.message ?? ''}
             renderValue={(item: string) => item?.split('#')?.[0] ?? ''}
+            enableSearch={true}
+            placeholderSearch={'Search bank'}
+            onChangeSearch={handleSearch}
             renderOption={(item: BankOption) => (
               <Text
                 style={{
