@@ -151,7 +151,7 @@ const CustomPicker: React.FC<CustomPickerProps> = props => {
                 alignItems: 'center',
                 padding: 16,
               }}>
-              <Text>Tidak ada data</Text>
+              {!props.loading && <Text>Tidak ada data</Text>}
             </View>
           )}
         </View>

@@ -235,7 +235,7 @@ const ShippingAddressScreen = () => {
             name={'province'}
             render={({ field: { onChange, value } }) => (
               <CustomPicker
-                items={provinces}
+                items={provinceList}
                 placeholder={'Pilih provinsi'}
                 renderOption={renderOption}
                 value={value}
@@ -263,7 +263,7 @@ const ShippingAddressScreen = () => {
             name={'city'}
             render={({ field: { onChange, value } }) => (
               <CustomPicker
-                items={cityList}
+                items={cityPickerList}
                 placeholder={'Pilih kota'}
                 renderOption={renderOption}
                 value={value}

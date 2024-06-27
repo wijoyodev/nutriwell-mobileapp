@@ -28,6 +28,9 @@ function App(): React.JSX.Element {
       ResetPinScreen: {
         path: 'reset-password/:token',
       },
+      RegisterScreen: {
+        path: 'register/:code',
+      },
     },
   };
   return (

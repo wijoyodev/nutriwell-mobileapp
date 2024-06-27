@@ -4,6 +4,7 @@ import React from 'react';
 import { Share, Text, View } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Colors from 'themes/Colors';
+import { API_URL } from 'network/Api';
 
 export type InviteNetworkComponentProps = {
   code: string;
@@ -13,10 +14,11 @@ const InviteNetworkComponent: React.FC<InviteNetworkComponentProps> = ({
   code,
 }) => {
   const shareReferralCode = () => {
+    const url = API_URL + '/register/' + code;
     Share.share({
-      message: 'Bagikan Kode Referensi: ' + code,
+      message: 'Bagikan Kode Referensi: ' + url,
       title: 'Yuk, Ajak Temanmu!',
-      url: 'http://nutriwell/code/' + code,
+      url,
     });
   };
 

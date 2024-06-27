@@ -58,10 +58,17 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
     }
   }, [params]);
 
-  const formInitialValues: RegisterForm = {
+  let formInitialValues: RegisterForm = {
     email: '',
     referralCode: '',
   };
+
+  if (params?.code) {
+    formInitialValues = {
+      email: '',
+      referralCode: params?.code,
+    };
+  }
 
   const formMethods = useForm({
     resolver: yupResolver(registerFormSchema),
@@ -72,7 +79,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
   const {
     control,
     handleSubmit: handleFormSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = formMethods;
 
   const handleRegister: SubmitHandler<RegisterForm> = (data: RegisterForm) => {
@@ -150,6 +157,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
               value={value}
               onChangeText={onChange}
               placeholder={'Masukkan email Anda'}
+              error={errors?.email?.message ?? ''}
             />
           )}
         />
