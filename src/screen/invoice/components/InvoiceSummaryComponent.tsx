@@ -56,12 +56,18 @@ const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({
       </View>
 
       <View style={{ padding: 16 }}>
-        <Text>PENGIRIMAN</Text>
+        <Text style={{ marginBottom: 4 }}>PENGIRIMAN</Text>
 
-        <Text style={{ fontSize: 14, color: Colors.black, fontWeight: 'bold' }}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: Colors.black,
+            fontWeight: 'bold',
+            marginBottom: 4,
+          }}>
           {invoice?.shippingAddress?.name}
         </Text>
-        <Text style={{ fontSize: 14, color: Colors.black }}>
+        <Text style={{ fontSize: 14, color: Colors.black, marginBottom: 4 }}>
           {invoice?.shippingAddress?.phoneNumber}
         </Text>
         <Text style={{ fontSize: 14, color: Colors.black, lineHeight: 20 }}>

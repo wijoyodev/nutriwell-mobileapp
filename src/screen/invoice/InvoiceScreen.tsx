@@ -23,6 +23,7 @@ export type Invoice = {
   shippingCost: number;
   shippingOption: ShippingOption;
   paymentMethod: PaymentInfo;
+  tax: number;
 };
 
 const InvoiceScreen = () => {
@@ -32,13 +33,14 @@ const InvoiceScreen = () => {
   const convertHistoryToInvoice = (data: HistoryDetail) => {
     const invoice: Invoice = {
       orderId: data.orderId,
-      totalPayment: data.totalPurchase,
+      totalPayment: data.totalPurchaseAfterTax,
       paymentDate: data.payment.approvedDate ?? new Date(),
       shippingAddress: { ...data.shippingAddress, code: '' },
       items: data.items,
       shippingCost: data.shipping.price,
       shippingOption: { ...data.shipping, etd: '' },
       paymentMethod: data.payment,
+      tax: params?.tax,
     };
     return invoice;
   };

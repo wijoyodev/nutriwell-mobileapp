@@ -33,6 +33,7 @@ import {
   TRACKING_SCREEN,
   CHECK_OUT_PAYMENT_SCREEN,
   BANNER_CONTENT_SCREEN,
+  BUSINESS_DESCRIPTION_SCREEN,
 } from './constants';
 import HomeScreen from 'screen/home/HomeScreen';
 import LoginScreen from 'screen/login/LoginScreen';
@@ -61,6 +62,7 @@ import InvoiceScreen from 'screen/invoice/InvoiceScreen';
 import TrackingScreen from 'screen/tracking/TrackingScreen';
 import CheckOutPaymentScreen from 'screen/check-out-payment/CheckOutPaymentScreen';
 import BannerContentScreen from 'screen/banner-content/BannerContentScreen';
+import BusinessDescriptionScreen from 'screen/business-description/BusinessDescriptionScreen';
 
 const Stack = createStackNavigator();
 
@@ -280,6 +282,14 @@ const screens: ScreenObject[] = [
     screen: InvoiceScreen,
     options: {
       headerTitle: 'Invoice',
+      headerTitleAlign: 'center',
+    },
+  },
+  {
+    name: BUSINESS_DESCRIPTION_SCREEN,
+    screen: BusinessDescriptionScreen,
+    options: {
+      headerTitle: 'Pelajari Bisnis',
       headerTitleAlign: 'center',
     },
   },

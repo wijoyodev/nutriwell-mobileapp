@@ -44,6 +44,7 @@ export type HistoryDetail = {
   payment: PaymentInfo;
   totalPurchase: number;
   totalPurchaseAfterTax: number;
+  tax?: number;
 };
 
 const useGetHistoryDetail = (id: string) => {
@@ -57,6 +58,10 @@ const useGetHistoryDetail = (id: string) => {
       getOrderHistoryDetail(id).then(response => {
         console.log('Order history id: ', id, ' & response: ', response.result);
         setLoading(false);
+        console.log(
+          'Response order history product detail: ',
+          response.result.data[0].product_detail,
+        );
         setHistoryDetail(convertHistoryDetail(response.result.data[0]));
         setPpnTax(response.result.tax_detail?.ppn_tax ?? 0);
       });

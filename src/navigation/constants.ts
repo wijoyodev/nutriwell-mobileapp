@@ -27,6 +27,7 @@ export const MAIN_HOME = 'main-home';
 export const INVOICE_SCREEN = 'InvoiceScreen';
 export const TRACKING_SCREEN = 'TrackingScreen';
 export const BANNER_CONTENT_SCREEN = 'BannerContentScreen';
+export const BUSINESS_DESCRIPTION_SCREEN = 'BusinessDescriptionScreen';
 
 export const DEEP_LINK_URL = 'nutriwell://garena.com';
 export const LOGIN_SCREEN_LINK = DEEP_LINK_URL + '/login';

@@ -18,10 +18,10 @@ const OrderItemComponent: React.FC<OrderItemComponentProps> = ({ item }) => {
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text style={{ fontSize: 14, color: Colors.grey2 }}>
-          {Utils.getPriceString(item.price)} x {item.quantity}
+          {Utils.getPriceString(item.priceAfterTax)} x {item.quantity}
         </Text>
         <Text style={{ fontSize: 14, color: Colors.black, fontWeight: 'bold' }}>
-          {Utils.getPriceString(item.totalPrice)}
+          {Utils.getPriceString(item.totalPriceAfterTax)}
         </Text>
       </View>
     </View>

@@ -1,13 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import { BUSINESS_DESCRIPTION_SCREEN } from 'navigation/constants';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Colors from 'themes/Colors';
 
 const LearnBusinessComponent = () => {
+  const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => navigate(BUSINESS_DESCRIPTION_SCREEN)}
       style={{
         flexDirection: 'row',
         backgroundColor: Colors.orange,
@@ -33,7 +41,7 @@ const LearnBusinessComponent = () => {
       </View>
 
       <Icon name={'chevron-forward-outline'} size={20} color={Colors.white} />
-    </View>
+    </TouchableOpacity>
   );
 };
 

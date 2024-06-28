@@ -43,7 +43,7 @@ const OrderSummaryComponent: React.FC<OrderSummaryComponentProps> = ({
           borderBottomColor: Colors.grey,
           borderBottomWidth: 1,
         }}>
-        <Text>RINCIAN PESANAN</Text>
+        <Text style={{ marginBottom: 4 }}>RINCIAN PESANAN</Text>
 
         <FlatList data={invoice?.items ?? []} renderItem={renderItem} />
       </View>
@@ -66,6 +66,21 @@ const OrderSummaryComponent: React.FC<OrderSummaryComponentProps> = ({
             {Utils.getPriceString(getTotalPrice())}
           </Text>
         </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: 16,
+          }}>
+          <Text style={{ fontSize: 14, color: Colors.black }}>
+            PPN {invoice.tax * 100}%
+          </Text>
+          <Text style={{ fontSize: 14, color: Colors.black }}>
+            {Utils.getPriceString(getTotalPrice() * invoice.tax)}
+          </Text>
+        </View>
+
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ fontSize: 14, color: Colors.black }}>Ongkir</Text>
           <Text style={{ fontSize: 14, color: Colors.black }}>
@@ -80,7 +95,7 @@ const OrderSummaryComponent: React.FC<OrderSummaryComponentProps> = ({
           borderBottomWidth: 6,
         }}>
         <View>
-          <Text style={{ fontSize: 14, color: Colors.black }}>
+          <Text style={{ fontSize: 14, color: Colors.black, marginBottom: 4 }}>
             Total Pembayaran
           </Text>
           <Text

@@ -39,7 +39,7 @@ const HistoryDetailScreen = () => {
         {history !== undefined && (
           <>
             <HeaderStatusComponent history={history} />
-            <HistoryStatusComponent history={history} />
+            <HistoryStatusComponent tax={ppnTax} history={history} />
             <ShippingInfoComponent history={history} />
             <ShippingAddressComponent history={history} />
             <PaymentMethodComponent history={history} />

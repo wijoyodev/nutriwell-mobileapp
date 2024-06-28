@@ -64,7 +64,12 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({ items, tax }) => {
         </Text>
       </View>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginTop: 8,
+        }}>
         <Text style={{ fontSize: 14, color: Colors.black }}>
           PPN {tax * 100}%
         </Text>

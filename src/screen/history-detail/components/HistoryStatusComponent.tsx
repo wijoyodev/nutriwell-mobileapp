@@ -15,10 +15,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export type HistoryStatusComponentProps = {
   history: HistoryDetail;
+  tax: number;
 };
 
 const HistoryStatusComponent: React.FC<HistoryStatusComponentProps> = ({
   history,
+  tax,
 }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const statusLabel = Status.get(history.status)?.label ?? '';
@@ -66,6 +68,7 @@ const HistoryStatusComponent: React.FC<HistoryStatusComponentProps> = ({
             onPress={() =>
               navigate(INVOICE_SCREEN, {
                 history,
+                tax,
               })
             }
             style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
