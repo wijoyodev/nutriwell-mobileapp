@@ -3,6 +3,7 @@ import { PublicAPIResponse } from 'network/model';
 
 type UpdateCartRequest = {
   price: number;
+  price_after_tax: number;
   weight: number;
   quantity: number;
 };

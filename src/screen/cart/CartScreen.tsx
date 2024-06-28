@@ -14,6 +14,7 @@ export type CartItem = {
   product_id: number;
   name: string;
   price: number;
+  priceAfterTax: number;
   weight: number;
   quantity: number;
   totalPrice: number;
@@ -65,6 +66,7 @@ const CartScreen = () => {
     updateCart(cartItem.id, {
       quantity,
       price: cartItem.price,
+      price_after_tax: cartItem.priceAfterTax,
       weight: cartItem.weight,
     }).then(response => {
       if (response.result) {

@@ -147,7 +147,7 @@ const ShopHomeScreen = () => {
                   fontWeight: 'bold',
                   fontSize: 16,
                 }}>
-                {Utils.getPriceString(product?.price ?? 0)}
+                {Utils.getPriceString(product?.priceAfterTax ?? 0)}
               </Text>
             )}
           </View>

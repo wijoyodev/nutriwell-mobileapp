@@ -39,6 +39,16 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
     );
   };
 
+  const getTotalPriceAfterTax = () => {
+    const totalItemPriceList = items.map(
+      item => item.priceAfterTax * item.quantity,
+    );
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
+
   const submit: SubmitHandler<any> = async (data: CheckoutForm) => {
     console.log(data);
     const userId = await getUserId();
@@ -54,6 +64,8 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
       courier_rate: data.shippingOption?.price ?? 0,
       shipment_duration_range: data.shippingOption?.shipmentDurationRange ?? '',
       total_purchase: getTotalPrice() + (data.shippingOption?.price ?? 0),
+      total_purchase_after_tax:
+        getTotalPriceAfterTax() + (data.shippingOption?.price ?? 0),
     };
 
     setLoading(true);

@@ -12,6 +12,7 @@ export type OrderRequest = {
   courier_rate: number;
   shipment_duration_range: string;
   total_purchase: number;
+  total_purchase_after_tax: number;
 };
 
 export type OrderResponse = {

@@ -29,6 +29,7 @@ const convertToCartItem: (response: CartItemResponse[]) => CartItem[] = (
     product_id: cartItem.product_id,
     name: cartItem.product_name,
     price: cartItem.price,
+    priceAfterTax: cartItem.price_after_tax,
     weight: cartItem.product_weight,
     quantity: cartItem.quantity,
     totalPrice: cartItem.total_price,

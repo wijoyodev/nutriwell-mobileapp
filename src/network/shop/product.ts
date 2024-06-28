@@ -7,6 +7,7 @@ export type ProductResponse = {
   product_images: string[];
   product_name: string;
   price: number;
+  price_after_tax: number;
   description: string;
 };
 

@@ -48,7 +48,7 @@ const ListItemComponent: React.FC<ListItemComponentProps> = ({
             </Text>
             <Text
               style={{ color: Colors.black, fontSize: 14, fontWeight: 'bold' }}>
-              {Utils.getPriceString(info.item.price)}
+              {Utils.getPriceString(info.item.priceAfterTax)}
             </Text>
           </View>
 
