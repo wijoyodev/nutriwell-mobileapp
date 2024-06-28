@@ -42,7 +42,7 @@ export type CheckoutForm = {
 const CheckOutScreen = () => {
   // const { loading, checkoutData } = useCheckout();
   const { address } = useGetAddress();
-  const { loading, cartItems } = useGetCart();
+  const { loading, cartItems, ppnTax } = useGetCart();
 
   useEffect(() => {
     if (address) {
@@ -73,7 +73,7 @@ const CheckOutScreen = () => {
           <View style={{ flex: 1 }} />
         )}
 
-        <SummaryComponent items={cartItems ?? []} />
+        <SummaryComponent tax={ppnTax} items={cartItems ?? []} />
         <FooterCheckOutComponent items={cartItems ?? []} />
       </FormProvider>
     </SafeAreaView>

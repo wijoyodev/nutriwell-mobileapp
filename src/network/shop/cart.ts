@@ -1,6 +1,10 @@
 import Api from 'network/Api';
 import { PublicAPIResponse } from 'network/model';
-import { CartItem } from 'screen/cart/CartScreen';
+
+export type ApiCartResponse = {
+  data: CartItemResponse[];
+  ppn_tax: number;
+};
 
 export type CartItemResponse = {
   id: number;
@@ -15,7 +19,7 @@ export type CartItemResponse = {
   product_images: string[];
 };
 
-type ApiCallGetCart = () => Promise<PublicAPIResponse<CartItemResponse[]>>;
+type ApiCallGetCart = () => Promise<PublicAPIResponse<ApiCartResponse>>;
 
 const getCartEndpoint = '/cart';
 const getCart: ApiCallGetCart = async () => {

@@ -24,13 +24,14 @@ const useGetProduct = () => {
         .then(response => {
           setLoading(false);
 
+          console.log('Response product: ', response.result);
           const productValue: Product = {
-            id: response.result[0].id,
-            name: response.result[0].product_name,
-            imageUrls: response.result[0].product_images ?? [],
-            price: response.result[0].price,
-            priceAfterTax: response.result[0].price_after_tax,
-            description: response.result[0].description,
+            id: response.result.data[0].id,
+            name: response.result.data[0].product_name,
+            imageUrls: response.result.data[0].product_images ?? [],
+            price: response.result.data[0].price,
+            priceAfterTax: response.result.data[0].price_after_tax,
+            description: response.result.data[0].description,
           };
           setProduct(productValue);
         })

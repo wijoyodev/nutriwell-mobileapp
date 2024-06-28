@@ -11,6 +11,7 @@ export type OrderHistory = {
   status: number;
   items: HistoryItem[];
   totalPrice: number;
+  totalPriceAfterTax: number;
   paymentUrl: string;
 };
 
@@ -18,7 +19,9 @@ export type HistoryItem = {
   name: string;
   quantity: number;
   price: number;
+  priceAfterTax: number;
   totalPrice: number;
+  totalPriceAfterTax: number;
   imageUrl: string;
 };
 
@@ -35,14 +38,15 @@ const useGetOrderHistory = (status: number, offset: number) => {
       getOrderHistory({ status, offset }).then(response => {
         console.log(
           'Response order history list: ',
-          response,
+          response.result,
           ' offset: ',
           offset,
         );
         setLoading(false);
 
+        console.log('Response product detail history: ', response.result.data[0].product_detail);
         const histories: OrderHistory[] = mapOrderHistoryResponse(
-          response.result.data,
+          response.result?.data ?? [],
         );
         const orderHistoryList: OrderHistory[] =
           offset === 0 ? histories : [...orderHistory, ...histories];
@@ -63,12 +67,15 @@ const mapOrderHistoryResponse: (
     createdDate: new Date(history.created_at),
     status: history.status,
     totalPrice: history.total_purchase,
+    totalPriceAfterTax: history.total_purchase_after_tax,
     items: [
       {
         name: history.product_detail.product_name,
         quantity: history.product_detail.quantity,
         price: history.product_detail.price,
+        priceAfterTax: history.product_detail.price_after_tax,
         totalPrice: history.product_detail.total_price,
+        totalPriceAfterTax: history.product_detail.total_price_after_tax,
         imageUrl: history.product_detail.product_image?.[0] ?? '',
       },
     ],

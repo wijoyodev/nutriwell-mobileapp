@@ -65,7 +65,7 @@ const HistoryComponent: React.FC<HistoryProps> = ({ history }) => {
         <Text style={{ color: Colors.black, fontSize: 12 }}>TOTAL</Text>
         <Text
           style={{ color: Colors.darkBlue, fontSize: 14, fontWeight: 'bold' }}>
-          {Utils.getPriceString(history.totalPrice)}
+          {Utils.getPriceString(history.totalPriceAfterTax)}
         </Text>
       </View>
       {history.status === 0 && (

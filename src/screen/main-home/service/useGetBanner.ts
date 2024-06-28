@@ -12,6 +12,7 @@ const useGetBanner = () => {
       setLoading(true);
       getBanner().then(response => {
         setLoading(false);
+        console.log('Response banner: ', response);
         setBanners(
           response.result.map(item => ({
             imageUrl: item.image_url,

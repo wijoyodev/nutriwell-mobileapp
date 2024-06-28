@@ -31,7 +31,7 @@ type CarouselRenderType = {
 
 const CarouselComponent = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const [heightView, setHeightView] = useState(0);
   const [index, setIndex] = useState(0);
 
@@ -52,8 +52,13 @@ const CarouselComponent = () => {
       <TouchableOpacity
         onPress={() => navigate(BANNER_CONTENT_SCREEN, info.item)}>
         <Image
+          resizeMethod={'scale'}
+          resizeMode={'stretch'}
+          // borderRadius={22}
+          width={width - 32}
+          height={height / 5}
           source={{ uri: info.item.imageUrl }}
-          style={{ height: 150, width: width - 32, borderRadius: 22 }}
+          style={{ borderRadius: 22 }}
         />
       </TouchableOpacity>
     );

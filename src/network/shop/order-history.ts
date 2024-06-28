@@ -4,8 +4,10 @@ import { getUserId } from 'service/StorageUtils';
 
 export type ProductDetailResponse = {
   price: number;
+  price_after_tax: number;
   quantity: number;
   total_price: number;
+  total_price_after_tax: number;
   product_name: string;
   product_image: string[];
 };
@@ -38,6 +40,7 @@ export type OrderHistoryItemResponse = {
   estimated_delivery_date: string;
   external_id: string | null;
   total_purchase: number;
+  total_purchase_after_tax: number;
   payment_url: string;
   payment_expiry_date: string | null;
   payment_date: string | null;

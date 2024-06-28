@@ -9,15 +9,26 @@ import { ShippingOption } from '../CheckOutScreen';
 
 export type SummaryComponentProps = {
   items: CartItem[];
+  tax: number;
 };
 
-const SummaryComponent: React.FC<SummaryComponentProps> = ({ items }) => {
+const SummaryComponent: React.FC<SummaryComponentProps> = ({ items, tax }) => {
   const { watch } = useFormContext();
   const shippingOption: ShippingOption = watch('shippingOption');
   const shippingPrice = shippingOption?.price ?? 0;
 
   const getTotalPrice = () => {
     const totalItemPriceList = items.map(item => item.price * item.quantity);
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
+
+  const getTotalTax = () => {
+    const totalItemPriceList = items.map(
+      item => item.price * item.quantity * tax,
+    );
     return totalItemPriceList.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0,
@@ -50,6 +61,15 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({ items }) => {
         </Text>
         <Text style={{ fontSize: 14, color: Colors.black }}>
           {Utils.getPriceString(getTotalPrice())}
+        </Text>
+      </View>
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: Colors.black }}>
+          PPN {tax * 100}%
+        </Text>
+        <Text style={{ fontSize: 14, color: Colors.black }}>
+          {Utils.getPriceString(getTotalTax())}
         </Text>
       </View>
 

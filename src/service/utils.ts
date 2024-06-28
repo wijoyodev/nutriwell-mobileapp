@@ -25,7 +25,7 @@ const groupBy = (list: any[], keyGetter: (x: any) => any) => {
 };
 
 const getPriceString = (price: number) => {
-  return `Rp${price.toLocaleString('id-ID')}`;
+  return `Rp${(price ?? 0).toLocaleString('id-ID')}`;
 };
 
 const openGallery = (onSuccess: (attachment: any) => void = () => {}) => {

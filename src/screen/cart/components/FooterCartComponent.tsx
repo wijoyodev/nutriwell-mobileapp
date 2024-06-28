@@ -21,7 +21,7 @@ const FooterCartComponent: React.FC<FooterCartComponentProps> = ({ items }) => {
 
   const getTotalPrice = () => {
     const totalItemPriceList =
-      items?.map(item => item.price * item.quantity) ?? [];
+      items?.map(item => item.priceAfterTax * item.quantity) ?? [];
     return totalItemPriceList.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0,

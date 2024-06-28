@@ -103,7 +103,7 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
         <Text style={{ fontSize: 14, color: Colors.black }}>Total</Text>
         <Text
           style={{ fontSize: 14, color: Colors.darkBlue, fontWeight: 'bold' }}>
-          {Utils.getPriceString(getTotalPrice() + shippingPrice)}
+          {Utils.getPriceString(getTotalPriceAfterTax() + shippingPrice)}
         </Text>
       </View>
 

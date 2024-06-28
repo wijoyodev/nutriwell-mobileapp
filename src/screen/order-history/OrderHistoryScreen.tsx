@@ -111,7 +111,13 @@ const OrderHistoryScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white }}>
-      {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
+      {loading && (
+        <ActivityIndicator
+          style={{ marginTop: 16 }}
+          color={Colors.blue}
+          size={'large'}
+        />
+      )}
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarStyle: {
@@ -119,6 +125,7 @@ const OrderHistoryScreen = () => {
           },
           tabBarScrollEnabled: true,
           swipeEnabled: true,
+          animationEnabled: false,
           tabBarLabel: ({ focused }) => tabBarLabel(focused, route.name),
         })}
         sceneContainerStyle={{ backgroundColor: Colors.white }}

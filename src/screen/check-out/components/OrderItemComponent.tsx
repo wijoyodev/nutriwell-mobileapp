@@ -34,7 +34,8 @@ const OrderItemComponent: React.FC<OrderItemComponentProps> = ({ items }) => {
               marginTop: 4,
             }}>
             <Text style={{ fontSize: 14 }}>
-              {Utils.getPriceString(info.item.price)} x {info.item.quantity}
+              {Utils.getPriceString(info.item.priceAfterTax)} x{' '}
+              {info.item.quantity}
             </Text>
             <Text
               style={{
@@ -42,7 +43,9 @@ const OrderItemComponent: React.FC<OrderItemComponentProps> = ({ items }) => {
                 color: Colors.darkBlue,
                 fontWeight: 'bold',
               }}>
-              {Utils.getPriceString(info.item.price * info.item.quantity)}
+              {Utils.getPriceString(
+                info.item.priceAfterTax * info.item.quantity,
+              )}
             </Text>
           </View>
         </View>

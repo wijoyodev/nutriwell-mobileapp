@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import getOrderHistoryDetail from 'network/shop/order-history-detail';
 import { HistoryItem } from 'screen/order-history/service/useGetOrderHistory';
-import { OrderHistoryItemResponse, OrderHistoryResponse } from 'network/shop/order-history';
+import { OrderHistoryItemResponse } from 'network/shop/order-history';
 
 type ShippingInfo = {
   name: string;
@@ -43,24 +43,27 @@ export type HistoryDetail = {
   shippingAddress: ShippingAddress;
   payment: PaymentInfo;
   totalPurchase: number;
+  totalPurchaseAfterTax: number;
 };
 
 const useGetHistoryDetail = (id: string) => {
   const [historyDetail, setHistoryDetail] = useState<HistoryDetail>();
   const [loading, setLoading] = useState<boolean>();
+  const [ppnTax, setPpnTax] = useState<number>(0);
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
       getOrderHistoryDetail(id).then(response => {
-        console.log('Order history id: ', id, ' & response: ', response);
+        console.log('Order history id: ', id, ' & response: ', response.result);
         setLoading(false);
-        setHistoryDetail(convertHistoryDetail(response.result[0]));
+        setHistoryDetail(convertHistoryDetail(response.result.data[0]));
+        setPpnTax(response.result.tax_detail?.ppn_tax ?? 0);
       });
     }, [id]),
   );
 
-  return { loading, historyDetail };
+  return { loading, historyDetail, ppnTax };
 };
 
 const convertHistoryDetail: (
@@ -75,7 +78,9 @@ const convertHistoryDetail: (
         name: response.product_detail.product_name,
         quantity: response.product_detail.quantity,
         price: response.product_detail.price,
+        priceAfterTax: response.product_detail.price_after_tax,
         totalPrice: response.product_detail.total_price,
+        totalPriceAfterTax: response.product_detail.total_price_after_tax,
         imageUrl: response.product_detail.product_image?.[0] ?? '',
       },
     ],
@@ -115,6 +120,7 @@ const convertHistoryDetail: (
         : new Date(),
     },
     totalPurchase: response.total_purchase,
+    totalPurchaseAfterTax: response.total_purchase_after_tax,
   };
 
   return detail;

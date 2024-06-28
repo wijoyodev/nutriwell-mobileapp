@@ -8,10 +8,12 @@ import { HistoryDetail } from '../service/useGetHistoryDetail';
 
 export type OrderHistoryComponentProps = {
   history: HistoryDetail;
+  tax: number;
 };
 
 const OrderHistoryComponent: React.FC<OrderHistoryComponentProps> = ({
   history,
+  tax,
 }) => {
   const renderItem = (info: ListRenderItemInfo<HistoryItem>) => {
     return (
@@ -41,7 +43,8 @@ const OrderHistoryComponent: React.FC<OrderHistoryComponentProps> = ({
               marginTop: 6,
             }}>
             <Text style={{ fontSize: 14 }}>
-              {Utils.getPriceString(info.item.price)} x {info.item.quantity}
+              {Utils.getPriceString(info.item.priceAfterTax)} x{' '}
+              {info.item.quantity}
             </Text>
             <Text
               style={{
@@ -49,7 +52,9 @@ const OrderHistoryComponent: React.FC<OrderHistoryComponentProps> = ({
                 fontSize: 14,
                 fontWeight: 'bold',
               }}>
-              {Utils.getPriceString(info.item.price * info.item.quantity)}
+              {Utils.getPriceString(
+                info.item.priceAfterTax * info.item.quantity,
+              )}
             </Text>
           </View>
         </View>
@@ -68,6 +73,16 @@ const OrderHistoryComponent: React.FC<OrderHistoryComponentProps> = ({
   const getTotalPrice = () => {
     const totalItemPriceList = history.items.map(
       item => item.price * item.quantity,
+    );
+    return totalItemPriceList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+  };
+
+  const getTotalTax = () => {
+    const totalItemPriceList = history.items.map(
+      item => (item.priceAfterTax - item.price) * item.quantity,
     );
     return totalItemPriceList.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
@@ -111,6 +126,20 @@ const OrderHistoryComponent: React.FC<OrderHistoryComponentProps> = ({
           justifyContent: 'space-between',
           marginTop: 16,
         }}>
+        <Text style={{ color: Colors.black, fontSize: 14 }}>
+          PPN {tax * 100}%
+        </Text>
+        <Text style={{ color: Colors.black, fontSize: 14 }}>
+          {Utils.getPriceString(getTotalTax())}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginTop: 16,
+        }}>
         <Text style={{ color: Colors.black, fontSize: 14 }}>Ongkir</Text>
         <Text style={{ color: Colors.black, fontSize: 14 }}>
           {Utils.getPriceString(history.shipping.price)}
@@ -129,7 +158,7 @@ const OrderHistoryComponent: React.FC<OrderHistoryComponentProps> = ({
         <Text style={{ color: Colors.black, fontSize: 14 }}>Total</Text>
         <Text
           style={{ color: Colors.darkBlue, fontSize: 14, fontWeight: 'bold' }}>
-          {Utils.getPriceString(getTotalPrice() + history.shipping.price)}
+          {Utils.getPriceString(history.totalPurchaseAfterTax)}
         </Text>
       </View>
     </View>

@@ -1,13 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, SafeAreaView, StatusBar, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
 import Colors from 'themes/Colors';
 import FooterCartComponent from './components/FooterCartComponent';
 import ListItemComponent from './components/ListItemComponent';
 import { useFocusEffect } from '@react-navigation/native';
 import useGetCart from './service/useGetCart';
 import updateCart from 'network/shop/update-cart';
-import deleteCart from 'network/shop/delete-cart';
 
 export type CartItem = {
   id: number;
