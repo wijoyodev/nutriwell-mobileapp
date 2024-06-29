@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import CustomButton from 'components/CustomButton';
 import React from 'react';
-import { Share, Text, View } from 'react-native';
+import { Platform, Share, Text, View } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Colors from 'themes/Colors';
 import { API_URL } from 'network/Api';
@@ -16,7 +16,8 @@ const InviteNetworkComponent: React.FC<InviteNetworkComponentProps> = ({
   const shareReferralCode = () => {
     const url = API_URL + '/register/' + code;
     Share.share({
-      message: 'Bagikan Kode Referensi: ' + url,
+      message:
+        'Bagikan Kode Referensi: ' + (Platform.OS === 'android' ? url : ''),
       title: 'Yuk, Ajak Temanmu!',
       url,
     });
