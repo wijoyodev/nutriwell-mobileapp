@@ -66,11 +66,11 @@ const ProfileMenuComponent = () => {
           label: 'Ubah PIN',
           onPress: () => navigate(UPDATE_PIN_SCREEN),
         },
-        {
-          iconName: 'reader-outline',
-          label: 'Syarat & Ketentuan',
-          onPress: () => navigate(TERMS_AND_CONDITION_SCREEN),
-        },
+        // {
+        //   iconName: 'reader-outline',
+        //   label: 'Syarat & Ketentuan',
+        //   onPress: () => navigate(TERMS_AND_CONDITION_SCREEN),
+        // },
         {
           iconName: 'log-out-outline',
           label: 'Keluar',
