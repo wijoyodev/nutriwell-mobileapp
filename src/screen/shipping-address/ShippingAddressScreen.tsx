@@ -87,10 +87,15 @@ const ShippingAddressScreen = () => {
   const { cityList, fetched: cityFetched } = useGetCity(
     parseInt(province.split('#')[0], 10),
   );
-  const { districtList } = useGetDistrict(parseInt(city.split('#')[0], 10));
+  const { districtList, fetched: districtFetched } = useGetDistrict(
+    parseInt(city.split('#')[0], 10),
+  );
 
   const [provinceList, setProvinceList] = useState<AddressOption[]>([]);
   const [cityPickerList, setCityPickerList] = useState<AddressOption[]>([]);
+  const [districtPickerList, setDistrictPickerList] = useState<AddressOption[]>(
+    [],
+  );
 
   useEffect(() => {
     if (provinceFetched) {
@@ -104,6 +109,12 @@ const ShippingAddressScreen = () => {
     }
   }, [cityFetched, cityList]);
 
+  useEffect(() => {
+    if (districtFetched) {
+      setDistrictPickerList(districtList);
+    }
+  }, [districtFetched, districtList]);
+
   const handleSearchProvince = (text: string) => {
     const provinceValues = provinces.filter(item =>
       item.name.toLowerCase().includes(text.toLowerCase()),
@@ -116,6 +127,13 @@ const ShippingAddressScreen = () => {
       item.name.toLowerCase().includes(text.toLowerCase()),
     );
     setCityPickerList(cityValues);
+  };
+
+  const handleSearchDistrict = (text: string) => {
+    const districtValues = districtList.filter(item =>
+      item.name.toLowerCase().includes(text.toLowerCase()),
+    );
+    setDistrictPickerList(districtValues);
   };
 
   const renderOption = (item: AddressOption) => (
@@ -290,8 +308,11 @@ const ShippingAddressScreen = () => {
             name={'district'}
             render={({ field: { onChange, value } }) => (
               <CustomPicker
-                items={districtList}
+                items={districtPickerList}
                 placeholder={'Pilih kecamatan'}
+                enableSearch={true}
+                placeholderSearch={'Cari kecamatan'}
+                onChangeSearch={handleSearchDistrict}
                 renderOption={renderOption}
                 value={value}
                 onSelect={(item: AddressOption) => onChange(item.name)}

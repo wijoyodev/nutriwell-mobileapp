@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
 
 import { useFocusEffect } from '@react-navigation/native';
-import getDistrict, { DistrictResponse } from 'network/address-list/district';
+import getDistrict from 'network/address-list/district';
 import { AddressOption } from '../ShippingAddressScreen';
 
 const useGetDistrict = (id: number) => {
   const [districtList, setDistrictList] = useState<AddressOption[]>([]);
   const [loading, setLoading] = useState<boolean>();
+  const [fetched, setFetched] = useState<boolean>(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -21,6 +22,7 @@ const useGetDistrict = (id: number) => {
               name: item.district,
             })),
           );
+          setFetched(true);
         });
       } else {
         setDistrictList([]);
@@ -28,7 +30,7 @@ const useGetDistrict = (id: number) => {
     }, [id]),
   );
 
-  return { loading, districtList };
+  return { loading, districtList, fetched };
 };
 
 export default useGetDistrict;
