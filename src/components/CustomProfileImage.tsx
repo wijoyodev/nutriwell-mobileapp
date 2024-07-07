@@ -29,6 +29,7 @@ const CustomProfileImage: React.FC<CustomProfileImageProps> = ({
       <ImageBackground
         onLoadStart={() => setLoadingImage(true)}
         onLoad={() => setLoadingImage(false)}
+        onLoadEnd={() => setLoadingImage(false)}
         source={source}
         borderRadius={size}
         style={{
