@@ -21,7 +21,7 @@ const ProfileScreen = () => {
   const { setOptions, navigate } =
     useNavigation<NavigationProp<ParamListBase>>();
 
-  const { loading, profile } = useGetProfile();
+  const { loading, profile, bankAccount } = useGetProfile();
 
   useEffect(() => {
     setOptions({
@@ -41,8 +41,8 @@ const ProfileScreen = () => {
       name: data.name,
       email: data.email,
       phoneNumber: data.phoneNumber,
-      code: data.phoneCountryCode,
-      country: data.phoneCountryCode,
+      code: data.phoneCountryCode ?? '+62',
+      country: data.phoneCountryCode ?? 'ID',
       birthDate: data.birthDate,
       gender: data.gender,
       imageUrl: data.imageUrl,
@@ -79,7 +79,7 @@ const ProfileScreen = () => {
         <ProfileInfoComponent profile={profile} />
       )}
 
-      <BankAccountComponent />
+      <BankAccountComponent loading={loading} bankAccount={bankAccount} />
     </View>
   );
 };

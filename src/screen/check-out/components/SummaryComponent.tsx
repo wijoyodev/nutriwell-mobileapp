@@ -26,13 +26,7 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({ items, tax }) => {
   };
 
   const getTotalTax = () => {
-    const totalItemPriceList = items.map(
-      item => item.price * item.quantity * tax,
-    );
-    return totalItemPriceList.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0,
-    );
+    return Math.round(getTotalPrice() * tax);
   };
 
   const getTotalQuantity = () => {

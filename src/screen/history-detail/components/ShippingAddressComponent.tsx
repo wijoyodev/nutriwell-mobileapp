@@ -2,7 +2,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
-import { HistoryDetail } from '../HistoryDetailScreen';
+import { HistoryDetail } from '../service/useGetHistoryDetail';
 
 export type ShippingAddressComponentProps = {
   history: HistoryDetail;
@@ -11,6 +11,8 @@ export type ShippingAddressComponentProps = {
 const ShippingAddressComponent: React.FC<ShippingAddressComponentProps> = ({
   history,
 }) => {
+
+  const phoneNumber = history.shippingAddress.phoneNumber;
   return (
     <View
       style={{ padding: 16, borderTopColor: Colors.grey, borderTopWidth: 4 }}>
@@ -20,7 +22,7 @@ const ShippingAddressComponent: React.FC<ShippingAddressComponentProps> = ({
         {history.shippingAddress.name}
       </Text>
       <Text style={{ fontSize: 14, color: Colors.black }}>
-        {history.shippingAddress.phoneNumber}
+        {phoneNumber.charAt(0) === '0' ? phoneNumber : `0${phoneNumber}`}
       </Text>
       <Text style={{ fontSize: 14, color: Colors.black, lineHeight: 20 }}>
         {history.shippingAddress.streetAddress},{' '}

@@ -74,7 +74,7 @@ export type ProfileData = {
   userId: string;
   birthDate: Date;
   phoneNumber: string;
-  phoneCountryCode: string;
+  phoneCountryCode?: string;
 };
 
 const getProfileFromStorage: () => Promise<ProfileData> = async () => {

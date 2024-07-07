@@ -14,7 +14,6 @@ const useGetCity = (id: number) => {
       if (id) {
         setLoading(true);
         getCity(id).then(response => {
-          console.log(response);
           setLoading(false);
           setCityList(
             response.result.map(item => ({

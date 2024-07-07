@@ -28,7 +28,9 @@ import {
   setPhoneCountryCode,
   setPhoneNumber,
 } from 'service/StorageUtils';
-import CustomSnackbar, { CustomSnackbarHandle } from 'components/CustomSnackbar';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 const EditProfileScreen = () => {
   const { goBack } = useNavigation<NavigationProp<ParamListBase>>();
@@ -51,7 +53,11 @@ const EditProfileScreen = () => {
 
   let code = '+62';
   if (params?.data) {
-    const phoneNumber = params?.data.phoneNumber.slice(1);
+    const dataPhoneNumber = params?.data.phoneNumber;
+    const phoneNumber =
+      dataPhoneNumber?.charAt(0) === '0'
+        ? dataPhoneNumber.slice(1)
+        : dataPhoneNumber;
     formInitialValues = { ...params?.data, phoneNumber };
   }
 
@@ -99,32 +105,32 @@ const EditProfileScreen = () => {
   };
 
   const saveData = async (response: ProfileResponse) => {
-    if (response.updated_data.full_name) {
-      await setFullName(response.updated_data.full_name);
+    if (response?.updated_data?.full_name) {
+      await setFullName(response?.updated_data?.full_name);
     }
 
-    if (response.updated_data.email) {
-      await setEmail(response.updated_data.email);
+    if (response?.updated_data?.email) {
+      await setEmail(response?.updated_data?.email);
     }
 
-    if (response.updated_data.date_of_birth) {
-      await setBirthDate(response.updated_data.date_of_birth);
+    if (response?.updated_data?.date_of_birth) {
+      await setBirthDate(response?.updated_data?.date_of_birth);
     }
 
-    if (response.updated_data.gender) {
-      await setGender(response.updated_data.gender);
+    if (response?.updated_data?.gender) {
+      await setGender(response?.updated_data?.gender);
     }
 
-    if (response.updated_data.phone_number) {
-      await setPhoneNumber(response.updated_data.phone_number);
+    if (response?.updated_data?.phone_number) {
+      await setPhoneNumber(response?.updated_data?.phone_number);
     }
 
-    if (response.updated_data.phone_number_country) {
-      await setPhoneCountryCode(response.updated_data.phone_number_country);
+    if (response?.updated_data?.phone_number_country) {
+      await setPhoneCountryCode(response?.updated_data?.phone_number_country);
     }
 
-    if (response.updated_data.avatar_url) {
-      await setAvatar(response.updated_data.avatar_url);
+    if (response?.updated_data?.avatar_url) {
+      await setAvatar(response?.updated_data?.avatar_url);
     }
   };
 

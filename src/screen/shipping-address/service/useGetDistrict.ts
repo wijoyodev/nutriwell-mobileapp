@@ -14,7 +14,6 @@ const useGetDistrict = (id: number) => {
       if (id) {
         setLoading(true);
         getDistrict(id).then(response => {
-          console.log(response);
           setLoading(false);
           setDistrictList(
             response.result.map(item => ({

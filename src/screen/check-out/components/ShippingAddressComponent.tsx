@@ -80,7 +80,9 @@ const ShippingAddressComponent: React.FC<ShippingAddressComponentProps> = ({
               {address.name}
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
-              {address.phoneNumber}
+              {address.phoneNumber.charAt(0) === '0'
+                ? address.phoneNumber
+                : `0${address.phoneNumber}`}
             </Text>
             <Text style={{ fontSize: 14, color: Colors.black }}>
               {address.streetAddress}, {address.district}, {address.city},{' '}

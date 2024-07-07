@@ -9,14 +9,16 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { BANK_ACCOUNT_SCREEN } from 'navigation/constants';
-import useGetBankAccount from '../service/useGetBankAccount';
+import { BankInfo } from '../service/useGetProfile';
 
 // bankValue = null;
 
-export type BankAccountComponentProps = {};
+export type BankAccountComponentProps = {
+  bankAccount: BankInfo;
+  loading: boolean;
+};
 
-const BankAccountComponent: React.FC<BankAccountComponentProps> = () => {
-  const { loading, bankAccount } = useGetBankAccount();
+const BankAccountComponent: React.FC<BankAccountComponentProps> = ({ bankAccount, loading }) => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
 
   const renderEmptyBank = () => (

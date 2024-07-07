@@ -63,7 +63,12 @@ const ShippingAddressScreen = () => {
   };
 
   if (params?.data) {
-    formInitialValues = params?.data;
+    const dataPhoneNumber = params?.data.phoneNumber;
+    const phoneNumber =
+      dataPhoneNumber?.charAt(0) === '0'
+        ? dataPhoneNumber.slice(1)
+        : dataPhoneNumber;
+    formInitialValues = { ...params?.data, phoneNumber };
   }
 
   const formMethods = useForm({

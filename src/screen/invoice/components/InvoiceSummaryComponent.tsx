@@ -13,6 +13,8 @@ export type InvoiceSummaryComponentProps = {
 const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({
   invoice,
 }) => {
+
+  const phoneNumber = invoice?.shippingAddress?.phoneNumber;
   return (
     <View style={{ borderBottomWidth: 6, borderBottomColor: Colors.grey }}>
       <View
@@ -68,7 +70,7 @@ const InvoiceSummaryComponent: React.FC<InvoiceSummaryComponentProps> = ({
           {invoice?.shippingAddress?.name}
         </Text>
         <Text style={{ fontSize: 14, color: Colors.black, marginBottom: 4 }}>
-          {invoice?.shippingAddress?.phoneNumber}
+          {phoneNumber?.charAt(0) === '0' ? phoneNumber : `0${phoneNumber}`}
         </Text>
         <Text style={{ fontSize: 14, color: Colors.black, lineHeight: 20 }}>
           {invoice?.shippingAddress?.streetAddress},{' '}

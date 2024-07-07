@@ -5,7 +5,7 @@ import { getUserId } from 'service/StorageUtils';
 export type ProfileResponse = {
   updated_data: {
     full_name?: string;
-    avatar_url?: any;
+    avatar_url?: string;
     email: string;
     date_of_birth?: string;
     phone_number?: string;

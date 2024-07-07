@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
-import { ProfileResponse } from 'network/auth/profile';
 import CustomProfileImage from 'components/CustomProfileImage';
+import { ProfileData } from 'service/Utils';
 
 export type ProfileInfoComponentProps = {
-  profile: ProfileResponse;
+  profile: ProfileData;
 };
 
 const ProfileInfoComponent: React.FC<ProfileInfoComponentProps> = ({
@@ -46,7 +46,9 @@ const ProfileInfoComponent: React.FC<ProfileInfoComponentProps> = ({
       <View style={{ marginTop: 16 }}>
         <Text style={{ fontSize: 12, marginBottom: 4 }}>NOMOR TELEPON</Text>
         <Text style={{ fontSize: 14, color: Colors.black }}>
-          {profile.phoneNumber}
+          {profile.phoneNumber.charAt(0) === '0'
+            ? profile.phoneNumber
+            : `0${profile.phoneNumber}`}
         </Text>
       </View>
 
