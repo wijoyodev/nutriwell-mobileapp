@@ -20,7 +20,9 @@ const OrderItemComponent: React.FC<OrderItemComponentProps> = ({ items }) => {
           marginTop: info.index > 0 ? 12 : 0,
         }}>
         <Image
-          source={require('../../../assets/images/product_image.png')}
+          source={{
+            uri: info.item.imageUrl,
+          }}
           style={{ height: 70, width: 70, borderRadius: 8 }}
         />
         <View style={{ flex: 1 }}>

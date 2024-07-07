@@ -25,7 +25,9 @@ const OrderHistoryComponent: React.FC<OrderHistoryComponentProps> = ({
           marginTop: info.index > 0 ? 12 : 0,
         }}>
         <Image
-          source={require('../../../assets/images/product_image.png')}
+          source={{
+            uri: info.item.imageUrl,
+          }}
           style={{
             height: 70,
             width: 70,

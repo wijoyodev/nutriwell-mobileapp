@@ -19,7 +19,9 @@ const HistoryItemComponent: React.FC<HistoryItemProps> = ({ item }) => {
         alignItems: 'center',
       }}>
       <Image
-        source={require('../../../assets/images/product_image.png')}
+        source={{
+          uri: item.imageUrl,
+        }}
         style={{ height: 70, width: 70, borderRadius: 8 }}
       />
       <View style={{ flex: 1 }}>
