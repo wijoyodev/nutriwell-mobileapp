@@ -88,6 +88,7 @@ const EditProfileScreen = () => {
     setLoading(true);
     updateProfile(request)
       .then(async response => {
+        console.log('Response update profile: ', response.result);
         setLoading(false);
         if (response.result) {
           await saveData(response.result);
