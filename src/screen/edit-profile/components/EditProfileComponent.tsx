@@ -2,7 +2,7 @@
 import CustomDatePicker from 'components/CustomDatePicker';
 import CustomRadioButton from 'components/CustomRadioButton';
 import CustomTextInput from 'components/CustomTextInput';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import {
   ActivityIndicator,
@@ -14,9 +14,12 @@ import {
 } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import CustomPhoneInput from 'components/CustomPhoneInput';
 import Utils from 'service/Utils';
 import CustomProfileImage from 'components/CustomProfileImage';
+import CustomModal, { CustomModalHandle } from 'components/CustomModal';
+import CustomButton from 'components/CustomButton';
 
 const genderList = [
   {
@@ -31,11 +34,15 @@ const genderList = [
 
 export type EditProfileComponentProps = {
   countryCode: string;
+  onDelete: () => void;
 };
 
 const EditProfileComponent: React.FC<EditProfileComponentProps> = ({
   countryCode,
+  onDelete,
 }) => {
+  const modalRef = useRef<CustomModalHandle | null>();
+
   const [code, setCode] = useState(countryCode);
   const [loadingVisible, setLoadingVisible] = useState<boolean>(false);
   const {
@@ -155,6 +162,63 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({
           />
         )}
       />
+      <Text
+        onPress={() => modalRef.current?.openModal()}
+        style={{
+          color: Colors.red,
+          fontWeight: '500',
+          textAlign: 'center',
+          marginTop: 8,
+        }}>
+        Hapus akun
+      </Text>
+
+      <CustomModal ref={el => (modalRef.current = el)}>
+        <View
+          style={{
+            backgroundColor: Colors.white,
+            padding: 24,
+            borderRadius: 16,
+          }}>
+          <View style={{ marginBottom: 24, alignItems: 'center' }}>
+            <MaterialIcon name={'info'} color={Colors.orangeIcon} size={70} />
+          </View>
+
+          <Text
+            style={{
+              fontSize: 14,
+              color: Colors.black,
+              textAlign: 'center',
+              marginBottom: 32,
+            }}>
+            Anda yakin ingin menghapus akun?
+          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            <CustomButton
+              containerStyle={{
+                flex: 1,
+              }}
+              textStyle={{
+                color: Colors.blue,
+              }}
+              onPress={() => {
+                onDelete();
+                modalRef.current?.closeModal();
+              }}
+              text={'YA'}
+              backgroundColor={Colors.white}
+            />
+            <CustomButton
+              containerStyle={{
+                flex: 1,
+              }}
+              onPress={() => modalRef.current?.closeModal()}
+              text={'TIDAK'}
+              backgroundColor={Colors.blue}
+            />
+          </View>
+        </View>
+      </CustomModal>
 
       <Modal transparent={true} visible={loadingVisible}>
         <View

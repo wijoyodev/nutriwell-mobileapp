@@ -135,10 +135,14 @@ const EditProfileScreen = () => {
     }
   };
 
+  const deleteAccount = () => {
+    snackbarRef.current?.showSnackbarSuccess('Your request has been sent.');
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <FormProvider {...formMethods}>
-        <EditProfileComponent countryCode={code} />
+        <EditProfileComponent onDelete={deleteAccount} countryCode={code} />
       </FormProvider>
       <View
         style={{
