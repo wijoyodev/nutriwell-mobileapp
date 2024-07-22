@@ -1,4 +1,4 @@
-package com.nutriwell.garena
+package com.garenahealthy.garena
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
