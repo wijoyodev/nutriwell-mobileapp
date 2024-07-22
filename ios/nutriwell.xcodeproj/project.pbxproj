@@ -509,7 +509,7 @@
 				CODE_SIGN_ENTITLEMENTS = nutriwell/nutriwell.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 63S3FYHX7D;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = nutriwell/Info.plist;
@@ -544,7 +544,7 @@
 				CODE_SIGN_ENTITLEMENTS = nutriwell/nutriwell.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 63S3FYHX7D;
 				INFOPLIST_FILE = nutriwell/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Garam Garena";

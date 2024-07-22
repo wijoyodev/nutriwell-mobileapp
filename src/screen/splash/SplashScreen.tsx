@@ -5,7 +5,7 @@ import {
   ParamListBase,
   useFocusEffect,
 } from '@react-navigation/native';
-import { HOME_SCREEN, REGISTER_SCREEN, TRACKING_SCREEN } from 'navigation/constants';
+import { HOME_SCREEN, LOGIN_SCREEN, REGISTER_SCREEN, TRACKING_SCREEN } from 'navigation/constants';
 import React, { useEffect } from 'react';
 import { Button, Image, Linking, StatusBar, View } from 'react-native';
 import { getAccessToken } from 'service/StorageUtils';
@@ -28,7 +28,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
     if (token) {
       navigate(HOME_SCREEN);
     } else {
-      navigate(REGISTER_SCREEN);
+      navigate(LOGIN_SCREEN);
     }
   };
 

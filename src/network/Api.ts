@@ -16,7 +16,6 @@ import { Linking } from 'react-native';
 import { LOGIN_SCREEN_LINK } from 'navigation/constants';
 const qs = require('qs');
 
-// const API_URL = 'https://api.mentorbaik.com';
 export const API_URL = 'https://api.garenahealthy.com';
 
 const TOKEN_EXPIRED_ERROR = 'TokenExpiredError';
