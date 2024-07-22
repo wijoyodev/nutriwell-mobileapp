@@ -95,12 +95,13 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
         if (response.result?.status) {
           snackbarRef.current?.showSnackbarSuccess('Email berhasil dikirim.');
         } else {
-          snackbarRef.current?.showSnackbarUnknownError();
+          snackbarRef.current?.showSnackbarError('User has been registered.');
         }
       })
       .catch(err => {
         console.log('Error verification email: ', err);
         setLoading(false);
+        snackbarRef.current?.showSnackbarUnknownError();
       });
   };
 

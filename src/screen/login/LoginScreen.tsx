@@ -112,7 +112,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
           borderTopStartRadius: 20,
         }}>
         <Text style={{ fontWeight: 'bold', fontSize: 18, color: Colors.black }}>
-          Selamat Datang kembali di Garam Garena
+          Selamat Datang di Garam Garena
         </Text>
         <Text style={{ fontSize: 14, color: Colors.black, marginTop: 8 }}>
           Masukkan email Anda untuk dapat melanjutkan masuk ke dalam akun Anda.
