@@ -1,4 +1,4 @@
-package com.garenahealthy.garena
+package com.garenahealthy.app
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
