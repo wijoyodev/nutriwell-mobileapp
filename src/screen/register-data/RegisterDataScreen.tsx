@@ -72,17 +72,24 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
   useEffect(() => {
     console.log('Token from params: ', token);
     if (token) {
-      verificationEmailToken(token).then(response => {
-        console.log('Response verification email token: ', response);
-        if (response.result) {
-          setEmailData(response.result.email);
-          setReferrerCodeData(response.result.referrer_code);
-        } else if (response.message === 'TokenExpiredError') {
+      verificationEmailToken(token)
+        .then(response => {
+          console.log('Response verification email token: ', response);
+          if (response?.result) {
+            setEmailData(response.result.email);
+            setReferrerCodeData(response.result.referrer_code);
+          } else if (response.message === 'TokenExpiredError') {
+            navigation.navigate(REGISTER_SCREEN, {
+              isExpired: true,
+            });
+          }
+        })
+        .catch(err => {
+          console.log('Error: ', err);
           navigation.navigate(REGISTER_SCREEN, {
             isExpired: true,
           });
-        }
-      });
+        });
     }
   }, [token]);
 

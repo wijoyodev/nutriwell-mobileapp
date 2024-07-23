@@ -15,7 +15,9 @@ import SuccessResetPinComponent from './components/SuccessResetPinComponent';
 import resetPasswordToken from 'network/auth/reset-password-token';
 import { LOGIN_SCREEN } from 'navigation/constants';
 import updateProfile from 'network/auth/update-profile';
-import CustomSnackbar, { CustomSnackbarHandle } from 'components/CustomSnackbar';
+import CustomSnackbar, {
+  CustomSnackbarHandle,
+} from 'components/CustomSnackbar';
 
 const ResetPinScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -71,17 +73,24 @@ const ResetPinScreen = () => {
       setConfirmPin('');
       setUserId('');
       setResetToken('');
-      resetPasswordToken(token).then(response => {
-        console.log('Response verification email token: ', response);
-        if (response.result) {
-          setUserId(response.result.user_id);
-          setResetToken(response.result.resetToken);
-        } else if (response.message === 'TokenExpiredError') {
+      resetPasswordToken(token)
+        .then(response => {
+          console.log('Response verification email token: ', response);
+          if (response?.result) {
+            setUserId(response.result.user_id);
+            setResetToken(response.result.resetToken);
+          } else if (response.message === 'TokenExpiredError') {
+            navigation.navigate(LOGIN_SCREEN, {
+              isExpired: true,
+            });
+          }
+        })
+        .catch(err => {
+          console.log('Error: ', err);
           navigation.navigate(LOGIN_SCREEN, {
             isExpired: true,
           });
-        }
-      });
+        });
     }
   }, [token]);
 
