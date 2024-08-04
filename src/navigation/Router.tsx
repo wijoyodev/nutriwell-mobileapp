@@ -1,8 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { FunctionComponent } from 'react';
 import {
   StackNavigationOptions,
   createStackNavigator,
 } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import SplashScreen from 'screen/splash/SplashScreen';
 import {
   CART_SCREEN,
@@ -63,6 +65,20 @@ import TrackingScreen from 'screen/tracking/TrackingScreen';
 import CheckOutPaymentScreen from 'screen/check-out-payment/CheckOutPaymentScreen';
 import BannerContentScreen from 'screen/banner-content/BannerContentScreen';
 import BusinessDescriptionScreen from 'screen/business-description/BusinessDescriptionScreen';
+import { Dimensions, PixelRatio, View } from 'react-native';
+import Colors from 'themes/Colors';
+
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+
+const widthBaseScale = SCREEN_WIDTH / 360;
+const heightBaseScale = SCREEN_HEIGHT / 700;
+
+const normalize = (size: number, based = 'height') => {
+  const newSize =
+    based === 'height' ? size * heightBaseScale : size * widthBaseScale;
+
+  return Math.round(PixelRatio.roundToNearestPixel(newSize));
+};
 
 const Stack = createStackNavigator();
 
@@ -72,20 +88,20 @@ type ScreenObject = {
   options?: StackNavigationOptions;
 };
 
+const disableHeader = {
+  headerShown: false,
+};
+
 const screens: ScreenObject[] = [
   {
     name: SPLASH_SCREEN,
     screen: SplashScreen,
-    options: {
-      headerShown: false,
-    },
+    options: disableHeader,
   },
   {
     name: REGISTER_SCREEN,
     screen: RegisterScreen,
-    options: {
-      headerShown: false,
-    },
+    options: disableHeader,
   },
   {
     name: REGISTER_DATA_SCREEN,
@@ -98,9 +114,7 @@ const screens: ScreenObject[] = [
   {
     name: LOGIN_SCREEN,
     screen: LoginScreen,
-    options: {
-      headerShown: false,
-    },
+    options: disableHeader,
   },
   {
     name: PIN_LOGIN_SCREEN,
@@ -129,9 +143,7 @@ const screens: ScreenObject[] = [
   {
     name: HOME_SCREEN,
     screen: HomeScreen,
-    options: {
-      headerShown: false,
-    },
+    options: disableHeader,
   },
   {
     name: CART_SCREEN,
@@ -311,6 +323,16 @@ const Router = () => {
         // headerShown: false,
         headerBackTitleVisible: false,
         gestureEnabled: false,
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerBackImage: () => (
+          <View style={{ paddingHorizontal: 12 }}>
+            <Icon
+              name={'chevron-left'}
+              color={Colors.black}
+              size={normalize(20)}
+            />
+          </View>
+        ),
       }}
       screenListeners={({ navigation }) => ({
         state: _ => {
