@@ -325,11 +325,11 @@ const Router = () => {
         gestureEnabled: false,
         // eslint-disable-next-line react/no-unstable-nested-components
         headerBackImage: () => (
-          <View style={{ paddingHorizontal: 12 }}>
+          <View style={{ padding: normalize(12) }}>
             <Icon
               name={'chevron-left'}
               color={Colors.black}
-              size={normalize(20)}
+              size={normalize(16)}
             />
           </View>
         ),
