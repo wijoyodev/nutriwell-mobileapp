@@ -1,4 +1,4 @@
-package com.garenahealthy.app
+package com.garenahealthy.mobile
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -11,7 +11,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
-import com.garenahealthy.app.BuildConfig
+import com.garenahealthy.mobile.BuildConfig
 
 class MainApplication : Application(), ReactApplication {
 
