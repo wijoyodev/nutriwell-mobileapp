@@ -5,6 +5,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:api.garenahealthy.com</string>
+		<string>applinks:backoffice.garenahealthy.com</string>
 	</array>
 </dict>
 </plist>
