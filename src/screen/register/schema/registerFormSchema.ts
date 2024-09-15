@@ -9,5 +9,5 @@ setLocale({
 
 export const registerFormSchema = object().shape({
   email: string().email('Please insert valid email').required(),
-  referralCode: string(),
+  referralCode: string().required(),
 });

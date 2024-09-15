@@ -164,7 +164,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
         />
 
         <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
-          Kode Referensi (Opsional)
+          Kode Referensi
         </Text>
         <Controller
           name={'referralCode'}
