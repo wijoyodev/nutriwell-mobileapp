@@ -19,6 +19,7 @@ import Colors from 'themes/Colors';
 // }>;
 
 function App(): React.JSX.Element {
+  const BACKOFFICE_URL = 'https://api.garenahealthy.com';
   const config = {
     screens: {
       LoginScreen: 'login',
@@ -43,6 +44,7 @@ function App(): React.JSX.Element {
           prefixes: [
             API_URL, // Universal Link
             DEEP_LINK_URL, // Deep Link
+            BACKOFFICE_URL,
           ],
           config,
         }}>
