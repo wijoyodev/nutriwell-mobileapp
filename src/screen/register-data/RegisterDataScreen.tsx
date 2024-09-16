@@ -28,6 +28,7 @@ import register, {
 import { PublicAPIResponse } from 'network/model';
 import {
   setAccessToken,
+  setActive,
   setAvatar,
   setBirthDate,
   setEmail,
@@ -165,6 +166,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
     await setUserId(data.user_id.toString());
     await setPhoneCountryCode(data.phone_number_country);
     await setReferralCode(data.referral_code);
+    await setActive(true);
   };
 
   const nextProgress = () => {

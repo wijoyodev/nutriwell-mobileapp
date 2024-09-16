@@ -46,7 +46,6 @@ const ProfileScreen = () => {
       birthDate: data.birthDate,
       gender: data.gender,
       imageUrl: data.imageUrl,
-      active: data.active,
     };
     return profileForm;
   };

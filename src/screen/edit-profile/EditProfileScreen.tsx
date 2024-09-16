@@ -20,6 +20,7 @@ import updateProfile, {
 } from 'network/auth/update-profile';
 import {
   getUserId,
+  setActive,
   setAvatar,
   setBirthDate,
   setEmail,
@@ -133,6 +134,10 @@ const EditProfileScreen = () => {
 
     if (response?.updated_data?.avatar_url) {
       await setAvatar(response?.updated_data?.avatar_url);
+    }
+
+    if (response?.updated_data?.active) {
+      await setActive(response?.updated_data?.active);
     }
   };
 

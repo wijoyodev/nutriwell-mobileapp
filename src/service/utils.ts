@@ -1,5 +1,6 @@
 import { launchImageLibrary } from 'react-native-image-picker';
 import {
+  getActive,
   getAvatar,
   getBirthDate,
   getEmail,
@@ -87,6 +88,7 @@ const getProfileFromStorage: () => Promise<ProfileData> = async () => {
   const birthDate = await getBirthDate();
   const phoneNumber = await getPhoneNumber();
   const phoneCountryCode = await getPhoneCountryCode();
+  const active = await getActive();
 
   return {
     email,
@@ -97,6 +99,7 @@ const getProfileFromStorage: () => Promise<ProfileData> = async () => {
     birthDate,
     phoneNumber,
     phoneCountryCode,
+    active,
   };
 };
 

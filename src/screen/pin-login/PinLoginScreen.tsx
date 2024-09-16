@@ -17,6 +17,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import {
   setAccessToken,
+  setActive,
   setAvatar,
   setBirthDate,
   setEmail,
@@ -87,6 +88,7 @@ const PinLoginScreen = () => {
     await setUserId(data.user_id.toString());
     await setPhoneCountryCode(data.phone_number_country);
     await setReferralCode(data.referral_code);
+    await setActive(data.active);
   };
 
   return (

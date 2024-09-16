@@ -13,6 +13,7 @@ export type LoginResponse = {
   avatar_url: string;
   token: string;
   refreshToken: string;
+  active: boolean;
 };
 
 export type LoginRequest = {

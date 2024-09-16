@@ -54,9 +54,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({
 
   const imageUrl = watch('imageUrl');
   const image = watch('image');
-  const active = watch('active');
 
-  console.log('Active: ', active)
   const handleUpdateImage = () => {
     Utils.openGallery(handleUploadImage);
   };
@@ -140,26 +138,6 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({
       />
 
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
-        Status
-      </Text>
-      <Controller
-        name={'active'}
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <CustomTextInput
-            value={
-              value === null || value === undefined
-                ? '-'
-                : value
-                ? 'Aktif'
-                : 'Tidak Aktif'
-            }
-            onChangeText={onChange}
-            disabled={true}
-          />
-        )}
-      />
-      {/* <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
         Tanggal Lahir
       </Text>
       <Controller
@@ -168,7 +146,7 @@ const EditProfileComponent: React.FC<EditProfileComponentProps> = ({
         render={({ field: { onChange, value } }) => (
           <CustomDatePicker value={value} onChangeValue={onChange} />
         )}
-      /> */}
+      />
 
       <Text style={{ marginTop: 16, marginBottom: 6, color: Colors.black }}>
         Jenis Kelamin

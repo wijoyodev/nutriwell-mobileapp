@@ -35,7 +35,6 @@ export type ProfileForm = {
   code: string;
   country: string;
   imageUrl?: string;
-  active?: boolean | null;
 };
 
 export type InputProfileComponentProps = {
