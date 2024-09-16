@@ -19,6 +19,7 @@ const qs = require('qs');
 export const API_URL = 'https://api.garenahealthy.com';
 
 const TOKEN_EXPIRED_ERROR = 'TokenExpiredError';
+const UNAUTHORIZED = 'Unauthorized';
 
 const post = async (url: string, data: any) => {
   const token = await getAccessToken();
@@ -42,7 +43,7 @@ const post = async (url: string, data: any) => {
       return payload.json();
     })
     .then(result => {
-      if (result.message === TOKEN_EXPIRED_ERROR) {
+      if (isMessageUnathorized(result)) {
         return handleDenied(() => post(url, data));
       }
       return result;
@@ -71,7 +72,7 @@ const patch = async (url: string, data: any) => {
       return payload.json();
     })
     .then(result => {
-      if (result.message === TOKEN_EXPIRED_ERROR) {
+      if (isMessageUnathorized(result)) {
         return handleDenied(() => patch(url, data));
       }
       return result;
@@ -100,7 +101,7 @@ const deleteApi = async (url: string, data: any) => {
       return payload.json();
     })
     .then(result => {
-      if (result.message === TOKEN_EXPIRED_ERROR) {
+      if (isMessageUnathorized(result)) {
         return handleDenied(() => deleteApi(url, data));
       }
       return result;
@@ -132,7 +133,7 @@ const get = async (url: string, data: any = null) => {
         return payload.json();
       })
       .then(result => {
-        if (result.message === TOKEN_EXPIRED_ERROR) {
+        if (isMessageUnathorized(result)) {
           return handleDenied(() => get(url, data));
         }
         return result;
@@ -177,7 +178,7 @@ const postWithForm = async (url: string, data: any) => {
     })
     .then(result => {
       console.log('POST Form Result: ', result);
-      if (result.message === TOKEN_EXPIRED_ERROR) {
+      if (isMessageUnathorized(result)) {
         return handleDenied(() => postWithForm(url, data));
       }
       return result;
@@ -227,7 +228,7 @@ const patchWithForm = async (url: string, data: any, resetToken?: string) => {
     })
     .then(result => {
       console.log('PATCH Form Result: ', result);
-      if (result.message === TOKEN_EXPIRED_ERROR) {
+      if (isMessageUnathorized(result)) {
         return handleDenied(() => patchWithForm(url, data));
       }
       return result;
@@ -301,6 +302,12 @@ const refresh: (
   } else {
     return null;
   }
+};
+
+const isMessageUnathorized = (result: { message: string }) => {
+  return (
+    result.message === TOKEN_EXPIRED_ERROR || result.message === UNAUTHORIZED
+  );
 };
 
 const Api = {

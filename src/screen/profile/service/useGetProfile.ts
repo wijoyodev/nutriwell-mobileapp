@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native';
 import getUserById from 'network/auth/user-by-id';
 import { useCallback, useState } from 'react';
-import Utils, { ProfileData } from 'service/Utils';
+import { ProfileData } from 'service/Utils';
 import { BankInfo } from './useGetBankAccount';
 
 export type BankInfo = {
@@ -40,6 +40,7 @@ const useGetProfile = () => {
           phoneNumber: response.result.data?.[0].phone_number,
           imageUrl: response.result.data?.[0].avatar_url,
           userId: response.result.data?.[0].id.toString(),
+          active: response.result.data?.[0].active,
         };
 
         setProfile(profileData);

@@ -49,6 +49,7 @@ const EditProfileScreen = () => {
     image: null,
     code: '+62',
     country: 'ID',
+    active: null,
   };
 
   let code = '+62';

@@ -1,13 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationProp,
   ParamListBase,
   useFocusEffect,
 } from '@react-navigation/native';
-import { HOME_SCREEN, LOGIN_SCREEN, REGISTER_SCREEN, TRACKING_SCREEN } from 'navigation/constants';
+import { HOME_SCREEN, LOGIN_SCREEN } from 'navigation/constants';
 import React, { useEffect } from 'react';
-import { Button, Image, Linking, StatusBar, View } from 'react-native';
+import { Image, StatusBar, View } from 'react-native';
 import { getAccessToken } from 'service/StorageUtils';
 import Colors from 'themes/Colors';
 

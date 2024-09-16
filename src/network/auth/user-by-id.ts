@@ -17,6 +17,7 @@ export type UserResponse = {
     account_bank_code: string;
     account_bank_name: string;
     account_bank_number: string;
+    active?: boolean;
   }[];
   network_reference: {
     level: number;

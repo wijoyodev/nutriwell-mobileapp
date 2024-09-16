@@ -1,4 +1,4 @@
-import { date, object, setLocale, string } from 'yup';
+import { bool, date, object, setLocale, string } from 'yup';
 
 setLocale({
   mixed: {
@@ -19,4 +19,5 @@ export const registerDataSchema = object().shape({
   image: object().nullable(),
   code: string().required(),
   country: string().required(),
+  active: bool().nullable(),
 });
