@@ -17,6 +17,7 @@ import { LOGIN_SCREEN_LINK } from 'navigation/constants';
 const qs = require('qs');
 
 export const API_URL = 'https://api.garenahealthy.com';
+export const BACKOFFICE_URL = 'https://backoffice.garenahealthy.com';
 
 const TOKEN_EXPIRED_ERROR = 'TokenExpiredError';
 const UNAUTHORIZED = 'Unauthorized';

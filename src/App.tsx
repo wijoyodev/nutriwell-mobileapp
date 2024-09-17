@@ -9,7 +9,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import Router from 'navigation/Router';
 import { DEEP_LINK_URL } from 'navigation/constants';
-import { API_URL } from 'network/Api';
+import { API_URL, BACKOFFICE_URL } from 'network/Api';
 import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import Colors from 'themes/Colors';
@@ -19,7 +19,6 @@ import Colors from 'themes/Colors';
 // }>;
 
 function App(): React.JSX.Element {
-  const BACKOFFICE_URL = 'https://backoffice.garenahealthy.com';
   const config = {
     screens: {
       LoginScreen: 'login',
