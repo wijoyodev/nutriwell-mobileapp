@@ -88,7 +88,7 @@ const PinLoginScreen = () => {
     await setUserId(data.user_id.toString());
     await setPhoneCountryCode(data.phone_number_country);
     await setReferralCode(data.referral_code);
-    await setActive(data.active);
+    await setActive(data.status ?? false);
   };
 
   return (

@@ -40,7 +40,7 @@ const useGetProfile = () => {
           phoneNumber: response.result.data?.[0].phone_number,
           imageUrl: response.result.data?.[0].avatar_url,
           userId: response.result.data?.[0].id.toString(),
-          active: response.result.data?.[0].active,
+          active: response.result.data?.[0].status,
         };
 
         setProfile(profileData);

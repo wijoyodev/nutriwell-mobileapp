@@ -136,8 +136,8 @@ const EditProfileScreen = () => {
       await setAvatar(response?.updated_data?.avatar_url);
     }
 
-    if (response?.updated_data?.active) {
-      await setActive(response?.updated_data?.active);
+    if (response?.updated_data?.status ?? false) {
+      await setActive(response?.updated_data?.status ?? false);
     }
   };
 

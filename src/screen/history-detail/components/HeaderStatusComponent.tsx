@@ -19,6 +19,7 @@ const HeaderStatusComponent: React.FC<HeaderStatusComponentProps> = ({
       history.payment.date,
       history.payment.name,
       history.shipping?.etdDate,
+      history.payment.reasons,
     ) ?? '';
 
   if (history.status === 3) {

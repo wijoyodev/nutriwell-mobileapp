@@ -13,6 +13,7 @@ export type Status = {
     paymentDate: Date,
     method: string,
     shippingDate: Date,
+    reasons: string,
   ) => string | React.ReactNode;
 };
 
@@ -24,8 +25,8 @@ const Status = new Map<number, Status>([
       color: '#F22929',
       headerColor: '#FFEFEF',
       headerLabel: 'Dibatalkan',
-      headerDescription: () =>
-        'Pesanan Anda dibatalkan karena sudah melewati batas waktu pembayaran.',
+      headerDescription: (_, __, ___, reasons) =>
+        `Pesanan Anda dibatalkan karena: ${reasons}`,
     },
   ],
   [
@@ -35,7 +36,7 @@ const Status = new Map<number, Status>([
       color: Colors.orangeIcon,
       headerColor: Colors.cream,
       headerLabel: 'Menunggu Pembayaran',
-      headerDescription: (paymentDate: Date, method: string, _) => (
+      headerDescription: (paymentDate: Date, _, __, ___) => (
         <>
           <Text>Silakan lakukan pembayaran paling lambat </Text>
           <Text style={{ fontWeight: 'bold' }}>

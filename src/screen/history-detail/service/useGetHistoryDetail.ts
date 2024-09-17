@@ -32,6 +32,7 @@ export type PaymentInfo = {
   name: string;
   date: Date;
   approvedDate?: Date;
+  reasons: string;
 };
 
 export type HistoryDetail = {
@@ -123,6 +124,7 @@ const convertHistoryDetail: (
       date: response.payment_expiry_date
         ? new Date(response.payment_expiry_date)
         : new Date(),
+      reasons: response.reasons,
     },
     totalPurchase: response.total_purchase,
     totalPurchaseAfterTax: response.total_purchase_after_tax,

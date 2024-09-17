@@ -23,7 +23,11 @@ import { CHECK_OUT_PAYMENT_SCREEN } from 'navigation/constants';
 const HistoryDetailScreen = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const { params } = useRoute<RouteProp<ParamListBase>>();
-  const { historyDetail: history, loading, ppnTax } = useGetHistoryDetail(params?.id);
+  const {
+    historyDetail: history,
+    loading,
+    ppnTax,
+  } = useGetHistoryDetail(params?.id);
 
   useFocusEffect(() => {
     StatusBar.setBackgroundColor(Colors.white);

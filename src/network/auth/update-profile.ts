@@ -11,7 +11,7 @@ export type ProfileResponse = {
     phone_number?: string;
     phone_number_country?: string;
     gender?: string;
-    active?: boolean;
+    status?: boolean;
   };
   status: number;
 };

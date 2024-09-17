@@ -60,6 +60,13 @@ const ProfileInfoComponent: React.FC<ProfileInfoComponentProps> = ({
       </View>
 
       <View style={{ marginTop: 16 }}>
+        <Text style={{ fontSize: 12, marginBottom: 4 }}>STATUS</Text>
+        <Text style={{ fontSize: 14, color: Colors.black }}>
+          {profile.active ? 'Aktif' : 'Tidak Aktif'}
+        </Text>
+      </View>
+
+      <View style={{ marginTop: 16 }}>
         <Text style={{ fontSize: 12, marginBottom: 4 }}>JENIS KELAMIN</Text>
         <Text style={{ fontSize: 14, color: Colors.black }}>{getGender()}</Text>
       </View>

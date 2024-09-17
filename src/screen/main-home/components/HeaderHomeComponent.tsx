@@ -53,7 +53,7 @@ const HeaderHomeComponent: React.FC<HeaderHomeComponentProps> = () => {
             fontSize: 16,
             color: Colors.white,
           }}>
-          {dayjs(profile?.birthDate).format('DD MMMM YYYY')}
+          {profile.active ? 'Aktif' : 'Tidak Aktif'}
         </Text>
       </View>
     </View>
