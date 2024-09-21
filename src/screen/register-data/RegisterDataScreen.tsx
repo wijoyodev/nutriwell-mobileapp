@@ -166,7 +166,7 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
     await setUserId(data.user_id.toString());
     await setPhoneCountryCode(data.phone_number_country);
     await setReferralCode(data.referral_code);
-    await setActive(true);
+    await setActive(false);
   };
 
   const nextProgress = () => {

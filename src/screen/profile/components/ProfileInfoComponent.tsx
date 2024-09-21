@@ -59,12 +59,12 @@ const ProfileInfoComponent: React.FC<ProfileInfoComponentProps> = ({
         </Text>
       </View>
 
-      <View style={{ marginTop: 16 }}>
+      {/* <View style={{ marginTop: 16 }}>
         <Text style={{ fontSize: 12, marginBottom: 4 }}>STATUS</Text>
         <Text style={{ fontSize: 14, color: Colors.black }}>
           {profile.active ? 'Aktif' : 'Tidak Aktif'}
         </Text>
-      </View>
+      </View> */}
 
       <View style={{ marginTop: 16 }}>
         <Text style={{ fontSize: 12, marginBottom: 4 }}>JENIS KELAMIN</Text>
