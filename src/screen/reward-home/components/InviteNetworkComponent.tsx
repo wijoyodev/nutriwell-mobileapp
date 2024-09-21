@@ -4,7 +4,7 @@ import React from 'react';
 import { Platform, Share, Text, View } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Colors from 'themes/Colors';
-import { BACKOFFICE_URL } from 'network/Api';
+import { API_URL, BACKOFFICE_URL } from 'network/Api';
 
 export type InviteNetworkComponentProps = {
   code: string;
@@ -14,7 +14,7 @@ const InviteNetworkComponent: React.FC<InviteNetworkComponentProps> = ({
   code,
 }) => {
   const shareReferralCode = () => {
-    const url = BACKOFFICE_URL + '/register/' + code;
+    const url = API_URL + '/register/' + code;
     Share.share({
       message:
         'Bagikan Kode Referensi: ' + (Platform.OS === 'android' ? url : ''),
