@@ -146,6 +146,8 @@ const RegisterDataScreen: React.FC<RegisterDataScreenProps> = ({
     if (response.result) {
       await saveData(response.result);
       nextProgress();
+    } else if (response.message) {
+      snackbarRef?.current?.showSnackbarError(response.message);
     } else {
       snackbarRef?.current?.showSnackbarUnknownError();
     }
