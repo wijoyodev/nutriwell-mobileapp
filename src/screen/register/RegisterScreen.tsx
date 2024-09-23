@@ -174,6 +174,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
               value={value}
               onChangeText={onChange}
               placeholder={'Masukkan kode referensi'}
+              error={errors?.referralCode?.message ?? ''}
             />
           )}
         />
