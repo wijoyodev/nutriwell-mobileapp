@@ -181,7 +181,7 @@ const ProcessWithdrawComponent: React.FC<ProcessWithdrawComponentProps> = ({
       <View style={{ padding: 16 }}>
         <CustomButton
           loading={loading}
-          disabled={!bankAccount?.account_bank}
+          disabled={!bankAccount?.account_bank || loading}
           onPress={handleFormSubmit(submit)}
           backgroundColor={Colors.blue}
           text={'TARIK SEKARANG'}

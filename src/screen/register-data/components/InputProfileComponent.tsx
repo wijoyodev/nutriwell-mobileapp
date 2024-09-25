@@ -216,6 +216,8 @@ const InputProfileComponent: React.FC<InputProfileComponentProps> = ({
           paddingHorizontal: 16,
         }}>
         <CustomButton
+          disabled={loading}
+          loading={loading}
           backgroundColor={Colors.blue}
           text={'SIMPAN'}
           onPress={handleFormSubmit(handleSave)}

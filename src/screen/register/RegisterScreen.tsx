@@ -94,8 +94,10 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
         console.log('Response verification email: ', response);
         if (response.result?.status) {
           snackbarRef.current?.showSnackbarSuccess('Email berhasil dikirim.');
+        } else if (response.message) {
+          snackbarRef.current?.showSnackbarError(response.message);
         } else {
-          snackbarRef.current?.showSnackbarError('User has been registered.');
+          snackbarRef.current?.showSnackbarUnknownError();
         }
       })
       .catch(err => {
@@ -180,6 +182,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({
         />
 
         <CustomButton
+          disabled={loading}
           loading={loading}
           onPress={handleFormSubmit(handleRegister)}
           backgroundColor={Colors.blue}

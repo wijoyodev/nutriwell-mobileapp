@@ -109,6 +109,7 @@ const FooterCheckOutComponent: React.FC<FooterCheckOutComponentProps> = ({
 
       <CustomButton
         loading={loading}
+        disabled={loading}
         onPress={handleFormSubmit(submit)}
         backgroundColor={Colors.blue}
         text={'BUAT PESANAN'}
