@@ -14,7 +14,7 @@ import Utils from 'service/Utils';
 
 const RewardSummaryComponent = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
-  const { loading, rewardSummary } = useGetRewardSummary();
+  const { loading, rewardSummary, isActive } = useGetRewardSummary();
 
   if (loading) {
     return <></>;
@@ -28,7 +28,12 @@ const RewardSummaryComponent = () => {
         backgroundColor: Colors.blue,
       }}>
       <TouchableOpacity
-        onPress={() => navigate('reward-home')}
+        disabled={isActive}
+        onPress={() => {
+          if (isActive) {
+            navigate('reward-home');
+          }
+        }}
         style={{
           backgroundColor: Colors.white,
           borderColor: Colors.black,
@@ -113,7 +118,7 @@ const RewardSummaryComponent = () => {
 
           <Text
             style={{
-              color: Colors.black,
+              color: isActive ? Colors.black : Colors.placeholder,
               fontWeight: 'bold',
               fontSize: 14,
             }}>

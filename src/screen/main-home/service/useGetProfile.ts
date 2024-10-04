@@ -1,5 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
+import { getActive } from 'service/StorageUtils';
 import Utils, { ProfileData } from 'service/Utils';
 
 const useGetProfile = () => {

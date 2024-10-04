@@ -126,6 +126,7 @@ const setPhoneCountryCode = async (phoneCountry: string): Promise<void> => {
 const getActive = async (): Promise<boolean> => {
   const active = await AsyncStorage.getItem(ACTIVE_KEY);
 
+  // return true;
   return active === 'true' ?? false;
 };
 

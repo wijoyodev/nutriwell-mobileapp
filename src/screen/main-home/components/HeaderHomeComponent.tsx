@@ -29,32 +29,45 @@ const HeaderHomeComponent: React.FC<HeaderHomeComponentProps> = () => {
       style={{
         backgroundColor: Colors.blue,
         flexDirection: 'row',
-        gap: 12,
+        justifyContent: 'space-between',
+        alignItems: 'center',
         padding: 16,
       }}>
-      <CustomProfileImage size={44} imageUrl={profile?.imageUrl} />
-      <View>
-        <Text
-          style={{
-            fontSize: 16,
-            color: Colors.white,
-          }}>
-          Halo,{' '}
+      <View style={{ flexDirection: 'row', gap: 12 }}>
+        <CustomProfileImage size={44} imageUrl={profile?.imageUrl} />
+        <View>
           <Text
             style={{
-              fontWeight: 'bold',
+              fontSize: 16,
+              color: Colors.white,
             }}>
-            {profile?.name}
+            Halo,{' '}
+            <Text
+              style={{
+                fontWeight: 'bold',
+              }}>
+              {profile?.name}
+            </Text>
           </Text>
-        </Text>
 
-        <Text
-          style={{
-            fontSize: 16,
-            color: Colors.white,
-          }}>
-          {/* {profile.active ? 'Aktif' : 'Tidak Aktif'} */}
-          {dayjs(profile?.birthDate).format('DD MMMM YYYY')}
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.white,
+            }}>
+            {dayjs(profile?.birthDate).format('DD MMMM YYYY')}
+          </Text>
+        </View>
+      </View>
+      <View
+        style={{
+          backgroundColor: profile.active ? Colors.green : Colors.lightRed,
+          paddingHorizontal: 20,
+          paddingVertical: 4,
+          borderRadius: 12,
+        }}>
+        <Text style={{ color: Colors.white, fontSize: 14 }}>
+          {profile.active ? 'Aktif' : 'Tidak Aktif'}
         </Text>
       </View>
     </View>

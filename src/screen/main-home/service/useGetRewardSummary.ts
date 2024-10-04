@@ -2,16 +2,19 @@ import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { RewardSummary } from 'screen/reward-home/RewardHomeScreen';
 import getReward from 'network/reward/reward';
+import { getActive } from 'service/StorageUtils';
 
 const useGetRewardSummary = () => {
   const [rewardSummary, setRewardSummary] = useState<RewardSummary>();
   const [loading, setLoading] = useState<boolean>();
+  const [isActive, setActive] = useState<boolean>();
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
       getReward().then(response => {
         setLoading(false);
+
         const reward: RewardSummary = {
           totalReward: response.result.total_reward,
           monthlyReward: response.result.total_this_month,
@@ -21,10 +24,12 @@ const useGetRewardSummary = () => {
 
         setRewardSummary(reward);
       });
+
+      getActive().then(setActive);
     }, []),
   );
 
-  return { loading, rewardSummary };
+  return { loading, rewardSummary, isActive };
 };
 
 export default useGetRewardSummary;
