@@ -28,7 +28,7 @@ const RewardSummaryComponent = () => {
         backgroundColor: Colors.blue,
       }}>
       <TouchableOpacity
-        disabled={isActive}
+        disabled={!isActive}
         onPress={() => {
           if (isActive) {
             navigate('reward-home');
