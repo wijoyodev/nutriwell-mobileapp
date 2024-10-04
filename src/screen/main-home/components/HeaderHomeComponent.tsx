@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import { ProfileResponse } from 'network/auth/profile';
 import React from 'react';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import useGetProfile from '../service/useGetProfile';
 import dayjs from 'dayjs';

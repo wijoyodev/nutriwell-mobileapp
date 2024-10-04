@@ -127,7 +127,7 @@ const getActive = async (): Promise<boolean> => {
   const active = await AsyncStorage.getItem(ACTIVE_KEY);
 
   // return true;
-  return active === 'true' ?? false;
+  return (active === 'true' || active === '1') ?? false;
 };
 
 const setActive = async (active: boolean): Promise<void> => {
