@@ -25,7 +25,7 @@ const useGetRewardSummary = () => {
         setRewardSummary(reward);
       });
 
-      // getActive().then(setActive);
+      getActive().then(setActive);
     }, []),
   );
 
