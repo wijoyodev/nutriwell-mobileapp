@@ -6,8 +6,8 @@ import { getActive } from 'service/StorageUtils';
 
 const useGetRewardSummary = () => {
   const [rewardSummary, setRewardSummary] = useState<RewardSummary>();
-  const [loading, setLoading] = useState<boolean>();
-  const [isActive, setActive] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isActive, setActive] = useState<boolean>(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -25,7 +25,7 @@ const useGetRewardSummary = () => {
         setRewardSummary(reward);
       });
 
-      getActive().then(setActive);
+      // getActive().then(setActive);
     }, []),
   );
 
