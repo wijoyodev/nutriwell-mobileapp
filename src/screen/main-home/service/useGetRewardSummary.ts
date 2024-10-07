@@ -3,6 +3,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { RewardSummary } from 'screen/reward-home/RewardHomeScreen';
 import getReward from 'network/reward/reward';
 import { getActive } from 'service/StorageUtils';
+import getUserById from 'network/auth/user-by-id';
 
 const useGetRewardSummary = () => {
   const [rewardSummary, setRewardSummary] = useState<RewardSummary>();
@@ -25,7 +26,13 @@ const useGetRewardSummary = () => {
         setRewardSummary(reward);
       });
 
-      getActive().then(setActive);
+      getUserById().then(response => {
+        setLoading(false);
+        console.log('Response user by id: ', response.result.data[0]);
+
+        const active = response.result.data?.[0].status ?? false;
+        setActive(active);
+      });
     }, []),
   );
 

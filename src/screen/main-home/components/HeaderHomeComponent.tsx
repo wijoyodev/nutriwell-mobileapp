@@ -34,7 +34,7 @@ const HeaderHomeComponent: React.FC<HeaderHomeComponentProps> = () => {
       }}>
       <View style={{ flexDirection: 'row', gap: 12 }}>
         <CustomProfileImage size={44} imageUrl={profile?.imageUrl} />
-        <View>
+        <View style={{ justifyContent: 'center' }}>
           <Text
             style={{
               fontSize: 16,
@@ -58,16 +58,22 @@ const HeaderHomeComponent: React.FC<HeaderHomeComponentProps> = () => {
           </Text>
         </View>
       </View>
-      <View
-        style={{
-          backgroundColor: profile.active ? Colors.green : Colors.lightRed,
-          paddingHorizontal: 20,
-          paddingVertical: 4,
-          borderRadius: 12,
-        }}>
-        <Text style={{ color: Colors.white, fontSize: 14 }}>
-          {profile.active ? 'Aktif' : 'Tidak Aktif'}
+      <View>
+        <Text style={{ color: Colors.white, fontSize: 12, marginBottom: 4 }}>
+          MEMBERSHIP
         </Text>
+        <View
+          style={{
+            backgroundColor: profile.active ? Colors.green : Colors.lightRed,
+            paddingHorizontal: 20,
+            paddingVertical: 4,
+            borderRadius: 12,
+            alignItems: 'center',
+          }}>
+          <Text style={{ color: Colors.white, fontSize: 14 }}>
+            {profile.active ? 'Aktif' : 'Tidak Aktif'}
+          </Text>
+        </View>
       </View>
     </View>
   );
