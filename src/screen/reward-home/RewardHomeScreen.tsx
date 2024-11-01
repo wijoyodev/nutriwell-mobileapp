@@ -89,7 +89,7 @@ const RewardHomeScreen = () => {
         networkList={networkSummary?.referenceNetworkList ?? []}
       />
 
-      <CustomModal ref={el => (modalRef.current = el)}>
+      <CustomModal onDismiss={goBack} ref={el => (modalRef.current = el)}>
         <View
           style={{
             backgroundColor: Colors.white,

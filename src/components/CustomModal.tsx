@@ -11,10 +11,11 @@ export type CustomModalProps = {
   isPicker?: boolean;
   animationType?: 'none' | 'fade' | 'slide';
   children: React.ReactNode;
+  onDismiss?: () => void;
 };
 
 const CustomModal = forwardRef<CustomModalHandle, CustomModalProps>(
-  ({ children, isPicker, animationType }, ref) => {
+  ({ children, isPicker, animationType, onDismiss }, ref) => {
     useImperativeHandle(ref, () => ({
       openModal() {
         setVisible(true);
@@ -33,6 +34,7 @@ const CustomModal = forwardRef<CustomModalHandle, CustomModalProps>(
         animationType={animationType ?? 'fade'}
         visible={visible}
         onRequestClose={closeModal}
+        onDismiss={onDismiss}
         transparent={true}>
         <Pressable
           onPress={closeModal}
