@@ -8,12 +8,15 @@ import calculateCourierRates, {
 import { CartItem } from 'screen/cart/CartScreen';
 
 const useGetShippingOption = (postalCode: number, cartItems: CartItem[]) => {
-  const [shippingOptions, setShippingOptions] = useState<ShippingOption[]>();
+  const [shippingOptions, setShippingOptions] = useState<ShippingOption[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
+      if (postalCode === 0) {
+        return;
+      }
       const request: CalculateCourierRatesRequest = {
         destination_postal_code: postalCode,
         items: cartItems?.map(cartItem => ({
@@ -25,6 +28,7 @@ const useGetShippingOption = (postalCode: number, cartItems: CartItem[]) => {
       };
 
       calculateCourierRates(request).then(response => {
+        console.log('Request courier rates: ', request);
         // console.log('Response courier rates: ', response);
         setLoading(false);
         setShippingOptions(convertShippingOptions(response.result));

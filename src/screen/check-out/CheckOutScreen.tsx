@@ -68,7 +68,7 @@ const CheckOutScreen = () => {
       <FormProvider {...formMethods}>
         {loading && <ActivityIndicator color={Colors.blue} size={'large'} />}
         {cartItems !== undefined ? (
-          <OrderComponent items={cartItems ?? []} />
+          <OrderComponent address={address} items={cartItems ?? []} />
         ) : (
           <View style={{ flex: 1 }} />
         )}

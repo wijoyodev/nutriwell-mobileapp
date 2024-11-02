@@ -4,7 +4,6 @@ import { ScrollView, Text, View } from 'react-native';
 import Colors from 'themes/Colors';
 import OrderItemComponent from './OrderItemComponent';
 import ShippingAddressComponent from './ShippingAddressComponent';
-import SummaryComponent from './SummaryComponent';
 import CustomPicker from 'components/CustomPicker';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Address, ShippingOption } from '../CheckOutScreen';
@@ -14,20 +13,22 @@ import Utils from 'service/Utils';
 
 export type OrderComponentProps = {
   items: CartItem[];
+  address?: Address;
 };
 
-const OrderComponent: React.FC<OrderComponentProps> = ({ items }) => {
+const OrderComponent: React.FC<OrderComponentProps> = ({ address, items }) => {
   const {
     control,
-    watch,
     formState: { errors },
   } = useFormContext();
-  const address: Address = watch('address');
 
   const { loading, shippingOptions } = useGetShippingOption(
     parseInt(address?.postalCode ?? '0', 10),
     items,
   );
+
+  console.log('Postal Code: ', address?.postalCode);
+  console.log('SHIPPING OPTIONS: ', shippingOptions);
 
   return (
     <ScrollView
