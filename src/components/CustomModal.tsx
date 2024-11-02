@@ -12,10 +12,14 @@ export type CustomModalProps = {
   animationType?: 'none' | 'fade' | 'slide';
   children: React.ReactNode;
   onDismiss?: () => void;
+  disableCloseOutside?: boolean;
 };
 
 const CustomModal = forwardRef<CustomModalHandle, CustomModalProps>(
-  ({ children, isPicker, animationType, onDismiss }, ref) => {
+  (
+    { children, isPicker, animationType, onDismiss, disableCloseOutside },
+    ref,
+  ) => {
     useImperativeHandle(ref, () => ({
       openModal() {
         setVisible(true);
@@ -37,7 +41,11 @@ const CustomModal = forwardRef<CustomModalHandle, CustomModalProps>(
         onDismiss={onDismiss}
         transparent={true}>
         <Pressable
-          onPress={closeModal}
+          onPress={() => {
+            if (!disableCloseOutside) {
+              closeModal();
+            }
+          }}
           style={{
             flex: 1,
             backgroundColor: 'rgba(0,0,0,0.7)',

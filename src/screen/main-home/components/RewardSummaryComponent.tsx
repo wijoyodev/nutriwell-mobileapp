@@ -134,7 +134,9 @@ const RewardSummaryComponent = () => {
                   fontWeight: 'bold',
                   fontSize: 14,
                 }}>
-                {isActive ? Utils.getPriceString(rewardSummary?.monthlyReward ?? 0) : ''}
+                {isActive
+                  ? Utils.getPriceString(rewardSummary?.monthlyReward ?? 0)
+                  : ''}
               </Text>
             </View>
           </View>
