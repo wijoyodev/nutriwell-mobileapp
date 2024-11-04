@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Colors from 'themes/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,13 +11,12 @@ import {
 } from '@react-navigation/native';
 import useGetRewardSummary from '../service/useGetRewardSummary';
 import Utils from 'service/Utils';
-import CustomModal, { CustomModalHandle } from 'components/CustomModal';
-import CustomButton from 'components/CustomButton';
+import ModalMemberInactive from './ModalMemberInactive';
 
 const RewardSummaryComponent = () => {
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const { loading, rewardSummary, isActive } = useGetRewardSummary();
-  const modalRef = useRef<CustomModalHandle | null>();
+  const [show, setShow] = useState<boolean>(false);
 
   if (loading) {
     return <></>;
@@ -36,7 +35,7 @@ const RewardSummaryComponent = () => {
             if (isActive) {
               navigate('reward-home');
             } else {
-              modalRef.current?.openModal();
+              setShow(true);
             }
           }}
           style={{
@@ -142,52 +141,7 @@ const RewardSummaryComponent = () => {
           </View>
         </TouchableOpacity>
       </View>
-      <CustomModal ref={el => (modalRef.current = el)}>
-        <View
-          style={{
-            backgroundColor: Colors.white,
-            padding: 24,
-            borderRadius: 16,
-          }}>
-          <View style={{ marginBottom: 24, alignItems: 'center' }}>
-            <MaterialIcon name={'info'} color={Colors.orangeIcon} size={70} />
-          </View>
-
-          <Text
-            style={{
-              fontSize: 16,
-              color: Colors.black,
-              fontWeight: 'bold',
-              textAlign: 'center',
-              marginBottom: 12,
-            }}>
-            Saat ini Anda tidak aktif
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: Colors.black,
-              textAlign: 'center',
-              marginBottom: 24,
-            }}>
-            Silakan lakukan pembelian untuk dapat mengaktifkan kembali member
-            Anda dan mendapatkan komisi
-          </Text>
-          <View style={{ flexDirection: 'row' }}>
-            <CustomButton
-              containerStyle={{
-                flex: 1,
-              }}
-              onPress={() => {
-                // onDelete();
-                modalRef.current?.closeModal();
-              }}
-              text={'TUTUP'}
-              backgroundColor={Colors.blue}
-            />
-          </View>
-        </View>
-      </CustomModal>
+      <ModalMemberInactive visible={show} setVisible={setShow} />
     </>
   );
 };

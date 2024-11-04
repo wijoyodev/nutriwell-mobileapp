@@ -91,6 +91,7 @@ const RewardHomeScreen = () => {
 
       <CustomModal
         disableCloseOutside={true}
+        disableCloseBack={true}
         ref={el => (modalRef.current = el)}>
         <View
           style={{

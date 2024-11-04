@@ -7,7 +7,7 @@ import {
 import CustomButton from 'components/CustomButton';
 import CustomModal, { CustomModalHandle } from 'components/CustomModal';
 import { WITHDRAW_SCREEN } from 'navigation/constants';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, View, useWindowDimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -16,6 +16,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Colors from 'themes/Colors';
 import { NetworkSummary, RewardSummary } from '../RewardHomeScreen';
 import Utils from 'service/Utils';
+import { getActive } from 'service/StorageUtils';
 
 export type RedeemableRewardComponentProps = {
   reward: RewardSummary;
@@ -26,9 +27,15 @@ const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
   reward,
   networkSummary,
 }) => {
+  const [active, setActive] = useState<boolean>(false);
+
   const { navigate } = useNavigation<NavigationProp<ParamListBase>>();
   const modalRef = useRef<CustomModalHandle | null>();
   const [heightView, setHeightView] = useState(0);
+
+  useEffect(() => {
+    getActive().then(setActive);
+  }, []);
 
   const { width } = useWindowDimensions();
   return (
@@ -71,7 +78,7 @@ const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
 
             <Text
               style={{ fontSize: 20, fontWeight: 'bold', color: Colors.black }}>
-              {Utils.getPriceString(reward.redeemableReward)}
+              {active ? Utils.getPriceString(reward.redeemableReward) : '-'}
             </Text>
           </View>
 
@@ -102,7 +109,7 @@ const RedeemableRewardComponent: React.FC<RedeemableRewardComponentProps> = ({
                 fontWeight: 'bold',
                 marginTop: 4,
               }}>
-              {Utils.getPriceString(reward.monthlyReward)}
+              {active ? Utils.getPriceString(reward.monthlyReward) : '-'}
             </Text>
           </View>
           <View style={{ flex: 2 }}>
