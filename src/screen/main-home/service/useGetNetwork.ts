@@ -63,7 +63,7 @@ const convertToNetworks = (response: NetworkDetailResponse) => {
     networkLevelList.push({
       level: 5,
       totalNetwork: data.level_5,
-      totalActive: data.level_2_transaction,
+      totalActive: data.level_5_transaction,
     });
   }
 
